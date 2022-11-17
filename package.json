@@ -9,6 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
+    "@mantine/core": "^5.7.1",
+    "@mantine/hooks": "^5.7.1",
+    "@mantine/next": "^5.7.1",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -18,6 +23,7 @@
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "eslint": "8.24.0",
+    "eslint-config-mantine": "^2.0.0",
     "eslint-config-next": "12.3.1",
     "eslint-config-prettier": "^8.5.0",
     "typescript": "4.8.4"
