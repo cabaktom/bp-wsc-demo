@@ -32,6 +32,7 @@ const useStyles = createStyles((theme) => ({
   },
   link: {
     '&:link, &:visited': {
+      display: 'block',
       fontWeight: 'bold',
       padding: '1rem 1rem',
       marginBottom: '-.1rem',
@@ -63,12 +64,9 @@ const NavDropdown = ({ opened, setOpened }: NavDropdownProps) => {
   const { classes } = useStyles();
 
   const navLinksJSX = links.map((link) => (
-    <NavLink
-      key={link.url}
-      className={classes.link}
-      title={link.title}
-      url={link.url}
-    />
+    <li key={link.url}>
+      <NavLink className={classes.link} title={link.title} url={link.url} />
+    </li>
   ));
 
   return (

@@ -62,12 +62,9 @@ const Navbar = ({ opened, setOpened }: NavbarProps) => {
   const { classes } = useStyles();
 
   const navLinksJSX = links.map((link) => (
-    <NavLink
-      key={link.url}
-      className={classes.link}
-      title={link.title}
-      url={link.url}
-    />
+    <li key={link.url}>
+      <NavLink className={classes.link} title={link.title} url={link.url} />
+    </li>
   ));
 
   return (
