@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
 import theme from '../constants/theme';
+import AppShell from '../components/Shell/AppShell';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -18,7 +19,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <MantineProvider withGlobalStyles theme={theme}>
-        <Component {...pageProps} />
+        <AppShell>
+          <Component {...pageProps} />
+        </AppShell>
       </MantineProvider>
     </>
   );
