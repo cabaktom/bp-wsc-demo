@@ -1,12 +1,12 @@
 import { Title as MantineTitle } from '@mantine/core';
 import type { NextPage } from 'next';
 
-const Home: NextPage = () => {
+const Trip: NextPage = () => {
   return (
     <>
-      <MantineTitle>Home page</MantineTitle>
+      <MantineTitle>Trip page</MantineTitle>
     </>
   );
 };
 
-export default Home;
+export default Trip;
