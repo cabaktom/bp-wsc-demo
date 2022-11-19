@@ -24,6 +24,7 @@ const AppShell = ({ children }: AppShellProps) => {
 
   return (
     <MantineAppShell
+      padding={0}
       fixed
       header={<Navbar opened={opened} setOpened={setOpened} />}
       navbar={<NavDropdown opened={opened} setOpened={setOpened} />}

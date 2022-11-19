@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 const Trip: NextPage = () => {
   return (
     <>
-      <MantineTitle>Trip page</MantineTitle>
+      <MantineTitle order={2}>Trip page</MantineTitle>
     </>
   );
 };

@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 const Home: NextPage = () => {
   return (
     <>
-      <MantineTitle>Home page</MantineTitle>
+      <MantineTitle order={2}>Home page</MantineTitle>
     </>
   );
 };

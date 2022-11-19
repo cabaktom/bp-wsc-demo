@@ -21,6 +21,18 @@ const theme: MantineThemeOverride = {
   cursorType: 'pointer',
   defaultRadius: 'sm',
   loader: 'oval',
+  fontSizes: {
+    xs: 12,
+    sm: 14,
+    md: 16,
+    lg: 18,
+    xl: 22,
+  },
+  headings: {
+    sizes: {
+      h1: { fontSize: 32, fontWeight: 'normal' },
+    },
+  },
 
   globalStyles: (theme) => ({
     '*, *::after, *::before': {

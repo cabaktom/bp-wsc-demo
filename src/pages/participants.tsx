@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 const Participants: NextPage = () => {
   return (
     <>
-      <MantineTitle>Participants page</MantineTitle>
+      <MantineTitle order={2}>Participants page</MantineTitle>
     </>
   );
 };
