@@ -1,12 +1,18 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Header as MantineHeader, createStyles } from '@mantine/core';
+import {
+  Header as MantineHeader,
+  createStyles,
+  useMantineTheme,
+} from '@mantine/core';
 import links from '../../constants/links';
 import NavLink from './NavLink';
 import Burger from '../Button/Burger';
 
 const useStyles = createStyles((theme) => ({
   header: {
-    backgroundColor: [theme.colors[theme.primaryColor][theme.primaryShade]],
+    backgroundColor: [
+      theme.colors[theme.primaryColor][Number(theme.primaryShade)], // TODO: Don't use casting
+    ],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -31,7 +37,7 @@ const useStyles = createStyles((theme) => ({
     '&:hover, &.activeLink': {
       backgroundColor: [
         theme.fn.darken(
-          theme.colors[theme.primaryColor][theme.primaryShade],
+          theme.colors[theme.primaryColor][Number(theme.primaryShade)], // TODO: Don't use casting
           0.15,
         ),
       ],
@@ -39,7 +45,7 @@ const useStyles = createStyles((theme) => ({
     '&:active': {
       backgroundColor: [
         theme.fn.darken(
-          theme.colors[theme.primaryColor][theme.primaryShade],
+          theme.colors[theme.primaryColor][Number(theme.primaryShade)], // TODO: Don't use casting
           0.35,
         ),
       ],

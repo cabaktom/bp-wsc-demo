@@ -9,7 +9,7 @@ const useStyles = createStyles((theme) => ({
     background: [theme.fn.rgba(theme.white, 0.95)],
     backdropFilter: 'blur(0.95rem)',
     borderBottom: `.2rem solid ${[
-      theme.colors[theme.primaryColor][theme.primaryShade],
+      theme.colors[theme.primaryColor][Number(theme.primaryShade)], // TODO: Don't use casting
     ]}`,
     [theme.fn.largerThan('sm')]: {
       display: 'none',
@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
       marginBottom: '-.1rem',
       border: '.1rem solid transparent',
       borderBottom: `.1rem solid ${[theme.colors[theme.primaryColor][2]]}`,
-      color: [theme.colors[theme.primaryColor][theme.primaryShade]],
+      color: [theme.colors[theme.primaryColor][Number(theme.primaryShade)]], // TODO: Don't use casting
     },
 
     transition: 'all .35s',
