@@ -15,6 +15,18 @@ const theme: MantineThemeOverride = {
       '#1565C0',
       '#0D47A1',
     ],
+    materialOrange: [
+      '#fff3e0',
+      '#ffe0b2',
+      '#ffcc80',
+      '#ffb74d',
+      '#ffa726',
+      '#ff9800',
+      '#fb8c00',
+      '#f57c00',
+      '#ef6c00',
+      '#e65100',
+    ],
   },
   primaryColor: 'materialBlue',
   primaryShade: 9,
@@ -31,6 +43,18 @@ const theme: MantineThemeOverride = {
   headings: {
     sizes: {
       h1: { fontSize: 32, fontWeight: 'normal' },
+    },
+  },
+  components: {
+    TypographyStylesProvider: {
+      styles: {
+        root: {
+          '& h3, & h4, & h5': { color: '#fb8c00' }, // materialOrange.6
+          '& p': { marginBottom: '1rem' },
+          '& ol li, & ul li': { margin: '0' },
+          '& ol li p, & ul li p': { marginBottom: '.5rem' },
+        },
+      },
     },
   },
 

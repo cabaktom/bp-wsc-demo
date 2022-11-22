@@ -20,6 +20,7 @@ const useStyles = createStyles((theme) => ({
     margin: '1.75rem auto 2.5rem auto',
     display: 'flex',
     flexDirection: 'column',
+    listStyle: 'none',
 
     '&:hover a:not(:hover)': {
       borderColor: 'transparent',

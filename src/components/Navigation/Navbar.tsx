@@ -21,6 +21,7 @@ const useStyles = createStyles((theme) => ({
   links: {
     height: '100%',
     display: 'flex',
+    listStyle: 'none',
     [theme.fn.smallerThan('sm')]: {
       display: 'none',
     },
