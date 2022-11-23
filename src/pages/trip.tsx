@@ -1,12 +1,36 @@
-import { Title as MantineTitle } from '@mantine/core';
-import type { NextPage } from 'next';
+import { NextPage } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
+import parse from 'html-react-parser';
+import type { Page as PageType } from '@prisma/client';
+import { prisma } from '../lib/prisma';
 
-const Trip: NextPage = () => {
+type TripProps = {
+  page: PageType;
+};
+
+const Trip: NextPage<TripProps> = ({ page }) => {
   return (
     <>
-      <MantineTitle order={2}>Trip page</MantineTitle>
+      <Head>
+        <title>{page.title}</title>
+      </Head>
+
+      <Link href="/edit/trip">Edit</Link>
+      {parse(page.content)}
     </>
   );
 };
 
 export default Trip;
+
+export async function getStaticProps() {
+  const page = await prisma.page.findFirst({ where: { id: 7 } });
+
+  return {
+    props: {
+      page,
+    },
+    revalidate: 1,
+  };
+}
