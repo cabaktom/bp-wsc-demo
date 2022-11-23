@@ -21,12 +21,17 @@
     "@tiptap/extension-underline": "^2.0.0-beta.202",
     "@tiptap/react": "^2.0.0-beta.202",
     "@tiptap/starter-kit": "^2.0.0-beta.202",
+    "dompurify": "^2.4.1",
+    "html-react-parser": "^3.0.4",
+    "jsdom": "^20.0.3",
     "next": "12.3.1",
     "prisma": "^4.6.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/dompurify": "^2.4.0",
+    "@types/jsdom": "^20.0.1",
     "@types/node": "18.8.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
