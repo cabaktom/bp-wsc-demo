@@ -35,7 +35,7 @@ const Header = () => {
           Student workshop on scientific computing 2022
         </MantineTitle>
 
-        <MantineTitle order={2} size="h4" c="orange.4">
+        <MantineTitle order={2} c="orange.4">
           May 26 - 29, 2022. Děčín, Czech Rep. + Online
         </MantineTitle>
 

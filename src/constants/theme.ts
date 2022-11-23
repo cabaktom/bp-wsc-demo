@@ -43,13 +43,18 @@ const theme: MantineThemeOverride = {
   headings: {
     sizes: {
       h1: { fontSize: 32, fontWeight: 'normal' },
+      h2: { fontSize: 18, fontWeight: 'bold' },
+      h3: { fontSize: 32, fontWeight: 'bold' },
+      h4: { fontSize: 26, fontWeight: 'bold' },
+      h5: { fontSize: 23, fontWeight: 'bold' },
+      h6: { fontSize: 20, fontWeight: 'bold' },
     },
   },
   components: {
     TypographyStylesProvider: {
       styles: {
         root: {
-          '& h3, & h4, & h5': { color: '#fb8c00' }, // materialOrange.6
+          '& h3, & h4, & h5, & h6': { color: '#fb8c00' }, // materialOrange.6
           '& p': { marginBottom: '1rem' },
           '& ol li, & ul li': { margin: '0' },
           '& ol li p, & ul li p': { marginBottom: '.5rem' },
