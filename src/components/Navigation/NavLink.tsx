@@ -10,12 +10,13 @@ const useStyles = createStyles(() => ({
 }));
 
 type NavLinkProps = {
+  onClick: () => void;
   title: string;
   url: string;
   className?: string;
 };
 
-const NavLink = ({ title, url, className = '' }: NavLinkProps) => {
+const NavLink = ({ onClick, title, url, className = '' }: NavLinkProps) => {
   const { classes } = useStyles();
   const { pathname } = useRouter();
 
@@ -25,6 +26,8 @@ const NavLink = ({ title, url, className = '' }: NavLinkProps) => {
         className={`${classes.link} ${className} ${
           pathname === url ? 'activeLink' : ''
         }`}
+        onClick={onClick}
+        role="link"
       >
         {title}
       </a>

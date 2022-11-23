@@ -1,7 +1,19 @@
 {
+  "parserOptions": {
+    "project": [
+      "tsconfig.json"
+    ]
+  },
   "extends": [
     "next/core-web-vitals",
     "prettier",
     "mantine"
-  ]
+  ],
+  "rules": {
+    "arrow-body-style": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/interactive-supports-focus": "off"
+  }
 }

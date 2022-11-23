@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Container as MantineContainer, createStyles } from '@mantine/core';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   content: {
     marginTop: '2rem',
     padding: '0 3rem',

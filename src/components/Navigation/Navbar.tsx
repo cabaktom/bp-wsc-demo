@@ -1,9 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import {
-  Header as MantineHeader,
-  createStyles,
-  useMantineTheme,
-} from '@mantine/core';
+import { Header as MantineHeader, createStyles } from '@mantine/core';
 import links from '../../constants/links';
 import NavLink from './NavLink';
 import Burger from '../Button/Burger';
@@ -64,7 +60,12 @@ const Navbar = ({ opened, setOpened }: NavbarProps) => {
 
   const navLinksJSX = links.map((link) => (
     <li key={link.url}>
-      <NavLink className={classes.link} title={link.title} url={link.url} />
+      <NavLink
+        className={classes.link}
+        onClick={() => setOpened(false)}
+        title={link.title}
+        url={link.url}
+      />
     </li>
   ));
 

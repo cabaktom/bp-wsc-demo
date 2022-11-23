@@ -66,16 +66,19 @@ const NavDropdown = ({ opened, setOpened }: NavDropdownProps) => {
 
   const navLinksJSX = links.map((link) => (
     <li key={link.url}>
-      <NavLink className={classes.link} title={link.title} url={link.url} />
+      <NavLink
+        className={classes.link}
+        onClick={() => setOpened(false)}
+        title={link.title}
+        url={link.url}
+      />
     </li>
   ));
 
   return (
     <>
       <MantineNavbar className={classes.navbar} hidden={!opened}>
-        <ul className={classes.links} onClick={() => setOpened(false)}>
-          {navLinksJSX}
-        </ul>
+        <ul className={classes.links}>{navLinksJSX}</ul>
       </MantineNavbar>
     </>
   );
