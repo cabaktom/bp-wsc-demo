@@ -21,16 +21,15 @@ const NavLink = ({ onClick, title, url, className = '' }: NavLinkProps) => {
   const { pathname } = useRouter();
 
   return (
-    <Link href={url}>
-      <a
-        className={`${classes.link} ${className} ${
-          pathname === url ? 'activeLink' : ''
-        }`}
-        onClick={onClick}
-        role="link"
-      >
-        {title}
-      </a>
+    <Link
+      href={url}
+      className={`${classes.link} ${className} ${
+        pathname === url ? 'activeLink' : ''
+      }`}
+      onClick={onClick}
+      role="link"
+    >
+      {title}
     </Link>
   );
 };
