@@ -1,7 +1,17 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { AppShell as MantineAppShell } from '@mantine/core';
+import {
+  AppShell as MantineAppShell,
+  TypographyStylesProvider,
+  createStyles,
+} from '@mantine/core';
 import NavDropdown from '../Navigation/NavDropdown';
 import Navbar from '../Navigation/Navbar';
+
+const useStyles = createStyles(() => ({
+  provider: {
+    height: '100%',
+  },
+}));
 
 type AppShellProps = {
   children: ReactNode;
@@ -9,6 +19,8 @@ type AppShellProps = {
 
 const AppShell = ({ children }: AppShellProps) => {
   const [opened, setOpened] = useState(false);
+
+  const { classes } = useStyles();
 
   // global event - close nav dropdown on ESC keypress
   useEffect(() => {
@@ -29,7 +41,9 @@ const AppShell = ({ children }: AppShellProps) => {
       header={<Navbar opened={opened} setOpened={setOpened} />}
       navbar={<NavDropdown opened={opened} setOpened={setOpened} />}
     >
-      {children}
+      <TypographyStylesProvider className={classes.provider}>
+        {children}
+      </TypographyStylesProvider>
     </MantineAppShell>
   );
 };

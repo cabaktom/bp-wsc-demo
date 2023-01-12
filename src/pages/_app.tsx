@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { MantineProvider, TypographyStylesProvider } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 import theme from '../constants/theme';
 import AppShell from '../components/Layout/AppShell';
 import Header from '../components/Header/Header';
@@ -22,15 +22,12 @@ const App = ({ Component, pageProps }: AppProps) => {
 
         <MantineProvider withNormalizeCSS withGlobalStyles theme={theme}>
           <AppShell>
-            <TypographyStylesProvider>
-              <Header />
+            <Header />
 
-              <Content>
-                <Component {...pageProps} />
-              </Content>
-
-              <Footer />
-            </TypographyStylesProvider>
+            <Content>
+              <Component {...pageProps} />
+            </Content>
+            <Footer />
 
             <ScrollToTop />
           </AppShell>
