@@ -27,7 +27,8 @@
     "next": "^13.1.1",
     "prisma": "^4.6.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-ionicons": "^4.2.0"
   },
   "devDependencies": {
     "@types/dompurify": "^2.4.0",

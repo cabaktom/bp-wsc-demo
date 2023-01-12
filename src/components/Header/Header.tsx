@@ -23,6 +23,9 @@ const useStyles = createStyles((theme) => ({
       marginTop: '-.75rem',
     },
   },
+  title: {
+    margin: '.5rem 0 !important',
+  },
 }));
 
 const Header = () => {
@@ -31,11 +34,11 @@ const Header = () => {
   return (
     <MantineCenter className={classes.headerContainer}>
       <MantineStack className={classes.header}>
-        <MantineTitle order={1} c="white">
+        <MantineTitle className={classes.title} order={1} c="white">
           Student workshop on scientific computing 2022
         </MantineTitle>
 
-        <MantineTitle order={2} c="orange.4">
+        <MantineTitle className={classes.title} order={2} c="orange.4">
           May 26 - 29, 2022. Děčín, Czech Rep. + Online
         </MantineTitle>
 
