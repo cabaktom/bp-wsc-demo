@@ -1,11 +1,11 @@
-import React from 'react';
 import {
   Affix as MantineAffix,
   Transition as MantineTransition,
   createStyles,
 } from '@mantine/core';
 import { useWindowScroll } from '@mantine/hooks';
-import { ArrowUpOutline } from 'react-ionicons';
+import { IconArrowUp } from '@tabler/icons';
+
 import Button from './Button';
 
 const useStyles = createStyles((theme) => ({

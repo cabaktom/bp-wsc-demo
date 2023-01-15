@@ -1,7 +1,7 @@
 import { Title as MantineTitle } from '@mantine/core';
 import type { NextPage } from 'next';
 
-const Gallery: NextPage = () => {
+const GalleryPage: NextPage = () => {
   return (
     <>
       <MantineTitle order={2}>Gallery page</MantineTitle>
@@ -9,4 +9,4 @@ const Gallery: NextPage = () => {
   );
 };
 
-export default Gallery;
+export default GalleryPage;

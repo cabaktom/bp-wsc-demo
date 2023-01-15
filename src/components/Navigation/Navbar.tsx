@@ -1,5 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { Header as MantineHeader, createStyles } from '@mantine/core';
+
 import links from '../../constants/links';
 import NavLink from './NavLink';
 import Burger from '../Button/Burger';

@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 import { createStyles } from '@mantine/core';
 import { useRouter } from 'next/router';

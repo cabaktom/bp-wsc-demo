@@ -1,7 +1,7 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import {
   Burger as MantineBurger,
-  BurgerProps as MantineBurgerProps,
+  type BurgerProps as MantineBurgerProps,
   createStyles,
 } from '@mantine/core';
 

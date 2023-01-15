@@ -1,9 +1,8 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import React from 'react';
 
-const LogOut: NextPage = () => {
+const LogOutPage: NextPage = () => {
   const router = useRouter();
 
   const handleLogOut = async () => {
@@ -20,4 +19,4 @@ const LogOut: NextPage = () => {
   );
 };
 
-export default LogOut;
+export default LogOutPage;

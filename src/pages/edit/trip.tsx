@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import type { NextPage } from 'next';
 import Link from 'next/link';
+import type { NextPage } from 'next';
 import type { Page as PageType } from '@prisma/client';
+
 import { prisma } from '../../lib/prisma';
 import RTE from '../../components/Editor/RTE';
 
-type TripEditProps = {
+type TripEditPageProps = {
   page: PageType;
 };
 
-const TripEdit: NextPage<TripEditProps> = ({ page }) => {
+const TripEditPage: NextPage<TripEditPageProps> = ({ page }) => {
   const [content, setContent] = useState(page.content);
 
   const saveData = async () => {
@@ -33,7 +34,7 @@ const TripEdit: NextPage<TripEditProps> = ({ page }) => {
   );
 };
 
-export default TripEdit;
+export default TripEditPage;
 
 export async function getServerSideProps() {
   const page = await prisma.page.findFirst({ where: { id: 7 } });

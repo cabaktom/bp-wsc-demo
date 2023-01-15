@@ -1,7 +1,7 @@
-import React, { MouseEventHandler, ReactNode } from 'react';
+import type { MouseEventHandler, ReactNode } from 'react';
 import {
   Button as MantineButton,
-  ButtonProps as MantineButtonProps,
+  type ButtonProps as MantineButtonProps,
   createStyles,
 } from '@mantine/core';
 

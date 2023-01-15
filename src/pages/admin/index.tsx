@@ -1,8 +1,8 @@
-import { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { MySession, NextPageWithLayout } from '../../@types';
+
 import AdminLayout from '../../components/Layout/AdminLayout';
+import type { MySession, NextPageWithLayout } from '../../@types';
 
 const AdminDashboardPage: NextPageWithLayout = () => {
   const { data } = useSession();

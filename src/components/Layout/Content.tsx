@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Container as MantineContainer, createStyles } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({

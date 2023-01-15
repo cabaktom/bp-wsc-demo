@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { createStyles, Navbar as MantineNavbar } from '@mantine/core';
 import links from '../../constants/links';
 import NavLink from './NavLink';

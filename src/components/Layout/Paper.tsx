@@ -1,7 +1,6 @@
-import React from 'react';
 import {
-  PaperProps as MantinePaperProps,
   Paper as MantinePaper,
+  type PaperProps as MantinePaperProps,
 } from '@mantine/core';
 
 type PaperProps = MantinePaperProps & {};

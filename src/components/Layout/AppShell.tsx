@@ -1,9 +1,10 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import {
   AppShell as MantineAppShell,
   TypographyStylesProvider,
   createStyles,
 } from '@mantine/core';
+
 import NavDropdown from '../Navigation/NavDropdown';
 import Navbar from '../Navigation/Navbar';
 

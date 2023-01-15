@@ -3,13 +3,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
+
 import { prisma } from '../lib/prisma';
 
-type HomeProps = {
+type HomePageProps = {
   page: PageType;
 };
 
-const Home: NextPage<HomeProps> = ({ page }) => {
+const HomePage: NextPage<HomePageProps> = ({ page }) => {
   return (
     <>
       <Head>
@@ -22,7 +23,7 @@ const Home: NextPage<HomeProps> = ({ page }) => {
   );
 };
 
-export default Home;
+export default HomePage;
 
 export async function getStaticProps() {
   const page = await prisma.page.findFirst({ where: { id: 1 } });

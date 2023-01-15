@@ -1,15 +1,16 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
+
 import { prisma } from '../lib/prisma';
 
-type RegisterProps = {
+type RegisterPageProps = {
   page: PageType;
 };
 
-const Register: NextPage<RegisterProps> = ({ page }) => {
+const RegisterPage: NextPage<RegisterPageProps> = ({ page }) => {
   return (
     <>
       <Head>
@@ -22,7 +23,7 @@ const Register: NextPage<RegisterProps> = ({ page }) => {
   );
 };
 
-export default Register;
+export default RegisterPage;
 
 export async function getStaticProps() {
   const page = await prisma.page.findFirst({ where: { id: 2 } });

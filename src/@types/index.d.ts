@@ -1,8 +1,8 @@
-import { ReactElement, ReactNode } from 'react';
-import { Tuple, DefaultMantineColor } from '@mantine/core';
-import { NextPage } from 'next';
-import { DefaultSession } from 'next-auth';
-import { AppProps } from 'next/app';
+import type { ReactElement, ReactNode } from 'react';
+import type { Tuple, DefaultMantineColor } from '@mantine/core';
+import type { NextPage } from 'next';
+import type { DefaultSession } from 'next-auth';
+import type { AppProps } from 'next/app';
 
 // custom color added to Mantine
 type ExtendedCustomColors =

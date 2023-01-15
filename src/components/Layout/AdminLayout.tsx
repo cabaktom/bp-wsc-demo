@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+
 import Content from './Content';
 
 type AdminLayoutProps = {

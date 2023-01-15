@@ -1,5 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { Prisma } from '@prisma/client';
+
 import { prisma } from '../../../lib/prisma';
 import sanitize from '../../../lib/sanitize';
 

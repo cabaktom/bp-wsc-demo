@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import { Title, createStyles } from '@mantine/core';
+
 import LoginForm from '../components/Form/LoginForm';
 import Paper from '../components/Layout/Paper';
 
@@ -18,7 +19,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const LogIn: NextPage = () => {
+const LogInPage: NextPage = () => {
   const { classes } = useStyles();
 
   return (
@@ -34,4 +35,4 @@ const LogIn: NextPage = () => {
   );
 };
 
-export default LogIn;
+export default LogInPage;

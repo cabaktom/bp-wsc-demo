@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Center as MantineCenter,
   Title as MantineTitle,

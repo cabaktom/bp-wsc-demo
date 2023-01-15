@@ -1,15 +1,16 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
+
 import { prisma } from '../lib/prisma';
 
-type TripProps = {
+type TripPageProps = {
   page: PageType;
 };
 
-const Trip: NextPage<TripProps> = ({ page }) => {
+const TripPage: NextPage<TripPageProps> = ({ page }) => {
   return (
     <>
       <Head>
@@ -22,7 +23,7 @@ const Trip: NextPage<TripProps> = ({ page }) => {
   );
 };
 
-export default Trip;
+export default TripPage;
 
 export async function getStaticProps() {
   const page = await prisma.page.findFirst({ where: { id: 7 } });

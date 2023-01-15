@@ -3,13 +3,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
+
 import { prisma } from '../lib/prisma';
 
-type AbstractsProps = {
+type AbstractsPageProps = {
   page: PageType;
 };
 
-const Abstracts: NextPage<AbstractsProps> = ({ page }) => {
+const AbstractsPage: NextPage<AbstractsPageProps> = ({ page }) => {
   return (
     <>
       <Head>
@@ -22,7 +23,7 @@ const Abstracts: NextPage<AbstractsProps> = ({ page }) => {
   );
 };
 
-export default Abstracts;
+export default AbstractsPage;
 
 export async function getStaticProps() {
   const page = await prisma.page.findFirst({ where: { id: 4 } });

@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import type { NextPage } from 'next';
 import Link from 'next/link';
+import type { NextPage } from 'next';
 import type { Page as PageType } from '@prisma/client';
+
 import { prisma } from '../../lib/prisma';
 import RTE from '../../components/Editor/RTE';
 
-type ParticipantsEditProps = {
+type ParticipantsEditPageProps = {
   page: PageType;
 };
 
-const ParticipantsEdit: NextPage<ParticipantsEditProps> = ({ page }) => {
+const ParticipantsEditPage: NextPage<ParticipantsEditPageProps> = ({
+  page,
+}) => {
   const [content, setContent] = useState(page.content);
 
   const saveData = async () => {
@@ -33,7 +36,7 @@ const ParticipantsEdit: NextPage<ParticipantsEditProps> = ({ page }) => {
   );
 };
 
-export default ParticipantsEdit;
+export default ParticipantsEditPage;
 
 export async function getServerSideProps() {
   const page = await prisma.page.findFirst({ where: { id: 3 } });
