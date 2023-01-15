@@ -1,11 +1,12 @@
 import React from 'react';
+import Link from 'next/link';
 import { Container as MantineContainer, createStyles } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   footer: {
     position: 'sticky',
     top: '100vh',
-    height: '8rem',
+    height: '12rem',
     marginTop: '4rem',
     backgroundColor: [theme.colors[theme.primaryColor][9]],
     [theme.fn.smallerThan('sm')]: {
@@ -15,8 +16,10 @@ const useStyles = createStyles((theme) => ({
   inner: {
     height: '100%',
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
+    gap: '1rem',
     color: [theme.white],
   },
   group: {
@@ -24,6 +27,7 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     gap: '1rem',
+    marginTop: '1rem',
 
     [theme.fn.smallerThan('sm')]: {
       flexDirection: 'column',
@@ -58,6 +62,8 @@ const Footer = () => {
             MMG, FNSPE CTU in Prague
           </a>
         </div>
+
+        <Link href="/admin">Administrator</Link>
       </MantineContainer>
     </div>
   );

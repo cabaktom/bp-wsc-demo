@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { SessionProvider } from 'next-auth/react';
 import { MantineProvider } from '@mantine/core';
 import theme from '../constants/theme';
 import AppShell from '../components/Layout/AppShell';
@@ -8,9 +9,10 @@ import Content from '../components/Layout/Content';
 import Footer from '../components/Footer/Footer';
 import ScrollToTop from '../components/Button/ScrollToTop';
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   return (
     <>
+      <SessionProvider session={session}>
         <Head>
           <title>Student workshop on scientific computing</title>
           <meta
@@ -27,11 +29,12 @@ const App = ({ Component, pageProps }: AppProps) => {
             <Content>
               <Component {...pageProps} />
             </Content>
-            <Footer />
 
+            <Footer />
             <ScrollToTop />
           </AppShell>
         </MantineProvider>
+      </SessionProvider>
     </>
   );
 };

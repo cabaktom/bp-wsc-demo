@@ -1,4 +1,5 @@
 import { Tuple, DefaultMantineColor } from '@mantine/core';
+import { DefaultSession } from 'next-auth';
 
 // custom color added to Mantine
 type ExtendedCustomColors =
@@ -10,3 +11,9 @@ declare module '@mantine/core' {
     colors: Record<ExtendedCustomColors, Tuple<string, 10>>;
   }
 }
+
+export type MySession = DefaultSession & {
+  user?: {
+    username: string;
+  };
+};
