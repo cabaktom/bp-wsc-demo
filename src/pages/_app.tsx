@@ -1,15 +1,19 @@
-import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { SessionProvider } from 'next-auth/react';
 import { MantineProvider } from '@mantine/core';
+
 import theme from '../constants/theme';
 import AppShell from '../components/Layout/AppShell';
-import Header from '../components/Header/Header';
-import Content from '../components/Layout/Content';
-import Footer from '../components/Footer/Footer';
 import ScrollToTop from '../components/Button/ScrollToTop';
+import Layout from '../components/Layout/Layout';
+import type { AppPropsWithLayout } from '../@types';
 
-const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
+const App = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
+
   return (
     <>
       <SessionProvider session={session}>
@@ -23,16 +27,8 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
         </Head>
 
         <MantineProvider withNormalizeCSS withGlobalStyles theme={theme}>
-          <AppShell>
-            <Header />
-
-            <Content>
-              <Component {...pageProps} />
-            </Content>
-
-            <Footer />
-            <ScrollToTop />
-          </AppShell>
+          <AppShell>{getLayout(<Component {...pageProps} />)}</AppShell>
+          <ScrollToTop />
         </MantineProvider>
       </SessionProvider>
     </>

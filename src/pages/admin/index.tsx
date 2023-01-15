@@ -1,9 +1,10 @@
 import { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { MySession } from '../../@types';
+import { MySession, NextPageWithLayout } from '../../@types';
+import AdminLayout from '../../components/Layout/AdminLayout';
 
-const AdminDashboard: NextPage = () => {
+const AdminDashboardPage: NextPageWithLayout = () => {
   const { data } = useSession();
   const session = data as MySession;
 
@@ -17,4 +18,8 @@ const AdminDashboard: NextPage = () => {
   );
 };
 
-export default AdminDashboard;
+AdminDashboardPage.getLayout = (page) => {
+  return <AdminLayout>{page}</AdminLayout>;
+};
+
+export default AdminDashboardPage;

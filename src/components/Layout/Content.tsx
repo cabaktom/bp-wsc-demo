@@ -3,8 +3,7 @@ import { Container as MantineContainer, createStyles } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   content: {
-    marginTop: '2rem',
-    padding: '0 3rem',
+    padding: '2rem 3rem 0 3rem',
     [theme.fn.smallerThan('sm')]: {
       padding: '0 2rem',
     },
