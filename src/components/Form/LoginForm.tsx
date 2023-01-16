@@ -67,8 +67,13 @@ const LoginForm = () => {
     setLoading(false);
 
     if (data) {
-      if (data.ok) router.push('/admin');
-      else setError(data.error ?? 'Error while logging in, please try again.');
+      if (data.ok) {
+        const callbackUrl =
+          new URL(data.url!).searchParams.get('callbackUrl') ?? '/admin';
+        router.push(callbackUrl);
+      } else {
+        setError(data.error ?? 'Error while logging in, please try again.');
+      }
     }
   };
 
@@ -97,7 +102,7 @@ const LoginForm = () => {
         {...form.getInputProps('username')}
       />
       <Group position="apart" mb={5}>
-        <Text component="label" htmlFor="your-password" size="sm" weight={500}>
+        <Text component="label" htmlFor="password" size="sm" weight={500}>
           Password *
         </Text>
 
