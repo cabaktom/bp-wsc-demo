@@ -22,6 +22,7 @@
     "@tiptap/extension-underline": "^2.0.0-beta.202",
     "@tiptap/react": "^2.0.0-beta.202",
     "@tiptap/starter-kit": "^2.0.0-beta.202",
+    "bcrypt": "^5.1.0",
     "dompurify": "^2.4.1",
     "html-react-parser": "^3.0.4",
     "jsdom": "^20.0.3",
@@ -33,6 +34,7 @@
     "react-ionicons": "^4.2.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/dompurify": "^2.4.0",
     "@types/jsdom": "^20.0.1",
     "@types/node": "18.8.3",

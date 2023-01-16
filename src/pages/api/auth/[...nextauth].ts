@@ -3,6 +3,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import { prisma } from '../../../lib/prisma';
+import { comparePwd } from '../../../lib/password';
 
 export default NextAuth({
   providers: [
@@ -11,7 +12,7 @@ export default NextAuth({
       name: 'credentials',
       credentials: {},
       async authorize(credentials) {
-        const { username, password } = credentials as {
+        const { username, password: plaintextPassword } = credentials as {
           username: string;
           password: string;
         };
@@ -20,7 +21,7 @@ export default NextAuth({
           where: { username },
         });
 
-        if (!user || password !== '123456') {
+        if (!user || !(await comparePwd(plaintextPassword, user.password))) {
           throw new Error('Invalid credentials');
         }
         return { username: user.username } as any;
