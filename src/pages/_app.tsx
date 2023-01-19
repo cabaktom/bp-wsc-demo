@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { SessionProvider } from 'next-auth/react';
 import { MantineProvider } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 
 import theme from '../constants/theme';
 import AppShell from '../components/Layout/AppShell';
@@ -27,8 +28,10 @@ const App = ({
         </Head>
 
         <MantineProvider withNormalizeCSS withGlobalStyles theme={theme}>
-          <AppShell>{getLayout(<Component {...pageProps} />)}</AppShell>
-          <ScrollToTop />
+          <NotificationsProvider limit={5}>
+            <AppShell>{getLayout(<Component {...pageProps} />)}</AppShell>
+            <ScrollToTop />
+          </NotificationsProvider>
         </MantineProvider>
       </SessionProvider>
     </>
