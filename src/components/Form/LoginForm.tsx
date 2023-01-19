@@ -19,6 +19,7 @@ import Button from '../Button/Button';
 const useStyles = createStyles((theme) => ({
   form: {
     width: '100%',
+    fontSize: '1.6rem',
   },
   alert: {
     marginBottom: '1rem',
@@ -66,68 +67,70 @@ const LoginForm = () => {
     });
     setLoading(false);
 
-    if (data) {
-      if (data.ok) {
-        const callbackUrl =
-          new URL(data.url!).searchParams.get('callbackUrl') ?? '/admin';
-        router.push(callbackUrl);
-      } else {
-        setError(data.error ?? 'Error while logging in, please try again.');
-      }
+    if (data?.error) {
+      setError(data.error ?? 'Error while logging in, please try again.');
+    } else {
+      router.replace((router.query.callbackUrl as string) ?? '/admin');
     }
   };
 
   return (
-    <form className={classes.form} onSubmit={form.onSubmit(handleSubmit)}>
-      {error && (
-        <Alert
-          className={classes.alert}
-          icon={<IconAlertCircle />}
-          color="red"
-          variant="filled"
-          withCloseButton
-          closeButtonLabel="Close alert"
-          onClose={() => setError('')}
-        >
-          {error}
-        </Alert>
-      )}
+    <>
+      <form className={classes.form} onSubmit={form.onSubmit(handleSubmit)}>
+        {error && (
+          <Alert
+            className={classes.alert}
+            icon={<IconAlertCircle />}
+            color="red"
+            variant="filled"
+            withCloseButton
+            closeButtonLabel="Close alert"
+            onClose={() => setError('')}
+          >
+            {error}
+          </Alert>
+        )}
 
-      <input name="csrfToken" type="hidden" />
+        <input name="csrfToken" type="hidden" />
 
-      <TextInput
-        className={classes.input}
-        withAsterisk
-        label="Username"
-        {...form.getInputProps('username')}
-      />
-      <Group position="apart" mb={5}>
-        <Text component="label" htmlFor="password" size="sm" weight={500}>
-          Password *
-        </Text>
+        <TextInput
+          className={classes.input}
+          size="md"
+          withAsterisk
+          label="Username"
+          aria-label="Username input"
+          {...form.getInputProps('username')}
+        />
+        <Group position="apart" mb={5}>
+          <Text component="label" htmlFor="password" size="md" weight={500}>
+            Password *
+          </Text>
 
-        <Link className={classes.forgotPasswordLabel} href="/logout">
-          Forgot your password?
-        </Link>
-      </Group>
-      <PasswordInput
-        className={classes.input}
-        withAsterisk
-        id="password"
-        placeholder="******"
-        {...form.getInputProps('password')}
-      />
-      <Center>
-        <Button
-          className={classes.button}
-          type="submit"
-          fullWidth
-          loading={loading}
-        >
-          Sign in
-        </Button>
-      </Center>
-    </form>
+          <Link className={classes.forgotPasswordLabel} href="/logout">
+            Forgot your password?
+          </Link>
+        </Group>
+        <PasswordInput
+          className={classes.input}
+          size="md"
+          withAsterisk
+          id="password"
+          placeholder="******"
+          aria-label="Password input"
+          {...form.getInputProps('password')}
+        />
+        <Center>
+          <Button
+            className={classes.button}
+            type="submit"
+            fullWidth
+            loading={loading}
+          >
+            Sign in
+          </Button>
+        </Center>
+      </form>
+    </>
   );
 };
 

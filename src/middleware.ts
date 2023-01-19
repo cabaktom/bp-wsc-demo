@@ -1,10 +1,12 @@
 import { withAuth } from 'next-auth/middleware';
 
 export default withAuth({
+  callbacks: {
+    authorized: ({ token }) => !!token,
+  },
   pages: {
     signIn: '/login',
-    signOut: '/logout',
   },
 });
 
-export const config = { matcher: ['/admin/:path*'] };
+export const config = { matcher: '/admin/:path*' };

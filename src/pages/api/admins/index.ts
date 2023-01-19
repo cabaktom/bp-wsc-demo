@@ -12,9 +12,9 @@ export default async function handler(
   // authenticate user
   // FIXME: does not work with external requests (works inside app)
   const token = await getToken({ req });
-  if (token) {
-    console.log('JSON Web Token', JSON.stringify(token, null, 2));
-  } else {
+  if (!token) {
+    // console.log('JSON Web Token', JSON.stringify(token, null, 2));
+    // } else {
     return res.status(401).end();
   }
 
