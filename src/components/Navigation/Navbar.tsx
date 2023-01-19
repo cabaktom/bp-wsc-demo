@@ -7,9 +7,7 @@ import Burger from '../Button/Burger';
 
 const useStyles = createStyles((theme) => ({
   header: {
-    backgroundColor: [
-      theme.colors[theme.primaryColor][Number(theme.primaryShade)], // TODO: Don't use casting
-    ],
+    backgroundColor: [theme.colors[theme.primaryColor][9]],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -34,18 +32,12 @@ const useStyles = createStyles((theme) => ({
 
     '&:hover, &.activeLink': {
       backgroundColor: [
-        theme.fn.darken(
-          theme.colors[theme.primaryColor][Number(theme.primaryShade)], // TODO: Don't use casting
-          0.15,
-        ),
+        theme.fn.darken(theme.colors[theme.primaryColor][9], 0.15),
       ],
     },
     '&:active': {
       backgroundColor: [
-        theme.fn.darken(
-          theme.colors[theme.primaryColor][Number(theme.primaryShade)], // TODO: Don't use casting
-          0.35,
-        ),
+        theme.fn.darken(theme.colors[theme.primaryColor][9], 0.35),
       ],
     },
   },

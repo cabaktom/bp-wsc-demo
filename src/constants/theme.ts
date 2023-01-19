@@ -29,7 +29,7 @@ const theme: MantineThemeOverride = {
     ],
   },
   primaryColor: 'materialBlue',
-  primaryShade: 9,
+  primaryShade: 7,
   cursorType: 'pointer',
   defaultRadius: 'sm',
   loader: 'oval',
