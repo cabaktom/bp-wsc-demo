@@ -1,5 +1,9 @@
 import type { ReactNode } from 'react';
-import { Container as MantineContainer, createStyles } from '@mantine/core';
+import {
+  type ContainerProps,
+  Container as MantineContainer,
+  createStyles,
+} from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   content: {
@@ -10,15 +14,15 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-type ContentProps = {
+type ContentProps = ContainerProps & {
   children: ReactNode;
 };
 
-const Content = ({ children }: ContentProps) => {
+const Content = ({ children, ...rest }: ContentProps) => {
   const { classes } = useStyles();
 
   return (
-    <MantineContainer className={classes.content} size="lg">
+    <MantineContainer className={classes.content} size="lg" {...rest}>
       {children}
     </MantineContainer>
   );

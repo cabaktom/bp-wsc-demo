@@ -1,15 +1,22 @@
-import type { ReactNode } from 'react';
-
-import Content from './Content';
+import { ReactNode, useState } from 'react';
+import AdminTabs from '../Navigation/AdminTabs';
+import AdminAffix from './AdminAffix';
+import LogoutModal from '../Modal/LogoutModal';
 
 type AdminLayoutProps = {
   children?: ReactNode;
 };
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
+  const [opened, setOpened] = useState(false);
+
   return (
     <>
-      <Content>{children}</Content>
+      <AdminTabs>{children}</AdminTabs>
+
+      <AdminAffix setOpened={setOpened} />
+
+      <LogoutModal opened={opened} setOpened={setOpened} />
     </>
   );
 };
