@@ -1,9 +1,36 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Prisma } from '@prisma/client';
-import { getToken } from 'next-auth/jwt';
+// import { getToken } from 'next-auth/jwt';
 
 import { hashPwd } from '../../../lib/password';
 import { prisma } from '../../../lib/prisma';
+import { AdminIn, AdminOut } from '../../../schemas/Admin';
+import handleErrors from '../../../lib/handleApiErrors';
+
+const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
+  const admins = await prisma.admin.findMany({ orderBy: { id: 'asc' } });
+  const adminsOut = admins.map((admin) => AdminOut.parse(admin));
+
+  return res.status(200).json(adminsOut);
+};
+
+const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    const { username, email, password } = AdminIn.parse(req.body);
+    const hash = await hashPwd(password);
+
+    const admin = await prisma.admin.create({
+      data: {
+        username,
+        email,
+        password: hash,
+      },
+    });
+
+    return res.status(201).json(AdminOut.parse(admin));
+  } catch (e) {
+    return handleErrors('Administrator', e, res);
+  }
+};
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,63 +38,22 @@ export default async function handler(
 ) {
   // authenticate user
   // FIXME: does not work with external requests (works inside app)
-  const token = await getToken({ req });
-  if (!token) {
-    // console.log('JSON Web Token', JSON.stringify(token, null, 2));
-    // } else {
-    return res.status(401).end();
+  // const token = await getToken({ req });
+  // if (!token) {
+  // console.log('JSON Web Token', JSON.stringify(token, null, 2));
+  // } else {
+  // return res.status(401).end();
+  // }
+
+  switch (req.method) {
+    // GET /api/admins
+    case 'GET':
+      await handleGet(req, res);
+      break;
+    // POST /api/admins
+    case 'POST':
+      await handlePost(req, res);
+      break;
   }
-
-  // GET /api/admins
-  if (req.method === 'GET') {
-    const admins = await prisma.admin.findMany({
-      select: { username: true, email: true },
-    });
-
-    return res.status(200).json({ admins });
-  }
-
-  // POST /api/admins
-  if (req.method === 'POST') {
-    if (
-      !Object.hasOwn(req.body, 'username') ||
-      !Object.hasOwn(req.body, 'password') ||
-      !Object.hasOwn(req.body, 'email')
-    ) {
-      return res.status(400).end();
-    }
-
-    const { username, password, email } = req.body;
-
-    const hash = await hashPwd(password);
-
-    try {
-      const admin = await prisma.admin.create({
-        data: {
-          username,
-          password: hash,
-          email,
-        },
-      });
-
-      return res.status(201).json({
-        username: admin.username,
-        email: admin.email,
-      });
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code === 'P2002') {
-          const field = (e.meta?.target as string[])[0];
-          return res.status(400).json({
-            message: `Administrator with this ${field} already exists.`,
-          });
-        }
-
-        console.log(e);
-        return res.status(400).json({ message: 'Something went wrong.' });
-      }
-    }
-  }
-
   return res.status(405).setHeader('Allow', 'GET,POST').end();
 }
