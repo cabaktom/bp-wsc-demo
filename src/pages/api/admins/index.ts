@@ -48,12 +48,12 @@ export default async function handler(
   switch (req.method) {
     // GET /api/admins
     case 'GET':
-      await handleGet(req, res);
-      break;
+      return handleGet(req, res);
     // POST /api/admins
     case 'POST':
-      await handlePost(req, res);
-      break;
+      return handlePost(req, res);
+
+    default:
+      return res.status(405).setHeader('Allow', 'GET,POST').end();
   }
-  return res.status(405).setHeader('Allow', 'GET,POST').end();
 }

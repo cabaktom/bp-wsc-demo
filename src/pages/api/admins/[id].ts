@@ -72,16 +72,15 @@ export default async function handler(
   switch (req.method) {
     // GET /api/admins/{id}
     case 'GET':
-      await handleGet(req, res);
-      break;
+      return handleGet(req, res);
     // PUT /api/admins/{id}
     case 'PUT':
-      await handlePut(req, res);
-      break;
+      return handlePut(req, res);
     // DELETE /api/admins/{id}
     case 'DELETE':
-      await handleDelete(req, res);
-      break;
+      return handleDelete(req, res);
+
+    default:
+      return res.status(405).setHeader('Allow', 'GET,PUT,DELETE').end();
   }
-  return res.status(405).setHeader('Allow', 'GET,PUT,DELETE').end();
 }
