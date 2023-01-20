@@ -70,6 +70,7 @@ const LoginForm = () => {
     if (data?.error) {
       setError(data.error ?? 'Error while logging in, please try again.');
     } else {
+      setError('');
       router.replace((router.query.callbackUrl as string) ?? '/admin');
     }
   };
