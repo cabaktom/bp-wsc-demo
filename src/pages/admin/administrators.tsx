@@ -1,15 +1,10 @@
-import { useContext, useEffect } from 'react';
 import { createStyles } from '@mantine/core';
-import { z } from 'zod';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
-import { prisma } from '../../lib/prisma';
 import Paper from '../../components/Layout/Paper';
 import AdminsTable from '../../components/Table/AdminsTable';
-import { AdminOut } from '../../schemas/Admin';
 import CreateAdminForm from '../../components/Form/CreateAdminForm';
-import AdminsContext from '../../context/admins-context';
 
 const useStyles = createStyles(() => ({
   form: {
@@ -29,19 +24,8 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-type AdministratorsPageProps = {
-  initialAdmins: z.infer<typeof AdminOut>[];
-};
-
-const AdministratorsPage: NextPageWithLayout<AdministratorsPageProps> = ({
-  initialAdmins,
-}) => {
+const AdministratorsPage: NextPageWithLayout = () => {
   const { classes } = useStyles();
-  const ctx = useContext(AdminsContext);
-
-  useEffect(() => {
-    ctx.setAdmins(initialAdmins);
-  }, [ctx, initialAdmins]);
 
   return (
     <>
@@ -61,14 +45,3 @@ AdministratorsPage.getLayout = (page) => {
 };
 
 export default AdministratorsPage;
-
-export async function getServerSideProps() {
-  const admins = await prisma.admin.findMany({ orderBy: { id: 'asc' } });
-  const adminsOut = admins.map((admin) => AdminOut.parse(admin));
-
-  return {
-    props: {
-      initialAdmins: adminsOut,
-    },
-  };
-}

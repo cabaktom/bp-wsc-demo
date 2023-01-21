@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   Table,
   Group,
@@ -22,6 +22,10 @@ const AdminsTable = ({ className, ...rest }: AdminsTableProps) => {
     itemIdentifier: '',
   });
   const ctx = useContext(AdminsContext);
+
+  useEffect(() => {
+    ctx.refreshAdmins();
+  }, []);
 
   const rows = ctx.admins.map((admin) => (
     <tr key={admin.username}>
