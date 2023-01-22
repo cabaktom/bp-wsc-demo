@@ -9,18 +9,12 @@ import AdminsContext from '../../context/admins-context';
 import Alert from './Alert';
 
 type EditAdminFormProps = {
-  className?: string;
   id: number;
   username: string;
   email: string;
 };
 
-const EditAdminForm = ({
-  className = '',
-  id,
-  username,
-  email,
-}: EditAdminFormProps) => {
+const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
   const ctx = useContext(AdminsContext);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -70,7 +64,7 @@ const EditAdminForm = ({
   };
 
   return (
-    <form className={className} onSubmit={form.onSubmit(handleSubmit)}>
+    <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
         <Alert onClose={() => setError('')} withCloseButton={false}>
           {error}

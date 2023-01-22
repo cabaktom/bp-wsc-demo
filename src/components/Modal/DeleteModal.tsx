@@ -1,36 +1,40 @@
-import { useContext, useState } from 'react';
-import { Title as MantineTitle } from '@mantine/core';
+import { useState } from 'react';
+import {
+  Text as MantineText,
+  Stack as MantineStack,
+  Group as MantineGroup,
+} from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
+import { ContextModalProps } from '@mantine/modals';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconCheck, IconExclamationMark } from '@tabler/icons';
-import { z } from 'zod';
 
 import Button from '../Button/Button';
-import Modal from './Modal';
-import AdminsContext from '../../context/admins-context';
-import type { AdminOut } from '../../schemas/Admin';
 
-type DeleteModalProps = {
-  opened: boolean;
-  setOpened: (opened: boolean) => void;
-  data: z.infer<typeof AdminOut>;
-};
+type DeleteModalProps = ContextModalProps<{
+  modalBody: string;
+  subjectId: number;
+  subjectTitle: string;
+  actionUrl: string;
+}>;
 
-const DeleteModal = ({ opened, setOpened, data }: DeleteModalProps) => {
-  const ctx = useContext(AdminsContext);
+const DeleteModal = ({ context, id, innerProps }: DeleteModalProps) => {
+  const matches = useMediaQuery('(min-width: 768px)', false, {
+    getInitialValueInEffect: false,
+  });
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
     setLoading(true);
-    const res = await fetch(`/api/admins/${data?.id}`, {
+    const res = await fetch(`${innerProps.actionUrl}/${innerProps.subjectId}`, {
       method: 'DELETE',
     });
     setLoading(false);
-    setOpened(false);
 
     if (res.status === 204) {
       showNotification({
         title: 'Success!',
-        message: 'Administrator deleted.',
+        message: `${innerProps.subjectTitle} deleted successfully.`,
         color: 'green',
         icon: <IconCheck size={16} />,
         autoClose: 4000,
@@ -38,28 +42,30 @@ const DeleteModal = ({ opened, setOpened, data }: DeleteModalProps) => {
     } else if (res.status === 404) {
       showNotification({
         title: 'Error!',
-        message: 'Administrator not found.',
+        message: `${innerProps.subjectTitle} not found.`,
         color: 'red',
         icon: <IconExclamationMark size={16} />,
         autoClose: 4000,
       });
     }
 
-    await ctx.refreshAdmins();
+    context.closeModal(id);
   };
 
   return (
     <>
-      <Modal opened={opened} onClose={() => setOpened(false)}>
-        <MantineTitle align="center" order={5}>
-          Are you sure you want to delete administrator {data.username} (ID:{' '}
-          {data.id})?
-        </MantineTitle>
+      <MantineStack>
+        <MantineText size="md">{innerProps.modalBody}</MantineText>
 
-        <Button onClick={handleDelete} loading={loading} color="red">
-          Delete
-        </Button>
-      </Modal>
+        <MantineGroup position="right" spacing={matches ? 'md' : 'xs'} noWrap>
+          <Button variant="outline" onClick={() => context.closeModal(id)}>
+            Cancel
+          </Button>
+          <Button color="red" loading={loading} onClick={handleDelete}>
+            Delete
+          </Button>
+        </MantineGroup>
+      </MantineStack>
     </>
   );
 };

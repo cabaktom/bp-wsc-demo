@@ -8,6 +8,7 @@ import AppShell from '../components/Layout/AppShell';
 import ScrollToTop from '../components/Button/ScrollToTop';
 import Layout from '../components/Layout/Layout';
 import type { AppPropsWithLayout } from '../@types';
+import ModalsProvider from '../components/Modal/ModalsProvider';
 
 const App = ({
   Component,
@@ -28,10 +29,12 @@ const App = ({
         </Head>
 
         <MantineProvider withNormalizeCSS withGlobalStyles theme={theme}>
-          <NotificationsProvider limit={5}>
-            <AppShell>{getLayout(<Component {...pageProps} />)}</AppShell>
-            <ScrollToTop />
-          </NotificationsProvider>
+          <ModalsProvider>
+            <NotificationsProvider limit={5}>
+              <AppShell>{getLayout(<Component {...pageProps} />)}</AppShell>
+              <ScrollToTop />
+            </NotificationsProvider>
+          </ModalsProvider>
         </MantineProvider>
       </SessionProvider>
     </>

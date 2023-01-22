@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import { DataTable as DT, DataTableSortStatus } from 'mantine-datatable';
 import { Group, ActionIcon, createStyles } from '@mantine/core';
+import { openContextModal } from '@mantine/modals';
 import { IconPencil, IconTrash } from '@tabler/icons';
 import { z } from 'zod';
 import sortBy from 'lodash/sortBy';
 
 import AdminsContext from '../../context/admins-context';
-import DeleteModal from '../Modal/DeleteModal';
 import { AdminOut } from '../../schemas/Admin';
-import EditModal from '../Modal/EditModal';
+import EditAdminForm from '../Form/EditAdminForm';
 
 const useStyles = createStyles(() => ({
   table: {
@@ -57,20 +57,37 @@ const DataTable = () => {
     setData(ctx.admins);
   }, []);
 
-  const [selectedData, setSelectedData] = useState<z.infer<typeof AdminOut>>();
   // delete action
-  const [deleteOpened, setDeleteOpened] = useState(false);
-
   const handleDelete = (admin: z.infer<typeof AdminOut>) => {
-    setSelectedData(admin);
-    setDeleteOpened(true);
+    openContextModal({
+      modal: 'delete',
+      title: 'Delete admin',
+      centered: true,
+      size: 'auto',
+      innerProps: {
+        modalBody: `Are you sure you want to delete administrator ${admin.username} (ID: ${admin.id})?`,
+        subjectId: admin.id,
+        subjectTitle: 'Administrator',
+        actionUrl: '/api/admins',
+      },
+      onClose: async () => {
+        await ctx.refreshAdmins();
+      },
+    });
   };
   // edit action
-  const [editOpened, setEditOpened] = useState(false);
-
   const handleEdit = (admin: z.infer<typeof AdminOut>) => {
-    setSelectedData(admin);
-    setEditOpened(true);
+    openContextModal({
+      modal: 'edit',
+      title: 'Edit admin',
+      centered: true,
+      innerProps: {
+        modalBody: <EditAdminForm {...admin} />,
+      },
+      onClose: async () => {
+        await ctx.refreshAdmins();
+      },
+    });
   };
 
   return (
@@ -135,20 +152,6 @@ const DataTable = () => {
           },
         ]}
       />
-      {selectedData && (
-        <>
-          <DeleteModal
-            opened={deleteOpened}
-            setOpened={setDeleteOpened}
-            data={selectedData}
-          />
-          <EditModal
-            opened={editOpened}
-            setOpened={setEditOpened}
-            data={selectedData}
-          />
-        </>
-      )}
     </>
   );
 };
