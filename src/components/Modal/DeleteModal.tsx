@@ -6,7 +6,6 @@ import {
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { ContextModalProps } from '@mantine/modals';
-import { useMediaQuery } from '@mantine/hooks';
 import { IconCheck, IconExclamationMark } from '@tabler/icons';
 
 import Button from '../Button/Button';
@@ -19,9 +18,6 @@ type DeleteModalProps = ContextModalProps<{
 }>;
 
 const DeleteModal = ({ context, id, innerProps }: DeleteModalProps) => {
-  const matches = useMediaQuery('(min-width: 768px)', false, {
-    getInitialValueInEffect: false,
-  });
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
@@ -57,7 +53,7 @@ const DeleteModal = ({ context, id, innerProps }: DeleteModalProps) => {
       <MantineStack>
         <MantineText size="md">{innerProps.modalBody}</MantineText>
 
-        <MantineGroup position="right" spacing={matches ? 'md' : 'xs'} noWrap>
+        <MantineGroup position="right" spacing="xs" noWrap>
           <Button variant="outline" onClick={() => context.closeModal(id)}>
             Cancel
           </Button>
