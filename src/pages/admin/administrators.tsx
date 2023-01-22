@@ -29,9 +29,9 @@ const AdministratorsPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <Paper>
-        <CreateAdminForm />
-      </Paper>
+        <Paper>
+            <CreateAdminForm />
+        </Paper>
 
       <Paper>
         <AdminsTable className={classes.table} />

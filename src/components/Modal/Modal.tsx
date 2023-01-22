@@ -1,24 +1,25 @@
-import { Modal as MantineModal, Stack as MantineStack } from '@mantine/core';
+import {
+  ModalProps as MantineModalProps,
+  Modal as MantineModal,
+  Stack as MantineStack,
+} from '@mantine/core';
 
-type ModalProps = {
-  opened: boolean;
-  setOpened: (opened: boolean) => void;
+type ModalProps = MantineModalProps & {
   children: React.ReactNode;
 };
 
-const Modal = ({ opened, setOpened, children }: ModalProps) => {
+const Modal = ({ children, ...rest }: ModalProps) => {
   return (
     <>
       <MantineModal
         centered
-        opened={opened}
-        onClose={() => setOpened(false)}
         size="xs"
         closeButtonLabel="Close modal"
         overlayOpacity={0.4}
         overlayBlur={2}
         transitionDuration={200}
         exitTransitionDuration={100}
+        {...rest}
       >
         <MantineStack align="center" spacing="xl">
           {children}

@@ -23,7 +23,7 @@ const LogoutModal = ({ opened, setOpened }: LogoutModalProps) => {
 
   return (
     <>
-      <Modal opened={opened} setOpened={setOpened}>
+      <Modal opened={opened} onClose={() => setOpened(false)}>
         <MantineTitle align="center" order={5}>
           Are you sure you want to log out?
         </MantineTitle>

@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Center, PasswordInput, TextInput } from '@mantine/core';
+import { Center, TextInput } from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 
@@ -8,43 +8,44 @@ import Button from '../Button/Button';
 import AdminsContext from '../../context/admins-context';
 import Alert from './Alert';
 
-const CreateAdminForm = () => {
+type EditAdminFormProps = {
+  className?: string;
+  id: number;
+  username: string;
+  email: string;
+};
+
+const EditAdminForm = ({
+  className = '',
+  id,
+  username,
+  email,
+}: EditAdminFormProps) => {
   const ctx = useContext(AdminsContext);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      username,
+      email,
     },
     validate: {
       username: isNotEmpty('Username is required.'),
       email: isEmail('Invalid email.'),
-      password: (value) =>
-        value.length < 6 ? 'Password must be at least 6 characters.' : null,
-      confirmPassword: (value, values) =>
-        value !== values.password ? 'Passwords do not match.' : null,
     },
     validateInputOnChange: true,
   });
 
-  const handleSubmit = async ({
-    username,
-    password,
-    email,
-  }: typeof form.values) => {
+  const handleSubmit = async ({ username, email }: typeof form.values) => {
     setLoading(true);
-    const res = await fetch('/api/admins', {
-      method: 'POST',
+    const res = await fetch(`/api/admins/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         username,
-        password,
         email,
       }),
     });
@@ -53,16 +54,13 @@ const CreateAdminForm = () => {
     if (!res.ok) {
       const data = await res.json();
       setError(
-        data.message ??
-          'Error while creating new administrator, please try again.',
+        data.message ?? 'Error while editing administrator, please try again.',
       );
     } else {
       setError('');
-      form.reset();
-
       showNotification({
         title: 'Success!',
-        message: 'Administrator created.',
+        message: 'Administrator changes saved.',
         color: 'green',
         icon: <IconCheck size={16} />,
         autoClose: 4000,
@@ -72,8 +70,12 @@ const CreateAdminForm = () => {
   };
 
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)}>
-      {error && <Alert onClose={() => setError('')}>{error}</Alert>}
+    <form className={className} onSubmit={form.onSubmit(handleSubmit)}>
+      {error && (
+        <Alert onClose={() => setError('')} withCloseButton={false}>
+          {error}
+        </Alert>
+      )}
 
       <TextInput
         withAsterisk
@@ -91,24 +93,6 @@ const CreateAdminForm = () => {
         {...form.getInputProps('email')}
       />
 
-      <PasswordInput
-        withAsterisk
-        label="Password"
-        placeholder="******"
-        aria-label="Password input"
-        mb="sm"
-        {...form.getInputProps('password')}
-      />
-
-      <PasswordInput
-        withAsterisk
-        label="Confirm password"
-        placeholder="******"
-        aria-label="Confirm password input"
-        mb="sm"
-        {...form.getInputProps('confirmPassword')}
-      />
-
       <Center>
         <Button
           type="submit"
@@ -117,11 +101,11 @@ const CreateAdminForm = () => {
           disabled={!form.isValid()}
           mt="xs"
         >
-          Create
+          Save
         </Button>
       </Center>
     </form>
   );
 };
 
-export default CreateAdminForm;
+export default EditAdminForm;

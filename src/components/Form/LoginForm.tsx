@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import {
   Text,
-  Alert,
   Center,
   Group,
   PasswordInput,
@@ -12,30 +11,17 @@ import {
   createStyles,
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
-import { IconAlertCircle } from '@tabler/icons';
 
 import Button from '../Button/Button';
+import Alert from './Alert';
 
 const useStyles = createStyles((theme) => ({
-  form: {
-    width: '100%',
-    fontSize: '1.6rem',
-  },
-  alert: {
-    marginBottom: '1rem',
-  },
-  input: {
-    marginBottom: '1.5rem',
-  },
   forgotPasswordLabel: {
     paddingTop: 2,
     color:
       theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6],
     fontWeight: 500,
     fontSize: theme.fontSizes.xs,
-  },
-  button: {
-    marginTop: '1rem',
   },
 }));
 
@@ -77,56 +63,42 @@ const LoginForm = () => {
 
   return (
     <>
-      <form className={classes.form} onSubmit={form.onSubmit(handleSubmit)}>
-        {error && (
-          <Alert
-            className={classes.alert}
-            icon={<IconAlertCircle />}
-            color="red"
-            variant="filled"
-            withCloseButton
-            closeButtonLabel="Close alert"
-            onClose={() => setError('')}
-          >
-            {error}
-          </Alert>
-        )}
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        {error && <Alert onClose={() => setError('')}>{error}</Alert>}
 
         <input name="csrfToken" type="hidden" />
 
         <TextInput
-          className={classes.input}
-          size="md"
           withAsterisk
           label="Username"
           aria-label="Username input"
+          mb="sm"
           {...form.getInputProps('username')}
         />
-        <Group position="apart" mb={5}>
-          <Text component="label" htmlFor="password" size="md" weight={500}>
+        <Group position="apart">
+          <Text component="label" htmlFor="password" size="sm" weight={500}>
             Password *
           </Text>
 
-          <Link className={classes.forgotPasswordLabel} href="/logout">
+          <Link
+            className={classes.forgotPasswordLabel}
+            href="/logout"
+            title="Forgot password"
+            aria-label="Forgot password"
+          >
             Forgot your password?
           </Link>
         </Group>
         <PasswordInput
-          className={classes.input}
-          size="md"
           withAsterisk
           id="password"
           placeholder="******"
           aria-label="Password input"
+          mb="sm"
           {...form.getInputProps('password')}
         />
         <Center>
-          <Button
-            className={classes.button}
-            type="submit"
-            fullWidth
-            loading={loading}
-          >
+          <Button type="submit" fullWidth loading={loading} mt="xs">
             Sign in
           </Button>
         </Center>

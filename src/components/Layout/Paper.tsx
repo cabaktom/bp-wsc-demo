@@ -7,7 +7,7 @@ type PaperProps = MantinePaperProps & {};
 
 const Paper = ({ children, ...rest }: PaperProps) => {
   return (
-    <MantinePaper shadow="xs" p="xl" radius="md" withBorder {...rest}>
+    <MantinePaper shadow="xs" p="xl" radius="sm" withBorder h="100%" {...rest}>
       {children}
     </MantinePaper>
   );

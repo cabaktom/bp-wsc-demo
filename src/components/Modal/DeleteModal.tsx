@@ -1,47 +1,31 @@
 import { useContext, useState } from 'react';
-import { Group as MantineGroup, Title as MantineTitle } from '@mantine/core';
+import { Title as MantineTitle } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconExclamationMark } from '@tabler/icons';
+import { z } from 'zod';
 
 import Button from '../Button/Button';
 import Modal from './Modal';
 import AdminsContext from '../../context/admins-context';
+import type { AdminOut } from '../../schemas/Admin';
 
 type DeleteModalProps = {
-  opened: {
-    value: boolean;
-    id: number;
-    itemTitle: string;
-    itemIdentifier: string;
-  };
-  setOpened: (opened: {
-    value: boolean;
-    id: number;
-    itemTitle: string;
-    itemIdentifier: string;
-  }) => void;
+  opened: boolean;
+  setOpened: (opened: boolean) => void;
+  data: z.infer<typeof AdminOut>;
 };
 
-const DeleteModal = ({ opened, setOpened }: DeleteModalProps) => {
+const DeleteModal = ({ opened, setOpened, data }: DeleteModalProps) => {
   const ctx = useContext(AdminsContext);
   const [loading, setLoading] = useState(false);
 
-  const handleClose = (val: boolean) => {
-    setOpened({
-      value: val,
-      id: opened.id,
-      itemTitle: opened.itemTitle,
-      itemIdentifier: opened.itemIdentifier,
-    });
-  };
-
   const handleDelete = async () => {
     setLoading(true);
-    const res = await fetch(`/api/admins/${opened.id}`, {
+    const res = await fetch(`/api/admins/${data?.id}`, {
       method: 'DELETE',
     });
     setLoading(false);
-    handleClose(false);
+    setOpened(false);
 
     if (res.status === 204) {
       showNotification({
@@ -66,20 +50,15 @@ const DeleteModal = ({ opened, setOpened }: DeleteModalProps) => {
 
   return (
     <>
-      <Modal opened={opened.value} setOpened={handleClose}>
+      <Modal opened={opened} onClose={() => setOpened(false)}>
         <MantineTitle align="center" order={5}>
-          Are you sure you want to delete {opened.itemTitle}{' '}
-          {opened.itemIdentifier} (ID: {opened.id})?
+          Are you sure you want to delete administrator {data.username} (ID:{' '}
+          {data.id})?
         </MantineTitle>
 
-        <MantineGroup spacing="sm">
-          <Button onClick={handleDelete} loading={loading}>
-            Delete
-          </Button>
-          <Button onClick={() => handleClose(false)} color="red">
-            Cancel
-          </Button>
-        </MantineGroup>
+        <Button onClick={handleDelete} loading={loading} color="red">
+          Delete
+        </Button>
       </Modal>
     </>
   );
