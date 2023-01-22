@@ -65,7 +65,8 @@ const useStyles = createStyles((theme) => ({
     },
   },
   content: {
-    [theme.fn.largerThan('lg')]: {
+    maxWidth: '140rem',
+    [theme.fn.largerThan('xl')]: {
       paddingRight: '16rem',
     },
   },
@@ -78,7 +79,7 @@ type AdminTabsProps = {
 const AdminTabs = ({ children }: AdminTabsProps) => {
   const router = useRouter();
   const { classes } = useStyles();
-  const matches = useMediaQuery('(max-width: 768px)', true, {
+  const matches = useMediaQuery('(min-width: 768px)', false, {
     getInitialValueInEffect: false,
   });
 
@@ -91,7 +92,7 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
           color="materialBlue"
           withArrow
           position="bottom"
-          hidden={!matches}
+          hidden={matches}
           events={{ hover: true, focus: true, touch: false }}
         >
           <MantineTabs.Tab
@@ -117,17 +118,17 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
           tabLabel: classes.tabLabel,
           tabIcon: classes.tabIcon,
         }}
-        variant={matches ? 'pills' : 'outline'}
-        orientation={matches ? 'horizontal' : 'vertical'}
+        variant={matches ? 'outline' : 'pills'}
+        orientation={matches ? 'vertical' : 'horizontal'}
         value={router.pathname}
         onTabChange={(value) => router.push(value as string)}
         activateTabWithKeyboard={false}
       >
         <MantineTabs.List
-          position={matches ? 'center' : 'left'}
+          position={matches ? 'left' : 'center'}
           pt="xs"
           pb="xs"
-          pl={matches ? '0' : 'xs'}
+          pl={matches ? 'xs' : '0'}
           aria-label="Admin control tabs"
         >
           {tabsJSX}

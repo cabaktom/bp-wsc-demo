@@ -50,7 +50,7 @@ const ScrollToTop = () => {
       <MantineTransition transition="slide-up" mounted={scroll.y > 0}>
         {() => (
           <Button className={classes.button} onClick={() => scrollTo({ y: 0 })}>
-            <ArrowUpOutline cssClasses={classes.icon} />
+            <IconArrowUp className={classes.icon} />
             <span className={classes.text}>Scroll to top</span>
           </Button>
         )}
