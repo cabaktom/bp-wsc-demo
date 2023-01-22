@@ -2,9 +2,9 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 // import { getToken } from 'next-auth/jwt';
 import { z } from 'zod';
 
-import { prisma } from '../../../lib/prisma';
-import { AdminOut, AdminEdit } from '../../../schemas/Admin';
-import handleErrors from '../../../lib/handleApiErrors';
+import { prisma } from '../../../../lib/prisma';
+import { AdminOut, AdminEdit } from '../../../../schemas/Admin';
+import handleErrors from '../../../../lib/handleApiErrors';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
@@ -63,7 +63,7 @@ export default async function handler(
   // authenticate user
   // FIXME: does not work with external requests (works inside app)
   // const token = await getToken({ req });
-  // if (!token) {
+  // if (token) {
   // console.log('JSON Web Token', JSON.stringify(token, null, 2));
   // } else {
   // return res.status(401).end();

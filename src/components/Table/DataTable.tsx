@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { DataTable as DT, DataTableSortStatus } from 'mantine-datatable';
-import { Group, ActionIcon, createStyles } from '@mantine/core';
+import { Group, ActionIcon } from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
 import { IconPencil, IconTrash } from '@tabler/icons';
 import { z } from 'zod';
@@ -10,16 +10,9 @@ import AdminsContext from '../../context/admins-context';
 import { AdminOut } from '../../schemas/Admin';
 import EditAdminForm from '../Form/EditAdminForm';
 
-const useStyles = createStyles(() => ({
-  table: {
-    minHeight: '30rem',
-  },
-}));
-
 const PAGE_SIZES = [5, 10, 20, 50];
 
 const DataTable = () => {
-  const { classes } = useStyles();
   const ctx = useContext(AdminsContext);
 
   // pagination
@@ -30,6 +23,7 @@ const DataTable = () => {
   // all data
   const [data, setData] = useState<z.infer<typeof AdminOut>[]>([]);
 
+  // change paginated data when page or perPage changes
   useEffect(() => {
     const from = (page - 1) * perPage;
     const to = from + perPage;
@@ -57,11 +51,10 @@ const DataTable = () => {
     setData(ctx.admins);
   }, []);
 
-  // delete action
   const handleDelete = (admin: z.infer<typeof AdminOut>) => {
     openContextModal({
       modal: 'delete',
-      title: 'Delete admin',
+      title: 'Delete administrator',
       centered: true,
       size: 'auto',
       innerProps: {
@@ -75,12 +68,13 @@ const DataTable = () => {
       },
     });
   };
-  // edit action
+
   const handleEdit = (admin: z.infer<typeof AdminOut>) => {
     openContextModal({
       modal: 'edit',
-      title: 'Edit admin',
+      title: 'Edit administrator',
       centered: true,
+      size: 'xs',
       innerProps: {
         modalBody: <EditAdminForm {...admin} />,
       },
@@ -93,8 +87,8 @@ const DataTable = () => {
   return (
     <>
       <DT
-        className={classes.table}
         withBorder
+        minHeight="32rem"
         borderRadius="sm"
         highlightOnHover
         records={records}
