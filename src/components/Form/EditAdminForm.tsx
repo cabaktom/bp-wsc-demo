@@ -92,7 +92,7 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
           type="submit"
           fullWidth
           loading={loading}
-          disabled={!form.isValid() || !form.isDirty()}
+          disabled={!form.isValid()}
           mt="xs"
         >
           Save
