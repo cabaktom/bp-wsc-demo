@@ -2,6 +2,7 @@ import {
   IconBlockquote,
   IconCalendarTime,
   IconFile,
+  IconLogout,
   IconPhoto,
   IconSettings,
   IconUserExclamation,
@@ -78,6 +79,11 @@ export const adminLinks = [
     title: 'Gallery',
     url: '/admin/gallery',
     icon: <IconPhoto />,
+  },
+  {
+    title: 'Log out',
+    url: '/logout',
+    icon: <IconLogout />,
   },
 ];
 

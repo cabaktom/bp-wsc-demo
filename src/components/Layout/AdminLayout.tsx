@@ -1,5 +1,4 @@
 import AdminTabs from '../Navigation/AdminTabs';
-import AdminAffix from './AdminAffix';
 import AdminsProvider from '../../context/AdminsProvider';
 
 type AdminLayoutProps = {
@@ -10,7 +9,6 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   return (
     <AdminsProvider>
       <AdminTabs>{children}</AdminTabs>
-      <AdminAffix />
     </AdminsProvider>
   );
 };
