@@ -6,13 +6,21 @@ import { prisma } from '../../../../lib/prisma';
 import handleErrors from '../../../../lib/handleApiErrors';
 import { comparePwd, hashPwd } from '../../../../lib/password';
 
-const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
+const handlePut = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  sessionUserId: number,
+) => {
   const { id } = req.query;
-
-  // TODO: admin can only change their own password
 
   try {
     const idParsed = z.number().int().parse(Number(id));
+    if (idParsed !== sessionUserId) {
+      return res.status(403).json({
+        message: 'You can only change your own password',
+      });
+    }
+
     const currentPasswordPlaintext = z
       .string()
       .min(1)
@@ -55,7 +63,7 @@ export default async function handler(
   switch (req.method) {
     // PUT /api/admins/{id}/password
     case 'PUT':
-      return handlePut(req, res);
+      return handlePut(req, res, +token.sub);
 
     default:
       return res.status(405).setHeader('Allow', 'PUT').end();
