@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-// import { getToken } from 'next-auth/jwt';
+import { getToken } from 'next-auth/jwt';
 import { z } from 'zod';
 
 import { prisma } from '../../../../lib/prisma';
@@ -43,11 +43,21 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
+const handleDelete = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  sessionUserId: number,
+) => {
   const { id } = req.query;
 
   try {
     const idParsed = z.number().int().parse(Number(id));
+    if (idParsed === sessionUserId) {
+      return res.status(400).json({
+        message: 'You cannot delete your own account',
+      });
+    }
+
     await prisma.admin.delete({ where: { id: idParsed } });
 
     return res.status(204).end();
@@ -61,13 +71,8 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   // authenticate user
-  // FIXME: does not work with external requests (works inside app)
-  // const token = await getToken({ req });
-  // if (token) {
-  // console.log('JSON Web Token', JSON.stringify(token, null, 2));
-  // } else {
-  // return res.status(401).end();
-  // }
+  const token = await getToken({ req });
+  if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
     // GET /api/admins/{id}
@@ -78,7 +83,7 @@ export default async function handler(
       return handlePut(req, res);
     // DELETE /api/admins/{id}
     case 'DELETE':
-      return handleDelete(req, res);
+      return handleDelete(req, res, +token.sub);
 
     default:
       return res.status(405).setHeader('Allow', 'GET,PUT,DELETE').end();

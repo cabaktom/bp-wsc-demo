@@ -35,10 +35,10 @@ const DeleteModal = ({ context, id, innerProps }: DeleteModalProps) => {
         icon: <IconCheck size={16} />,
         autoClose: 4000,
       });
-    } else if (res.status === 404) {
+    } else {
       showNotification({
         title: 'Error!',
-        message: `${innerProps.subjectTitle} not found.`,
+        message: (await res.json()).message,
         color: 'red',
         icon: <IconExclamationMark size={16} />,
         autoClose: 4000,
