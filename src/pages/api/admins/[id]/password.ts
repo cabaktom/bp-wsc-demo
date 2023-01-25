@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-// import { getToken } from 'next-auth/jwt';
+import { getToken } from 'next-auth/jwt';
 import { z } from 'zod';
 
 import { prisma } from '../../../../lib/prisma';
@@ -29,7 +29,7 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (!(await comparePwd(currentPasswordPlaintext, data.password))) {
-      return res.status(403).json({ message: 'Invalid password' });
+      return res.status(400).json({ message: 'Invalid password' });
     }
 
     const newPasswordHash = await hashPwd(newPasswordPlaintext);
@@ -49,13 +49,8 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   // authenticate user
-  // FIXME: does not work with external requests (works inside app)
-  // const token = await getToken({ req });
-  // if (token) {
-  //   console.log('JSON Web Token', JSON.stringify(token, null, 2));
-  // } else {
-  //   return res.status(401).end();
-  // }
+  const token = await getToken({ req });
+  if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
     // PUT /api/admins/{id}/password
