@@ -27,10 +27,12 @@ export default HomePage;
 
 export async function getStaticProps() {
   const page = await prisma.page.findFirst({ where: { id: 1 } });
+  const settings = await prisma.siteSettings.findMany();
 
   return {
     props: {
       page,
+      settings,
     },
     revalidate: 1,
   };

@@ -3,6 +3,7 @@ import { Title, createStyles } from '@mantine/core';
 
 import LoginForm from '../components/Form/LoginForm';
 import Paper from '../components/Layout/Paper';
+import { prisma } from '../lib/prisma';
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -36,3 +37,14 @@ const LogInPage: NextPage = () => {
 };
 
 export default LogInPage;
+
+export async function getStaticProps() {
+  const settings = await prisma.siteSettings.findMany();
+
+  return {
+    props: {
+      settings,
+    },
+    revalidate: 1,
+  };
+}
