@@ -20,3 +20,9 @@ model Admin {
   password      String
   email         String    @unique
 }
+
+model SiteSettings {
+  id            Int       @id @default(autoincrement())
+  option        String    @unique
+  value         String
+}

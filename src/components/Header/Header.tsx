@@ -5,6 +5,9 @@ import {
   Stack as MantineStack,
   createStyles,
 } from '@mantine/core';
+import { z } from 'zod';
+
+import { SettingOut } from '../../schemas/Setting';
 
 const useStyles = createStyles((theme) => ({
   headerContainer: {
@@ -27,26 +30,30 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const Header = () => {
+type HeaderProps = {
+  settings: z.infer<typeof SettingOut>[];
+};
+
+const Header = ({ settings }: HeaderProps) => {
   const { classes } = useStyles();
 
   return (
     <MantineCenter className={classes.headerContainer}>
       <MantineStack className={classes.header}>
         <MantineTitle className={classes.title} order={1} c="white">
-          Student workshop on scientific computing 2022
+          {settings[0].value}
         </MantineTitle>
 
         <MantineTitle className={classes.title} order={2} c="orange.4">
-          May 26 - 29, 2022. Děčín, Czech Rep. + Online
+          {settings[1].value}. {settings[2].value}
         </MantineTitle>
 
         <MantineText fz="sm" c="white">
-          Departments of Software Engineering and Mathematics
+          {settings[3].value}
         </MantineText>
 
         <MantineText fz="sm" c="white">
-          FNSPE CTU in Prague, Czech Republic
+          {settings[4].value}
         </MantineText>
       </MantineStack>
     </MantineCenter>
