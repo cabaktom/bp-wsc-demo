@@ -55,7 +55,7 @@ const ServerError: NextPageWithLayout = () => {
   const { classes } = useStyles();
 
   return (
-    <Container className={classes.root}>
+    <Container className={classes.root} fluid>
       <div className={classes.label}>500</div>
       <Title className={classes.title}>Something bad just happened...</Title>
       <Text size="lg" align="center" className={classes.description}>
