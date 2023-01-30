@@ -5,9 +5,9 @@ import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
 import Paper from '../../components/Layout/Paper';
 import CreateAdminForm from '../../components/Form/CreateAdminForm';
-import DataTable from '../../components/Table/DataTable';
 import EditAdminForm from '../../components/Form/EditAdminForm';
 import ChangePasswordForm from '../../components/Form/ChangePasswordForm';
+import AdministratorsDataTable from '../../components/Table/AdministratorsDataTable';
 
 const AdministratorsPage: NextPageWithLayout = () => {
   const { data: session } = useSession();
@@ -42,7 +42,7 @@ const AdministratorsPage: NextPageWithLayout = () => {
           </Grid.Col>
         </Grid>
 
-        <DataTable />
+        <AdministratorsDataTable />
       </Stack>
     </>
   );

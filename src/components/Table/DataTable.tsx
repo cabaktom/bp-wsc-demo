@@ -1,27 +1,29 @@
-import { useContext, useEffect, useState } from 'react';
-import { DataTable as DT, DataTableSortStatus } from 'mantine-datatable';
-import { Group, ActionIcon } from '@mantine/core';
-import { openContextModal } from '@mantine/modals';
-import { IconPencil, IconTrash } from '@tabler/icons';
-import { z } from 'zod';
+import { useEffect, useState } from 'react';
+import {
+  DataTable as DT,
+  type DataTableProps as DTProps,
+  DataTableSortStatus,
+} from 'mantine-datatable';
 import sortBy from 'lodash/sortBy';
-
-import AdminsContext from '../../context/admins-context';
-import { AdminOut } from '../../schemas/Admin';
-import EditAdminForm from '../Form/EditAdminForm';
 
 const PAGE_SIZES = [5, 10, 20, 50];
 
-const DataTable = () => {
-  const ctx = useContext(AdminsContext);
+type DataTableProps<T> = DTProps<T> & {
+  initialData: T[];
+};
 
+const DataTable = <T extends object>({
+  initialData,
+  columns,
+  ...rest
+}: DataTableProps<T>) => {
   // pagination
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(PAGE_SIZES[1]);
   // paginated data
-  const [records, setRecords] = useState<z.infer<typeof AdminOut>[]>([]);
+  const [records, setRecords] = useState<T[]>([]);
   // all data
-  const [data, setData] = useState<z.infer<typeof AdminOut>[]>([]);
+  const [data, setData] = useState(initialData);
 
   // change paginated data when page or perPage changes
   useEffect(() => {
@@ -41,48 +43,9 @@ const DataTable = () => {
   });
 
   useEffect(() => {
-    const data = sortBy(ctx.admins, sortStatus.columnAccessor);
-    setData(sortStatus.direction === 'asc' ? data : data.reverse());
-  }, [sortStatus, ctx.admins]);
-
-  // data init
-  useEffect(() => {
-    ctx.refreshAdmins();
-    setData(ctx.admins);
-  }, []);
-
-  const handleDelete = (admin: z.infer<typeof AdminOut>) => {
-    openContextModal({
-      modal: 'delete',
-      title: 'Delete administrator',
-      centered: true,
-      size: 'auto',
-      innerProps: {
-        modalBody: `Are you sure you want to delete administrator ${admin.username} (ID: ${admin.id})?`,
-        subjectId: admin.id,
-        subjectTitle: 'Administrator',
-        actionUrl: '/api/admins',
-      },
-      onClose: async () => {
-        await ctx.refreshAdmins();
-      },
-    });
-  };
-
-  const handleEdit = (admin: z.infer<typeof AdminOut>) => {
-    openContextModal({
-      modal: 'edit',
-      title: 'Edit administrator',
-      centered: true,
-      size: 'xs',
-      innerProps: {
-        modalBody: <EditAdminForm {...admin} />,
-      },
-      onClose: async () => {
-        await ctx.refreshAdmins();
-      },
-    });
-  };
+    const sortedData = sortBy(initialData, sortStatus.columnAccessor);
+    setData(sortStatus.direction === 'asc' ? sortedData : sortedData.reverse());
+  }, [sortStatus, initialData]);
 
   return (
     <>
@@ -92,7 +55,7 @@ const DataTable = () => {
         borderRadius="sm"
         highlightOnHover
         records={records}
-        totalRecords={ctx.admins.length}
+        totalRecords={data.length}
         page={page}
         recordsPerPage={perPage}
         onPageChange={(page) => setPage(page)}
@@ -103,48 +66,8 @@ const DataTable = () => {
         onRecordsPerPageChange={setPerPage}
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
-        columns={[
-          { accessor: 'id', title: '#', sortable: true, width: '10%' },
-          {
-            accessor: 'username',
-            title: 'Username',
-            sortable: true,
-            width: '30%',
-            ellipsis: true,
-          },
-          {
-            accessor: 'email',
-            title: 'Email',
-            sortable: true,
-            width: '40%',
-            ellipsis: true,
-            render: (admin) => (
-              <a
-                href={`mailto:${admin.email}`}
-                title={`Send email to ${admin.email}`}
-              >
-                {admin.email}
-              </a>
-            ),
-          },
-          {
-            accessor: 'actions',
-            title: '',
-            textAlignment: 'right',
-            sortable: false,
-            width: '20%',
-            render: (admin) => (
-              <Group spacing={0} position="right">
-                <ActionIcon onClick={() => handleEdit(admin)}>
-                  <IconPencil size={18} stroke={1.5} />
-                </ActionIcon>
-                <ActionIcon color="red" onClick={() => handleDelete(admin)}>
-                  <IconTrash size={18} stroke={1.5} />
-                </ActionIcon>
-              </Group>
-            ),
-          },
-        ]}
+        columns={columns}
+        {...rest}
       />
     </>
   );
