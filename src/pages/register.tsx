@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
 
 import { prisma } from '../lib/prisma';
+import RegisterForm from '../components/Form/RegisterForm';
 
 type RegisterPageProps = {
   page: PageType;
@@ -17,8 +17,9 @@ const RegisterPage: NextPage<RegisterPageProps> = ({ page }) => {
         <title>{page.title}</title>
       </Head>
 
-      <Link href="/edit/register">Edit</Link>
       {parse(page.content)}
+
+      <RegisterForm />
     </>
   );
 };
