@@ -8,6 +8,7 @@ const useStyles = createStyles((theme) => ({
     height: 'max-content',
     background: [theme.fn.rgba(theme.white, 0.95)],
     backdropFilter: 'blur(0.95rem)',
+    zIndex: 950,
     borderBottom: `.2rem solid ${[
       theme.colors[theme.primaryColor][Number(theme.primaryShade)], // TODO: Don't use casting
     ]}`,
@@ -38,7 +39,6 @@ const useStyles = createStyles((theme) => ({
       padding: '1rem 1rem',
       marginBottom: '-.1rem',
       border: '.1rem solid transparent',
-      borderBottom: `.1rem solid ${[theme.colors[theme.primaryColor][2]]}`,
       color: [theme.colors[theme.primaryColor][Number(theme.primaryShade)]], // TODO: Don't use casting
     },
 

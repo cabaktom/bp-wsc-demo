@@ -20,9 +20,15 @@ const useStyles = createStyles((theme) => ({
   },
   tabsList: {
     borderColor: [theme.colors[theme.primaryColor][7]],
+    position: 'fixed',
+    zIndex: 900,
+    backgroundColor: theme.white,
+    width: '100%',
+    height: '5rem',
+    paddingTop: '.5rem',
+    paddingBottom: '.5rem',
 
     [theme.fn.largerThan('sm')]: {
-      position: 'fixed',
       width: '16rem',
       height: 'calc(100% - 5rem)',
     },
@@ -33,6 +39,7 @@ const useStyles = createStyles((theme) => ({
     },
   },
   panel: {
+    marginTop: '0 !important',
     [theme.fn.largerThan('sm')]: {
       marginLeft: '16rem',
     },
@@ -84,7 +91,13 @@ const useStyles = createStyles((theme) => ({
   },
   content: {
     maxWidth: '140rem',
-    marginBottom: '6rem',
+    marginBottom: '7rem',
+    paddingTop: theme.spacing.md,
+
+    [theme.fn.smallerThan('sm')]: {
+      paddingTop: '6.1rem',
+    },
+
     [theme.fn.largerThan('xl')]: {
       paddingRight: '16rem',
     },
@@ -172,8 +185,6 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
       >
         <MantineTabs.List
           position={matches ? 'left' : 'center'}
-          pt="xs"
-          pb="xs"
           pl={matches ? 'xs' : '0'}
           aria-label="Admin control tabs"
         >
