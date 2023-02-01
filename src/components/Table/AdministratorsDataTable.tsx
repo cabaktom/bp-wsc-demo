@@ -52,12 +52,17 @@ const AdministratorsDataTable = () => {
       <DataTable
         initialData={ctx.admins}
         columns={[
-          { accessor: 'id', title: '#', sortable: true, width: '10%' },
+          {
+            accessor: 'number',
+            title: '#',
+            width: '5%',
+            render: (_, index) => index + 1,
+          },
           {
             accessor: 'username',
             title: 'Username',
             sortable: true,
-            width: '30%',
+            width: '35%',
             ellipsis: true,
           },
           {
