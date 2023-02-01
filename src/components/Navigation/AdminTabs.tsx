@@ -105,7 +105,6 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
   const openLogoutModal = () =>
     openConfirmModal({
       title: 'Logout',
-      centered: true,
       size: 'sm',
       children: (
         <MantineText size="sm">

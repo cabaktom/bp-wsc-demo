@@ -20,7 +20,6 @@ const AdministratorsDataTable = () => {
     openContextModal({
       modal: 'delete',
       title: 'Delete administrator',
-      centered: true,
       size: 'auto',
       innerProps: {
         modalBody: `Are you sure you want to delete administrator ${admin.username} (ID: ${admin.id})?`,
@@ -38,7 +37,6 @@ const AdministratorsDataTable = () => {
     openContextModal({
       modal: 'edit',
       title: 'Edit administrator',
-      centered: true,
       size: 'xs',
       innerProps: {
         modalBody: <EditAdminForm {...admin} />,

@@ -13,6 +13,7 @@ const ModalsProvider = ({ children, ...rest }: ModalsProviderProps) => {
     <MantineModalsProvider
       labels={{ confirm: 'Submit', cancel: 'Cancel' }}
       modals={{ delete: DeleteModal, edit: EditModal }}
+      modalProps={{ zIndex: 1000, centered: true }}
       {...rest}
     >
       {children}
