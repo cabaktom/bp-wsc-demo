@@ -73,7 +73,7 @@ const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
-        <Alert onClose={() => setError('')} withCloseButton={false}>
+        <Alert onClose={() => setError('')} withCloseButton={false} mb="xs">
           {error}
         </Alert>
       )}

@@ -16,7 +16,6 @@ const Alert = ({ children, ...rest }: AlertProps) => {
       variant="filled"
       withCloseButton
       closeButtonLabel="Close alert"
-      mb="xs"
       {...rest}
     >
       {children}

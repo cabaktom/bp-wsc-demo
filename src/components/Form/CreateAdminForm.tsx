@@ -73,7 +73,11 @@ const CreateAdminForm = () => {
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      {error && <Alert onClose={() => setError('')}>{error}</Alert>}
+      {error && (
+        <Alert onClose={() => setError('')} mb="xs">
+          {error}
+        </Alert>
+      )}
 
       <TextInput
         withAsterisk

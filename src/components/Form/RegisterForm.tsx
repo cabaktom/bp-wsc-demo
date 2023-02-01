@@ -81,7 +81,11 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      {error && <Alert onClose={() => setError('')}>{error}</Alert>}
+      {error && (
+        <Alert onClose={() => setError('')} mb="xs">
+          {error}
+        </Alert>
+      )}
 
       <Stack align="stretch">
         <Paper>
