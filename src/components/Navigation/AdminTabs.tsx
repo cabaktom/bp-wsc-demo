@@ -15,18 +15,26 @@ import { adminLinks } from '../../constants/links';
 
 const useStyles = createStyles((theme) => ({
   root: {
+    position: 'relative',
     height: '100%',
   },
   tabsList: {
     borderColor: [theme.colors[theme.primaryColor][7]],
 
     [theme.fn.largerThan('sm')]: {
+      position: 'fixed',
       width: '16rem',
+      height: 'calc(100% - 5rem)',
     },
 
     [theme.fn.smallerThan('sm')]: {
       borderBottomWidth: 'thin',
       borderBottomStyle: 'solid',
+    },
+  },
+  panel: {
+    [theme.fn.largerThan('sm')]: {
+      marginLeft: '16rem',
     },
   },
   tab: {
@@ -76,6 +84,7 @@ const useStyles = createStyles((theme) => ({
   },
   content: {
     maxWidth: '140rem',
+    marginBottom: '6rem',
     [theme.fn.largerThan('xl')]: {
       paddingRight: '16rem',
     },
@@ -131,8 +140,9 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
           <MantineTabs.Tab
             value={link.url}
             icon={link.icon}
-            mb="xs"
             aria-label={link.title}
+            mb={link.title === 'Log out' ? '0' : 'xs'}
+            mt={link.title === 'Log out' ? 'auto' : '0'}
           >
             <MantineText fz="sm">{link.title}</MantineText>
           </MantineTabs.Tab>
@@ -147,6 +157,7 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
         classNames={{
           root: classes.root,
           tabsList: classes.tabsList,
+          panel: classes.panel,
           tab: classes.tab,
           tabLabel: classes.tabLabel,
           tabIcon: classes.tabIcon,
@@ -170,10 +181,8 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
           {tabsJSX}
         </MantineTabs.List>
 
-        <MantineTabs.Panel value={router.pathname}>
-          <Content className={classes.content} mt="md">
-            {children}
-          </Content>
+        <MantineTabs.Panel value={router.pathname} my="md">
+          <Content className={classes.content}>{children}</Content>
         </MantineTabs.Panel>
       </MantineTabs>
     </>
