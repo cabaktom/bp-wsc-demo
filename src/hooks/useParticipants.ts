@@ -1,5 +1,5 @@
-import { Abstract, Participant } from '@prisma/client';
 import useSWR from 'swr';
+import type { Abstract, Participant } from '@prisma/client';
 
 type useParticipantsReturnType = {
   participants: (Participant & {

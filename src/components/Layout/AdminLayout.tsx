@@ -1,16 +1,11 @@
 import AdminTabs from '../Navigation/AdminTabs';
-import AdminsProvider from '../../context/AdminsProvider';
 
 type AdminLayoutProps = {
   children?: React.ReactNode;
 };
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
-  return (
-    <AdminsProvider>
-      <AdminTabs>{children}</AdminTabs>
-    </AdminsProvider>
-  );
+  return <AdminTabs>{children}</AdminTabs>;
 };
 
 export default AdminLayout;

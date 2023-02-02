@@ -1,5 +1,7 @@
+import { SWRConfig } from 'swr';
 import { Stack, Grid, Title, LoadingOverlay } from '@mantine/core';
 import { useSession } from 'next-auth/react';
+import type { Admin } from '@prisma/client';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
@@ -8,8 +10,17 @@ import CreateAdminForm from '../../components/Form/CreateAdminForm';
 import EditAdminForm from '../../components/Form/EditAdminForm';
 import ChangePasswordForm from '../../components/Form/ChangePasswordForm';
 import AdministratorsDataTable from '../../components/Table/AdministratorsDataTable';
+import { prisma } from '../../lib/prisma';
 
-const AdministratorsPage: NextPageWithLayout = () => {
+type AdministratorsPageProps = {
+  fallback: {
+    '/api/admins': Admin[];
+  };
+};
+
+const AdministratorsPage: NextPageWithLayout<AdministratorsPageProps> = ({
+  fallback,
+}) => {
   const { data: session } = useSession();
 
   const { id, username, email } = session?.user ?? {
@@ -19,7 +30,7 @@ const AdministratorsPage: NextPageWithLayout = () => {
   };
 
   return (
-    <>
+    <SWRConfig value={{ fallback }}>
       <Stack spacing="md">
         <Grid align="center" gutter="xl">
           <Grid.Col offsetXs={1} xs={10} offsetSm={0} sm={6}>
@@ -44,7 +55,7 @@ const AdministratorsPage: NextPageWithLayout = () => {
 
         <AdministratorsDataTable />
       </Stack>
-    </>
+    </SWRConfig>
   );
 };
 
@@ -53,3 +64,15 @@ AdministratorsPage.getLayout = (page) => {
 };
 
 export default AdministratorsPage;
+
+export async function getServerSideProps() {
+  const administrators = await prisma.admin.findMany({});
+
+  return {
+    props: {
+      fallback: {
+        '/api/admins': administrators,
+      },
+    },
+  };
+}

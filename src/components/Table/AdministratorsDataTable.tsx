@@ -1,20 +1,17 @@
-import { useContext, useEffect } from 'react';
+import { useSWRConfig } from 'swr';
 import { Group, ActionIcon } from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
 import { IconPencil, IconTrash } from '@tabler/icons';
 import { z } from 'zod';
 
-import AdminsContext from '../../context/admins-context';
 import { AdminOut } from '../../schemas/Admin';
 import EditAdminForm from '../Form/EditAdminForm';
 import DataTable from './DataTable';
+import useAdministrators from '../../hooks/useAdministrators';
 
 const AdministratorsDataTable = () => {
-  const ctx = useContext(AdminsContext);
-
-  useEffect(() => {
-    ctx.refreshAdmins();
-  }, []);
+  const { mutate } = useSWRConfig();
+  const { administrators } = useAdministrators();
 
   const handleDelete = (admin: z.infer<typeof AdminOut>) => {
     openContextModal({
@@ -22,14 +19,12 @@ const AdministratorsDataTable = () => {
       title: 'Delete administrator',
       size: 'auto',
       innerProps: {
-        modalBody: `Are you sure you want to delete administrator ${admin.username} (ID: ${admin.id})?`,
+        modalBody: `Are you sure you want to delete administrator ${admin.username}?`,
         subjectId: admin.id,
         subjectTitle: 'Administrator',
         actionUrl: '/api/admins',
       },
-      onClose: async () => {
-        await ctx.refreshAdmins();
-      },
+      onClose: () => mutate('/api/admins'),
     });
   };
 
@@ -41,16 +36,13 @@ const AdministratorsDataTable = () => {
       innerProps: {
         modalBody: <EditAdminForm {...admin} />,
       },
-      onClose: async () => {
-        await ctx.refreshAdmins();
-      },
     });
   };
 
   return (
     <>
       <DataTable
-        initialData={ctx.admins}
+        initialData={administrators}
         columns={[
           {
             accessor: 'number',

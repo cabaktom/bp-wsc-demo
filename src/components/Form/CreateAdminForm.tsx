@@ -1,15 +1,15 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useSWRConfig } from 'swr';
 import { Center, PasswordInput, TextInput } from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 
 import { IconCheck } from '@tabler/icons';
 import Button from '../Button/Button';
-import AdminsContext from '../../context/admins-context';
 import Alert from './Alert';
 
 const CreateAdminForm = () => {
-  const ctx = useContext(AdminsContext);
+  const { mutate } = useSWRConfig();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -67,7 +67,8 @@ const CreateAdminForm = () => {
         icon: <IconCheck size={16} />,
         autoClose: 4000,
       });
-      await ctx.refreshAdmins();
+
+      mutate('/api/admins');
     }
   };
 

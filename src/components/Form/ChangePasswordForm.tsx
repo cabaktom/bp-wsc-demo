@@ -1,11 +1,10 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Center, PasswordInput } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 
 import { IconCheck } from '@tabler/icons';
 import Button from '../Button/Button';
-import AdminsContext from '../../context/admins-context';
 import Alert from './Alert';
 
 type ChangePasswordFormProps = {
@@ -13,7 +12,6 @@ type ChangePasswordFormProps = {
 };
 
 const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
-  const ctx = useContext(AdminsContext);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -66,7 +64,6 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
         icon: <IconCheck size={16} />,
         autoClose: 4000,
       });
-      await ctx.refreshAdmins();
     }
   };
 

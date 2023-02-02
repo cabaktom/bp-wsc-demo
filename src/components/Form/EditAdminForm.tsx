@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useSWRConfig } from 'swr';
 import { Center, TextInput } from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 
 import { IconCheck } from '@tabler/icons';
 import Button from '../Button/Button';
-import AdminsContext from '../../context/admins-context';
 import Alert from './Alert';
 
 type EditAdminFormProps = {
@@ -15,7 +15,7 @@ type EditAdminFormProps = {
 };
 
 const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
-  const ctx = useContext(AdminsContext);
+  const { mutate } = useSWRConfig();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -59,7 +59,8 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
         icon: <IconCheck size={16} />,
         autoClose: 4000,
       });
-      await ctx.refreshAdmins();
+
+      mutate('/api/admins');
     }
   };
 
