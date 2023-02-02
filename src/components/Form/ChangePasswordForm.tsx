@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Center, PasswordInput } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
+import { useDisclosure } from '@mantine/hooks';
 
 import { IconCheck } from '@tabler/icons';
 import Button from '../Button/Button';
@@ -14,6 +15,7 @@ type ChangePasswordFormProps = {
 const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [visible, { toggle }] = useDisclosure(false);
 
   const form = useForm({
     initialValues: {
@@ -90,6 +92,8 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
         placeholder="******"
         aria-label="Password input"
         mb="sm"
+        visible={visible}
+        onVisibilityChange={toggle}
         {...form.getInputProps('password')}
       />
 
@@ -99,6 +103,8 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
         placeholder="******"
         aria-label="Confirm password input"
         mb="sm"
+        visible={visible}
+        onVisibilityChange={toggle}
         {...form.getInputProps('confirmPassword')}
       />
 
