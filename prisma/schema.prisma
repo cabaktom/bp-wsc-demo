@@ -38,9 +38,9 @@ model Participant {
   email             String        @unique
   affiliation       String
   participation     Participation @default(ONSITE)
-  mailingAddress    String?
+  mailingAddress    String?       @default("")
   student           Boolean       @default(false)
-  additionalMessage String?
+  additionalMessage String?       @default("")
   abstract          Abstract?
   registeredAt      DateTime      @default(now())
 }
@@ -49,9 +49,9 @@ model Abstract {
   id                 Int         @id @default(autoincrement())
   title              String
   poster             Boolean     @default(false)
-  additionalAuthors  String?
-  affiliationAuthors String?
-  abstract           String?
+  additionalAuthors  String?     @default("")
+  affiliationAuthors String?     @default("")
+  abstract           String?     @default("")
   participant        Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
   participantId      Int         @unique
 }

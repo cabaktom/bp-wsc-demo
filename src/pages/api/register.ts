@@ -3,17 +3,17 @@ import { Prisma } from '@prisma/client';
 
 import { prisma } from '../../lib/prisma';
 import handleErrors from '../../lib/handleApiErrors';
-import { Participant } from '../../schemas/Participant';
-import { Abstract } from '../../schemas/Abstract';
+import { ParticipantIn, ParticipantOut } from '../../schemas/Participant';
+import { AbstractIn, AbstractOut } from '../../schemas/Abstract';
 import { revalidateParticipants } from '../../lib/revalidate';
 
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const participantData = Participant.parse(req.body);
+    const participantData = ParticipantIn.parse(req.body);
 
     let participant: Prisma.ParticipantCreateInput;
     if (req.body.contributing) {
-      const abstractData = Abstract.parse(req.body);
+      const abstractData = AbstractIn.parse(req.body);
       participant = {
         ...participantData,
         abstract: {
@@ -37,7 +37,12 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await revalidateParticipants(res);
 
-    return res.status(201).json(createParticipant);
+    return res.status(201).json({
+      ...ParticipantOut.parse(createParticipant),
+      abstract: createParticipant.abstract
+        ? AbstractOut.parse(createParticipant.abstract)
+        : undefined,
+    });
   } catch (e) {
     return handleErrors('Administrator', e, res);
   }

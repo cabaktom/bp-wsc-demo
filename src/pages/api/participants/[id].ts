@@ -24,7 +24,9 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({
       ...ParticipantOut.parse(participant),
-      abstract: AbstractOut.parse(participant.abstract),
+      abstract: participant.abstract
+        ? AbstractOut.parse(participant.abstract)
+        : undefined,
     });
   } catch (e) {
     return handleErrors('Participant', e, res);

@@ -17,8 +17,8 @@ export const ParticipantOut = z.object({
   fullName: z.string().min(1),
   email: z.string().email(),
   affiliation: z.string().min(1),
-  participation: Participation.nullable(),
-  mailingAddress: z.string().nullable(),
-  student: z.boolean().nullable(),
-  additionalMessage: z.string().nullable(),
+  participation: Participation,
+  mailingAddress: z.string(),
+  student: z.boolean(),
+  additionalMessage: z.string(),
 });
