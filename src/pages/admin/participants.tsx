@@ -1,3 +1,4 @@
+import { SWRConfig } from 'swr';
 import { Stack } from '@mantine/core';
 import type { Abstract, Participant } from '@prisma/client';
 
@@ -7,20 +8,22 @@ import ParticipantsDataTable from '../../components/Table/ParticipantsDataTable'
 import { prisma } from '../../lib/prisma';
 
 type ParticipantsPageProps = {
-  participants: (Participant & {
-    abstract: Abstract;
-  })[];
+  fallback: {
+    '/api/participants?abstract=true': (Participant & {
+      abstract: Abstract;
+    })[];
+  };
 };
 
 const ParticipantsPage: NextPageWithLayout<ParticipantsPageProps> = ({
-  participants,
+  fallback,
 }) => {
   return (
-    <>
+    <SWRConfig value={{ fallback }}>
       <Stack spacing="md">
-        <ParticipantsDataTable participants={participants} />
+        <ParticipantsDataTable />
       </Stack>
-    </>
+    </SWRConfig>
   );
 };
 
@@ -39,7 +42,9 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      participants: JSON.parse(JSON.stringify(participants)),
+      fallback: {
+        '/api/participants': JSON.parse(JSON.stringify(participants)),
+      },
     },
   };
 }

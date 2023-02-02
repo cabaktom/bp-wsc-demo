@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSWRConfig } from 'swr';
 import {
   Checkbox,
   Group,
@@ -38,6 +39,7 @@ const ParticipantForm = ({
     abstract,
   },
 }: ParticipantFormProps) => {
+  const { mutate } = useSWRConfig();
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
@@ -80,86 +82,83 @@ const ParticipantForm = ({
     setLoading(true);
 
     // save participant
-    // const resParticipant = await fetch(`/api/participant/${participantId}`, {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(values.participant),
-    // });
-    console.log(values.participant);
+    const resParticipant = await fetch(`/api/participants/${participantId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values.participant),
+    });
 
-    // if (!resParticipant.ok) {
-    //   const data = await resParticipant.json();
-    //   showNotification({
-    //     title: 'Error!',
-    //     message:
-    //       data.message ?? 'Error while saving participant, please try again.',
-    //     color: 'red',
-    //     icon: <IconCheck size={16} />,
-    //     autoClose: 4000,
-    //   });
+    if (!resParticipant.ok) {
+      const data = await resParticipant.json();
+      showNotification({
+        title: 'Error!',
+        message:
+          data.message ?? 'Error while saving participant, please try again.',
+        color: 'red',
+        icon: <IconCheck size={16} />,
+        autoClose: 4000,
+      });
 
-    //   return;
-    // }
+      setLoading(false);
+      return;
+    }
 
-    // save/create abstract
     if (values.contributing) {
-      // let res;
-      if (abstract) {
-        // res = await fetch(`/api/abstract/${abstract.id}`, {
-        //   method: 'PUT',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({ ...values.abstract, participantId }),
-        // });
-        console.log('updating abstract', { ...values.abstract, participantId });
-      } else {
-        // res = await fetch('/api/abstract', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({ ...values.abstract, participantId }),
-        // });
-        console.log('creating abstract', { ...values.abstract, participantId });
+      // save/create abstract
+      const res = await fetch(`/api/abstracts/${abstract?.id ?? ''}`, {
+        method: abstract ? 'PUT' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...values.abstract, participantId }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        showNotification({
+          title: 'Error!',
+          message:
+            data.message ?? 'Error while saving abstract, please try again.',
+          color: 'red',
+          icon: <IconCheck size={16} />,
+          autoClose: 4000,
+        });
       }
-
-      // if (!res.ok) {
-      //   const data = await resParticipant.json();
-      //   showNotification({
-      //     title: 'Error!',
-      //     message:
-      //       data.message ?? 'Error while saving abstract, please try again.',
-      //     color: 'red',
-      //     icon: <IconCheck size={16} />,
-      //     autoClose: 4000,
-      //   });
-
-      //   return;
-      // }
     } else if (abstract) {
-      // const res = await fetch(`/api/abstract/${abstract.id}`, {
-      //   method: 'DELETE',
-      // });
-      // if (!res.ok) {
-      //   const data = await resParticipant.json();
-      //   showNotification({
-      //     title: 'Error!',
-      //     message:
-      //       data.message ?? 'Error while deleting abstract, please try again.',
-      //     color: 'red',
-      //     icon: <IconCheck size={16} />,
-      //     autoClose: 4000,
-      //   });
+      // user had abstract but now will not contribute
+      const res = await fetch(`/api/abstracts/${abstract.id}`, {
+        method: 'DELETE',
+      });
 
-      //   return;
-      // }
-      console.log('deleting abstract', abstract.id);
+      if (!res.ok) {
+        const data = await res.json();
+        showNotification({
+          title: 'Error!',
+          message:
+            data.message ?? 'Error while deleting abstract, please try again.',
+          color: 'red',
+          icon: <IconCheck size={16} />,
+          autoClose: 4000,
+        });
+      } else {
+        // reset abstract part of form
+        form.setFieldValue('abstract', {
+          title: '',
+          poster: false,
+          additionalAuthors: '',
+          affiliationAuthors: '',
+          abstract: '',
+        });
+      }
     }
 
     setLoading(false);
+
+    // update participants and abstracts
+    mutate('/api/participants');
+    mutate('/api/abstracts');
 
     showNotification({
       title: 'Success!',
@@ -188,12 +187,9 @@ const ParticipantForm = ({
         subjectTitle: `Participant ${fullName}${
           abstract ? ` and abstract ${abstract.title}` : ''
         }`,
-        actionUrl: '/api/abstract',
+        actionUrl: '/api/participants',
       },
-      // TODO: refresh participants after delete
-      // onClose: async () => {
-      //   await ctx.refreshAdmins();
-      // },
+      onClose: () => mutate('/api/participants'),
     });
   };
 

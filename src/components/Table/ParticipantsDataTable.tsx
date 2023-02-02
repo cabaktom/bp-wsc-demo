@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Abstract, Participant } from '@prisma/client';
+import { useSWRConfig } from 'swr';
 import { IconCheck, IconTrash, IconX } from '@tabler/icons';
 import { Container, Group, Text, createStyles } from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
@@ -7,6 +7,7 @@ import { openContextModal } from '@mantine/modals';
 import DataTable from './DataTable';
 import Button from '../Button/Button';
 import ParticipantForm from '../Form/ParticipantForm';
+import useParticipants from '../../hooks/useParticipants';
 
 const useStyles = createStyles(() => ({
   expandContainer: {
@@ -14,16 +15,10 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-type ParticipantsDataTableProps = {
-  participants: (Participant & {
-    abstract: Abstract;
-  })[];
-};
-
-const ParticipantsDataTable = ({
-  participants,
-}: ParticipantsDataTableProps) => {
+const ParticipantsDataTable = () => {
+  const { mutate } = useSWRConfig();
   const { classes } = useStyles();
+  const { participants } = useParticipants();
 
   // selected data
   const [selectedRecords, setSelectedRecords] = useState<typeof participants>(
@@ -71,10 +66,7 @@ const ParticipantsDataTable = ({
         subjectTitle: 'Participants',
         actionUrl: '/api/participant',
       },
-      // TODO: refresh participants after deletion
-      // onClose: async () => {
-      //   await ctx.refreshAdmins();
-      // },
+      onClose: () => mutate('/api/participants'),
     });
   };
 
