@@ -62,11 +62,15 @@ const ParticipantsDataTable = () => {
             action cannot be undone.
           </Text>
         ),
-        subjectId: 0, // FIXME: provide array of IDs
         subjectTitle: 'Participants',
-        actionUrl: '/api/participant',
+        actionUrl: `/api/participants?ids=${selectedRecords.map(
+          (participant) => participant.id,
+        )}`,
       },
-      onClose: () => mutate('/api/participants'),
+      onClose: () => {
+        mutate('/api/participants');
+        setSelectedRecords([]);
+      },
     });
   };
 

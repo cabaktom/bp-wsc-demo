@@ -22,9 +22,14 @@ const DeleteModal = ({ context, id, innerProps }: DeleteModalProps) => {
 
   const handleDelete = async () => {
     setLoading(true);
-    const res = await fetch(`${innerProps.actionUrl}/${innerProps.subjectId}`, {
-      method: 'DELETE',
-    });
+    const res = await fetch(
+      `${innerProps.actionUrl}${
+        innerProps.subjectId ? `/${innerProps.subjectId}` : ''
+      }`,
+      {
+        method: 'DELETE',
+      },
+    );
     setLoading(false);
 
     if (res.status === 204) {

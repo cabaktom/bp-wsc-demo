@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
+import { z } from 'zod';
 
 import { prisma } from '../../../lib/prisma';
 import handleErrors from '../../../lib/handleApiErrors';
@@ -43,6 +44,27 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { ids } = req.query;
+  if (!ids) return res.status(400).json({ message: 'Missing ids.' });
+
+  try {
+    const idsNum =
+      ids
+        .toString()
+        .split(',')
+        .map((id) => z.number().int().parse(Number(id))) ?? [];
+
+    await prisma.participant.deleteMany({
+      where: { id: { in: idsNum } },
+    });
+
+    return res.status(204).end();
+  } catch (e) {
+    return handleErrors('Participant', e, res);
+  }
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -58,8 +80,11 @@ export default async function handler(
     // POST /api/participants
     case 'POST':
       return handlePost(req, res);
+    // DELETE /api/participants?ids=<ids>
+    case 'DELETE':
+      return handleDelete(req, res);
 
     default:
-      return res.status(405).setHeader('Allow', 'GET,POST').end();
+      return res.status(405).setHeader('Allow', 'GET,POST,DELETE').end();
   }
 }
