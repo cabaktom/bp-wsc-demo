@@ -52,6 +52,6 @@ model Abstract {
   additionalAuthors  String?
   affiliationAuthors String?
   abstract           String?
-  participant        Participant @relation(fields: [participantId], references: [id])
+  participant        Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
   participantId      Int         @unique
 }
