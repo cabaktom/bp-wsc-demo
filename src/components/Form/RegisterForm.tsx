@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSWRConfig } from 'swr';
 import {
   Checkbox,
   Group,
@@ -17,6 +18,7 @@ import Alert from './Alert';
 import Paper from '../Layout/Paper';
 
 const RegisterForm = () => {
+  const { mutate } = useSWRConfig();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -76,6 +78,8 @@ const RegisterForm = () => {
         icon: <IconCheck size={16} />,
         autoClose: 4000,
       });
+
+      mutate('/api/participants');
     }
   };
 
