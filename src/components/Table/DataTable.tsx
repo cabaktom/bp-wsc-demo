@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   DataTable as DT,
   type DataTableProps as DTProps,
-  DataTableSortStatus,
+  type DataTableSortStatus,
 } from 'mantine-datatable';
+import { useDebouncedValue } from '@mantine/hooks';
+import { CloseButton, TextInput } from '@mantine/core';
+import { IconSearch } from '@tabler/icons';
 import sortBy from 'lodash/sortBy';
+import keys from 'lodash/keys';
 
 const PAGE_SIZES = [5, 10, 20, 50];
 
@@ -17,13 +21,18 @@ const DataTable = <T extends object>({
   columns,
   ...rest
 }: DataTableProps<T>) => {
+  // all data
+  const [data, setData] = useState(initialData);
+
   // pagination
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(PAGE_SIZES[1]);
   // paginated data
   const [records, setRecords] = useState<T[]>([]);
-  // all data
-  const [data, setData] = useState(initialData);
+
+  // search
+  const [query, setQuery] = useState('');
+  const [debouncedQuery] = useDebouncedValue(query, 200);
 
   // change paginated data when page or perPage changes
   useEffect(() => {
@@ -36,19 +45,50 @@ const DataTable = <T extends object>({
     setPage(1);
   }, [perPage]);
 
-  // sorting
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-    columnAccessor: 'id',
-    direction: 'asc',
-  });
+  // searching and sorting
+  const [sortStatus, setSortStatus] = useState<DataTableSortStatus>();
+
+  const filterData = useCallback((data: T[], search: string) => {
+    const query = search.toLowerCase().trim();
+
+    return data.filter((item) =>
+      Object.values(item).some((value) => {
+        if (typeof value === 'object') {
+          return keys(value).some((key) =>
+            value[key].toString().toLowerCase().includes(query),
+          );
+        }
+        return value.toString().toLowerCase().includes(query);
+      }),
+    );
+  }, []);
+
+  const sortData = useCallback(
+    (data: T[], sortStatus: DataTableSortStatus | undefined, query: string) => {
+      if (!sortStatus) return filterData(data, query);
+
+      const sortedData = sortBy(data, sortStatus.columnAccessor);
+      if (sortStatus.direction === 'desc') sortedData.reverse();
+
+      return filterData(sortedData, query);
+    },
+    [filterData],
+  );
 
   useEffect(() => {
-    const sortedData = sortBy(initialData, sortStatus.columnAccessor);
-    setData(sortStatus.direction === 'asc' ? sortedData : sortedData.reverse());
-  }, [sortStatus, initialData]);
+    setData(sortData(initialData, sortStatus, debouncedQuery));
+  }, [sortStatus, debouncedQuery, initialData, sortData]);
 
   return (
     <>
+      <TextInput
+        placeholder="Search"
+        icon={<IconSearch size={18} />}
+        value={query}
+        onChange={(event) => setQuery(event.currentTarget.value)}
+        rightSection={<CloseButton size={18} onClick={() => setQuery('')} />}
+      />
+
       <DT
         withBorder
         minHeight="32rem"
