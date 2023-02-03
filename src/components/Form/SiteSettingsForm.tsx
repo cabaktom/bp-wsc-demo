@@ -5,7 +5,7 @@ import { showNotification } from '@mantine/notifications';
 import { capitalize } from 'lodash';
 import { z } from 'zod';
 
-import { IconCheck } from '@tabler/icons';
+import { IconCheck } from '@tabler/icons-react';
 import Button from '../Button/Button';
 import Alert from './Alert';
 import { SettingOut } from '../../schemas/Setting';

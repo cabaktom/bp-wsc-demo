@@ -7,7 +7,7 @@ import {
   IconSettings,
   IconUserExclamation,
   IconUsers,
-} from '@tabler/icons';
+} from '@tabler/icons-react';
 
 const links = [
   {

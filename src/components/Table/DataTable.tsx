@@ -6,7 +6,7 @@ import {
 } from 'mantine-datatable';
 import { useDebouncedValue } from '@mantine/hooks';
 import { CloseButton, TextInput } from '@mantine/core';
-import { IconSearch } from '@tabler/icons';
+import { IconSearch } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
 import keys from 'lodash/keys';
 

@@ -13,7 +13,7 @@ import {
 } from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
-import { IconCheck, IconDeviceFloppy, IconTrash } from '@tabler/icons';
+import { IconCheck, IconDeviceFloppy, IconTrash } from '@tabler/icons-react';
 import { openContextModal } from '@mantine/modals';
 import type { Abstract, Participant } from '@prisma/client';
 

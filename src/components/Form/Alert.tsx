@@ -2,7 +2,7 @@ import {
   Alert as MantineAlert,
   type AlertProps as MantineAlertProps,
 } from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons';
+import { IconAlertCircle } from '@tabler/icons-react';
 
 type AlertProps = MantineAlertProps & {
   children: React.ReactNode;

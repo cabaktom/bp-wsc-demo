@@ -1,7 +1,7 @@
 import { useSWRConfig } from 'swr';
 import { Group, ActionIcon } from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
-import { IconPencil, IconTrash } from '@tabler/icons';
+import { IconPencil, IconTrash } from '@tabler/icons-react';
 import { z } from 'zod';
 
 import { AdminOut } from '../../schemas/Admin';

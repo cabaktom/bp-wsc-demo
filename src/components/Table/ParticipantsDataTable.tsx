@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
-import { IconCheck, IconTrash, IconX } from '@tabler/icons';
+import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
 import { Container, Group, Text, createStyles } from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
 

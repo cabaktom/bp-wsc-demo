@@ -6,7 +6,7 @@ import {
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { ContextModalProps } from '@mantine/modals';
-import { IconCheck, IconExclamationMark } from '@tabler/icons';
+import { IconCheck, IconExclamationMark } from '@tabler/icons-react';
 
 import Button from '../Button/Button';
 
