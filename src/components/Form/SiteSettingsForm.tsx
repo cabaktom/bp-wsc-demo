@@ -4,11 +4,11 @@ import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { capitalize } from 'lodash';
 import { z } from 'zod';
-
 import { IconCheck } from '@tabler/icons-react';
-import Button from '../Button/Button';
-import Alert from './Alert';
+
 import { SettingOut } from '../../schemas/Setting';
+import MyButton from '../Button/MyButton';
+import MyAlert from './MyAlert';
 
 type SiteSettingsFormProps = {
   settings: z.infer<typeof SettingOut>[];
@@ -73,9 +73,9 @@ const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
-        <Alert onClose={() => setError('')} withCloseButton={false} mb="xs">
+        <MyAlert onClose={() => setError('')} withCloseButton={false} mb="xs">
           {error}
-        </Alert>
+        </MyAlert>
       )}
 
       {settings.map((setting) => (
@@ -90,7 +90,7 @@ const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
       ))}
 
       <Center>
-        <Button
+        <MyButton
           type="submit"
           fullWidth
           loading={loading}
@@ -98,7 +98,7 @@ const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
           mt="xs"
         >
           Save
-        </Button>
+        </MyButton>
       </Center>
     </form>
   );

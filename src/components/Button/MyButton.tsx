@@ -1,7 +1,7 @@
 import type { MouseEventHandler, ReactNode } from 'react';
 import {
-  Button as MantineButton,
-  type ButtonProps as MantineButtonProps,
+  Button,
+  type ButtonProps,
   useMantineTheme,
   createStyles,
 } from '@mantine/core';
@@ -16,19 +16,19 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-type ButtonProps = MantineButtonProps & {
+type MyButtonProps = ButtonProps & {
   className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   children: ReactNode;
 };
 
-const Button = ({
+const MyButton = ({
   className = '',
   onClick,
   children,
   color = '',
   ...rest
-}: ButtonProps) => {
+}: MyButtonProps) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const colorOverride =
@@ -37,15 +37,15 @@ const Button = ({
       : color;
 
   return (
-    <MantineButton
+    <Button
       className={`${classes.button} ${className}`}
       onClick={onClick}
       color={colorOverride}
       {...rest}
     >
       {children}
-    </MantineButton>
+    </Button>
   );
 };
 
-export default Button;
+export default MyButton;

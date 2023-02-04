@@ -5,7 +5,7 @@ import type { Page as PageType } from '@prisma/client';
 import { Title } from '@mantine/core';
 
 import { prisma } from '../lib/prisma';
-import Paper from '../components/Layout/Paper';
+import MyPaper from '../components/Layout/MyPaper';
 
 type AbstractsPageProps = {
   page: PageType;
@@ -33,7 +33,7 @@ const AbstractsPage: NextPage<AbstractsPageProps> = ({ page, abstracts }) => {
 
       {abstracts.map((abstract) => (
         <div key={abstract.id} id={abstract.id.toString()}>
-          <Paper>
+          <MyPaper>
             <Title order={5}>{abstract.title}</Title>
             <p>
               {abstract.participant.fullName}
@@ -49,7 +49,7 @@ const AbstractsPage: NextPage<AbstractsPageProps> = ({ page, abstracts }) => {
             </p>
             <strong>Abstract:</strong>
             <p>{abstract.abstract}</p>
-          </Paper>
+          </MyPaper>
         </div>
       ))}
     </>

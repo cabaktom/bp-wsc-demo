@@ -3,10 +3,10 @@ import { useSWRConfig } from 'swr';
 import { Center, TextInput } from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
-
 import { IconCheck } from '@tabler/icons-react';
-import Button from '../Button/Button';
-import Alert from './Alert';
+
+import MyButton from '../Button/MyButton';
+import MyAlert from './MyAlert';
 
 type EditAdminFormProps = {
   id: number;
@@ -67,9 +67,9 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
-        <Alert onClose={() => setError('')} withCloseButton={false} mb="xs">
+        <MyAlert onClose={() => setError('')} withCloseButton={false} mb="xs">
           {error}
-        </Alert>
+        </MyAlert>
       )}
 
       <TextInput
@@ -89,7 +89,7 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
       />
 
       <Center>
-        <Button
+        <MyButton
           type="submit"
           fullWidth
           loading={loading}
@@ -97,7 +97,7 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
           mt="xs"
         >
           Save
-        </Button>
+        </MyButton>
       </Center>
     </form>
   );

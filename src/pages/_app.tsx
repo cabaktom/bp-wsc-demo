@@ -4,11 +4,11 @@ import { MantineProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 
 import theme from '../constants/theme';
-import AppShell from '../components/Layout/AppShell';
+import MyAppShell from '../components/Layout/MyAppShell';
 import ScrollToTop from '../components/Button/ScrollToTop';
 import Layout from '../components/Layout/Layout';
 import type { AppPropsWithLayout } from '../@types';
-import ModalsProvider from '../components/Modal/ModalsProvider';
+import MyModalsProvider from '../components/Modal/MyModalsProvider';
 
 const App = ({
   Component,
@@ -31,12 +31,12 @@ const App = ({
         </Head>
 
         <MantineProvider withNormalizeCSS withGlobalStyles theme={theme}>
-          <ModalsProvider>
+          <MyModalsProvider>
             <NotificationsProvider limit={5}>
-              <AppShell>{getLayout(<Component {...pageProps} />)}</AppShell>
+              <MyAppShell>{getLayout(<Component {...pageProps} />)}</MyAppShell>
               <ScrollToTop />
             </NotificationsProvider>
-          </ModalsProvider>
+          </MyModalsProvider>
         </MantineProvider>
       </SessionProvider>
     </>

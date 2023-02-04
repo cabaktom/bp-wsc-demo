@@ -5,7 +5,7 @@ import type { Admin } from '@prisma/client';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
-import Paper from '../../components/Layout/Paper';
+import MyPaper from '../../components/Layout/MyPaper';
 import CreateAdminForm from '../../components/Form/CreateAdminForm';
 import EditAdminForm from '../../components/Form/EditAdminForm';
 import ChangePasswordForm from '../../components/Form/ChangePasswordForm';
@@ -34,7 +34,7 @@ const AdministratorsPage: NextPageWithLayout<AdministratorsPageProps> = ({
       <Stack spacing="md">
         <Grid align="center" gutter="xl">
           <Grid.Col offsetXs={1} xs={10} offsetSm={0} sm={6}>
-            <Paper pos="relative">
+            <MyPaper pos="relative">
               <LoadingOverlay visible={!session} />
 
               <Title order={4}>Your account</Title>
@@ -42,14 +42,14 @@ const AdministratorsPage: NextPageWithLayout<AdministratorsPageProps> = ({
 
               <Title order={4}>Change password</Title>
               <ChangePasswordForm id={id} />
-            </Paper>
+            </MyPaper>
           </Grid.Col>
           <Grid.Col offsetXs={1} xs={10} offsetSm={0} sm={6}>
-            <Paper>
+            <MyPaper>
               <Title order={4}>New administrator</Title>
 
               <CreateAdminForm />
-            </Paper>
+            </MyPaper>
           </Grid.Col>
         </Grid>
 

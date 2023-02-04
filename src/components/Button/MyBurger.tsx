@@ -1,9 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
-import {
-  Burger as MantineBurger,
-  type BurgerProps as MantineBurgerProps,
-  createStyles,
-} from '@mantine/core';
+import { Burger, type BurgerProps, createStyles } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   burger: {
@@ -15,15 +11,15 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-type BurgerProps = MantineBurgerProps & {
+type MyBurgerProps = BurgerProps & {
   setOpened: Dispatch<SetStateAction<boolean>>;
 };
 
-const Burger = ({ setOpened, ...rest }: BurgerProps) => {
+const MyBurger = ({ setOpened, ...rest }: MyBurgerProps) => {
   const { classes } = useStyles();
 
   return (
-    <MantineBurger
+    <Burger
       className={classes.burger}
       onClick={() => setOpened((o) => !o)}
       size="md"
@@ -34,4 +30,4 @@ const Burger = ({ setOpened, ...rest }: BurgerProps) => {
   );
 };
 
-export default Burger;
+export default MyBurger;

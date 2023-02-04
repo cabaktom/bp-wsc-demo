@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { createStyles, Navbar as MantineNavbar } from '@mantine/core';
+import { createStyles, Navbar } from '@mantine/core';
+
 import links from '../../constants/links';
 import NavLink from './NavLink';
 
@@ -77,9 +78,9 @@ const NavDropdown = ({ opened, setOpened }: NavDropdownProps) => {
 
   return (
     <>
-      <MantineNavbar className={classes.navbar} hidden={!opened}>
+      <Navbar className={classes.navbar} hidden={!opened}>
         <ul className={classes.links}>{navLinksJSX}</ul>
-      </MantineNavbar>
+      </Navbar>
     </>
   );
 };

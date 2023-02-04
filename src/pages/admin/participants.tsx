@@ -7,7 +7,7 @@ import type { NextPageWithLayout } from '../../@types';
 import ParticipantsDataTable from '../../components/Table/ParticipantsDataTable';
 import { prisma } from '../../lib/prisma';
 import RegisterForm from '../../components/Form/RegisterForm';
-import Paper from '../../components/Layout/Paper';
+import MyPaper from '../../components/Layout/MyPaper';
 
 type ParticipantsPageProps = {
   fallback: {
@@ -23,10 +23,10 @@ const ParticipantsPage: NextPageWithLayout<ParticipantsPageProps> = ({
   return (
     <SWRConfig value={{ fallback }}>
       <Stack spacing="md">
-        <Paper>
+        <MyPaper>
           <Title order={4}>New participant</Title>
           <RegisterForm />
-        </Paper>
+        </MyPaper>
 
         <ParticipantsDataTable />
       </Stack>

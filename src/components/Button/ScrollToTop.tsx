@@ -1,12 +1,8 @@
-import {
-  Affix as MantineAffix,
-  Transition as MantineTransition,
-  createStyles,
-} from '@mantine/core';
+import { Affix, Transition, createStyles } from '@mantine/core';
 import { useWindowScroll } from '@mantine/hooks';
 import { IconArrowUp } from '@tabler/icons-react';
 
-import Button from './Button';
+import Button from './MyButton';
 
 const useStyles = createStyles((theme) => ({
   affix: {
@@ -46,16 +42,16 @@ const ScrollToTop = () => {
   const [scroll, scrollTo] = useWindowScroll();
 
   return (
-    <MantineAffix className={classes.affix}>
-      <MantineTransition transition="slide-up" mounted={scroll.y > 0}>
+    <Affix className={classes.affix}>
+      <Transition transition="slide-up" mounted={scroll.y > 0}>
         {() => (
           <Button className={classes.button} onClick={() => scrollTo({ y: 0 })}>
             <IconArrowUp className={classes.icon} />
             <span className={classes.text}>Scroll to top</span>
           </Button>
         )}
-      </MantineTransition>
-    </MantineAffix>
+      </Transition>
+    </Affix>
   );
 };
 

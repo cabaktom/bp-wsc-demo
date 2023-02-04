@@ -1,16 +1,13 @@
-import {
-  Alert as MantineAlert,
-  type AlertProps as MantineAlertProps,
-} from '@mantine/core';
+import { Alert, type AlertProps } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
 
-type AlertProps = MantineAlertProps & {
+type MyAlertProps = AlertProps & {
   children: React.ReactNode;
 };
 
-const Alert = ({ children, ...rest }: AlertProps) => {
+const MyAlert = ({ children, ...rest }: MyAlertProps) => {
   return (
-    <MantineAlert
+    <Alert
       icon={<IconAlertCircle />}
       color="red"
       variant="filled"
@@ -19,8 +16,8 @@ const Alert = ({ children, ...rest }: AlertProps) => {
       {...rest}
     >
       {children}
-    </MantineAlert>
+    </Alert>
   );
 };
 
-export default Alert;
+export default MyAlert;

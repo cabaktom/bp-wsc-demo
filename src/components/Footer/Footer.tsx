@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Container as MantineContainer, createStyles } from '@mantine/core';
+import { Container, createStyles } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -50,7 +50,7 @@ const Footer = () => {
 
   return (
     <div className={classes.footer}>
-      <MantineContainer className={classes.inner} size="lg">
+      <Container className={classes.inner} size="lg">
         <div className={classes.group}>
           <span>&copy;{new Date().getFullYear()}</span>
           <a
@@ -63,7 +63,7 @@ const Footer = () => {
         </div>
 
         <Link href="/admin">Administrator</Link>
-      </MantineContainer>
+      </Container>
     </div>
   );
 };

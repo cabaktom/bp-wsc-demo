@@ -13,9 +13,8 @@ import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 
-import Button from '../Button/Button';
-import Alert from './Alert';
-import Paper from '../Layout/Paper';
+import MyButton from '../Button/MyButton';
+import MyAlert from './MyAlert';
 
 const RegisterForm = () => {
   const { mutate } = useSWRConfig();
@@ -86,125 +85,123 @@ const RegisterForm = () => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
-        <Alert onClose={() => setError('')} mb="xs">
+        <MyAlert onClose={() => setError('')} mb="xs">
           {error}
-        </Alert>
+        </MyAlert>
       )}
 
       <Stack align="stretch">
-        <Paper>
-          <Group grow>
-            <TextInput
-              withAsterisk
-              label="Full name"
-              aria-label="Full name input"
-              {...form.getInputProps('fullName')}
-            />
-            <TextInput
-              withAsterisk
-              label="Email"
-              aria-label="Email input"
-              {...form.getInputProps('email')}
-            />
-          </Group>
-
-          <Group grow>
-            <TextInput
-              withAsterisk
-              label="Affiliation"
-              aria-label="Affiliation input"
-              {...form.getInputProps('affiliation')}
-            />
-            <Select
-              withAsterisk
-              label="Online/Onsite participation"
-              aria-label="Online/Onsite participation input"
-              data={[
-                { value: 'ONLINE', label: 'Online' },
-                { value: 'ONSITE', label: 'Onsite' },
-              ]}
-              {...form.getInputProps('participation')}
-            />
-          </Group>
-
-          <Group grow>
-            <TextInput
-              label="Mailing address (will be used for invoice)"
-              aria-label="Mailing address (will be used for invoice) input"
-              {...form.getInputProps('mailingAddress')}
-            />
-            <Checkbox
-              label="Student"
-              aria-label="Student checkbox"
-              {...form.getInputProps('student', { type: 'checkbox' })}
-            />
-          </Group>
-
-          <Textarea
-            autosize
-            minRows={2}
-            maxRows={5}
-            label="Additional message"
-            aria-label="Additional message input"
-            {...form.getInputProps('additionalMessage')}
+        <Group grow>
+          <TextInput
+            withAsterisk
+            label="Full name"
+            aria-label="Full name input"
+            {...form.getInputProps('fullName')}
           />
+          <TextInput
+            withAsterisk
+            label="Email"
+            aria-label="Email input"
+            {...form.getInputProps('email')}
+          />
+        </Group>
 
+        <Group grow>
+          <TextInput
+            withAsterisk
+            label="Affiliation"
+            aria-label="Affiliation input"
+            {...form.getInputProps('affiliation')}
+          />
+          <Select
+            withAsterisk
+            label="Online/Onsite participation"
+            aria-label="Online/Onsite participation input"
+            data={[
+              { value: 'ONLINE', label: 'Online' },
+              { value: 'ONSITE', label: 'Onsite' },
+            ]}
+            {...form.getInputProps('participation')}
+          />
+        </Group>
+
+        <Group grow>
+          <TextInput
+            label="Mailing address (will be used for invoice)"
+            aria-label="Mailing address (will be used for invoice) input"
+            {...form.getInputProps('mailingAddress')}
+          />
           <Checkbox
-            label="Contribution"
-            aria-label="Contribution checkbox"
-            {...form.getInputProps('contributing', { type: 'checkbox' })}
+            label="Student"
+            aria-label="Student checkbox"
+            {...form.getInputProps('student', { type: 'checkbox' })}
           />
+        </Group>
 
-          <Transition
-            mounted={form.values.contributing}
-            transition="scale-y"
-            duration={100}
-            timingFunction="ease"
-          >
-            {(styles) => (
-              <div style={styles}>
-                <Group grow>
-                  <TextInput
-                    withAsterisk
-                    label="Abstract title"
-                    aria-label="Abstract title input"
-                    {...form.getInputProps('title')}
-                  />
-                  <Checkbox
-                    label="Poster"
-                    aria-label="Poster checkbox"
-                    {...form.getInputProps('poster', { type: 'checkbox' })}
-                  />
-                </Group>
-                <Group grow>
-                  <TextInput
-                    label="Additional authors"
-                    aria-label="Additional authors input"
-                    {...form.getInputProps('additionalAuthors')}
-                  />
-                  <TextInput
-                    label="Affiliation authors"
-                    aria-label="Affiliation authors input"
-                    {...form.getInputProps('affiliationAuthors')}
-                  />
-                </Group>
+        <Textarea
+          autosize
+          minRows={2}
+          maxRows={5}
+          label="Additional message"
+          aria-label="Additional message input"
+          {...form.getInputProps('additionalMessage')}
+        />
 
-                <Textarea
-                  autosize
-                  minRows={2}
-                  maxRows={5}
-                  label="Abstract"
-                  aria-label="Abstract input"
-                  {...form.getInputProps('abstract')}
+        <Checkbox
+          label="Contribution"
+          aria-label="Contribution checkbox"
+          {...form.getInputProps('contributing', { type: 'checkbox' })}
+        />
+
+        <Transition
+          mounted={form.values.contributing}
+          transition="scale-y"
+          duration={100}
+          timingFunction="ease"
+        >
+          {(styles) => (
+            <div style={styles}>
+              <Group grow>
+                <TextInput
+                  withAsterisk
+                  label="Abstract title"
+                  aria-label="Abstract title input"
+                  {...form.getInputProps('title')}
                 />
-              </div>
-            )}
-          </Transition>
-        </Paper>
+                <Checkbox
+                  label="Poster"
+                  aria-label="Poster checkbox"
+                  {...form.getInputProps('poster', { type: 'checkbox' })}
+                />
+              </Group>
+              <Group grow>
+                <TextInput
+                  label="Additional authors"
+                  aria-label="Additional authors input"
+                  {...form.getInputProps('additionalAuthors')}
+                />
+                <TextInput
+                  label="Affiliation authors"
+                  aria-label="Affiliation authors input"
+                  {...form.getInputProps('affiliationAuthors')}
+                />
+              </Group>
 
-        <Button type="submit" loading={loading} disabled={!form.isValid()}>
+              <Textarea
+                autosize
+                minRows={2}
+                maxRows={5}
+                label="Abstract"
+                aria-label="Abstract input"
+                {...form.getInputProps('abstract')}
+              />
+            </div>
+          )}
+        </Transition>
+
+        <MyButton type="submit" loading={loading} disabled={!form.isValid()}>
           Submit
-        </Button>
+        </MyButton>
       </Stack>
     </form>
   );

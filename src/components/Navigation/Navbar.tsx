@@ -1,9 +1,9 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { Header as MantineHeader, createStyles } from '@mantine/core';
+import { Header, createStyles } from '@mantine/core';
 
 import links from '../../constants/links';
 import NavLink from './NavLink';
-import Burger from '../Button/Burger';
+import MyBurger from '../Button/MyBurger';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -63,10 +63,10 @@ const Navbar = ({ opened, setOpened }: NavbarProps) => {
   ));
 
   return (
-    <MantineHeader height={50} className={classes.header}>
-      <Burger opened={opened} setOpened={setOpened} />
+    <Header height={50} className={classes.header}>
+      <MyBurger opened={opened} setOpened={setOpened} />
       <ul className={classes.links}>{navLinksJSX}</ul>
-    </MantineHeader>
+    </Header>
   );
 };
 

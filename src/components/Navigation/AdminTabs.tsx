@@ -1,12 +1,7 @@
 import type { ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import { signOut } from 'next-auth/react';
-import {
-  Tabs as MantineTabs,
-  Text as MantineText,
-  Tooltip as MantineTooltip,
-  createStyles,
-} from '@mantine/core';
+import { Tabs, Text, Tooltip, createStyles } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { openConfirmModal } from '@mantine/modals';
 
@@ -120,10 +115,10 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
       title: 'Logout',
       size: 'sm',
       children: (
-        <MantineText size="sm">
+        <Text size="sm">
           Are you sure you want to logout? You will be redirected to the home
           page.
-        </MantineText>
+        </Text>
       ),
       labels: { confirm: 'Confirm', cancel: 'Cancel' },
       onConfirm: async () => {
@@ -140,7 +135,7 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
   const tabsJSX = (
     <>
       {adminLinks.map((link) => (
-        <MantineTooltip
+        <Tooltip
           key={link.url}
           label={link.title}
           color={link.title === 'Log out' ? 'red' : 'materialBlue'}
@@ -149,23 +144,23 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
           hidden={matches}
           events={{ hover: true, focus: true, touch: false }}
         >
-          <MantineTabs.Tab
+          <Tabs.Tab
             value={link.url}
             icon={link.icon}
             aria-label={link.title}
             mb={link.title === 'Log out' ? '0' : 'xs'}
             mt={link.title === 'Log out' ? 'auto' : '0'}
           >
-            <MantineText fz="sm">{link.title}</MantineText>
-          </MantineTabs.Tab>
-        </MantineTooltip>
+            <Text fz="sm">{link.title}</Text>
+          </Tabs.Tab>
+        </Tooltip>
       ))}
     </>
   );
 
   return (
     <>
-      <MantineTabs
+      <Tabs
         classNames={{
           root: classes.root,
           tabsList: classes.tabsList,
@@ -183,18 +178,18 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
         }}
         activateTabWithKeyboard={false}
       >
-        <MantineTabs.List
+        <Tabs.List
           position={matches ? 'left' : 'center'}
           pl={matches ? 'xs' : '0'}
           aria-label="Admin control tabs"
         >
           {tabsJSX}
-        </MantineTabs.List>
+        </Tabs.List>
 
-        <MantineTabs.Panel value={router.pathname} my="md">
+        <Tabs.Panel value={router.pathname} my="md">
           <Content className={classes.content}>{children}</Content>
-        </MantineTabs.Panel>
-      </MantineTabs>
+        </Tabs.Panel>
+      </Tabs>
     </>
   );
 };

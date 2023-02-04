@@ -12,8 +12,8 @@ import {
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 
-import Button from '../Button/Button';
-import Alert from './Alert';
+import MyButton from '../Button/MyButton';
+import MyAlert from './MyAlert';
 
 const useStyles = createStyles((theme) => ({
   forgotPasswordLabel: {
@@ -65,9 +65,9 @@ const LoginForm = () => {
     <>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         {error && (
-          <Alert onClose={() => setError('')} mb="xs">
+          <MyAlert onClose={() => setError('')} mb="xs">
             {error}
-          </Alert>
+          </MyAlert>
         )}
 
         <input name="csrfToken" type="hidden" />
@@ -102,9 +102,9 @@ const LoginForm = () => {
           {...form.getInputProps('password')}
         />
         <Center>
-          <Button type="submit" fullWidth loading={loading} mt="xs">
+          <MyButton type="submit" fullWidth loading={loading} mt="xs">
             Sign in
-          </Button>
+          </MyButton>
         </Center>
       </form>
     </>

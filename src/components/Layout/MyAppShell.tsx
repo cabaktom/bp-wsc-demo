@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect, useState } from 'react';
 import {
-  AppShell as MantineAppShell,
+  AppShell,
   TypographyStylesProvider,
   createStyles,
 } from '@mantine/core';
@@ -14,11 +14,11 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-type AppShellProps = {
+type MyAppShellProps = {
   children: ReactNode;
 };
 
-const AppShell = ({ children }: AppShellProps) => {
+const MyAppShell = ({ children }: MyAppShellProps) => {
   const [opened, setOpened] = useState(false);
 
   const { classes } = useStyles();
@@ -36,7 +36,7 @@ const AppShell = ({ children }: AppShellProps) => {
   }, []);
 
   return (
-    <MantineAppShell
+    <AppShell
       padding={0}
       fixed
       header={<Navbar opened={opened} setOpened={setOpened} />}
@@ -45,8 +45,8 @@ const AppShell = ({ children }: AppShellProps) => {
       <TypographyStylesProvider className={classes.provider}>
         {children}
       </TypographyStylesProvider>
-    </MantineAppShell>
+    </AppShell>
   );
 };
 
-export default AppShell;
+export default MyAppShell;

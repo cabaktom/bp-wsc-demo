@@ -5,6 +5,7 @@ import type { Page as PageType } from '@prisma/client';
 
 import { prisma } from '../lib/prisma';
 import RegisterForm from '../components/Form/RegisterForm';
+import MyPaper from '../components/Layout/MyPaper';
 
 type RegisterPageProps = {
   page: PageType;
@@ -19,7 +20,9 @@ const RegisterPage: NextPage<RegisterPageProps> = ({ page }) => {
 
       {parse(page.content)}
 
-      <RegisterForm />
+      <MyPaper>
+        <RegisterForm />
+      </MyPaper>
     </>
   );
 };

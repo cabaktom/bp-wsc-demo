@@ -17,8 +17,8 @@ import { IconCheck, IconDeviceFloppy, IconTrash } from '@tabler/icons-react';
 import { openContextModal } from '@mantine/modals';
 import type { Abstract, Participant } from '@prisma/client';
 
-import Button from '../Button/Button';
-import Alert from './Alert';
+import MyButton from '../Button/MyButton';
+import MyAlert from './MyAlert';
 
 type ParticipantFormProps = {
   participant: Participant & {
@@ -197,26 +197,26 @@ const ParticipantForm = ({
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Flex mb="sm" gap="sm" justify="flex-end" align="center">
         {!form.values.contributing && abstract && (
-          <Alert withCloseButton={false}>
+          <MyAlert withCloseButton={false}>
             Participant has an abstract, saving will delete it.
-          </Alert>
+          </MyAlert>
         )}
-        <Button
+        <MyButton
           type="submit"
           loading={loading}
           disabled={!form.isValid()}
           leftIcon={<IconDeviceFloppy size={18} />}
         >
           Save
-        </Button>
+        </MyButton>
 
-        <Button
+        <MyButton
           color="red.7"
           onClick={handleDelete}
           leftIcon={<IconTrash size={18} />}
         >
           Delete
-        </Button>
+        </MyButton>
       </Flex>
 
       <Stack align="stretch" spacing="xl">

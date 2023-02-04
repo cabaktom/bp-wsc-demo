@@ -3,10 +3,10 @@ import { Center, PasswordInput } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
-
 import { IconCheck } from '@tabler/icons-react';
-import Button from '../Button/Button';
-import Alert from './Alert';
+
+import MyButton from '../Button/MyButton';
+import MyAlert from './MyAlert';
 
 type ChangePasswordFormProps = {
   id: number;
@@ -72,9 +72,9 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
-        <Alert onClose={() => setError('')} mb="xs">
+        <MyAlert onClose={() => setError('')} mb="xs">
           {error}
-        </Alert>
+        </MyAlert>
       )}
 
       <PasswordInput
@@ -109,7 +109,7 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
       />
 
       <Center>
-        <Button
+        <MyButton
           type="submit"
           fullWidth
           loading={loading}
@@ -117,7 +117,7 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
           mt="xs"
         >
           Update
-        </Button>
+        </MyButton>
       </Center>
     </form>
   );

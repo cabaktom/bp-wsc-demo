@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { Title, createStyles } from '@mantine/core';
 
 import LoginForm from '../components/Form/LoginForm';
-import Paper from '../components/Layout/Paper';
+import MyPaper from '../components/Layout/MyPaper';
 import { prisma } from '../lib/prisma';
 
 const useStyles = createStyles((theme) => ({
@@ -28,9 +28,9 @@ const LogInPage: NextPage = () => {
       <div className={classes.inner}>
         <Title order={3}>Log in as an administrator</Title>
 
-        <Paper>
+        <MyPaper>
           <LoginForm />
-        </Paper>
+        </MyPaper>
       </div>
     </>
   );

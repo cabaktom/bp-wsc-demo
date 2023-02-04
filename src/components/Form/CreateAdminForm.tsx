@@ -4,10 +4,10 @@ import { Center, PasswordInput, TextInput } from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
-
 import { IconCheck } from '@tabler/icons-react';
-import Button from '../Button/Button';
-import Alert from './Alert';
+
+import MyButton from '../Button/MyButton';
+import MyAlert from './MyAlert';
 
 const CreateAdminForm = () => {
   const { mutate } = useSWRConfig();
@@ -77,9 +77,9 @@ const CreateAdminForm = () => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
-        <Alert onClose={() => setError('')} mb="xs">
+        <MyAlert onClose={() => setError('')} mb="xs">
           {error}
-        </Alert>
+        </MyAlert>
       )}
 
       <TextInput
@@ -121,7 +121,7 @@ const CreateAdminForm = () => {
       />
 
       <Center>
-        <Button
+        <MyButton
           type="submit"
           fullWidth
           loading={loading}
@@ -129,7 +129,7 @@ const CreateAdminForm = () => {
           mt="xs"
         >
           Create
-        </Button>
+        </MyButton>
       </Center>
     </form>
   );

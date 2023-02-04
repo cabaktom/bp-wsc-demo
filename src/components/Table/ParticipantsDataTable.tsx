@@ -5,7 +5,7 @@ import { Container, Group, Text, createStyles } from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
 
 import DataTable from './DataTable';
-import Button from '../Button/Button';
+import MyButton from '../Button/MyButton';
 import ParticipantForm from '../Form/ParticipantForm';
 import useParticipants from '../../hooks/useParticipants';
 
@@ -77,19 +77,22 @@ const ParticipantsDataTable = () => {
   return (
     <>
       <Group spacing="xs">
-        <Button onClick={expandAllRows}>Expand all</Button>
-        <Button onClick={collapseAllRows}>Collapse all</Button>
-        <Button onClick={expandSelectedRows} disabled={!selectedRecords.length}>
+        <MyButton onClick={expandAllRows}>Expand all</MyButton>
+        <MyButton onClick={collapseAllRows}>Collapse all</MyButton>
+        <MyButton
+          onClick={expandSelectedRows}
+          disabled={!selectedRecords.length}
+        >
           Expand selected
-        </Button>
-        <Button
+        </MyButton>
+        <MyButton
           onClick={collapseSelectedRows}
           disabled={!selectedRecords.length}
         >
           Collapse selected
-        </Button>
+        </MyButton>
 
-        <Button
+        <MyButton
           leftIcon={<IconTrash size={18} />}
           color="red"
           ml="auto"
@@ -103,7 +106,7 @@ const ParticipantsDataTable = () => {
                   : `${selectedRecords.length} selected records`
               }`
             : 'Select records to delete'}
-        </Button>
+        </MyButton>
       </Group>
 
       <DataTable
