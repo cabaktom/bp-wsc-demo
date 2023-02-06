@@ -18,7 +18,7 @@ const links = [
     url: '/register',
   },
   {
-    title: 'Participants and abstracts',
+    title: 'Participants & abstracts',
     url: '/participants',
   },
   {
@@ -51,7 +51,7 @@ export const adminLinks = [
     icon: <IconUserExclamation />,
   },
   {
-    title: 'Participants and abstracts',
+    title: 'Participants & abstracts',
     url: '/admin/participants',
     icon: <IconUsers />,
   },
