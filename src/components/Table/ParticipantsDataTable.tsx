@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
-import { Container, Group, Text, createStyles } from '@mantine/core';
+import { Container, Group, Stack, Text, createStyles } from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
 
 import DataTable from './DataTable';
@@ -75,22 +75,32 @@ const ParticipantsDataTable = () => {
   };
 
   return (
-    <>
+    <Stack spacing="xs">
       <Group spacing="xs">
-        <MyButton onClick={expandAllRows}>Expand all</MyButton>
-        <MyButton onClick={collapseAllRows}>Collapse all</MyButton>
-        <MyButton
-          onClick={expandSelectedRows}
-          disabled={!selectedRecords.length}
-        >
-          Expand selected
-        </MyButton>
-        <MyButton
-          onClick={collapseSelectedRows}
-          disabled={!selectedRecords.length}
-        >
-          Collapse selected
-        </MyButton>
+        <Group>
+          <MyButton onClick={expandAllRows}>Expand all</MyButton>
+          <MyButton
+            onClick={expandSelectedRows}
+            disabled={!selectedRecords.length}
+          >
+            Expand selected
+          </MyButton>
+        </Group>
+
+        <Group>
+          <MyButton
+            onClick={collapseAllRows}
+            disabled={!expandedRecordIds.length}
+          >
+            Collapse all
+          </MyButton>
+          <MyButton
+            onClick={collapseSelectedRows}
+            disabled={!selectedRecords.length}
+          >
+            Collapse selected
+          </MyButton>
+        </Group>
 
         <MyButton
           leftIcon={<IconTrash size={18} />}
@@ -115,26 +125,26 @@ const ParticipantsDataTable = () => {
           {
             accessor: 'number',
             title: '#',
-            width: '5%',
+            width: 30,
             render: (_, index) => index + 1,
           },
           {
             accessor: 'fullName',
             title: 'Full name',
             sortable: true,
-            width: '15%',
+            width: 150,
           },
           {
             accessor: 'affiliation',
             title: 'Affiliation',
             sortable: true,
-            width: '50%',
+            width: 200,
           },
           {
             accessor: 'student',
             title: 'Student',
             sortable: true,
-            width: '5%',
+            width: 110,
             render: (participant) =>
               participant.student ? (
                 <IconCheck color="green" />
@@ -146,7 +156,7 @@ const ParticipantsDataTable = () => {
             accessor: 'abstract',
             title: 'Abstract',
             sortable: true,
-            width: '5%',
+            width: 110,
             render: (participant) =>
               participant.abstract ? (
                 <IconCheck color="green" />
@@ -158,14 +168,14 @@ const ParticipantsDataTable = () => {
             accessor: 'participation',
             title: 'Participation',
             sortable: true,
-            width: '10%',
+            width: 130,
             render: (participant) => participant.participation.toLowerCase(),
           },
           {
             accessor: 'additionalMessage',
             title: 'Additional message',
             sortable: true,
-            width: '10%',
+            width: 300,
           },
         ]}
         selectedRecords={selectedRecords}
@@ -196,7 +206,7 @@ const ParticipantsDataTable = () => {
           ),
         }}
       />
-    </>
+    </Stack>
   );
 };
 

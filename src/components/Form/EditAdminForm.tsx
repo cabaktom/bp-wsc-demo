@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
-import { Center, TextInput } from '@mantine/core';
+import { Stack, TextInput } from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
@@ -72,23 +72,21 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
         </MyAlert>
       )}
 
-      <TextInput
-        withAsterisk
-        label="Username"
-        aria-label="Username input"
-        mb="sm"
-        {...form.getInputProps('username')}
-      />
+      <Stack spacing="sm">
+        <TextInput
+          withAsterisk
+          label="Username"
+          aria-label="Username input"
+          {...form.getInputProps('username')}
+        />
 
-      <TextInput
-        withAsterisk
-        label="Email"
-        aria-label="Email input"
-        mb="sm"
-        {...form.getInputProps('email')}
-      />
+        <TextInput
+          withAsterisk
+          label="Email"
+          aria-label="Email input"
+          {...form.getInputProps('email')}
+        />
 
-      <Center>
         <MyButton
           type="submit"
           fullWidth
@@ -98,7 +96,7 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
         >
           Save
         </MyButton>
-      </Center>
+      </Stack>
     </form>
   );
 };

@@ -1,5 +1,5 @@
 import { SWRConfig } from 'swr';
-import { Stack, Title } from '@mantine/core';
+import { Stack } from '@mantine/core';
 import type { Abstract, Participant } from '@prisma/client';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
@@ -24,8 +24,10 @@ const ParticipantsPage: NextPageWithLayout<ParticipantsPageProps> = ({
     <SWRConfig value={{ fallback }}>
       <Stack spacing="md">
         <MyPaper>
-          <Title order={4}>New participant</Title>
-          <RegisterForm />
+          <RegisterForm
+            participantTitle="New participant"
+            abstractTitle="New contribution"
+          />
         </MyPaper>
 
         <ParticipantsDataTable />

@@ -21,7 +21,10 @@ const RegisterPage: NextPage<RegisterPageProps> = ({ page }) => {
       {parse(page.content)}
 
       <MyPaper>
-        <RegisterForm />
+        <RegisterForm
+          participantTitle="Personal data"
+          abstractTitle="Your contribution"
+        />
       </MyPaper>
     </>
   );

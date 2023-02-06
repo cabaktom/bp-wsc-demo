@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { Stack, Text } from '@mantine/core';
+import { Container, Title } from '@mantine/core';
 import { z } from 'zod';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
 import SiteSettingsForm from '../../components/Form/SiteSettingsForm';
 import Header from '../../components/Header/Header';
-import Paper from '../../components/Layout/Paper';
+import MyPaper from '../../components/Layout/MyPaper';
 import { prisma } from '../../lib/prisma';
-import { SettingOut } from '../../schemas/Setting';
+import type { SettingOut } from '../../schemas/Setting';
 
 type AdminDashboardPageProps = {
   settings: z.infer<typeof SettingOut>[];
@@ -21,18 +21,19 @@ const AdminDashboardPage: NextPageWithLayout<AdminDashboardPageProps> = ({
 
   return (
     <>
-      <Stack spacing="md">
-        <Paper>
-          <Text size="md" mb="xs">
-            Preview
-          </Text>
-          <Header settings={settings} />
-        </Paper>
+      <MyPaper>
+        <Container fluid mb="md" p={0}>
+          <Title order={3} px="xs">
+            Global header
+          </Title>
 
-        <Paper>
+          <Header settings={settings} />
+        </Container>
+
+        <Container size="sm" py="md" px={0}>
           <SiteSettingsForm settings={settings} setSettings={setSettings} />
-        </Paper>
-      </Stack>
+        </Container>
+      </MyPaper>
     </>
   );
 };

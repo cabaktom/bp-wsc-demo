@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
-import { Center, PasswordInput, TextInput } from '@mantine/core';
+import { Flex, PasswordInput, Stack, TextInput } from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
@@ -82,55 +82,64 @@ const CreateAdminForm = () => {
         </MyAlert>
       )}
 
-      <TextInput
-        withAsterisk
-        label="Username"
-        aria-label="Username input"
-        mb="sm"
-        {...form.getInputProps('username')}
-      />
+      <Stack spacing="sm">
+        <Flex
+          direction={{ base: 'column', sm: 'row', md: 'column', lg: 'row' }}
+          gap="sm"
+        >
+          <TextInput
+            withAsterisk
+            label="Username"
+            aria-label="Username input"
+            {...form.getInputProps('username')}
+            w={{ base: '100%', sm: '50%', md: '100%', lg: '50%' }}
+          />
 
-      <TextInput
-        withAsterisk
-        label="Email"
-        aria-label="Email input"
-        mb="sm"
-        {...form.getInputProps('email')}
-      />
+          <TextInput
+            withAsterisk
+            label="Email"
+            aria-label="Email input"
+            {...form.getInputProps('email')}
+            w={{ base: '100%', sm: '50%', md: '100%', lg: '50%' }}
+          />
+        </Flex>
 
-      <PasswordInput
-        withAsterisk
-        label="Password"
-        placeholder="******"
-        aria-label="Password input"
-        mb="sm"
-        visible={visible}
-        onVisibilityChange={toggle}
-        {...form.getInputProps('password')}
-      />
+        <Flex
+          direction={{ base: 'column', sm: 'row', md: 'column', lg: 'row' }}
+          gap="sm"
+        >
+          <PasswordInput
+            withAsterisk
+            label="Password"
+            placeholder="******"
+            aria-label="Password input"
+            visible={visible}
+            onVisibilityChange={toggle}
+            {...form.getInputProps('password')}
+            w={{ base: '100%', sm: '50%', md: '100%', lg: '50%' }}
+          />
 
-      <PasswordInput
-        withAsterisk
-        label="Confirm password"
-        placeholder="******"
-        aria-label="Confirm password input"
-        mb="sm"
-        visible={visible}
-        onVisibilityChange={toggle}
-        {...form.getInputProps('confirmPassword')}
-      />
+          <PasswordInput
+            withAsterisk
+            label="Confirm password"
+            placeholder="******"
+            aria-label="Confirm password input"
+            visible={visible}
+            onVisibilityChange={toggle}
+            {...form.getInputProps('confirmPassword')}
+            w={{ base: '100%', sm: '50%', md: '100%', lg: '50%' }}
+          />
+        </Flex>
 
-      <Center>
         <MyButton
           type="submit"
-          fullWidth
           loading={loading}
           disabled={!form.isValid()}
           mt="xs"
         >
           Create
         </MyButton>
-      </Center>
+      </Stack>
     </form>
   );
 };

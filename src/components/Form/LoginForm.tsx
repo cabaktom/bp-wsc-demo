@@ -4,11 +4,12 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import {
   Text,
-  Center,
   Group,
   PasswordInput,
   TextInput,
   createStyles,
+  Stack,
+  Box,
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 
@@ -72,40 +73,43 @@ const LoginForm = () => {
 
         <input name="csrfToken" type="hidden" />
 
-        <TextInput
-          withAsterisk
-          label="Username"
-          aria-label="Username input"
-          mb="sm"
-          {...form.getInputProps('username')}
-        />
-        <Group position="apart">
-          <Text component="label" htmlFor="password" size="sm" weight={500}>
-            Password *
-          </Text>
+        <Stack spacing="sm">
+          <TextInput
+            withAsterisk
+            label="Username"
+            aria-label="Username input"
+            {...form.getInputProps('username')}
+          />
 
-          <Link
-            className={classes.forgotPasswordLabel}
-            href="/logout"
-            title="Forgot password"
-            aria-label="Forgot password"
-          >
-            Forgot your password?
-          </Link>
-        </Group>
-        <PasswordInput
-          withAsterisk
-          id="password"
-          placeholder="******"
-          aria-label="Password input"
-          mb="sm"
-          {...form.getInputProps('password')}
-        />
-        <Center>
+          <Box>
+            <Group position="apart">
+              <Text component="label" htmlFor="password" size="sm" weight={500}>
+                Password *
+              </Text>
+
+              <Link
+                className={classes.forgotPasswordLabel}
+                href="/logout"
+                title="Forgot password"
+                aria-label="Forgot password"
+              >
+                Forgot your password?
+              </Link>
+            </Group>
+
+            <PasswordInput
+              withAsterisk
+              id="password"
+              placeholder="******"
+              aria-label="Password input"
+              {...form.getInputProps('password')}
+            />
+          </Box>
+
           <MyButton type="submit" fullWidth loading={loading} mt="xs">
             Sign in
           </MyButton>
-        </Center>
+        </Stack>
       </form>
     </>
   );

@@ -1,5 +1,6 @@
 import { useSWRConfig } from 'swr';
-import { Group, ActionIcon } from '@mantine/core';
+import { useSession } from 'next-auth/react';
+import { Group, ActionIcon, Text } from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
 import { IconPencil, IconTrash } from '@tabler/icons-react';
 import { z } from 'zod';
@@ -12,6 +13,7 @@ import useAdministrators from '../../hooks/useAdministrators';
 const AdministratorsDataTable = () => {
   const { mutate } = useSWRConfig();
   const { administrators } = useAdministrators();
+  const { data: session } = useSession();
 
   const handleDelete = (admin: z.infer<typeof AdminOut>) => {
     openContextModal({
@@ -32,7 +34,7 @@ const AdministratorsDataTable = () => {
     openContextModal({
       modal: 'edit',
       title: 'Edit administrator',
-      size: 'xs',
+      size: 'sm',
       innerProps: {
         modalBody: <EditAdminForm {...admin} />,
       },
@@ -56,6 +58,16 @@ const AdministratorsDataTable = () => {
             sortable: true,
             width: '35%',
             ellipsis: true,
+            render: (admin) => {
+              if (admin.username === session?.user?.username) {
+                return (
+                  <Text weight="bold" color="materialBlue">
+                    {admin.username}
+                  </Text>
+                );
+              }
+              return admin.username;
+            },
           },
           {
             accessor: 'email',

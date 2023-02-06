@@ -26,7 +26,9 @@ const LogInPage: NextPage = () => {
   return (
     <>
       <div className={classes.inner}>
-        <Title order={3}>Log in as an administrator</Title>
+        <Title order={3} align="center">
+          Log in as an administrator
+        </Title>
 
         <MyPaper>
           <LoginForm />

@@ -44,7 +44,7 @@ const theme: MantineThemeOverride = {
     sizes: {
       h1: { fontSize: 32, fontWeight: 'normal' },
       h2: { fontSize: 18, fontWeight: 'bold' },
-      h3: { fontSize: 32, fontWeight: 'bold' },
+      h3: { fontSize: 30, fontWeight: 'bold' },
       h4: { fontSize: 26, fontWeight: 'bold' },
       h5: { fontSize: 23, fontWeight: 'bold' },
       h6: { fontSize: 20, fontWeight: 'bold' },

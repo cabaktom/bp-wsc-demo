@@ -23,19 +23,19 @@ const useStyles = createStyles((theme) => ({
     paddingTop: '.5rem',
     paddingBottom: '.5rem',
 
-    [theme.fn.largerThan('sm')]: {
+    [theme.fn.largerThan('md')]: {
       width: '16rem',
       height: 'calc(100% - 5rem)',
     },
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       borderBottomWidth: 'thin',
       borderBottomStyle: 'solid',
     },
   },
   panel: {
     marginTop: '0 !important',
-    [theme.fn.largerThan('sm')]: {
+    [theme.fn.largerThan('md')]: {
       marginLeft: '16rem',
     },
   },
@@ -56,7 +56,7 @@ const useStyles = createStyles((theme) => ({
       color: [theme.colors.red[Number(theme.primaryShade)]],
     },
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       margin: 0,
       padding: '1rem',
 
@@ -66,7 +66,7 @@ const useStyles = createStyles((theme) => ({
     },
   },
   tabLabel: {
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       display: 'none',
     },
   },
@@ -78,7 +78,7 @@ const useStyles = createStyles((theme) => ({
       marginRight: '1rem',
     },
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       '&:not(:only-child)': {
         margin: '0',
       },
@@ -89,7 +89,7 @@ const useStyles = createStyles((theme) => ({
     marginBottom: '7rem',
     paddingTop: theme.spacing.md,
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       paddingTop: '6.1rem',
     },
 
@@ -106,7 +106,7 @@ type AdminTabsProps = {
 const AdminTabs = ({ children }: AdminTabsProps) => {
   const router = useRouter();
   const { classes } = useStyles();
-  const matches = useMediaQuery('(min-width: 768px)', false, {
+  const matches = useMediaQuery('(min-width: 992px)', false, {
     getInitialValueInEffect: false,
   });
 
