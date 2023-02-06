@@ -22,11 +22,11 @@ const AdminDashboardPage: NextPageWithLayout<AdminDashboardPageProps> = ({
   return (
     <>
       <MyPaper>
-        <Container fluid mb="md" p={0}>
-          <Title order={3} px="xs">
-            Global header
-          </Title>
+        <Title order={3} px="xs">
+          Global header
+        </Title>
 
+        <Container fluid mb="md" p={0}>
           <Header settings={settings} />
         </Container>
 

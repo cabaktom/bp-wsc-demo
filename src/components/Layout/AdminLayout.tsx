@@ -1,5 +1,3 @@
-import { MantineProvider } from '@mantine/core';
-
 import AdminTabs from '../Navigation/AdminTabs';
 
 type AdminLayoutProps = {
@@ -7,24 +5,7 @@ type AdminLayoutProps = {
 };
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
-  return (
-    <MantineProvider
-      theme={{
-        components: {
-          Title: {
-            styles: {
-              root: {
-                margin: '0 0 1rem 0 !important',
-              },
-            },
-          },
-        },
-      }}
-      inherit
-    >
-      <AdminTabs>{children}</AdminTabs>
-    </MantineProvider>
-  );
+  return <AdminTabs>{children}</AdminTabs>;
 };
 
 export default AdminLayout;

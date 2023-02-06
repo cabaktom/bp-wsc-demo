@@ -58,6 +58,12 @@ const theme: MantineThemeOverride = {
           '& p': { marginBottom: '1rem' },
           '& ol li, & ul li': { margin: '0' },
           '& ol li p, & ul li p': { marginBottom: '.5rem' },
+          '& div.mantine-Paper-root': {
+            // titles in card have no margin
+            '& h3, & h4, & h5, & h6': {
+              margin: '0 0 1rem 0',
+            },
+          },
         },
       },
     },

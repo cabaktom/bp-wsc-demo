@@ -115,9 +115,7 @@ const RegisterForm = ({
       <Grid gutter="xl" justify="center">
         <Grid.Col xs={12} lg={form.values.contributing ? 6 : 12}>
           <Stack spacing="sm">
-            <Title order={3} m="0 0 .2rem 0 !important">
-              {participantTitle}
-            </Title>
+            <Title order={3}>{participantTitle}</Title>
 
             <Flex direction={{ base: 'column', xs: 'row' }} gap="sm">
               <TextInput
