@@ -23,7 +23,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
+const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
 
   try {
@@ -78,14 +78,14 @@ export default async function handler(
     // GET /api/admins/{id}
     case 'GET':
       return handleGet(req, res);
-    // PUT /api/admins/{id}
-    case 'PUT':
-      return handlePut(req, res);
+    // PATCH /api/admins/{id}
+    case 'PATCH':
+      return handlePatch(req, res);
     // DELETE /api/admins/{id}
     case 'DELETE':
       return handleDelete(req, res, +token.sub);
 
     default:
-      return res.status(405).setHeader('Allow', 'GET,PUT,DELETE').end();
+      return res.status(405).setHeader('Allow', 'GET,PATCH,DELETE').end();
   }
 }

@@ -6,7 +6,7 @@ import { prisma } from '../../../../lib/prisma';
 import handleErrors from '../../../../lib/handleApiErrors';
 import { comparePwd, hashPwd } from '../../../../lib/password';
 
-const handlePut = async (
+const handlePatch = async (
   req: NextApiRequest,
   res: NextApiResponse,
   sessionUserId: number,
@@ -61,11 +61,11 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // PUT /api/admins/{id}/password
-    case 'PUT':
-      return handlePut(req, res, +token.sub);
+    // PATCH /api/admins/{id}/password
+    case 'PATCH':
+      return handlePatch(req, res, +token.sub);
 
     default:
-      return res.status(405).setHeader('Allow', 'PUT').end();
+      return res.status(405).setHeader('Allow', 'PATCH').end();
   }
 }
