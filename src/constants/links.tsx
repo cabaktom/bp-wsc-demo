@@ -1,5 +1,4 @@
 import {
-  IconBlockquote,
   IconCalendarTime,
   IconFile,
   IconLogout,
@@ -19,12 +18,8 @@ const links = [
     url: '/register',
   },
   {
-    title: 'Participants',
+    title: 'Participants and abstracts',
     url: '/participants',
-  },
-  {
-    title: 'Abstracts',
-    url: '/abstracts',
   },
   {
     title: 'Programme',
@@ -56,14 +51,9 @@ export const adminLinks = [
     icon: <IconUserExclamation />,
   },
   {
-    title: 'Participants',
+    title: 'Participants and abstracts',
     url: '/admin/participants',
     icon: <IconUsers />,
-  },
-  {
-    title: 'Abstracts',
-    url: '/admin/abstracts',
-    icon: <IconBlockquote />,
   },
   {
     title: 'Programme',

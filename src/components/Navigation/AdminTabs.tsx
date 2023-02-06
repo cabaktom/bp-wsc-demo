@@ -66,6 +66,8 @@ const useStyles = createStyles((theme) => ({
     },
   },
   tabLabel: {
+    whiteSpace: 'normal',
+
     [theme.fn.smallerThan('md')]: {
       display: 'none',
     },
