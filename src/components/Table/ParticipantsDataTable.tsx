@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
-import { Container, Group, Stack, Text, createStyles } from '@mantine/core';
+import {
+  Container,
+  Flex,
+  Group,
+  Stack,
+  Text,
+  createStyles,
+} from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
 
 import DataTable from './DataTable';
@@ -145,24 +152,30 @@ const ParticipantsDataTable = () => {
             title: 'Student',
             sortable: true,
             width: 110,
-            render: (participant) =>
-              participant.student ? (
-                <IconCheck color="green" />
-              ) : (
-                <IconX color="darkred" />
-              ),
+            render: (participant) => (
+              <Flex>
+                {participant.student ? (
+                  <IconCheck color="green" />
+                ) : (
+                  <IconX color="darkred" />
+                )}
+              </Flex>
+            ),
           },
           {
             accessor: 'abstract',
             title: 'Abstract',
             sortable: true,
             width: 110,
-            render: (participant) =>
-              participant.abstract ? (
-                <IconCheck color="green" />
-              ) : (
-                <IconX color="darkred" />
-              ),
+            render: (participant) => (
+              <Flex>
+                {participant.abstract ? (
+                  <IconCheck color="green" />
+                ) : (
+                  <IconX color="darkred" />
+                )}
+              </Flex>
+            ),
           },
           {
             accessor: 'participation',
