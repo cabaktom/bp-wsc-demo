@@ -90,36 +90,46 @@ const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
 
   return (
     <Stack spacing="xs">
-      <Group spacing="xs">
-        <Group>
-          <MyButton onClick={expandAllRows}>Expand all</MyButton>
-          <MyButton
-            onClick={expandSelectedRows}
-            disabled={!selectedRecords.length}
-          >
-            Expand selected
-          </MyButton>
-        </Group>
+      <Flex
+        direction={{ base: 'column', xs: 'row' }}
+        align={{ base: 'center', xs: 'end' }}
+        justify={{ base: 'space-around' }}
+        gap={{ base: 'xs', xs: 'md' }}
+      >
+        <Flex
+          gap="xs"
+          direction={{ base: 'column', md: 'row' }}
+          w={{ base: 'max-content', md: 'auto' }}
+        >
+          <Flex gap="xs" justify={{ base: 'space-around' }}>
+            <MyButton onClick={expandAllRows}>Expand all</MyButton>
+            <MyButton
+              onClick={expandSelectedRows}
+              disabled={!selectedRecords.length}
+            >
+              Expand selected
+            </MyButton>
+          </Flex>
 
-        <Group>
-          <MyButton
-            onClick={collapseAllRows}
-            disabled={!expandedRecordIds.length}
-          >
-            Collapse all
-          </MyButton>
-          <MyButton
-            onClick={collapseSelectedRows}
-            disabled={!selectedRecords.length}
-          >
-            Collapse selected
-          </MyButton>
-        </Group>
+          <Group spacing="xs">
+            <MyButton
+              onClick={collapseAllRows}
+              disabled={!expandedRecordIds.length}
+            >
+              Collapse all
+            </MyButton>
+            <MyButton
+              onClick={collapseSelectedRows}
+              disabled={!selectedRecords.length}
+            >
+              Collapse selected
+            </MyButton>
+          </Group>
+        </Flex>
 
         <MyButton
           leftIcon={<IconTrash size={18} />}
           color="red"
-          ml="auto"
           disabled={!selectedRecords.length}
           onClick={handleDelete}
         >
@@ -131,11 +141,12 @@ const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
               }`
             : 'Select records to delete'}
         </MyButton>
-      </Group>
+      </Flex>
 
       <DataTable
         initialData={participants}
         sortStatus={{ columnAccessor: 'fullName', direction: 'asc' }}
+        maw="100%"
         columns={[
           {
             accessor: 'number',

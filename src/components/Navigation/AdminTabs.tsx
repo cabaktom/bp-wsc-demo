@@ -37,6 +37,7 @@ const useStyles = createStyles((theme) => ({
     marginTop: '0 !important',
     [theme.fn.largerThan('md')]: {
       marginLeft: '16rem',
+      maxWidth: 'calc(100% - 16rem)',
     },
   },
   tab: {

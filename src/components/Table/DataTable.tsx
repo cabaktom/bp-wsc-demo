@@ -83,7 +83,7 @@ const DataTable = <T extends object>({
   }, [sortStatus, debouncedQuery, initialData, sortData]);
 
   return (
-    <Stack spacing="xs">
+    <Stack spacing="sm">
       <TextInput
         placeholder="Search"
         icon={<IconSearch size={18} />}
