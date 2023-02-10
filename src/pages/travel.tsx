@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Link from 'next/link';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
 
@@ -10,12 +9,7 @@ type TravelPageProps = {
 };
 
 const TravelPage: NextPage<TravelPageProps> = ({ page }) => {
-  return (
-    <>
-      <Link href="/edit/travel">Edit</Link>
-      {parse(page.content)}
-    </>
-  );
+  return <>{parse(page.content)}</>;
 };
 
 export default TravelPage;

@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
 
@@ -10,12 +9,7 @@ type HomePageProps = {
 };
 
 const HomePage: NextPage<HomePageProps> = ({ page }) => {
-  return (
-    <>
-      <Link href="/edit/home">Edit</Link>
-      {parse(page.content)}
-    </>
-  );
+  return <>{parse(page.content)}</>;
 };
 
 export default HomePage;
