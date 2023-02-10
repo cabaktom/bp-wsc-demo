@@ -207,28 +207,37 @@ const ParticipantForm = ({
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Flex mb="sm" gap="sm" justify="flex-end" align="center">
+      <Flex
+        direction={{ base: 'column', xs: 'row' }}
+        mb="sm"
+        gap="sm"
+        justify="flex-end"
+        align={{ base: 'flex-end', xs: 'center' }}
+      >
         {!form.values.contributing && abstract && (
           <MyAlert withCloseButton={false}>
             Participant has an abstract, saving will delete it.
           </MyAlert>
         )}
-        <MyButton
-          type="submit"
-          loading={loading}
-          disabled={!form.isValid()}
-          leftIcon={<IconDeviceFloppy size={18} />}
-        >
-          Save
-        </MyButton>
 
-        <MyButton
-          color="red.7"
-          onClick={handleDelete}
-          leftIcon={<IconTrash size={18} />}
-        >
-          Delete
-        </MyButton>
+        <Group spacing="sm" noWrap>
+          <MyButton
+            type="submit"
+            loading={loading}
+            disabled={!form.isValid()}
+            leftIcon={<IconDeviceFloppy size={18} />}
+          >
+            Save
+          </MyButton>
+
+          <MyButton
+            color="red.7"
+            onClick={handleDelete}
+            leftIcon={<IconTrash size={18} />}
+          >
+            Delete
+          </MyButton>
+        </Group>
       </Flex>
 
       <Grid gutter="xl" justify="center" pb="sm">
