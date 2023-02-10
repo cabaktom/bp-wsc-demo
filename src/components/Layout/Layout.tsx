@@ -1,19 +1,26 @@
 import type { ReactNode } from 'react';
-import { z } from 'zod';
+import Head from 'next/head';
+import type { SiteSettings } from '@prisma/client';
 
 import Header from '../Header/Header';
 import Content from './Content';
 import Footer from '../Footer/Footer';
-import { SettingOut } from '../../schemas/Setting';
 
 type LayoutProps = {
   children?: ReactNode;
-  settings: z.infer<typeof SettingOut>[];
+  settings: SiteSettings[];
+  title: string;
 };
 
-const Layout = ({ children, settings }: LayoutProps) => {
+const Layout = ({ children, settings, title }: LayoutProps) => {
   return (
     <>
+      <Head>
+        <title>
+          {title ? `${title} | ${settings[0].value}` : settings[0].value}
+        </title>
+      </Head>
+
       <Header settings={settings} />
       <Content>{children}</Content>
       <Footer />

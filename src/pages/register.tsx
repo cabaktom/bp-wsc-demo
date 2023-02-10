@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
 
@@ -14,10 +13,6 @@ type RegisterPageProps = {
 const RegisterPage: NextPage<RegisterPageProps> = ({ page }) => {
   return (
     <>
-      <Head>
-        <title>{page.title}</title>
-      </Head>
-
       {parse(page.content)}
 
       <MyPaper>

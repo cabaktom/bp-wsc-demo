@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import parse from 'html-react-parser';
 import type { Abstract, Page, Participant } from '@prisma/client';
 
@@ -19,10 +18,6 @@ const ParticipantsPage: NextPage<ParticipantsPageProps> = ({
 }) => {
   return (
     <>
-      <Head>
-        <title>{page.title}</title>
-      </Head>
-
       {parse(page.content)}
 
       <ParticipantList participants={participants} />

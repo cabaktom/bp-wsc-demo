@@ -16,7 +16,11 @@ const App = ({
 }: AppPropsWithLayout) => {
   const getLayout =
     Component.getLayout ??
-    ((page) => <Layout settings={pageProps.settings}>{page}</Layout>);
+    ((page) => (
+      <Layout settings={pageProps.settings} title={pageProps.page?.title}>
+        {page}
+      </Layout>
+    ));
 
   return (
     <>
