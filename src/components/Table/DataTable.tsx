@@ -14,10 +14,12 @@ const PAGE_SIZES = [5, 10, 20, 50];
 
 type DataTableProps<T> = DTProps<T> & {
   initialData: T[];
+  sortStatus: DataTableSortStatus;
 };
 
 const DataTable = <T extends object>({
   initialData,
+  sortStatus: initialSortStatus,
   columns,
   ...rest
 }: DataTableProps<T>) => {
@@ -46,7 +48,8 @@ const DataTable = <T extends object>({
   }, [perPage]);
 
   // searching and sorting
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus>();
+  const [sortStatus, setSortStatus] =
+    useState<DataTableSortStatus>(initialSortStatus);
 
   const filterData = useCallback((data: T[], search: string) => {
     const query = search.toLowerCase().trim();

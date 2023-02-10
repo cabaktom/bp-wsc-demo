@@ -128,6 +128,7 @@ const ParticipantsDataTable = () => {
 
       <DataTable
         initialData={participants}
+        sortStatus={{ columnAccessor: 'fullName', direction: 'asc' }}
         columns={[
           {
             accessor: 'number',

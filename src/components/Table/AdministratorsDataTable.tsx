@@ -45,6 +45,7 @@ const AdministratorsDataTable = () => {
     <>
       <DataTable
         initialData={administrators}
+        sortStatus={{ columnAccessor: 'username', direction: 'asc' }}
         columns={[
           {
             accessor: 'number',
