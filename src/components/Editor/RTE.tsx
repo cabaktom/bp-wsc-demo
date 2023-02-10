@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react';
+import { useMediaQuery } from '@mantine/hooks';
 import { Link, RichTextEditor } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -6,10 +6,14 @@ import Underline from '@tiptap/extension-underline';
 
 type RTEProps = {
   content: string;
-  setContent: Dispatch<SetStateAction<string>>;
+  setContent: (content: string) => void;
 };
 
 const RTE = ({ content, setContent }: RTEProps) => {
+  const matches = useMediaQuery('(min-width: 992px)', false, {
+    getInitialValueInEffect: false,
+  });
+
   const editor = useEditor({
     extensions: [StarterKit, Underline, Link],
     content,
@@ -21,7 +25,7 @@ const RTE = ({ content, setContent }: RTEProps) => {
   return (
     <>
       <RichTextEditor editor={editor}>
-        <RichTextEditor.Toolbar sticky stickyOffset={50}>
+        <RichTextEditor.Toolbar sticky stickyOffset={matches ? 47 : 97}>
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.Bold />
             <RichTextEditor.Italic />

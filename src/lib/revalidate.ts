@@ -10,3 +10,7 @@ export const revalidateSettings = async (res: NextApiResponse) => {
 export const revalidateParticipants = async (res: NextApiResponse) => {
   await Promise.all([res.revalidate('/participants')]);
 };
+
+export const revalidatePage = async (res: NextApiResponse, url: string) => {
+  await Promise.all([res.revalidate(url)]);
+};
