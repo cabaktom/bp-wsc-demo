@@ -1,5 +1,6 @@
 import { SWRConfig } from 'swr';
 import { Stack } from '@mantine/core';
+import { useElementSize } from '@mantine/hooks';
 import type { Abstract, Participant } from '@prisma/client';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
@@ -20,9 +21,11 @@ type ParticipantsPageProps = {
 const ParticipantsPage: NextPageWithLayout<ParticipantsPageProps> = ({
   fallback,
 }) => {
+  const { ref, width } = useElementSize();
+
   return (
     <SWRConfig value={{ fallback }}>
-      <Stack spacing="md">
+      <Stack spacing="md" ref={ref}>
         <MyPaper>
           <RegisterForm
             participantTitle="New participant"
@@ -30,7 +33,7 @@ const ParticipantsPage: NextPageWithLayout<ParticipantsPageProps> = ({
           />
         </MyPaper>
 
-        <ParticipantsDataTable />
+        <ParticipantsDataTable expandWidth={width} />
       </Stack>
     </SWRConfig>
   );

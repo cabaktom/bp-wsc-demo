@@ -8,6 +8,8 @@ import {
   Stack,
   Text,
   createStyles,
+  Box,
+  useMantineTheme,
 } from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
 
@@ -22,9 +24,14 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-const ParticipantsDataTable = () => {
+type ParticipantsDataTableProps = {
+  expandWidth: number;
+};
+
+const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
   const { mutate } = useSWRConfig();
   const { classes } = useStyles();
+  const theme = useMantineTheme();
   const { participants } = useParticipants();
 
   // selected data
@@ -207,15 +214,24 @@ const ParticipantsDataTable = () => {
           content: ({ record }) => (
             <Container
               className={classes.expandContainer}
-              p="md"
+              p={0}
               bg="gray.0"
               fluid
             >
-              <ParticipantForm
-                participant={{
-                  ...record,
-                }}
-              />
+              <Box
+                pos="sticky"
+                py="xs"
+                pl="md"
+                top={0}
+                left={0}
+                w={expandWidth - theme.spacing.md}
+              >
+                <ParticipantForm
+                  participant={{
+                    ...record,
+                  }}
+                />
+              </Box>
             </Container>
           ),
         }}
