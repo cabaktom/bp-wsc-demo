@@ -9,7 +9,8 @@ import {
   Text,
   Select,
   Flex,
-  Transition,
+  Grid,
+  createStyles,
 } from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
@@ -19,6 +20,16 @@ import type { Abstract, Participant } from '@prisma/client';
 
 import MyButton from '../Button/MyButton';
 import MyAlert from './MyAlert';
+
+const useStyles = createStyles((theme) => ({
+  abstractColumn: {
+    [theme.fn.largerThan('lg')]: {
+      borderLeft: `thin dashed ${
+        theme.colors[theme.primaryColor][Number(theme.primaryShade)]
+      }`,
+    },
+  },
+}));
 
 type ParticipantFormProps = {
   participant: Participant & {
@@ -39,6 +50,7 @@ const ParticipantForm = ({
     abstract,
   },
 }: ParticipantFormProps) => {
+  const { classes } = useStyles();
   const { mutate } = useSWRConfig();
   const [loading, setLoading] = useState(false);
 
@@ -219,108 +231,106 @@ const ParticipantForm = ({
         </MyButton>
       </Flex>
 
-      <Stack align="stretch" spacing="xl">
-        <Stack>
-          <Group grow>
-            <TextInput
-              withAsterisk
-              label="Full name"
-              aria-label="Full name input"
-              {...form.getInputProps('participant.fullName')}
-            />
-            <TextInput
-              withAsterisk
-              label="Email"
-              aria-label="Email input"
-              {...form.getInputProps('participant.email')}
-            />
-          </Group>
+      <Grid gutter="xl" justify="center" pb="sm">
+        <Grid.Col xs={12} lg={form.values.contributing ? 6 : 12}>
+          <Stack spacing="sm">
+            <Flex direction={{ base: 'column', xs: 'row' }} gap="sm">
+              <TextInput
+                withAsterisk
+                label="Full name"
+                aria-label="Full name input"
+                {...form.getInputProps('participant.fullName')}
+                w={{ base: '100%', sm: '50%' }}
+              />
+              <TextInput
+                withAsterisk
+                label="Email"
+                aria-label="Email input"
+                {...form.getInputProps('participant.email')}
+                w={{ base: '100%', sm: '50%' }}
+              />
+            </Flex>
 
-          <Group grow>
-            <TextInput
-              withAsterisk
-              label="Affiliation"
-              aria-label="Affiliation input"
-              {...form.getInputProps('participant.affiliation')}
-            />
-            <Select
-              withAsterisk
-              label="Online/Onsite participation"
-              aria-label="Online/Onsite participation input"
-              data={[
-                { value: 'ONLINE', label: 'Online' },
-                { value: 'ONSITE', label: 'Onsite' },
-              ]}
-              {...form.getInputProps('participant.participation')}
-            />
-          </Group>
+            <Flex direction={{ base: 'column', xs: 'row' }} gap="sm">
+              <TextInput
+                withAsterisk
+                label="Affiliation"
+                aria-label="Affiliation input"
+                {...form.getInputProps('participant.affiliation')}
+                w={{ base: '100%', xs: '75%' }}
+              />
+              <Select
+                withAsterisk
+                label="Participation"
+                aria-label="Participation input"
+                data={[
+                  { value: 'ONLINE', label: 'Online' },
+                  { value: 'ONSITE', label: 'Onsite' },
+                ]}
+                {...form.getInputProps('participant.participation')}
+                w={{ base: '100%', xs: '25%' }}
+              />
+            </Flex>
 
-          <Group grow>
-            <TextInput
+            <Textarea
+              autosize
+              minRows={2}
+              maxRows={4}
               label="Mailing address (will be used for invoice)"
               aria-label="Mailing address (will be used for invoice) input"
               {...form.getInputProps('participant.mailingAddress')}
             />
-            <Checkbox
-              label="Student"
-              aria-label="Student checkbox"
-              {...form.getInputProps('participant.student', {
-                type: 'checkbox',
-              })}
+
+            <Textarea
+              autosize
+              minRows={2}
+              maxRows={5}
+              label="Additional message"
+              aria-label="Additional message input"
+              {...form.getInputProps('participant.additionalMessage')}
             />
-          </Group>
 
-          <Textarea
-            autosize
-            minRows={2}
-            maxRows={5}
-            label="Additional message"
-            aria-label="Additional message input"
-            {...form.getInputProps('participant.additionalMessage')}
-          />
-        </Stack>
+            <Group spacing="xl">
+              <Checkbox
+                label="Contribution"
+                aria-label="Contribution checkbox"
+                {...form.getInputProps('contributing', { type: 'checkbox' })}
+              />
+              <Checkbox
+                label="Student"
+                aria-label="Student checkbox"
+                {...form.getInputProps('participant.student', {
+                  type: 'checkbox',
+                })}
+              />
+            </Group>
+          </Stack>
+        </Grid.Col>
 
-        <Checkbox
-          label="Contribution"
-          aria-label="Contribution checkbox"
-          {...form.getInputProps('contributing', { type: 'checkbox' })}
-        />
+        {form.values.contributing && (
+          <Grid.Col className={classes.abstractColumn} xs={12} lg={6}>
+            <Stack spacing="sm">
+              <TextInput
+                withAsterisk
+                label="Abstract title"
+                aria-label="Abstract title input"
+                {...form.getInputProps('abstract.title')}
+              />
 
-        <Transition
-          mounted={form.values.contributing}
-          transition="scale-y"
-          duration={100}
-          timingFunction="ease"
-        >
-          {(styles) => (
-            <Stack style={styles}>
-              <Group grow>
-                <TextInput
-                  withAsterisk
-                  label="Abstract title"
-                  aria-label="Abstract title input"
-                  {...form.getInputProps('abstract.title')}
-                />
-                <Checkbox
-                  label="Poster"
-                  aria-label="Poster checkbox"
-                  {...form.getInputProps('abstract.poster', {
-                    type: 'checkbox',
-                  })}
-                />
-              </Group>
-              <Group grow>
+              <Flex direction={{ base: 'column', xs: 'row' }} gap="sm">
                 <TextInput
                   label="Additional authors"
                   aria-label="Additional authors input"
                   {...form.getInputProps('abstract.additionalAuthors')}
+                  w={{ base: '100%', sm: '50%' }}
                 />
                 <TextInput
                   label="Affiliation authors"
                   aria-label="Affiliation authors input"
                   {...form.getInputProps('abstract.affiliationAuthors')}
+                  w={{ base: '100%', sm: '50%' }}
                 />
-              </Group>
+              </Flex>
 
               <Textarea
                 autosize
@@ -330,10 +340,26 @@ const ParticipantForm = ({
                 aria-label="Abstract input"
                 {...form.getInputProps('abstract.abstract')}
               />
+
+              <Checkbox
+                label="Poster"
+                aria-label="Poster checkbox"
+                {...form.getInputProps('abstract.poster', { type: 'checkbox' })}
+              />
+
+              {/* <FileInput
+                  clearable
+                  label="Upload poster"
+                  aria-label="Upload poster input"
+                  placeholder="poster.pdf"
+                  icon={<IconUpload size={18} />}
+                  {...form.getInputProps('poster')}
+                  accept=".pdf,.jpg,.jpeg,.png"
+                /> */}
             </Stack>
-          )}
-        </Transition>
-      </Stack>
+          </Grid.Col>
+        )}
+      </Grid>
     </form>
   );
 };
