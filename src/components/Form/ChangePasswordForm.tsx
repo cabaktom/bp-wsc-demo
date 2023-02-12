@@ -118,6 +118,8 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
           loading={loading}
           disabled={!form.isValid()}
           mt="xs"
+          mx="auto"
+          w={{ base: '100%', xs: '50%', md: '100%', lg: '50%' }}
         >
           Update
         </MyButton>

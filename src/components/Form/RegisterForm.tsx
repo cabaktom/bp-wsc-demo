@@ -251,6 +251,8 @@ const RegisterForm = ({
               type="submit"
               loading={loading}
               disabled={!form.isValid()}
+              mx="auto"
+              w={{ base: '100%', xs: '70%', md: '60%', lg: '50%' }}
             >
               Submit
             </MyButton>

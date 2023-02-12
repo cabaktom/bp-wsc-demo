@@ -136,6 +136,8 @@ const CreateAdminForm = () => {
           loading={loading}
           disabled={!form.isValid()}
           mt="xs"
+          mx="auto"
+          w={{ base: '100%', xs: '50%', md: '100%', lg: '50%' }}
         >
           Create
         </MyButton>
