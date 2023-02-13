@@ -12,7 +12,7 @@ import {
   Grid,
   createStyles,
 } from '@mantine/core';
-import { isEmail, isNotEmpty, useForm } from '@mantine/form';
+import { isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconDeviceFloppy, IconTrash } from '@tabler/icons-react';
 import { openContextModal } from '@mantine/modals';
@@ -76,14 +76,28 @@ const ParticipantForm = ({
     },
     validate: {
       participant: {
-        fullName: isNotEmpty('Full name is required.'),
-        email: isEmail('Invalid email.'),
+        fullName: (value) =>
+          value.length < 1
+            ? 'Full name is required.'
+            : value.length > 255
+            ? 'Full name can be at most 255 characters long.'
+            : null,
+        email: (value) =>
+          value.length < 1
+            ? 'Email address is required.'
+            : value.length > 255
+            ? 'Email address can be at most 255 characters long.'
+            : !value.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,63})+$/)
+            ? 'Invalid email address.'
+            : null,
         affiliation: isNotEmpty('Affiliation is required.'),
       },
       abstract: {
         title: (value, values) =>
           values.contributing && value.length === 0
             ? 'Abstract title is required.'
+            : value.length > 255
+            ? 'Abstract title can be at most 255 characters long.'
             : null,
       },
     },

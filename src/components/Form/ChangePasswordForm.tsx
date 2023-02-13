@@ -26,7 +26,9 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
     validate: {
       currentPassword: isNotEmpty('Current password is required.'),
       password: (value) =>
-        value.length < 6 ? 'Password must be at least 6 characters.' : null,
+        value.length < 6
+          ? 'Password must be at least 6 characters long.'
+          : null,
       confirmPassword: (value, values) =>
         value !== values.password ? 'Passwords do not match.' : null,
     },

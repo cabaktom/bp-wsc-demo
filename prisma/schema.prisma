@@ -9,16 +9,16 @@ datasource db {
 
 model Page {
   id      Int    @id @default(autoincrement())
-  name    String @db.VarChar(250)
-  title   String @db.VarChar(250)
+  name    String @db.VarChar(255)
+  title   String @db.VarChar(255)
   content String
 }
 
 model Admin {
   id       Int    @id @default(autoincrement())
-  username String @unique
+  username String @unique @db.VarChar(255)
   password String
-  email    String @unique
+  email    String @unique @db.VarChar(255)
 }
 
 model SiteSettings {
@@ -34,8 +34,8 @@ enum Participation {
 
 model Participant {
   id                Int           @id @default(autoincrement())
-  fullName          String
-  email             String        @unique
+  fullName          String        @db.VarChar(255)
+  email             String        @unique @db.VarChar(255)
   affiliation       String
   participation     Participation @default(ONSITE)
   mailingAddress    String?       @default("")
@@ -47,7 +47,7 @@ model Participant {
 
 model Abstract {
   id                 Int         @id @default(autoincrement())
-  title              String
+  title              String      @db.VarChar(255)
   poster             Boolean     @default(false)
   additionalAuthors  String?     @default("")
   affiliationAuthors String?     @default("")

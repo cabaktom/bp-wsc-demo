@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 import { Flex, PasswordInput, Stack, TextInput } from '@mantine/core';
-import { isEmail, isNotEmpty, useForm } from '@mantine/form';
+import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
 import { IconCheck } from '@tabler/icons-react';
@@ -23,10 +23,24 @@ const CreateAdminForm = () => {
       confirmPassword: '',
     },
     validate: {
-      username: isNotEmpty('Username is required.'),
-      email: isEmail('Invalid email.'),
+      username: (value) =>
+        value.length < 1
+          ? 'Username is required.'
+          : value.length > 255
+          ? 'Username can be at most 255 characters long.'
+          : null,
+      email: (value) =>
+        value.length < 1
+          ? 'Email address is required.'
+          : value.length > 255
+          ? 'Email address can be at most 255 characters long.'
+          : !value.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,63})+$/)
+          ? 'Invalid email address.'
+          : null,
       password: (value) =>
-        value.length < 6 ? 'Password must be at least 6 characters.' : null,
+        value.length < 6
+          ? 'Password must be at least 6 characters long.'
+          : null,
       confirmPassword: (value, values) =>
         value !== values.password ? 'Passwords do not match.' : null,
     },

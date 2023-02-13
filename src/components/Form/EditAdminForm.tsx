@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 import { Stack, TextInput } from '@mantine/core';
-import { isEmail, isNotEmpty, useForm } from '@mantine/form';
+import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 
@@ -25,8 +25,20 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
       email,
     },
     validate: {
-      username: isNotEmpty('Username is required.'),
-      email: isEmail('Invalid email.'),
+      username: (value) =>
+        value.length < 1
+          ? 'Username is required.'
+          : value.length > 255
+          ? 'Username can be at most 255 characters long.'
+          : null,
+      email: (value) =>
+        value.length < 1
+          ? 'Email address is required.'
+          : value.length > 255
+          ? 'Email address can be at most 255 characters long.'
+          : !value.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,63})+$/)
+          ? 'Invalid email address.'
+          : null,
     },
     validateInputOnChange: true,
   });
