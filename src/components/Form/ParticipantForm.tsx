@@ -76,20 +76,24 @@ const ParticipantForm = ({
     },
     validate: {
       participant: {
-        fullName: (value) =>
-          value.length < 1
+        fullName: (value) => {
+          const trimmedValue = value.trim();
+          return trimmedValue.length < 1
             ? 'Full name is required.'
-            : value.length > 255
+            : trimmedValue.length > 255
             ? 'Full name can be at most 255 characters long.'
-            : null,
-        email: (value) =>
-          value.length < 1
+            : null;
+        },
+        email: (value) => {
+          const trimmedValue = value.trim();
+          return trimmedValue.length < 1
             ? 'Email address is required.'
-            : value.length > 255
+            : trimmedValue.length > 255
             ? 'Email address can be at most 255 characters long.'
-            : !value.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,63})+$/)
+            : !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,63})+$/.test(trimmedValue)
             ? 'Invalid email address.'
-            : null,
+            : null;
+        },
         affiliation: isNotEmpty('Affiliation is required.'),
       },
       abstract: {

@@ -39,8 +39,8 @@ const LoginForm = () => {
       password: '',
     },
     validate: {
-      username: isNotEmpty('Enter your username'),
-      password: isNotEmpty('Enter your password'),
+      username: isNotEmpty('Enter your username.'),
+      password: (value) => (value.length < 1 ? 'Enter your password.' : null),
     },
     validateInputOnBlur: true,
   });

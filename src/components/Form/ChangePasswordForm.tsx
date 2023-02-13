@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Stack, Flex, PasswordInput } from '@mantine/core';
-import { isNotEmpty, useForm } from '@mantine/form';
+import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
 import { IconCheck } from '@tabler/icons-react';
@@ -24,7 +24,8 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
       confirmPassword: '',
     },
     validate: {
-      currentPassword: isNotEmpty('Current password is required.'),
+      currentPassword: (value) =>
+        value.length < 1 ? 'Current password is required.' : null,
       password: (value) =>
         value.length < 6
           ? 'Password must be at least 6 characters long.'
