@@ -46,7 +46,7 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
   const handleSubmit = async ({ username, email }: typeof form.values) => {
     setLoading(true);
     const res = await fetch(`/api/admins/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },

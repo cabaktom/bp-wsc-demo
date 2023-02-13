@@ -41,7 +41,7 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
   }: typeof form.values) => {
     setLoading(true);
     const res = await fetch(`/api/admins/${id}/password`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
