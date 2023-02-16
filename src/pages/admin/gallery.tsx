@@ -60,19 +60,19 @@ const GalleryPage: NextPageWithLayout<GalleryPageProps> = () => {
     });
     setLoading(false);
 
+    const data = await res.json();
     if (!res.ok) {
-      const data = await res.json();
       showNotification({
         title: 'Error!',
         message: data.message ?? 'Images could not be uploaded.',
-        color: 'green',
+        color: 'red',
         icon: <IconX size={16} />,
         autoClose: 4000,
       });
     } else {
       showNotification({
         title: 'Success!',
-        message: 'Images uploaded.',
+        message: data.message ?? 'Images uploaded.',
         color: 'green',
         icon: <IconCheck size={16} />,
         autoClose: 4000,

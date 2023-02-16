@@ -55,3 +55,12 @@ model Abstract {
   participant        Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
   participantId      Int         @unique
 }
+
+model Image {
+  id               Int      @id @default(autoincrement())
+  alt              String?  @default("") @db.VarChar(255)
+  path             String   @db.VarChar(255)
+  filename         String   @db.VarChar(255)
+  originalFilename String   @db.VarChar(255)
+  uploadedAt       DateTime @default(now())
+}
