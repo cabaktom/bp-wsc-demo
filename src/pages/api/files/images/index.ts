@@ -4,12 +4,20 @@ import path from 'path';
 import fs from 'fs/promises';
 import { getToken } from 'next-auth/jwt';
 
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '../../../../lib/prisma';
+import { ImageOut } from '../../../../schemas/Image';
 
 export const config = {
   api: {
     bodyParser: false,
   },
+};
+
+const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
+  const images = await prisma.image.findMany();
+  const imagesOut = images.map((image) => ImageOut.parse(image));
+
+  return res.status(200).json(imagesOut);
 };
 
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -124,11 +132,14 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
+    // GET /api/files/images
+    case 'GET':
+      return handleGet(req, res);
     // POST /api/files/images
     case 'POST':
       return handlePost(req, res);
 
     default:
-      return res.status(405).setHeader('Allow', 'POST').end();
+      return res.status(405).setHeader('Allow', 'GET,POST').end();
   }
 }

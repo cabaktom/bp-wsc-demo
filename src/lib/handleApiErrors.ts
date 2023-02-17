@@ -23,6 +23,9 @@ const handleApiErrors = (title: string, e: any, res: NextApiResponse) => {
       });
     }
   }
+  if (e.code === 'ENOENT') {
+    return res.status(404).json({ message: `${title} not found.` });
+  }
 
   return res.status(400).json({ message: 'Something went wrong.' });
 };
