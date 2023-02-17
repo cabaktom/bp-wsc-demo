@@ -25,7 +25,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
     uploadDir: path.join(process.cwd(), 'public', 'images'),
     filename: (name, ext, part) =>
       `${Date.now().toString()}_${part.originalFilename}`,
-    maxFileSize: 2 * 1024 * 1024, // 30MB
+    maxFileSize: 30 * 1024 * 1024, // 30MB
   });
 
   const responseMessages: {
@@ -87,12 +87,12 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       });
     });
-    Promise.all(promises);
+    const results = await Promise.all(promises);
 
     return res.status(200).json({
       status: 'success',
       message: 'Image(s) uploaded successfully.',
-      images: responseMessages.map((message) => message.file),
+      images: results,
     });
   });
 
