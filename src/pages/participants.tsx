@@ -28,7 +28,7 @@ const ParticipantsPage: NextPage<ParticipantsPageProps> = ({
 export default ParticipantsPage;
 
 export async function getStaticProps() {
-  const page = await prisma.page.findFirst({ where: { id: 3 } });
+  const page = await prisma.page.findFirst({ where: { name: 'participants' } });
   const settings = await prisma.siteSettings.findMany();
   const participants = await prisma.participant.findMany({
     include: {

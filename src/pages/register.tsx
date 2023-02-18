@@ -28,7 +28,7 @@ const RegisterPage: NextPage<RegisterPageProps> = ({ page }) => {
 export default RegisterPage;
 
 export async function getStaticProps() {
-  const page = await prisma.page.findFirst({ where: { id: 2 } });
+  const page = await prisma.page.findFirst({ where: { name: 'register' } });
   const settings = await prisma.siteSettings.findMany();
 
   return {

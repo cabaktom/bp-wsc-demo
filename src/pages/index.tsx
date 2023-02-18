@@ -15,7 +15,7 @@ const HomePage: NextPage<HomePageProps> = ({ page }) => {
 export default HomePage;
 
 export async function getStaticProps() {
-  const page = await prisma.page.findFirst({ where: { id: 1 } });
+  const page = await prisma.page.findFirst({ where: { name: 'home' } });
   const settings = await prisma.siteSettings.findMany();
 
   return {

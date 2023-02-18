@@ -15,7 +15,7 @@ const TravelPage: NextPage<TravelPageProps> = ({ page }) => {
 export default TravelPage;
 
 export async function getStaticProps() {
-  const page = await prisma.page.findFirst({ where: { id: 6 } });
+  const page = await prisma.page.findFirst({ where: { name: 'travel' } });
   const settings = await prisma.siteSettings.findMany();
 
   return {

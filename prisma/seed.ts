@@ -5,10 +5,9 @@ const prisma = new PrismaClient();
 
 async function createPages() {
   await prisma.page.upsert({
-    where: { id: 1 },
+    where: { name: 'home' },
     update: {},
     create: {
-      id: 1,
       name: 'home',
       title: 'Home',
       content:
@@ -16,10 +15,9 @@ async function createPages() {
     },
   });
   await prisma.page.upsert({
-    where: { id: 2 },
+    where: { name: 'register' },
     update: {},
     create: {
-      id: 2,
       name: 'register',
       title: 'Register',
       content:
@@ -27,20 +25,18 @@ async function createPages() {
     },
   });
   await prisma.page.upsert({
-    where: { id: 3 },
+    where: { name: 'participants' },
     update: {},
     create: {
-      id: 3,
       name: 'participants',
       title: 'Participants & Abstracts',
       content: '<h3>Participants and abstracts</h3>',
     },
   });
   await prisma.page.upsert({
-    where: { id: 5 },
+    where: { name: 'programme' },
     update: {},
     create: {
-      id: 4,
       name: 'programme',
       title: 'Programme',
       content:
@@ -48,10 +44,9 @@ async function createPages() {
     },
   });
   await prisma.page.upsert({
-    where: { id: 6 },
+    where: { name: 'travel' },
     update: {},
     create: {
-      id: 6,
       name: 'travel',
       title: 'Travel',
       content:
@@ -59,14 +54,22 @@ async function createPages() {
     },
   });
   await prisma.page.upsert({
-    where: { id: 7 },
+    where: { name: 'trip' },
     update: {},
     create: {
-      id: 7,
       name: 'trip',
       title: 'Trip',
       content:
         '<h3>Trip to České Středohoří (Central Bohemian Highlands)</h3><p>Common departure:<br>10:40 by Bus 512437 205 from Myslbekova bus stop near CTU building (39 CZK)</p>',
+    },
+  });
+  await prisma.page.upsert({
+    where: { name: 'gallery' },
+    update: {},
+    create: {
+      name: 'gallery',
+      title: 'Gallery',
+      content: '<h3>Gallery</h3>',
     },
   });
 
