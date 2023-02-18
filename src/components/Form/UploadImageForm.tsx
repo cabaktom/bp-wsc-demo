@@ -1,4 +1,5 @@
 import { FormEventHandler, useRef, useState } from 'react';
+import { useSWRConfig } from 'swr';
 import { FileInput, createStyles } from '@mantine/core';
 import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
@@ -27,6 +28,7 @@ const useStyles = createStyles(() => ({
 
 const UploadImageForm = () => {
   const { classes } = useStyles();
+  const { mutate } = useSWRConfig();
   const openRef = useRef<() => void>(null);
   const [files, setFiles] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
@@ -63,6 +65,8 @@ const UploadImageForm = () => {
         icon: <IconCheck size={16} />,
         autoClose: 4000,
       });
+
+      mutate('/api/files/images');
     }
 
     setFiles([]);
