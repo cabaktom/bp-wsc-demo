@@ -31,14 +31,11 @@ const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { alt, filename } = ImageEdit.parse(req.body);
     const idParsed = z.number().int().parse(Number(id));
-    const image = await prisma.image.update({
-      where: { id: idParsed },
-      data: {
-        alt,
-        filename,
-        path: `/images/${filename}`,
-      },
-    });
+
+    const image = await prisma.image.findUnique({ where: { id: idParsed } });
+    if (!image) {
+      return res.status(404).json({ message: 'Image not found' });
+    }
 
     try {
       await fs.rename(
@@ -53,7 +50,16 @@ const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
-    return res.status(200).json(ImageOut.parse(image));
+    const imageNew = await prisma.image.update({
+      where: { id: idParsed },
+      data: {
+        alt,
+        filename,
+        path: `/images/${filename}`,
+      },
+    });
+
+    return res.status(200).json(ImageOut.parse(imageNew));
   } catch (e) {
     return handleErrors('Image', e, res);
   }
