@@ -17,7 +17,11 @@ const App = ({
   const getLayout =
     Component.getLayout ??
     ((page) => (
-      <Layout settings={pageProps.settings} title={pageProps.page?.title}>
+      <Layout
+        settings={pageProps.settings}
+        title={pageProps.page?.title}
+        contentWidth={pageProps.contentWidth}
+      >
         {page}
       </Layout>
     ));

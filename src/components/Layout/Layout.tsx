@@ -10,9 +10,15 @@ type LayoutProps = {
   children?: ReactNode;
   settings: SiteSettings[];
   title: string;
+  contentWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 };
 
-const Layout = ({ children, settings, title }: LayoutProps) => {
+const Layout = ({
+  children,
+  settings,
+  title,
+  contentWidth = 'lg',
+}: LayoutProps) => {
   return (
     <>
       <Head>
@@ -22,7 +28,7 @@ const Layout = ({ children, settings, title }: LayoutProps) => {
       </Head>
 
       <Header settings={settings} />
-      <Content>{children}</Content>
+      <Content size={contentWidth}>{children}</Content>
       <Footer />
     </>
   );

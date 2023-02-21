@@ -18,7 +18,7 @@ const Content = ({ children, ...rest }: ContentProps) => {
   const { classes } = useStyles();
 
   return (
-    <Container className={classes.content} size="lg" {...rest}>
+    <Container className={classes.content} {...rest}>
       {children}
     </Container>
   );
