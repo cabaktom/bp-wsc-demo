@@ -95,7 +95,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       });
     });
-    const results = await Promise.all(promises);
+    const results = Promise.all(promises);
 
     return res.status(200).json({
       status: 'success',
