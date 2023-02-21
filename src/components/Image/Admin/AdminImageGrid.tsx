@@ -27,8 +27,8 @@ const AdminImageGrid = () => {
           { minWidth: 'xs', cols: 2, spacing: 'xs', verticalSpacing: 'xs' },
         ]}
       >
-        {images.map((image) => (
-          <AdminImageCard key={image.id} image={image} />
+        {images.map((image, index) => (
+          <AdminImageCard key={image.id} image={image} priority={index < 15} />
         ))}
       </SimpleGrid>
     </>

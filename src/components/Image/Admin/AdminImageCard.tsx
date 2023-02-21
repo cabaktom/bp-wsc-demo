@@ -1,4 +1,4 @@
-import { Box, createStyles } from '@mantine/core';
+import { Box, createStyles, useMantineTheme } from '@mantine/core';
 import type { Image as ImageType } from '@prisma/client';
 import Image from 'next/image';
 
@@ -10,18 +10,34 @@ const useStyles = createStyles(() => ({
     position: 'relative',
     aspectRatio: '1/1',
   },
+  image: {
+    objectFit: 'cover',
+  },
 }));
 
 type AdminImageCardProps = {
   image: ImageType;
+  priority: boolean;
 };
 
-const AdminImageCard = ({ image }: AdminImageCardProps) => {
+const AdminImageCard = ({ image, priority }: AdminImageCardProps) => {
   const { classes } = useStyles();
+  const theme = useMantineTheme();
 
   return (
     <Box className={classes.wrapper}>
-      <Image src={image.path} alt={image.alt ?? ''} fill />
+      <Image
+        className={classes.image}
+        src={image.path}
+        alt={image.alt ?? ''}
+        fill
+        sizes={`(max-width: ${theme.breakpoints.xs}) 100vw,
+                (min-width: ${theme.breakpoints.xs}) 50vw, 
+                (min-width: ${theme.breakpoints.sm}) 33.3vw, 
+                (min-width: ${theme.breakpoints.md}) 25vw, 
+                (min-width: ${theme.breakpoints.lg}) 20vw`}
+        priority={priority}
+      />
 
       <AdminImageControls image={image} />
       <AdminImageInfo image={image} />
