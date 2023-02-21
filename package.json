@@ -40,6 +40,7 @@
     "next-auth": "^4.18.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-photo-album": "^2.0.2",
     "sharp": "^0.31.3",
     "swr": "^2.0.3",
     "ts-node": "^10.9.1",
