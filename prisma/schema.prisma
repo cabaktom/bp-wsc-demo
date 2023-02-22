@@ -63,4 +63,6 @@ model Image {
   filename         String   @unique @db.VarChar(255)
   originalFilename String   @db.VarChar(255)
   uploadedAt       DateTime @default(now())
+  width            Int
+  height           Int
 }

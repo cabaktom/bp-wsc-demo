@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import formidable, { errors as formidableErrors } from 'formidable';
 import path from 'path';
 import fs from 'fs/promises';
+import imageSize from 'image-size';
 import { getToken } from 'next-auth/jwt';
 
 import { prisma } from '../../../../lib/prisma';
@@ -42,20 +43,29 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
       path: string;
       newFilename: string;
       originalFilename: string;
+      width: number;
+      height: number;
     };
   }[] = [];
 
   // check if file is an image
   form.on('file', (formName, file) => {
+    const status =
+      !!file.mimetype && !file.mimetype.includes('image') ? 'error' : 'success';
+
+    const { width, height } =
+      status === 'success'
+        ? imageSize(file.filepath)
+        : { width: -1, height: -1 };
+
     responseMessages.push({
-      status:
-        !!file.mimetype && !file.mimetype.includes('image')
-          ? 'error'
-          : 'success',
+      status,
       file: {
         path: `/images/${file.newFilename}`,
         newFilename: file.newFilename,
         originalFilename: file.originalFilename ?? '',
+        width: width ?? 0,
+        height: height ?? 0,
       },
     });
   });
@@ -86,15 +96,19 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // if all files are images, create database records
-    const promises = responseMessages.map((message) => {
-      return prisma.image.create({
-        data: {
-          path: message.file.path,
-          filename: message.file.newFilename,
-          originalFilename: message.file.originalFilename ?? '',
-        },
-      });
-    });
+    const promises = responseMessages.map(
+      ({ file: { path, newFilename, originalFilename, width, height } }) => {
+        return prisma.image.create({
+          data: {
+            path,
+            filename: newFilename,
+            originalFilename: originalFilename ?? '',
+            width,
+            height,
+          },
+        });
+      },
+    );
     const results = Promise.all(promises);
 
     return res.status(200).json({

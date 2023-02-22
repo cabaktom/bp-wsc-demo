@@ -10,8 +10,8 @@ const MyPhotoAlbum = ({ images }: MyPhotoAlbumProps) => {
   const photos = images.map((image, index) => {
     return {
       src: image.path,
-      width: 500,
-      height: 500,
+      width: image.width,
+      height: image.height,
       alt: image.alt || 'Image',
       index,
     };
