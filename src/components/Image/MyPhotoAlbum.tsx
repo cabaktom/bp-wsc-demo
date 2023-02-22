@@ -1,26 +1,16 @@
 import Image from 'next/image';
-import type { Image as ImageType } from '@prisma/client';
-import { PhotoAlbum } from 'react-photo-album';
+import { PhotoAlbum, type Photo } from 'react-photo-album';
 
 type MyPhotoAlbumProps = {
-  images: ImageType[];
+  images: (Photo & { index: number })[];
+  setIndex: (index: number) => void;
 };
 
-const MyPhotoAlbum = ({ images }: MyPhotoAlbumProps) => {
-  const photos = images.map((image, index) => {
-    return {
-      src: image.path,
-      width: image.width,
-      height: image.height,
-      alt: image.alt || 'Image',
-      index,
-    };
-  });
-
+const MyPhotoAlbum = ({ images, setIndex }: MyPhotoAlbumProps) => {
   return (
     <PhotoAlbum
       layout="rows"
-      photos={photos}
+      photos={images}
       targetRowHeight={(containerWidth) => {
         if (containerWidth < 450) return containerWidth;
         if (containerWidth < 700) return containerWidth / 2;
@@ -61,6 +51,7 @@ const MyPhotoAlbum = ({ images }: MyPhotoAlbumProps) => {
           </div>
         </div>
       )}
+      onClick={({ index }) => setIndex(index)}
     />
   );
 };
