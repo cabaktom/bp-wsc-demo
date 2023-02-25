@@ -4,9 +4,14 @@ import { PhotoAlbum, type Photo } from 'react-photo-album';
 type MyPhotoAlbumProps = {
   images: (Photo & { index: number })[];
   setIndex: (index: number) => void;
+  setInteractive: (interactive: boolean) => void;
 };
 
-const MyPhotoAlbum = ({ images, setIndex }: MyPhotoAlbumProps) => {
+const MyPhotoAlbum = ({
+  images,
+  setIndex,
+  setInteractive,
+}: MyPhotoAlbumProps) => {
   return (
     <PhotoAlbum
       layout="rows"
@@ -51,7 +56,10 @@ const MyPhotoAlbum = ({ images, setIndex }: MyPhotoAlbumProps) => {
           </div>
         </div>
       )}
-      onClick={({ index }) => setIndex(index)}
+      onClick={({ index }) => {
+        setIndex(index);
+        setInteractive(true);
+      }}
     />
   );
 };

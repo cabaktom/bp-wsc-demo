@@ -1,11 +1,24 @@
 import { useState } from 'react';
 import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import parse from 'html-react-parser';
 import type { Page as PageType, Image as ImageType } from '@prisma/client';
+import { LoadingOverlay } from '@mantine/core';
 
 import { prisma } from '../lib/prisma';
 import MyPhotoAlbum from '../components/Image/MyPhotoAlbum';
-import MyLightbox from '../components/Image/MyLightbox';
+
+const MyLightbox = dynamic(() => import('../components/Image/MyLightbox'), {
+  loading: () => (
+    <LoadingOverlay
+      visible
+      loaderProps={{ color: 'materialBlue.4' }}
+      overlayOpacity={0.7}
+      overlayColor="#222"
+      pos="fixed"
+    />
+  ),
+});
 
 type GalleryPageProps = {
   page: PageType;
@@ -14,6 +27,8 @@ type GalleryPageProps = {
 
 const GalleryPage: NextPage<GalleryPageProps> = ({ page, images }) => {
   const [index, setIndex] = useState(-1);
+  const [interactive, setInteractive] = useState(false);
+
   const albumImages = images.map((image, index) => {
     return {
       src: image.path,
@@ -29,14 +44,20 @@ const GalleryPage: NextPage<GalleryPageProps> = ({ page, images }) => {
     <>
       {parse(page.content)}
 
-      <MyPhotoAlbum images={albumImages} setIndex={setIndex} />
-
-      <MyLightbox
+      <MyPhotoAlbum
         images={albumImages}
-        open={index >= 0}
-        index={index}
         setIndex={setIndex}
+        setInteractive={setInteractive}
       />
+
+      {interactive && (
+        <MyLightbox
+          images={albumImages}
+          open={index >= 0}
+          index={index}
+          setIndex={setIndex}
+        />
+      )}
     </>
   );
 };
