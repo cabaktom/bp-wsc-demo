@@ -1,11 +1,10 @@
 import { FormEventHandler, useRef, useState } from 'react';
 import { useSWRConfig } from 'swr';
-import { FileInput, createStyles } from '@mantine/core';
+import { Button, FileInput, createStyles } from '@mantine/core';
 import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconUpload, IconX } from '@tabler/icons-react';
 
-import MyButton from '../Button/MyButton';
 import FileInputValue from '../Input/FileInputValue';
 
 const useStyles = createStyles(() => ({
@@ -102,7 +101,7 @@ const UploadImageForm = () => {
           />
         </Dropzone>
 
-        <MyButton
+        <Button
           type="submit"
           size="md"
           radius="xl"
@@ -111,7 +110,7 @@ const UploadImageForm = () => {
           className={classes.control}
         >
           Upload
-        </MyButton>
+        </Button>
       </div>
     </form>
   );

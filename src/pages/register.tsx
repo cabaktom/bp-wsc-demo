@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
+import { Paper } from '@mantine/core';
 
 import { prisma } from '../lib/prisma';
 import RegisterForm from '../components/Form/RegisterForm';
-import MyPaper from '../components/Layout/MyPaper';
 
 type RegisterPageProps = {
   page: PageType;
@@ -15,12 +15,12 @@ const RegisterPage: NextPage<RegisterPageProps> = ({ page }) => {
     <>
       {parse(page.content)}
 
-      <MyPaper>
+      <Paper>
         <RegisterForm
           participantTitle="Personal data"
           abstractTitle="Your contribution"
         />
-      </MyPaper>
+      </Paper>
     </>
   );
 };

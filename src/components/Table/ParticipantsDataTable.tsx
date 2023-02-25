@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
 import {
+  Button,
   Container,
   Flex,
   Group,
@@ -14,7 +15,6 @@ import {
 import { openContextModal } from '@mantine/modals';
 
 import DataTable from './DataTable';
-import MyButton from '../Button/MyButton';
 import ParticipantForm from '../Form/ParticipantForm';
 import useParticipants from '../../hooks/useParticipants';
 
@@ -102,32 +102,32 @@ const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
           w={{ base: 'max-content', md: 'auto' }}
         >
           <Flex gap="xs" justify={{ base: 'space-around' }}>
-            <MyButton onClick={expandAllRows}>Expand all</MyButton>
-            <MyButton
+            <Button onClick={expandAllRows}>Expand all</Button>
+            <Button
               onClick={expandSelectedRows}
               disabled={!selectedRecords.length}
             >
               Expand selected
-            </MyButton>
+            </Button>
           </Flex>
 
           <Group spacing="xs">
-            <MyButton
+            <Button
               onClick={collapseAllRows}
               disabled={!expandedRecordIds.length}
             >
               Collapse all
-            </MyButton>
-            <MyButton
+            </Button>
+            <Button
               onClick={collapseSelectedRows}
               disabled={!selectedRecords.length}
             >
               Collapse selected
-            </MyButton>
+            </Button>
           </Group>
         </Flex>
 
-        <MyButton
+        <Button
           leftIcon={<IconTrash size={18} />}
           color="red"
           disabled={!selectedRecords.length}
@@ -140,7 +140,7 @@ const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
                   : `${selectedRecords.length} selected records`
               }`
             : 'Select records to delete'}
-        </MyButton>
+        </Button>
       </Flex>
 
       <DataTable

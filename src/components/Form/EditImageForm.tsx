@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
-import { Stack, TextInput } from '@mantine/core';
+import { Alert, Button, Stack, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import type { Image } from '@prisma/client';
-
-import MyButton from '../Button/MyButton';
-import MyAlert from './MyAlert';
 
 type EditImageFormProps = Image;
 
@@ -55,9 +52,9 @@ const EditImageForm = ({ id, alt, filename }: EditImageFormProps) => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
-        <MyAlert onClose={() => setError('')} withCloseButton={false} mb="xs">
+        <Alert onClose={() => setError('')} withCloseButton={false} mb="xs">
           {error}
-        </MyAlert>
+        </Alert>
       )}
 
       <Stack spacing="sm">
@@ -75,7 +72,7 @@ const EditImageForm = ({ id, alt, filename }: EditImageFormProps) => {
           {...form.getInputProps('filename')}
         />
 
-        <MyButton
+        <Button
           type="submit"
           fullWidth
           loading={loading}
@@ -83,7 +80,7 @@ const EditImageForm = ({ id, alt, filename }: EditImageFormProps) => {
           mt="xs"
         >
           Save
-        </MyButton>
+        </Button>
       </Stack>
     </form>
   );

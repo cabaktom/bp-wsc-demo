@@ -1,8 +1,6 @@
-import { Affix, Transition, createStyles } from '@mantine/core';
+import { Affix, Button, Transition, createStyles } from '@mantine/core';
 import { useWindowScroll } from '@mantine/hooks';
 import { IconArrowUp } from '@tabler/icons-react';
-
-import Button from './MyButton';
 
 const useStyles = createStyles((theme) => ({
   affix: {

@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
-import { Stack, TextInput } from '@mantine/core';
+import { Alert, Button, Stack, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
-
-import MyButton from '../Button/MyButton';
-import MyAlert from './MyAlert';
 
 type EditAdminFormProps = {
   id: number;
@@ -83,9 +80,9 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
-        <MyAlert onClose={() => setError('')} withCloseButton={false} mb="xs">
+        <Alert onClose={() => setError('')} withCloseButton={false} mb="xs">
           {error}
-        </MyAlert>
+        </Alert>
       )}
 
       <Stack spacing="sm">
@@ -103,7 +100,7 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
           {...form.getInputProps('email')}
         />
 
-        <MyButton
+        <Button
           type="submit"
           fullWidth
           loading={loading}
@@ -111,7 +108,7 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
           mt="xs"
         >
           Save
-        </MyButton>
+        </Button>
       </Stack>
     </form>
   );

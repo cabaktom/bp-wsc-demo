@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Container, Title } from '@mantine/core';
+import { Container, Paper, Title } from '@mantine/core';
 import { z } from 'zod';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
 import SiteSettingsForm from '../../components/Form/SiteSettingsForm';
 import Header from '../../components/Header/Header';
-import MyPaper from '../../components/Layout/MyPaper';
 import { prisma } from '../../lib/prisma';
 import type { SettingOut } from '../../schemas/Setting';
 
@@ -21,7 +20,7 @@ const AdminDashboardPage: NextPageWithLayout<AdminDashboardPageProps> = ({
 
   return (
     <>
-      <MyPaper>
+      <Paper>
         <Title order={3} px="xs">
           Global header
         </Title>
@@ -33,7 +32,7 @@ const AdminDashboardPage: NextPageWithLayout<AdminDashboardPageProps> = ({
         <Container size="sm" py="md" px={0}>
           <SiteSettingsForm settings={settings} setSettings={setSettings} />
         </Container>
-      </MyPaper>
+      </Paper>
     </>
   );
 };

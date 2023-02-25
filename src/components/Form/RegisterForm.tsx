@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 import {
+  Alert,
+  Button,
   Checkbox,
   Flex,
   Grid,
@@ -15,9 +17,6 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
-
-import MyButton from '../Button/MyButton';
-import MyAlert from './MyAlert';
 
 const useStyles = createStyles((theme) => ({
   abstractColumn: {
@@ -127,9 +126,9 @@ const RegisterForm = ({
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
-        <MyAlert onClose={() => setError('')} mb="xs">
+        <Alert onClose={() => setError('')} mb="xs">
           {error}
-        </MyAlert>
+        </Alert>
       )}
 
       <Grid gutter="xl" justify="center">
@@ -267,7 +266,7 @@ const RegisterForm = ({
 
         <Grid.Col>
           <Flex justify="center">
-            <MyButton
+            <Button
               type="submit"
               loading={loading}
               disabled={!form.isValid()}
@@ -275,7 +274,7 @@ const RegisterForm = ({
               w={{ base: '100%', xs: '70%', md: '60%', lg: '50%' }}
             >
               Submit
-            </MyButton>
+            </Button>
           </Flex>
         </Grid.Col>
       </Grid>

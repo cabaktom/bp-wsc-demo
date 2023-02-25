@@ -1,8 +1,14 @@
 import { useRouter } from 'next/router';
-import { createStyles, Title, Text, Container, Group } from '@mantine/core';
+import {
+  createStyles,
+  Title,
+  Text,
+  Container,
+  Group,
+  Button,
+} from '@mantine/core';
 
 import type { NextPageWithLayout } from '../@types';
-import MyButton from '../components/Button/MyButton';
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -62,9 +68,9 @@ const ServerError: NextPageWithLayout = () => {
         Our servers could not handle your request. Try refreshing the page.
       </Text>
       <Group position="center">
-        <MyButton variant="white" size="md" onClick={() => router.reload()}>
+        <Button variant="white" size="md" onClick={() => router.reload()}>
           Refresh the page
-        </MyButton>
+        </Button>
       </Group>
     </Container>
   );

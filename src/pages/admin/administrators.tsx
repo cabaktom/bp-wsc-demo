@@ -1,11 +1,10 @@
 import { SWRConfig } from 'swr';
-import { Stack, Grid, Title } from '@mantine/core';
+import { Stack, Grid, Title, Paper } from '@mantine/core';
 import { useSession } from 'next-auth/react';
 import type { Admin } from '@prisma/client';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
-import MyPaper from '../../components/Layout/MyPaper';
 import CreateAdminForm from '../../components/Form/CreateAdminForm';
 import ChangePasswordForm from '../../components/Form/ChangePasswordForm';
 import AdministratorsDataTable from '../../components/Table/AdministratorsDataTable';
@@ -31,18 +30,18 @@ const AdministratorsPage: NextPageWithLayout<AdministratorsPageProps> = ({
       <Stack spacing="md">
         <Grid align="start" gutter="md">
           <Grid.Col xs={12} md={6} offsetMd={0}>
-            <MyPaper>
+            <Paper>
               <Title order={3}>New administrator</Title>
 
               <CreateAdminForm />
-            </MyPaper>
+            </Paper>
           </Grid.Col>
           <Grid.Col xs={12} md={6} offsetMd={0}>
-            <MyPaper>
+            <Paper>
               <Title order={3}>Change password</Title>
 
               <ChangePasswordForm id={id} />
-            </MyPaper>
+            </Paper>
           </Grid.Col>
         </Grid>
 

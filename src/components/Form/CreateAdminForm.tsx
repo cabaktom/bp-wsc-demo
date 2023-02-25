@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
-import { Flex, PasswordInput, Stack, TextInput } from '@mantine/core';
+import {
+  Alert,
+  Button,
+  Flex,
+  PasswordInput,
+  Stack,
+  TextInput,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
 import { IconCheck } from '@tabler/icons-react';
-
-import MyButton from '../Button/MyButton';
-import MyAlert from './MyAlert';
 
 const CreateAdminForm = () => {
   const { mutate } = useSWRConfig();
@@ -95,9 +99,9 @@ const CreateAdminForm = () => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       {error && (
-        <MyAlert onClose={() => setError('')} mb="xs">
+        <Alert onClose={() => setError('')} mb="xs">
           {error}
-        </MyAlert>
+        </Alert>
       )}
 
       <Stack spacing="sm">
@@ -149,7 +153,7 @@ const CreateAdminForm = () => {
           />
         </Flex>
 
-        <MyButton
+        <Button
           type="submit"
           loading={loading}
           disabled={!form.isValid()}
@@ -158,7 +162,7 @@ const CreateAdminForm = () => {
           w={{ base: '100%', xs: '50%', md: '100%', lg: '50%' }}
         >
           Create
-        </MyButton>
+        </Button>
       </Stack>
     </form>
   );

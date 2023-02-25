@@ -1,8 +1,14 @@
 import Link from 'next/link';
-import { createStyles, Title, Text, Container, Group } from '@mantine/core';
+import {
+  createStyles,
+  Title,
+  Text,
+  Container,
+  Group,
+  Button,
+} from '@mantine/core';
 
 import type { NextPageWithLayout } from '../@types';
-import MyButton from '../components/Button/MyButton';
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -67,11 +73,9 @@ const NotFoundPage: NextPageWithLayout = () => {
         address, or the page has been moved to another URL
       </Text>
       <Group position="center">
-        <Link href="/">
-          <MyButton variant="white" size="md">
-            Take me back to home page
-          </MyButton>
-        </Link>
+        <Button component={Link} href="/" variant="white" size="md">
+          Take me back to home page
+        </Button>
       </Group>
     </Container>
   );

@@ -1,4 +1,5 @@
 import type { MantineThemeOverride } from '@mantine/core';
+import { IconAlertCircle } from '@tabler/icons-react';
 
 const theme: MantineThemeOverride = {
   colorScheme: 'light',
@@ -54,7 +55,9 @@ const theme: MantineThemeOverride = {
     TypographyStylesProvider: {
       styles: {
         root: {
-          '& h3, & h4, & h5, & h6': { color: '#fb8c00' }, // materialOrange.6
+          '& h3, & h4, & h5, & h6': {
+            color: '#1976D2', // materialBlue.7
+          },
           '& p': { marginBottom: '1rem' },
           '& ol li, & ul li': { margin: '0' },
           '& ol li p, & ul li p': { marginBottom: '.5rem' },
@@ -65,6 +68,53 @@ const theme: MantineThemeOverride = {
             },
           },
         },
+      },
+    },
+    Alert: {
+      defaultProps: {
+        icon: <IconAlertCircle />,
+        color: 'red',
+        variant: 'filled',
+        withCloseButton: true,
+        closeButtonLabel: 'Close alert',
+      },
+    },
+    Button: {
+      defaultProps: (theme) => ({
+        color: theme.colors[theme.primaryColor][Number(theme.primaryShade)],
+      }),
+      styles: (theme) => ({
+        root: {
+          transition: 'all .2s',
+
+          '&:disabled': {
+            backgroundColor: [theme.colors.gray[4]],
+          },
+        },
+      }),
+    },
+    Burger: {
+      defaultProps: {
+        size: 'md',
+        mr: 'md',
+        color: 'white',
+      },
+      styles: (theme) => ({
+        root: {
+          marginLeft: 'auto',
+          outline: 'none',
+          [theme.fn.largerThan('sm')]: {
+            display: 'none',
+          },
+        },
+      }),
+    },
+    Paper: {
+      defaultProps: {
+        shadow: 'xs',
+        p: 'xl',
+        radius: 'sm',
+        withBorder: true,
       },
     },
   },

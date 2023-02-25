@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { Text, Stack, Group } from '@mantine/core';
+import { Text, Stack, Group, Button } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { ContextModalProps } from '@mantine/modals';
 import { IconCheck, IconExclamationMark } from '@tabler/icons-react';
-
-import MyButton from '../Button/MyButton';
 
 type DeleteModalProps = ContextModalProps<{
   modalBody: string;
@@ -55,12 +53,12 @@ const DeleteModal = ({ context, id, innerProps }: DeleteModalProps) => {
         <Text size="md">{innerProps.modalBody}</Text>
 
         <Group position="right" spacing="xs" noWrap>
-          <MyButton variant="outline" onClick={() => context.closeModal(id)}>
+          <Button variant="outline" onClick={() => context.closeModal(id)}>
             Cancel
-          </MyButton>
-          <MyButton color="red" loading={loading} onClick={handleDelete}>
+          </Button>
+          <Button color="red" loading={loading} onClick={handleDelete}>
             Delete
-          </MyButton>
+          </Button>
         </Group>
       </Stack>
     </>

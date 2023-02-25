@@ -1,4 +1,5 @@
 import {
+  Paper,
   CloseButton,
   Flex,
   Text,
@@ -10,7 +11,6 @@ import {
 import type { Abstract, Participant } from '@prisma/client';
 import { IconUserCircle } from '@tabler/icons-react';
 
-import MyPaper from '../Layout/MyPaper';
 import useSearch from '../../hooks/useSearch';
 
 const useStyles = createStyles((theme) => ({
@@ -78,7 +78,7 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
                 </Flex>
               </Flex>
 
-              <MyPaper
+              <Paper
                 w={{ base: '100%', md: '70%' }}
                 bg={abstract ? '' : 'gray.0'}
               >
@@ -112,7 +112,7 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
                     No abstract submitted.
                   </Flex>
                 )}
-              </MyPaper>
+              </Paper>
             </Flex>
           </li>
         ))}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 import {
+  Button,
   Checkbox,
   Group,
   Stack,
@@ -11,15 +12,13 @@ import {
   Flex,
   Grid,
   createStyles,
+  Alert,
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconDeviceFloppy, IconTrash } from '@tabler/icons-react';
 import { openContextModal } from '@mantine/modals';
 import type { Abstract, Participant } from '@prisma/client';
-
-import MyButton from '../Button/MyButton';
-import MyAlert from './MyAlert';
 
 const useStyles = createStyles((theme) => ({
   abstractColumn: {
@@ -233,28 +232,28 @@ const ParticipantForm = ({
         align={{ base: 'flex-end', xs: 'center' }}
       >
         {!form.values.contributing && abstract && (
-          <MyAlert withCloseButton={false}>
+          <Alert withCloseButton={false}>
             Participant has an abstract, saving will delete it.
-          </MyAlert>
+          </Alert>
         )}
 
         <Group spacing="sm" noWrap>
-          <MyButton
+          <Button
             type="submit"
             loading={loading}
             disabled={!form.isValid()}
             leftIcon={<IconDeviceFloppy size={18} />}
           >
             Save
-          </MyButton>
+          </Button>
 
-          <MyButton
+          <Button
             color="red.7"
             onClick={handleDelete}
             leftIcon={<IconTrash size={18} />}
           >
             Delete
-          </MyButton>
+          </Button>
         </Group>
       </Flex>
 
@@ -373,16 +372,6 @@ const ParticipantForm = ({
                 aria-label="Poster checkbox"
                 {...form.getInputProps('abstract.poster', { type: 'checkbox' })}
               />
-
-              {/* <FileInput
-                  clearable
-                  label="Upload poster"
-                  aria-label="Upload poster input"
-                  placeholder="poster.pdf"
-                  icon={<IconUpload size={18} />}
-                  {...form.getInputProps('poster')}
-                  accept=".pdf,.jpg,.jpeg,.png"
-                /> */}
             </Stack>
           </Grid.Col>
         )}

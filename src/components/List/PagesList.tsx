@@ -1,11 +1,10 @@
-import { Accordion, Group, Stack, TextInput } from '@mantine/core';
+import { Accordion, Button, Group, Stack, TextInput } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { useListState } from '@mantine/hooks';
 import type { Page } from '@prisma/client';
 import { IconCheck, IconDeviceFloppy, IconX } from '@tabler/icons-react';
 
 import RTE from '../Editor/RTE';
-import MyButton from '../Button/MyButton';
 
 type PagesListProps = {
   pages: Page[];
@@ -78,13 +77,13 @@ const PagesList = ({ pages: initPages }: PagesListProps) => {
                   }
                   w={{ base: '100%' }}
                 />
-                <MyButton
+                <Button
                   leftIcon={<IconDeviceFloppy size={18} />}
                   onClick={() => handleSave(page, index)}
                   loading={page.loading}
                 >
                   Save
-                </MyButton>
+                </Button>
               </Group>
 
               <RTE
