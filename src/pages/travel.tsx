@@ -9,7 +9,7 @@ type TravelPageProps = {
 };
 
 const TravelPage: NextPage<TravelPageProps> = ({ page }) => {
-  return <>{parse(page.content)}</>;
+  return <>{parse(page?.content ?? '')}</>;
 };
 
 export default TravelPage;

@@ -9,7 +9,7 @@ type HomePageProps = {
 };
 
 const HomePage: NextPage<HomePageProps> = ({ page }) => {
-  return <>{parse(page.content)}</>;
+  return <>{parse(page?.content ?? '')}</>;
 };
 
 export default HomePage;

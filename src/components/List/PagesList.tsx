@@ -69,6 +69,7 @@ const PagesList = ({ pages: initPages }: PagesListProps) => {
             <Stack spacing="md">
               <Group position="apart" align="end" spacing="md" noWrap>
                 <TextInput
+                  withAsterisk
                   label="Page title"
                   aria-label="Page title input"
                   value={page.title}

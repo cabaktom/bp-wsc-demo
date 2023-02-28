@@ -42,7 +42,7 @@ const GalleryPage: NextPage<GalleryPageProps> = ({ page, images }) => {
 
   return (
     <>
-      {parse(page.content)}
+      {parse(page?.content ?? '')}
 
       <MyPhotoAlbum
         images={albumImages}

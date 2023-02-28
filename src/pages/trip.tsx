@@ -9,7 +9,7 @@ type TripPageProps = {
 };
 
 const TripPage: NextPage<TripPageProps> = ({ page }) => {
-  return <>{parse(page.content)}</>;
+  return <>{parse(page?.content ?? '')}</>;
 };
 
 export default TripPage;

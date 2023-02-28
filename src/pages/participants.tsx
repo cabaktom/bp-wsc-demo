@@ -18,7 +18,7 @@ const ParticipantsPage: NextPage<ParticipantsPageProps> = ({
 }) => {
   return (
     <>
-      {parse(page.content)}
+      {parse(page?.content ?? '')}
 
       <ParticipantList participants={participants} />
     </>

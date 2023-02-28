@@ -9,7 +9,7 @@ type ProgrammePageProps = {
 };
 
 const ProgrammePage: NextPage<ProgrammePageProps> = ({ page }) => {
-  return <>{parse(page.content)}</>;
+  return <>{parse(page?.content ?? '')}</>;
 };
 
 export default ProgrammePage;

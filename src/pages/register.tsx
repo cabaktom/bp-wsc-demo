@@ -13,7 +13,7 @@ type RegisterPageProps = {
 const RegisterPage: NextPage<RegisterPageProps> = ({ page }) => {
   return (
     <>
-      {parse(page.content)}
+      {parse(page?.content ?? '')}
 
       <Paper>
         <RegisterForm
