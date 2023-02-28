@@ -44,47 +44,55 @@ const RegisterForm = ({
 
   const form = useForm({
     initialValues: {
-      fullName: '',
-      email: '',
-      affiliation: '',
-      participation: 'ONSITE',
-      mailingAddress: '',
-      student: false,
-      additionalMessage: '',
+      participant: {
+        fullName: '',
+        email: '',
+        affiliation: '',
+        participation: 'ONSITE',
+        mailingAddress: '',
+        student: false,
+        additionalMessage: '',
+      },
+      abstract: {
+        title: '',
+        poster: false,
+        additionalAuthors: '',
+        affiliationAuthors: '',
+        abstract: '',
+      },
       contributing: true,
-      title: '',
-      poster: false,
-      additionalAuthors: '',
-      affiliationAuthors: '',
-      abstract: '',
     },
     validate: {
-      fullName: (value) => {
-        const trimmedValue = value.trim();
-        return trimmedValue.length < 1
-          ? 'Full name is required.'
-          : trimmedValue.length > 255
-          ? 'Full name can be at most 255 characters long.'
-          : null;
+      participant: {
+        fullName: (value) => {
+          const trimmedValue = value.trim();
+          return trimmedValue.length < 1
+            ? 'Full name is required.'
+            : trimmedValue.length > 255
+            ? 'Full name can be at most 255 characters long.'
+            : null;
+        },
+        email: (value) => {
+          const trimmedValue = value.trim();
+          return trimmedValue.length < 1
+            ? 'Email address is required.'
+            : trimmedValue.length > 255
+            ? 'Email address can be at most 255 characters long.'
+            : !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,63})+$/.test(trimmedValue)
+            ? 'Invalid email address.'
+            : null;
+        },
+        affiliation: isNotEmpty('Affiliation is required.'),
       },
-      email: (value) => {
-        const trimmedValue = value.trim();
-        return trimmedValue.length < 1
-          ? 'Email address is required.'
-          : trimmedValue.length > 255
-          ? 'Email address can be at most 255 characters long.'
-          : !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,63})+$/.test(trimmedValue)
-          ? 'Invalid email address.'
-          : null;
-      },
-      affiliation: isNotEmpty('Affiliation is required.'),
-      title: (value, values) => {
-        const trimmedValue = value.trim();
-        return values.contributing && trimmedValue.length === 0
-          ? 'Abstract title is required.'
-          : trimmedValue.length > 255
-          ? 'Abstract title can be at most 255 characters long.'
-          : null;
+      abstract: {
+        title: (value, values) => {
+          const trimmedValue = value.trim();
+          return values.contributing && trimmedValue.length === 0
+            ? 'Abstract title is required.'
+            : trimmedValue.length > 255
+            ? 'Abstract title can be at most 255 characters long.'
+            : null;
+        },
       },
     },
     validateInputOnBlur: true,
@@ -97,7 +105,11 @@ const RegisterForm = ({
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify({
+        ...values.participant,
+        ...values.abstract,
+        contributing: values.contributing,
+      }),
     });
     setLoading(false);
 
@@ -141,14 +153,14 @@ const RegisterForm = ({
                 withAsterisk
                 label="Full name"
                 aria-label="Full name input"
-                {...form.getInputProps('fullName')}
+                {...form.getInputProps('participant.fullName')}
                 w={{ base: '100%', sm: '50%' }}
               />
               <TextInput
                 withAsterisk
                 label="Email"
                 aria-label="Email input"
-                {...form.getInputProps('email')}
+                {...form.getInputProps('participant.email')}
                 w={{ base: '100%', sm: '50%' }}
               />
             </Flex>
@@ -158,7 +170,7 @@ const RegisterForm = ({
                 withAsterisk
                 label="Affiliation"
                 aria-label="Affiliation input"
-                {...form.getInputProps('affiliation')}
+                {...form.getInputProps('participant.affiliation')}
                 w={{ base: '100%', xs: '75%' }}
               />
               <Select
@@ -169,7 +181,7 @@ const RegisterForm = ({
                   { value: 'ONLINE', label: 'Online' },
                   { value: 'ONSITE', label: 'Onsite' },
                 ]}
-                {...form.getInputProps('participation')}
+                {...form.getInputProps('participant.participation')}
                 w={{ base: '100%', xs: '25%' }}
               />
             </Flex>
@@ -180,7 +192,7 @@ const RegisterForm = ({
               maxRows={4}
               label="Mailing address (will be used for invoice)"
               aria-label="Mailing address (will be used for invoice) input"
-              {...form.getInputProps('mailingAddress')}
+              {...form.getInputProps('participant.mailingAddress')}
             />
 
             <Textarea
@@ -189,7 +201,7 @@ const RegisterForm = ({
               maxRows={5}
               label="Additional message"
               aria-label="Additional message input"
-              {...form.getInputProps('additionalMessage')}
+              {...form.getInputProps('participant.additionalMessage')}
             />
 
             <Group spacing="xl">
@@ -201,7 +213,9 @@ const RegisterForm = ({
               <Checkbox
                 label="Student"
                 aria-label="Student checkbox"
-                {...form.getInputProps('student', { type: 'checkbox' })}
+                {...form.getInputProps('participant.student', {
+                  type: 'checkbox',
+                })}
               />
             </Group>
           </Stack>
@@ -218,20 +232,20 @@ const RegisterForm = ({
                 withAsterisk
                 label="Abstract title"
                 aria-label="Abstract title input"
-                {...form.getInputProps('title')}
+                {...form.getInputProps('abstract.title')}
               />
 
               <Flex direction={{ base: 'column', xs: 'row' }} gap="sm">
                 <TextInput
                   label="Additional authors"
                   aria-label="Additional authors input"
-                  {...form.getInputProps('additionalAuthors')}
+                  {...form.getInputProps('abstract.additionalAuthors')}
                   w={{ base: '100%', sm: '50%' }}
                 />
                 <TextInput
                   label="Affiliation authors"
                   aria-label="Affiliation authors input"
-                  {...form.getInputProps('affiliationAuthors')}
+                  {...form.getInputProps('abstract.affiliationAuthors')}
                   w={{ base: '100%', sm: '50%' }}
                 />
               </Flex>
@@ -242,24 +256,14 @@ const RegisterForm = ({
                 maxRows={5}
                 label="Abstract"
                 aria-label="Abstract input"
-                {...form.getInputProps('abstract')}
+                {...form.getInputProps('abstract.abstract')}
               />
 
               <Checkbox
                 label="Poster"
                 aria-label="Poster checkbox"
-                {...form.getInputProps('poster', { type: 'checkbox' })}
+                {...form.getInputProps('abstract.poster', { type: 'checkbox' })}
               />
-
-              {/* <FileInput
-                  clearable
-                  label="Upload poster"
-                  aria-label="Upload poster input"
-                  placeholder="poster.pdf"
-                  icon={<IconUpload size={18} />}
-                  {...form.getInputProps('poster')}
-                  accept=".pdf,.jpg,.jpeg,.png"
-                /> */}
             </Stack>
           </Grid.Col>
         )}

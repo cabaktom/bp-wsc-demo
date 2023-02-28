@@ -44,7 +44,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
         : undefined,
     });
   } catch (e) {
-    return handleErrors('Administrator', e, res);
+    return handleErrors('Participant', e, res);
   }
 };
 
