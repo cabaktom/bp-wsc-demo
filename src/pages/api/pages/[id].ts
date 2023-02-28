@@ -9,10 +9,9 @@ import handleErrors from '../../../lib/handleApiErrors';
 import { revalidatePage } from '../../../lib/revalidate';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
+
     const page = await prisma.page.findFirst({ where: { id: idParsed } });
     if (!page) {
       return res.status(404).json({ message: 'Page not found' });
@@ -25,10 +24,8 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
     const { name, title, content } = PageIn.parse(req.body);
 
     const pageData = {

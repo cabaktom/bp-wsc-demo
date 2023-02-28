@@ -10,7 +10,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
 
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(id);
 
     const abstract = await prisma.abstract.findUnique({
       where: { id: idParsed },
@@ -26,10 +26,8 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
     const data = AbstractIn.parse(req.body);
 
     const abstract = await prisma.abstract.update({
@@ -44,10 +42,8 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
 
     await prisma.abstract.delete({ where: { id: idParsed } });
 

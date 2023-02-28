@@ -9,12 +9,10 @@ import { comparePwd, hashPwd } from '../../../../lib/password';
 const handlePatch = async (
   req: NextApiRequest,
   res: NextApiResponse,
-  sessionUserId: number,
+  sessionUserId: string,
 ) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
     if (idParsed !== sessionUserId) {
       return res.status(403).json({
         message: 'You can only change your own password',
@@ -63,7 +61,7 @@ export default async function handler(
   switch (req.method) {
     // PATCH /api/admins/{id}/password
     case 'PATCH':
-      return handlePatch(req, res, +token.sub);
+      return handlePatch(req, res, token.sub);
 
     default:
       return res.status(405).setHeader('Allow', 'PATCH').end();

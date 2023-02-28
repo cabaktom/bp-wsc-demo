@@ -9,10 +9,8 @@ import { ImageOut, ImageEdit } from '../../../../schemas/Image';
 import handleErrors from '../../../../lib/handleApiErrors';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
     const image = await prisma.image.findUnique({ where: { id: idParsed } });
 
     if (!image) {
@@ -26,11 +24,9 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
     const { alt, filename } = ImageEdit.parse(req.body);
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
 
     const image = await prisma.image.findUnique({ where: { id: idParsed } });
     if (!image) {
@@ -66,10 +62,8 @@ const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
 
     const imageToDelete = await prisma.image.delete({
       where: { id: idParsed },

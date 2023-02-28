@@ -32,7 +32,7 @@ export const AdminEdit = z.object({
 });
 
 export const AdminOut = z.object({
-  id: z.number().min(1),
+  id: z.string().uuid().min(1),
   username: z.string().min(1),
   email: z.string().email(),
 });

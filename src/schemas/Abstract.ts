@@ -13,11 +13,11 @@ export const AbstractIn = z.object({
 });
 
 export const AbstractOut = z.object({
-  id: z.number().min(1),
+  id: z.string().uuid().min(1),
   title: z.string().min(1),
   poster: z.boolean(),
   additionalAuthors: z.string(),
   affiliationAuthors: z.string(),
   abstract: z.string(),
-  participantId: z.number().min(1),
+  participantId: z.string().uuid().min(1),
 });

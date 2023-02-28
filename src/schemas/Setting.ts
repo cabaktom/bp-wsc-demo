@@ -9,7 +9,7 @@ export const SettingIn = z.object({
 });
 
 export const SettingOut = z.object({
-  id: z.number().min(1),
+  id: z.string().uuid().min(1),
   option: z.string().min(1),
   value: z.string(),
 });

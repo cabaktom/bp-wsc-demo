@@ -25,7 +25,7 @@ export const ParticipantIn = z.object({
 });
 
 export const ParticipantOut = z.object({
-  id: z.number().min(1),
+  id: z.string().uuid().min(1),
   fullName: z.string().min(1),
   email: z.string().email(),
   affiliation: z.string().min(1),

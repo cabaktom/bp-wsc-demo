@@ -23,10 +23,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const participantId = z
-      .number()
-      .int()
-      .parse(Number(req.body.participantId));
+    const participantId = z.string().uuid().parse(req.body.participantId);
     const data = AbstractIn.parse(req.body);
 
     const participant = await prisma.participant.findUnique({

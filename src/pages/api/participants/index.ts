@@ -53,7 +53,7 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
       ids
         .toString()
         .split(',')
-        .map((id) => z.number().int().parse(Number(id))) ?? [];
+        .map((id) => z.string().uuid().parse(id)) ?? [];
 
     await prisma.participant.deleteMany({
       where: { id: { in: idsNum } },

@@ -7,10 +7,8 @@ import { AdminOut, AdminEdit } from '../../../../schemas/Admin';
 import handleErrors from '../../../../lib/handleApiErrors';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
     const admin = await prisma.admin.findUnique({ where: { id: idParsed } });
 
     if (!admin) {
@@ -24,11 +22,9 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
     const { username, email } = AdminEdit.parse(req.body);
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
     const admin = await prisma.admin.update({
       where: { id: idParsed },
       data: {
@@ -46,12 +42,10 @@ const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
 const handleDelete = async (
   req: NextApiRequest,
   res: NextApiResponse,
-  sessionUserId: number,
+  sessionUserId: string,
 ) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
     if (idParsed === sessionUserId) {
       return res.status(400).json({
         message: 'You cannot delete your own account',
@@ -83,7 +77,7 @@ export default async function handler(
       return handlePatch(req, res);
     // DELETE /api/admins/{id}
     case 'DELETE':
-      return handleDelete(req, res, +token.sub);
+      return handleDelete(req, res, token.sub);
 
     default:
       return res.status(405).setHeader('Allow', 'GET,PATCH,DELETE').end();

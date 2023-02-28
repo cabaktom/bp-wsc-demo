@@ -81,7 +81,6 @@ async function createAdmins() {
     where: { username: 'admin' },
     update: {},
     create: {
-      id: 1,
       username: 'admin',
       email: 'admin@wsc.com',
       password: await hashPwd('123456'),
@@ -91,7 +90,6 @@ async function createAdmins() {
     where: { username: 'uTRuside' },
     update: {},
     create: {
-      id: 2,
       username: 'uTRuside',
       email: 'uTRuside@wsc.com',
       password: await hashPwd('123456'),
@@ -101,7 +99,6 @@ async function createAdmins() {
     where: { username: 'EANdoteo' },
     update: {},
     create: {
-      id: 3,
       username: 'EANdoteo',
       email: 'EANdoteo@wsc.com',
       password: await hashPwd('123456'),
@@ -111,7 +108,6 @@ async function createAdmins() {
     where: { username: 'NdcHrenT' },
     update: {},
     create: {
-      id: 4,
       username: 'NdcHrenT',
       email: 'NdcHrenT@wsc.com',
       password: await hashPwd('123456'),
@@ -121,7 +117,6 @@ async function createAdmins() {
     where: { username: 'yElItupl' },
     update: {},
     create: {
-      id: 5,
       username: 'yElItupl',
       email: 'yElItupl@wsc.com',
       password: await hashPwd('123456'),
@@ -131,7 +126,6 @@ async function createAdmins() {
     where: { username: 'sTERAdbu' },
     update: {},
     create: {
-      id: 6,
       username: 'sTERAdbu',
       email: 'sTERAdbu@wsc.com',
       password: await hashPwd('123456'),
@@ -143,46 +137,41 @@ async function createAdmins() {
 
 async function createSiteSettings() {
   await prisma.siteSettings.upsert({
-    where: { id: 1 },
+    where: { option: 'title' },
     update: {},
     create: {
-      id: 1,
-      option: 'title (also page title)',
+      option: 'title',
       value: 'Student workshop on scientific computing 2022',
     },
   });
   await prisma.siteSettings.upsert({
-    where: { id: 2 },
+    where: { option: 'date' },
     update: {},
     create: {
-      id: 2,
       option: 'date',
       value: 'May 26 - 29, 2022.',
     },
   });
   await prisma.siteSettings.upsert({
-    where: { id: 3 },
+    where: { option: 'location' },
     update: {},
     create: {
-      id: 3,
       option: 'location',
       value: 'Děčín, Czech Republic + online',
     },
   });
   await prisma.siteSettings.upsert({
-    where: { id: 4 },
+    where: { option: 'address department' },
     update: {},
     create: {
-      id: 4,
       option: 'address department',
       value: 'Departments of Software Engineering and Mathematics',
     },
   });
   await prisma.siteSettings.upsert({
-    where: { id: 5 },
+    where: { option: 'address faculty' },
     update: {},
     create: {
-      id: 5,
       option: 'address faculty',
       value: 'FNSPE CTU in Prague, Czech Republic',
     },
@@ -193,10 +182,9 @@ async function createSiteSettings() {
 
 async function createParticipantsAndAbstracts() {
   await prisma.participant.upsert({
-    where: { id: 1 },
+    where: { email: 'balazmon@fjfi.cvut.cz' },
     update: {},
     create: {
-      id: 1,
       fullName: 'Monika Balázsová',
       email: 'balazmon@fjfi.cvut.cz',
       affiliation: 'FNSPE CTU in Prague',
@@ -206,7 +194,6 @@ async function createParticipantsAndAbstracts() {
       additionalMessage: '',
       abstract: {
         create: {
-          id: 1,
           title: ' Adjoint method for PDEs',
           poster: false,
           additionalAuthors: '',
@@ -218,10 +205,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 2 },
+    where: { email: 'michal.benes@fjfi.cvut.cz' },
     update: {},
     create: {
-      id: 2,
       fullName: 'Michal Beneš',
       email: 'michal.benes@fjfi.cvut.cz',
       affiliation: 'FNSPE CTU in Prague',
@@ -231,7 +217,6 @@ async function createParticipantsAndAbstracts() {
       additionalMessage: '',
       abstract: {
         create: {
-          id: 2,
           title: 'Modeling Experiments in Freezing and Thawing of Porous Media',
           poster: false,
           additionalAuthors: 'Michal Sněhota, Martina Sobotková',
@@ -243,10 +228,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 3 },
+    where: { email: 'buresj11@fjfi.cvut.cz' },
     update: {},
     create: {
-      id: 3,
       fullName: 'Jan Bureš',
       email: 'buresj11@fjfi.cvut.cz',
       affiliation: 'FNSPE CTU in Prague',
@@ -256,7 +240,6 @@ async function createParticipantsAndAbstracts() {
       additionalMessage: '',
       abstract: {
         create: {
-          id: 3,
           title:
             'On stress integration method for lattice Boltzmann method in 2D',
           poster: false,
@@ -268,10 +251,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 4 },
+    where: { email: 'diasomic@fjfi.cvut.cz' },
     update: {},
     create: {
-      id: 4,
       fullName: 'Michaela Diasová',
       email: 'diasomic@fjfi.cvut.cz',
       affiliation: 'FNSPE CTU in Prague',
@@ -281,7 +263,6 @@ async function createParticipantsAndAbstracts() {
       additionalMessage: '',
       abstract: {
         create: {
-          id: 4,
           title: 'Iterated Function Systems, Their Invariant Sets and Measure',
           poster: false,
           additionalAuthors: '',
@@ -293,10 +274,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 5 },
+    where: { email: 'eichlpa1@fjfi.cvut.cz' },
     update: {},
     create: {
-      id: 5,
       fullName: 'Pavel Eichler',
       email: 'eichlpa1@fjfi.cvut.cz',
       affiliation: 'FNSPE CTU in Prague',
@@ -306,7 +286,6 @@ async function createParticipantsAndAbstracts() {
       additionalMessage: '',
       abstract: {
         create: {
-          id: 5,
           title: 'Lattice Boltzmann method and Boundary conditions',
           poster: false,
           additionalAuthors: '',
@@ -318,10 +297,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 6 },
+    where: { email: 'fucik@fjfi.cvut.cz' },
     update: {},
     create: {
-      id: 6,
       fullName: 'Radek Fučík',
       email: 'fucik@fjfi.cvut.cz',
       affiliation: 'FNSPE CTU in Prague',
@@ -331,7 +309,6 @@ async function createParticipantsAndAbstracts() {
       additionalMessage: '',
       abstract: {
         create: {
-          id: 6,
           title:
             'Equivalent partial differential equation of the lattice Boltzmann method',
           poster: false,
@@ -344,10 +321,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 7 },
+    where: { email: 'vladimir.fuka@mff.cuni.cz' },
     update: {},
     create: {
-      id: 7,
       fullName: 'Vladimír Fuka',
       email: 'vladimir.fuka@mff.cuni.cz',
       affiliation: 'Faculty of Mathematics and Physics, Charles University',
@@ -359,7 +335,6 @@ async function createParticipantsAndAbstracts() {
         'I can only stay until Friday early afternoon due to travel for an important family celebration.',
       abstract: {
         create: {
-          id: 7,
           title: 'LES and DNS of flow and scal dispersion in a street canyon',
           poster: false,
           additionalAuthors: '',
@@ -371,10 +346,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 8 },
+    where: { email: 'rholub@clarkson.edu' },
     update: {},
     create: {
-      id: 8,
       fullName: 'Robert F. Holub',
       email: 'rholub@clarkson.edu',
       affiliation: 'Clarkson University, Potsdam, New York, U.S.A',
@@ -385,10 +359,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 9 },
+    where: { email: 'Dombas1999@gmail.com' },
     update: {},
     create: {
-      id: 9,
       fullName: 'Dominik Horák',
       email: 'Dombas1999@gmail.com',
       affiliation: 'FNSPE CTU in Prague',
@@ -398,7 +371,6 @@ async function createParticipantsAndAbstracts() {
       additionalMessage: '',
       abstract: {
         create: {
-          id: 9,
           title:
             'Mathematical modeling of flow around obstacles using the lattice Boltzmann method',
           poster: false,
@@ -410,10 +382,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 10 },
+    where: { email: 'mail@mail.mai' },
     update: {},
     create: {
-      id: 10,
       fullName: 'Ladislav Kalvoda',
       email: 'mail@mail.mai',
       affiliation: 'FNSPE CTU in Prague',
@@ -424,10 +395,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 11 },
+    where: { email: 'klinkjak@fjfi.cvut.cz' },
     update: {},
     create: {
-      id: 11,
       fullName: 'Jakub Klinkovský',
       email: 'klinkjak@fjfi.cvut.cz',
       affiliation: 'FNSPE CTU in Prague',
@@ -438,7 +408,6 @@ async function createParticipantsAndAbstracts() {
         'odjezd dříve - 29.6. v 16:35 odlet do Abu Dhabi (interpore)',
       abstract: {
         create: {
-          id: 11,
           title: 'Modeling vapor transport in air using LBM and MHFEM',
           poster: false,
           additionalAuthors:
@@ -452,10 +421,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 12 },
+    where: { email: 'kolarmir@fjfi.cvut.cz' },
     update: {},
     create: {
-      id: 12,
       fullName: 'Miroslav Kolář',
       email: 'kolarmir@fjfi.cvut.cz',
       affiliation: 'FNSPE CTU in Prague',
@@ -466,10 +434,9 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { id: 13 },
+    where: { email: 'kukal@fjfi.cvut.cz' },
     update: {},
     create: {
-      id: 13,
       fullName: 'Jaromir Kukal',
       email: 'kukal@fjfi.cvut.cz',
       affiliation: 'FNSPE CTU in Prague',
@@ -480,7 +447,6 @@ async function createParticipantsAndAbstracts() {
       additionalMessage: '',
       abstract: {
         create: {
-          id: 13,
           title:
             'Fast Evaluation of Modified Renyi Entropy for Fractal Analysis',
           poster: false,

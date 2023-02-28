@@ -13,7 +13,7 @@ export const ImageEdit = z.object({
 });
 
 export const ImageOut = z.object({
-  id: z.number().min(1),
+  id: z.string().uuid().min(1),
   alt: z.string(),
   path: z.string().min(1),
   filename: z.string().min(1),

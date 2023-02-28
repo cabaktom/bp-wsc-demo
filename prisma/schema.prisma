@@ -8,21 +8,21 @@ datasource db {
 }
 
 model Page {
-  id      Int    @id @default(autoincrement())
+  id      String @id @default(uuid())
   name    String @unique @db.VarChar(255)
   title   String @db.VarChar(255)
   content String
 }
 
 model Admin {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   username String @unique @db.VarChar(255)
   password String
   email    String @unique @db.VarChar(255)
 }
 
 model SiteSettings {
-  id     Int    @id @default(autoincrement())
+  id     String @id @default(uuid())
   option String @unique
   value  String
 }
@@ -33,7 +33,7 @@ enum Participation {
 }
 
 model Participant {
-  id                Int           @id @default(autoincrement())
+  id                String        @id @default(uuid())
   fullName          String        @db.VarChar(255)
   email             String        @unique @db.VarChar(255)
   affiliation       String
@@ -46,18 +46,18 @@ model Participant {
 }
 
 model Abstract {
-  id                 Int         @id @default(autoincrement())
+  id                 String      @id @default(uuid())
   title              String      @db.VarChar(255)
   poster             Boolean     @default(false)
   additionalAuthors  String?     @default("")
   affiliationAuthors String?     @default("")
   abstract           String?     @default("")
   participant        Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
-  participantId      Int         @unique
+  participantId      String      @unique
 }
 
 model Image {
-  id               Int      @id @default(autoincrement())
+  id               String   @id @default(uuid())
   alt              String?  @default("") @db.VarChar(255)
   path             String   @db.VarChar(255)
   filename         String   @unique @db.VarChar(255)

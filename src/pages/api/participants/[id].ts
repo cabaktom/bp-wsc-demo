@@ -8,11 +8,10 @@ import { ParticipantIn, ParticipantOut } from '../../../schemas/Participant';
 import { AbstractOut } from '../../../schemas/Abstract';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
   const { abstract } = req.query;
 
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
 
     const participant = await prisma.participant.findUnique({
       where: { id: idParsed },
@@ -34,10 +33,8 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
     const data = ParticipantIn.parse(req.body);
 
     const participant = await prisma.participant.update({
@@ -52,10 +49,8 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-
   try {
-    const idParsed = z.number().int().parse(Number(id));
+    const idParsed = z.string().uuid().parse(req.query.id);
 
     await prisma.participant.delete({ where: { id: idParsed } });
 

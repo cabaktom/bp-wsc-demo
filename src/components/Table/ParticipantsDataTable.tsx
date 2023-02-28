@@ -39,7 +39,7 @@ const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
     [],
   );
 
-  const [expandedRecordIds, setExpandedRecordIds] = useState<number[]>([]);
+  const [expandedRecordIds, setExpandedRecordIds] = useState<string[]>([]);
 
   const expandAllRows = () => {
     setExpandedRecordIds(participants.map((participant) => participant.id));
