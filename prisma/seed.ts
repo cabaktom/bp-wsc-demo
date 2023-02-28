@@ -142,6 +142,7 @@ async function createSiteSettings() {
     create: {
       option: 'title',
       value: 'Student workshop on scientific computing 2022',
+      order: 1,
     },
   });
   await prisma.siteSettings.upsert({
@@ -150,6 +151,7 @@ async function createSiteSettings() {
     create: {
       option: 'date',
       value: 'May 26 - 29, 2022.',
+      order: 2,
     },
   });
   await prisma.siteSettings.upsert({
@@ -158,6 +160,7 @@ async function createSiteSettings() {
     create: {
       option: 'location',
       value: 'Děčín, Czech Republic + online',
+      order: 3,
     },
   });
   await prisma.siteSettings.upsert({
@@ -166,6 +169,7 @@ async function createSiteSettings() {
     create: {
       option: 'address department',
       value: 'Departments of Software Engineering and Mathematics',
+      order: 4,
     },
   });
   await prisma.siteSettings.upsert({
@@ -174,6 +178,7 @@ async function createSiteSettings() {
     create: {
       option: 'address faculty',
       value: 'FNSPE CTU in Prague, Czech Republic',
+      order: 5,
     },
   });
 

@@ -76,7 +76,7 @@ const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
         </Alert>
       )}
 
-      {settings.map((setting) => (
+      {settings.sort((a, b) => a.order - b.order).map((setting) => (
         <TextInput
           key={setting.id}
           withAsterisk

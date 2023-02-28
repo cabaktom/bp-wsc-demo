@@ -25,6 +25,7 @@ model SiteSettings {
   id     String @id @default(uuid())
   option String @unique
   value  String
+  order  Int    @unique
 }
 
 enum Participation {
