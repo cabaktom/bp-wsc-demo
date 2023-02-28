@@ -16,11 +16,18 @@ const ParticipantsPage: NextPage<ParticipantsPageProps> = ({
   page,
   participants,
 }) => {
+  const participantsWithLastName = participants.map((participant) => ({
+    ...participant,
+    lastName: participant.fullName.slice(
+      participant.fullName.lastIndexOf(' ') + 1,
+    ),
+  }));
+
   return (
     <>
       {parse(page?.content ?? '')}
 
-      <ParticipantList participants={participants} />
+      <ParticipantList participants={participantsWithLastName} />
     </>
   );
 };

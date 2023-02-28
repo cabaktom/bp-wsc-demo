@@ -7,11 +7,13 @@ import {
   ThemeIcon,
   Title,
   createStyles,
+  Select,
 } from '@mantine/core';
 import type { Abstract, Participant } from '@prisma/client';
 import { IconUserCircle } from '@tabler/icons-react';
 
 import useSearch from '../../hooks/useSearch';
+import useSort from '../../hooks/useSort';
 
 const useStyles = createStyles((theme) => ({
   list: {
@@ -35,26 +37,59 @@ const useStyles = createStyles((theme) => ({
 type ParticipantListProps = {
   participants: (Participant & {
     abstract: Abstract | null;
+    lastName: string;
   })[];
 };
 
 const ParticipantList = ({ participants }: ParticipantListProps) => {
   const { classes } = useStyles();
 
-  const { query, setQuery, searchResults } = useSearch({ data: participants });
+  // data pipeline: search -> sort
+  const { query, setQuery, searchResults } = useSearch({
+    data: participants,
+  });
+  const { sortStatus, setSortStatus, sortResults } = useSort({
+    data: searchResults,
+    initialSortStatus: {
+      accessor: 'lastName',
+      direction: 'asc',
+    },
+  });
 
   return (
     <>
-      <TextInput
-        label="Search"
-        placeholder="Search participants and abstracts"
-        value={query}
-        onChange={(event) => setQuery(event.currentTarget.value)}
-        rightSection={<CloseButton size={18} onClick={() => setQuery('')} />}
-      />
+      <Flex direction={{ base: 'column', sm: 'row' }} gap="sm" wrap="nowrap">
+        <TextInput
+          label="Search"
+          placeholder="Search participants and abstracts"
+          value={query}
+          onChange={(event) => setQuery(event.currentTarget.value)}
+          rightSection={<CloseButton size={18} onClick={() => setQuery('')} />}
+          w="100%"
+        />
+
+        <Select
+          label="Sort by"
+          placeholder="Sort by"
+          value={`${sortStatus?.accessor},${sortStatus?.direction}`}
+          onChange={(value) => {
+            setSortStatus({
+              accessor: value!.split(',')[0],
+              direction: value!.split(',')[1] as 'asc' | 'desc',
+            });
+          }}
+          data={[
+            { label: 'Last name (asc)', value: 'lastName,asc' },
+            { label: 'Last name (desc)', value: 'lastName,desc' },
+            { label: 'Abstract title (asc)', value: 'abstract.title,asc' },
+            { label: 'Abstract title (desc)', value: 'abstract.title,desc' },
+          ]}
+          miw="18rem"
+        />
+      </Flex>
 
       <ul className={classes.list}>
-        {searchResults.map(({ abstract, ...participant }) => (
+        {sortResults.map(({ abstract, ...participant }) => (
           <li key={participant.fullName}>
             <Flex
               direction={{ base: 'column', md: 'row' }}
