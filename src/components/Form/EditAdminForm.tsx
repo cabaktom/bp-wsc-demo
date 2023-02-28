@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 import { Alert, Button, Stack, TextInput } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, zodResolver } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
+import { AdminEdit } from '../../schemas/Admin';
 
 type EditAdminFormProps = {
   id: number;
@@ -21,26 +22,7 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
       username,
       email,
     },
-    validate: {
-      username: (value) => {
-        const trimmedValue = value.trim();
-        return trimmedValue.length < 1
-          ? 'Username is required.'
-          : trimmedValue.length > 255
-          ? 'Username can be at most 255 characters long.'
-          : null;
-      },
-      email: (value) => {
-        const trimmedValue = value.trim();
-        return trimmedValue.length < 1
-          ? 'Email address is required.'
-          : trimmedValue.length > 255
-          ? 'Email address can be at most 255 characters long.'
-          : !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,63})+$/.test(trimmedValue)
-          ? 'Invalid email address.'
-          : null;
-      },
-    },
+    validate: zodResolver(AdminEdit),
     validateInputOnChange: true,
   });
 
