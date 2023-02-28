@@ -1,5 +1,6 @@
 import { Center, Title, Text, Stack, createStyles } from '@mantine/core';
 import { z } from 'zod';
+import type { SiteSettings } from '@prisma/client';
 
 import { SettingOut } from '../../schemas/Setting';
 
@@ -31,23 +32,29 @@ type HeaderProps = {
 const Header = ({ settings }: HeaderProps) => {
   const { classes } = useStyles();
 
+  const settingsObj = settings.reduce((acc, setting) => {
+    acc[setting.option as keyof SiteSettings] = setting.value;
+    return acc;
+  }, {} as SiteSettings);
+
   return (
     <Center className={classes.headerContainer}>
       <Stack className={classes.header}>
         <Title className={classes.title} order={1} c="white">
-          {settings[0].value}
+          {settingsObj['title' as keyof SiteSettings]}
         </Title>
 
         <Title className={classes.title} order={2} c="orange.4">
-          {settings[1].value} {settings[2].value}
+          {settingsObj['date' as keyof SiteSettings]}{' '}
+          {settingsObj['location' as keyof SiteSettings]}
         </Title>
 
         <Text fz="sm" c="white">
-          {settings[3].value}
+          {settingsObj['address department' as keyof SiteSettings]}
         </Text>
 
         <Text fz="sm" c="white">
-          {settings[4].value}
+          {settingsObj['address faculty' as keyof SiteSettings]}
         </Text>
       </Stack>
     </Center>

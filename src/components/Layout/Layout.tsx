@@ -19,12 +19,14 @@ const Layout = ({
   title,
   contentWidth = 'lg',
 }: LayoutProps) => {
+  const globalTitle = settings.find(
+    (setting) => setting.option === 'title',
+  )?.value;
+
   return (
     <>
       <Head>
-        <title>
-          {title ? `${title} | ${settings[0].value}` : settings[0].value}
-        </title>
+        <title>{globalTitle ? `${title} | ${globalTitle}` : title}</title>
       </Head>
 
       <Header settings={settings} />
