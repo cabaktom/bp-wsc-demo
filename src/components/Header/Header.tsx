@@ -1,8 +1,5 @@
 import { Center, Title, Text, Stack, createStyles } from '@mantine/core';
-import { z } from 'zod';
 import type { SiteSettings } from '@prisma/client';
-
-import { SettingOut } from '../../schemas/Setting';
 
 const useStyles = createStyles((theme) => ({
   headerContainer: {
@@ -26,7 +23,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 type HeaderProps = {
-  settings: z.infer<typeof SettingOut>[];
+  settings: SiteSettings[];
 };
 
 const Header = ({ settings }: HeaderProps) => {
@@ -35,7 +32,7 @@ const Header = ({ settings }: HeaderProps) => {
   const settingsObj = settings.reduce((acc, setting) => {
     acc[setting.option as keyof SiteSettings] = setting.value;
     return acc;
-  }, {} as SiteSettings);
+  }, {} as { [key in keyof SiteSettings]: string });
 
   return (
     <Center className={classes.headerContainer}>

@@ -61,7 +61,7 @@ const PagesList = ({ pages: initPages }: PagesListProps) => {
   return (
     <Accordion variant="contained" multiple chevronPosition="left">
       {pages.map((page, index) => (
-        <Accordion.Item key={index} value={page.id.toString()}>
+        <Accordion.Item key={index} value={page.id}>
           <Accordion.Control h="6rem" title={`Edit ${page.title} page`}>
             {page.title}
           </Accordion.Control>

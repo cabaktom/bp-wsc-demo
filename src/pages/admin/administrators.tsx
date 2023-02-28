@@ -22,7 +22,7 @@ const AdministratorsPage: NextPageWithLayout<AdministratorsPageProps> = ({
   const { data: session } = useSession();
 
   const { id } = session?.user ?? {
-    id: -1,
+    id: '',
   };
 
   return (

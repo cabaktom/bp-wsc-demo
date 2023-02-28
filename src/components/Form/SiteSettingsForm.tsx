@@ -3,16 +3,12 @@ import { Alert, Button, Center, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { capitalize } from 'lodash';
-import { z } from 'zod';
 import { IconCheck } from '@tabler/icons-react';
-
-import { SettingOut } from '../../schemas/Setting';
+import { SiteSettings } from '@prisma/client';
 
 type SiteSettingsFormProps = {
-  settings: z.infer<typeof SettingOut>[];
-  setSettings: React.Dispatch<
-    React.SetStateAction<z.infer<typeof SettingOut>[]>
-  >;
+  settings: SiteSettings[];
+  setSettings: React.Dispatch<React.SetStateAction<SiteSettings[]>>;
 };
 
 const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
@@ -76,16 +72,18 @@ const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
         </Alert>
       )}
 
-      {settings.sort((a, b) => a.order - b.order).map((setting) => (
-        <TextInput
-          key={setting.id}
-          withAsterisk
-          label={capitalize(setting.option)}
-          aria-label={`${setting.option} input`}
-          mb="sm"
-          {...form.getInputProps(setting.option)}
-        />
-      ))}
+      {settings
+        .sort((a, b) => a.order - b.order)
+        .map((setting) => (
+          <TextInput
+            key={setting.id}
+            withAsterisk
+            label={capitalize(setting.option)}
+            aria-label={`${setting.option} input`}
+            mb="sm"
+            {...form.getInputProps(setting.option)}
+          />
+        ))}
 
       <Center>
         <Button

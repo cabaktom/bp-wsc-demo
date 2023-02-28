@@ -7,7 +7,7 @@ import { IconCheck } from '@tabler/icons-react';
 import { AdminEdit } from '../../schemas/Admin';
 
 type EditAdminFormProps = {
-  id: number;
+  id: string;
   username: string;
   email: string;
 };

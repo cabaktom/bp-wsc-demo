@@ -6,7 +6,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconCheck } from '@tabler/icons-react';
 
 type ChangePasswordFormProps = {
-  id: number;
+  id: string;
 };
 
 const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
