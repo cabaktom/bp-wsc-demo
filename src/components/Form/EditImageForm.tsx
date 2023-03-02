@@ -23,7 +23,7 @@ const EditImageForm = ({ id, alt, filename }: EditImageFormProps) => {
 
   const handleSubmit = async (values: typeof form.values) => {
     setLoading(true);
-    const res = await fetch(`/api/files/images/${id}`, {
+    const res = await fetch(`/api/images/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ const EditImageForm = ({ id, alt, filename }: EditImageFormProps) => {
         autoClose: 4000,
       });
 
-      mutate('/api/files/images');
+      mutate('/api/images');
     }
   };
 

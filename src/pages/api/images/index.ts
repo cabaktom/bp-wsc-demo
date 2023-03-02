@@ -5,8 +5,9 @@ import fs from 'fs/promises';
 import imageSize from 'image-size';
 import { getToken } from 'next-auth/jwt';
 
-import { prisma } from '../../../../lib/prisma';
-import { ImageOut } from '../../../../schemas/Image';
+import { prisma } from '../../../lib/prisma';
+import { ImageOut } from '../../../schemas/Image';
+import { revalidatePage } from '../../../lib/revalidate';
 
 export const config = {
   api: {
@@ -111,6 +112,8 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
     );
     const results = Promise.all(promises);
 
+    await revalidatePage(res, '/gallery');
+
     return res.status(200).json({
       status: 'success',
       message: 'Image(s) uploaded successfully.',
@@ -146,10 +149,10 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/files/images
+    // GET /api/images
     case 'GET':
       return handleGet(req, res);
-    // POST /api/files/images
+    // POST /api/images
     case 'POST':
       return handlePost(req, res);
 

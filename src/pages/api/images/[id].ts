@@ -4,9 +4,10 @@ import { z } from 'zod';
 import fs from 'fs/promises';
 import path from 'path';
 
-import { prisma } from '../../../../lib/prisma';
-import { ImageOut, ImageEdit } from '../../../../schemas/Image';
-import handleErrors from '../../../../lib/handleApiErrors';
+import { prisma } from '../../../lib/prisma';
+import { ImageOut, ImageEdit } from '../../../schemas/Image';
+import handleErrors from '../../../lib/handleApiErrors';
+import { revalidatePage } from '../../../lib/revalidate';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -55,6 +56,8 @@ const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
+    await revalidatePage(res, '/gallery');
+
     return res.status(200).json(ImageOut.parse(imageNew));
   } catch (e) {
     return handleErrors('Image', e, res);
@@ -69,6 +72,8 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
       where: { id: idParsed },
     });
     await fs.rm(path.join(process.cwd(), 'public', imageToDelete.path));
+
+    await revalidatePage(res, '/gallery');
 
     return res.status(204).end();
   } catch (e) {
@@ -85,13 +90,13 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/files/images/{id}
+    // GET /api/images/{id}
     case 'GET':
       return handleGet(req, res);
-    // PATCH /api/files/images/{id}
+    // PATCH /api/images/{id}
     case 'PATCH':
       return handlePatch(req, res);
-    // DELETE /api/files/images/{id}
+    // DELETE /api/images/{id}
     case 'DELETE':
       return handleDelete(req, res);
 

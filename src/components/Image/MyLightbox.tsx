@@ -32,7 +32,9 @@ const MyLightbox = ({ images, open, index, setIndex }: MyLightboxProps) => {
               <Image
                 fill
                 alt={image.alt!}
-                src={image.src}
+                src={`/api/download${image.src}?type=image/${image.src
+                  .split('.')
+                  .pop()}`}
                 loading="eager"
                 draggable={false}
                 sizes={

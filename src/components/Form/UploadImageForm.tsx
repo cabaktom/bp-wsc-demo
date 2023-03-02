@@ -41,7 +41,7 @@ const UploadImageForm = () => {
       formData.append('images', file);
     });
 
-    const res = await fetch('/api/files/images', {
+    const res = await fetch('/api/images', {
       method: 'POST',
       body: formData,
     });
@@ -65,7 +65,7 @@ const UploadImageForm = () => {
         autoClose: 4000,
       });
 
-      mutate('/api/files/images');
+      mutate('/api/images');
     }
 
     setFiles([]);

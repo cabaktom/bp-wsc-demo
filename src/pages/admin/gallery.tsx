@@ -38,7 +38,7 @@ export async function getServerSideProps() {
   return {
     props: {
       fallback: {
-        '/api/files/images': JSON.parse(JSON.stringify(images)),
+        '/api/images': JSON.parse(JSON.stringify(images)),
       },
     },
   };

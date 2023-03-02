@@ -56,16 +56,14 @@ const AdminImageControls = ({ image }: AdminImageControlsProps) => {
         modalBody: `Are you sure you want to delete image '${image.originalFilename}'?`,
         subjectId: image.id,
         subjectTitle: 'Image',
-        actionUrl: '/api/files/images',
+        actionUrl: '/api/images',
       },
-      onClose: () => mutate('/api/files/images'),
+      onClose: () => mutate('/api/images'),
     });
   };
 
   return (
     <Flex className={classes.controls} align="center">
-      {/* <Checkbox ml="xs" mr="auto" size="xs" /> */}
-
       <ActionIcon
         ml="auto"
         className={classes.icon}
