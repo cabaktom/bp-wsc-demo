@@ -167,25 +167,10 @@ const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
             width: 200,
           },
           {
-            accessor: 'student',
-            title: 'Student',
-            sortable: true,
-            width: 110,
-            render: (participant) => (
-              <Flex>
-                {participant.student ? (
-                  <IconCheck color="green" />
-                ) : (
-                  <IconX color="darkred" />
-                )}
-              </Flex>
-            ),
-          },
-          {
             accessor: 'abstract',
             title: 'Abstract',
             sortable: true,
-            width: 110,
+            width: 100,
             render: (participant) => (
               <Flex>
                 {participant.abstract ? (
@@ -200,10 +185,25 @@ const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
             accessor: 'poster',
             title: 'Poster',
             sortable: true,
-            width: 110,
+            width: 90,
             render: (participant) => (
               <Flex>
                 {participant.poster ? (
+                  <IconCheck color="green" />
+                ) : (
+                  <IconX color="darkred" />
+                )}
+              </Flex>
+            ),
+          },
+          {
+            accessor: 'student',
+            title: 'Student',
+            sortable: true,
+            width: 100,
+            render: (participant) => (
+              <Flex>
+                {participant.student ? (
                   <IconCheck color="green" />
                 ) : (
                   <IconX color="darkred" />
@@ -276,6 +276,11 @@ const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
             </Container>
           ),
         }}
+        rowStyle={(row) =>
+          expandedRecordIds.includes(row.id)
+            ? { backgroundColor: theme.colors.gray[1] }
+            : undefined
+        }
       />
     </Stack>
   );
