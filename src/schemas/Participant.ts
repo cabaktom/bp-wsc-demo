@@ -23,6 +23,7 @@ export const ParticipantIn = z.object({
   student: z.boolean().optional(),
   additionalMessage: z.string().trim().optional(),
   poster: z.boolean().optional(),
+  invited: z.boolean().optional(),
 });
 
 export const ParticipantOut = z.object({
@@ -35,4 +36,5 @@ export const ParticipantOut = z.object({
   student: z.boolean(),
   additionalMessage: z.string(),
   poster: z.boolean(),
+  invited: z.boolean(),
 });

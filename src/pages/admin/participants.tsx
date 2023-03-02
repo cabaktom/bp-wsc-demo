@@ -29,6 +29,7 @@ const ParticipantsPage: NextPageWithLayout<ParticipantsPageProps> = ({
           <RegisterForm
             participantTitle="New participant"
             abstractTitle="New contribution"
+            withInvited
           />
         </Paper>
 

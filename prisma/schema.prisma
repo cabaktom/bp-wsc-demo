@@ -44,6 +44,7 @@ model Participant {
   additionalMessage String?       @default("")
   abstract          Abstract?
   poster            Boolean       @default(false)
+  invited           Boolean       @default(false)
   registeredAt      DateTime      @default(now())
 }
 

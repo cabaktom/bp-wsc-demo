@@ -212,6 +212,21 @@ const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
             ),
           },
           {
+            accessor: 'invited',
+            title: 'Invited',
+            sortable: true,
+            width: 95,
+            render: (participant) => (
+              <Flex>
+                {participant.invited ? (
+                  <IconCheck color="green" />
+                ) : (
+                  <IconX color="darkred" />
+                )}
+              </Flex>
+            ),
+          },
+          {
             accessor: 'participation',
             title: 'Participation',
             sortable: true,

@@ -31,11 +31,13 @@ const useStyles = createStyles((theme) => ({
 type RegisterFormProps = {
   participantTitle: string;
   abstractTitle: string;
+  withInvited?: boolean;
 };
 
 const RegisterForm = ({
   participantTitle,
   abstractTitle,
+  withInvited = false,
 }: RegisterFormProps) => {
   const { classes } = useStyles();
   const { mutate } = useSWRConfig();
@@ -53,6 +55,7 @@ const RegisterForm = ({
         student: false,
         additionalMessage: '',
         poster: false,
+        invited: false,
       },
       abstract: {
         title: '',
@@ -125,7 +128,7 @@ const RegisterForm = ({
 
       showNotification({
         title: 'Success!',
-        message: 'You have been registered.',
+        message: 'Registration was accepted.',
         color: 'green',
         icon: <IconCheck size={16} />,
         autoClose: 4000,
@@ -224,6 +227,15 @@ const RegisterForm = ({
                   type: 'checkbox',
                 })}
               />
+              {withInvited && (
+                <Checkbox
+                  label="Invited"
+                  aria-label="Invited checkbox"
+                  {...form.getInputProps('participant.invited', {
+                    type: 'checkbox',
+                  })}
+                />
+              )}
             </Group>
           </Stack>
         </Grid.Col>

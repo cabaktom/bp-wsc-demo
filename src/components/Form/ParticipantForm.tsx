@@ -48,6 +48,7 @@ const ParticipantForm = ({
     additionalMessage = '',
     abstract,
     poster,
+    invited,
   },
 }: ParticipantFormProps) => {
   const { classes } = useStyles();
@@ -65,6 +66,7 @@ const ParticipantForm = ({
         student,
         additionalMessage,
         poster,
+        invited,
       },
       abstract: {
         title: abstract?.title ?? '',
@@ -333,6 +335,13 @@ const ParticipantForm = ({
                 label="Student"
                 aria-label="Student checkbox"
                 {...form.getInputProps('participant.student', {
+                  type: 'checkbox',
+                })}
+              />
+              <Checkbox
+                label="Invited"
+                aria-label="Invited checkbox"
+                {...form.getInputProps('participant.invited', {
                   type: 'checkbox',
                 })}
               />
