@@ -200,13 +200,13 @@ async function createParticipantsAndAbstracts() {
       abstract: {
         create: {
           title: ' Adjoint method for PDEs',
-          poster: false,
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract:
             'In a numerical optimization problem the adjoint method allows us to compute the gradient of a functional or operator in an effective and cheap way. In this contribution we demonstrate the adjoint method on the optimization problem for heat equation with a Dirichlet boundary control and show some possible applications and numerical results.',
         },
       },
+      poster: false,
     },
   });
   await prisma.participant.upsert({
@@ -223,13 +223,13 @@ async function createParticipantsAndAbstracts() {
       abstract: {
         create: {
           title: 'Modeling Experiments in Freezing and Thawing of Porous Media',
-          poster: false,
           additionalAuthors: 'Michal Sněhota, Martina Sobotková',
           affiliationAuthors: 'Faculty of Civil Engineering, CTU in Prague',
           abstract:
             'In the contribution, we discuss the modeling of freezing and thawing in a fully saturated porous medium at the experimental laboratory scale. The phase transition leaves the grains intact but involved in the heat transfer and mechanical interaction due to the difference in specific volumes of the liquid and solid phase. The model based on conservation laws of mass, energy and momentum is used for simulation of particular laboratory experiments.',
         },
       },
+      poster: false,
     },
   });
   await prisma.participant.upsert({
@@ -247,12 +247,12 @@ async function createParticipantsAndAbstracts() {
         create: {
           title:
             'On stress integration method for lattice Boltzmann method in 2D',
-          poster: false,
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract: '',
         },
       },
+      poster: false,
     },
   });
   await prisma.participant.upsert({
@@ -269,13 +269,13 @@ async function createParticipantsAndAbstracts() {
       abstract: {
         create: {
           title: 'Iterated Function Systems, Their Invariant Sets and Measure',
-          poster: false,
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract:
             'This contribution deals with iterated function systems (IFS), its invariant sets and the chaos game algorithm, which is used to display them. In order to analyze these sets some properties of the inductive, Hausdorff, similarity and box-counting dimension are shown. Subsequently, the changes inside invariant sets caused by recurrent IFS are studied. The aproximation of the box-counting dimension for some of these sets is introduced.',
         },
       },
+      poster: false,
     },
   });
   await prisma.participant.upsert({
@@ -292,13 +292,13 @@ async function createParticipantsAndAbstracts() {
       abstract: {
         create: {
           title: 'Lattice Boltzmann method and Boundary conditions',
-          poster: false,
           additionalAuthors: '',
           affiliationAuthors: 'FNSPE CTU in Prague',
           abstract:
             'Classical problems for the incompressible fluid flow simulations are given in the macroscopic description, i.e., using the initial and boundary conditions for the fluid velocity and pressure. In the case of the mesoscopic simulations, the macroscopic conditions must be transferred to the mesoscopic description. The commonly used way is based on the setting of the discrete density function to its equilibrium part. This method neglects the non-equilibrium part and is correct only for cases with constant pressure and velocity in space and time.\n\nIn this contribution, the other commonly used approximations of the boundary conditions are discussed and analyzed on the 3D periodic fluid flow between parallel plates. Finally, the newly derived momentum boundary conditions for the D3Q27 are introduced and tested. These boundary conditions present a more accurate alternative to the other mesoscopic boundary conditions.',
         },
       },
+      poster: false,
     },
   });
   await prisma.participant.upsert({
@@ -316,13 +316,13 @@ async function createParticipantsAndAbstracts() {
         create: {
           title:
             'Equivalent partial differential equation of the lattice Boltzmann method',
-          poster: false,
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract:
             'A general method for the derivation of equivalent finite difference equations (EFDEs) and subsequent equivalent partial differential equations (EPDEs) presented for a general matrix lattice Boltzmann method (LBM). The method can be used for both the advection diffusion equations and Navier-Stokes equations in all dimensions. In principle, the EFDEs are derived using a recurrence formula. A computational algorithm is proposed for generating sequences of matrices and vectors that are used to obtain EFDEs coefficients. The resulting EFDEs and EPDEs are derived for selected velocity models and include the single relaxation time, multiple relaxation time, and cascaded LBM collision operators. The algorithm for the derivation of EFDEs and EPDEs is implemented in C++ using the GiNaC library for symbolic algebraic computations. Its iplementation is available under the terms and conditions of the GNU general public license (GPL).',
         },
       },
+      poster: false,
     },
   });
   await prisma.participant.upsert({
@@ -341,13 +341,13 @@ async function createParticipantsAndAbstracts() {
       abstract: {
         create: {
           title: 'LES and DNS of flow and scal dispersion in a street canyon',
-          poster: false,
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract:
             'In previous large eddy simulations (LES) and wind-tunnel measurements of several street-network configurations it was found that one particular configuration of building shapes poses a particular challenge to the numerical model and even the mean flow in the street canyon differs considerably between the measurement and the simulation.\n\n\nTo be able to conduct simulation for the analysis of the role of the coherent structures for the street canyon ventilation we need to be able to simulate this flow confidently. Therefore, a series of simulations that test the sensitivity of the LES simulations to various setup parameters were performed. Additionally, also direct numerical simulations were performed in a small domain with a reduced Reynolds number (while remaining fully turbulent). The parameters tested are the size of the domain - in particular when interested about persistent large scale structures and convergence of the flow towards a homogeneous mean, the subgrid model, the order of the finite difference approximation and lateral boundary conditions.',
         },
       },
+      poster: false,
     },
   });
   await prisma.participant.upsert({
@@ -361,6 +361,7 @@ async function createParticipantsAndAbstracts() {
       mailingAddress: '',
       student: false,
       additionalMessage: 'Clarkson University, Potsdam, New York, U.S.A',
+      poster: true,
     },
   });
   await prisma.participant.upsert({
@@ -378,12 +379,12 @@ async function createParticipantsAndAbstracts() {
         create: {
           title:
             'Mathematical modeling of flow around obstacles using the lattice Boltzmann method',
-          poster: false,
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract: '',
         },
       },
+      poster: false,
     },
   });
   await prisma.participant.upsert({
@@ -397,6 +398,7 @@ async function createParticipantsAndAbstracts() {
       mailingAddress: '',
       student: false,
       additionalMessage: 'Jen pasivni ucast online',
+      poster: true,
     },
   });
   await prisma.participant.upsert({
@@ -414,7 +416,6 @@ async function createParticipantsAndAbstracts() {
       abstract: {
         create: {
           title: 'Modeling vapor transport in air using LBM and MHFEM',
-          poster: false,
           additionalAuthors:
             'Andrew C. Trautz, Radek Fučík, Tissa H. Illangasekare',
           affiliationAuthors:
@@ -423,6 +424,7 @@ async function createParticipantsAndAbstracts() {
             'We present an efficient computational approach for simulating component transport within single-phase free flow in the boundary layer over porous media. A numerical model based on this approach is validated using experimental data generated in a climate-controlled wind tunnel coupled with a 7.3 m long soil test bed. The developed modeling approach is based on a combination of the lattice Boltzmann method (LBM) for simulating the fluid flow and the mixed-hybrid finite element method (MHFEM) for solving constituent transport. Both those methods individually, as well as when coupled, are implemented entirely on a GPU accelerator in order to utilize its computational power and avoid the hardware limitations caused by slow communication between the GPU and CPU over the PCI-E bus. We describe the mathematical details behind the computational method, focusing primarily on the coupling mechanisms. The performance of the solver is demonstrated on a modern high-performance computing system. Flow and transport simulation results are validated and compared herein with experimental velocity and relative humidity measurements made above a flat partially saturated soil layer exposed to steady air flow. Model robustness and flexibility is demonstrated by introducing rectangular bluff-bodies to the flow in several different experimental scenarios.',
         },
       },
+      poster: false,
     },
   });
   await prisma.participant.upsert({
@@ -436,6 +438,7 @@ async function createParticipantsAndAbstracts() {
       mailingAddress: 'Trojanova 13 12000 Praha 2',
       student: false,
       additionalMessage: '',
+      poster: false,
     },
   });
   await prisma.participant.upsert({
@@ -454,13 +457,13 @@ async function createParticipantsAndAbstracts() {
         create: {
           title:
             'Fast Evaluation of Modified Renyi Entropy for Fractal Analysis',
-          poster: false,
           additionalAuthors: 'Martin Dlask',
           affiliationAuthors: 'FNSPE CTU in Prague',
           abstract:
             'A fractal dimension is a non-integer characteristic that measures the space filling of an arbitrary set. The conventional grid based methods usually provide a biased estimation of the fractal dimension, and therefore it is necessary to develop more complex methods for its estimation. A new characteristic based on the Parzen estimate formula is presented here as the modified Renyi entropy. A novel approach that employs the log-linear dependence of a modified Renyi entropy is used together with very fast implementation of epsilon search in k-d tree.',
         },
       },
+      poster: false,
     },
   });
 

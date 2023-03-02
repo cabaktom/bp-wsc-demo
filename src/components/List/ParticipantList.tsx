@@ -8,6 +8,8 @@ import {
   Title,
   createStyles,
   Select,
+  Badge,
+  Box,
 } from '@mantine/core';
 import type { Abstract, Participant } from '@prisma/client';
 import { IconUserCircle } from '@tabler/icons-react';
@@ -99,8 +101,8 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
                 direction="row"
                 gap="sm"
                 w={{ base: '100%', md: '30%' }}
-                my={{ base: 'xs', md: 'sm' }}
-                mx={{ base: 'xs', md: 0 }}
+                py={{ base: 'xs', md: 'sm' }}
+                px={{ base: 'xs', md: 0 }}
               >
                 <ThemeIcon size={30} radius="md">
                   <IconUserCircle />
@@ -110,6 +112,12 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
                     {participant.fullName}
                   </Text>
                   {participant.affiliation}
+
+                  {participant.poster && (
+                    <Box>
+                      <Badge mt="xs">Poster</Badge>
+                    </Box>
+                  )}
                 </Flex>
               </Flex>
 

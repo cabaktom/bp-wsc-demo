@@ -197,6 +197,21 @@ const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
             ),
           },
           {
+            accessor: 'poster',
+            title: 'Poster',
+            sortable: true,
+            width: 110,
+            render: (participant) => (
+              <Flex>
+                {participant.poster ? (
+                  <IconCheck color="green" />
+                ) : (
+                  <IconX color="darkred" />
+                )}
+              </Flex>
+            ),
+          },
+          {
             accessor: 'participation',
             title: 'Participation',
             sortable: true,

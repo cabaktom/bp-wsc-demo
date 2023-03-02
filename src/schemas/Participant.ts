@@ -22,6 +22,7 @@ export const ParticipantIn = z.object({
   mailingAddress: z.string().trim().optional(),
   student: z.boolean().optional(),
   additionalMessage: z.string().trim().optional(),
+  poster: z.boolean().optional(),
 });
 
 export const ParticipantOut = z.object({
@@ -33,4 +34,5 @@ export const ParticipantOut = z.object({
   mailingAddress: z.string(),
   student: z.boolean(),
   additionalMessage: z.string(),
+  poster: z.boolean(),
 });

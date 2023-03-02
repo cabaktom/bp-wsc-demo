@@ -43,13 +43,13 @@ model Participant {
   student           Boolean       @default(false)
   additionalMessage String?       @default("")
   abstract          Abstract?
+  poster            Boolean       @default(false)
   registeredAt      DateTime      @default(now())
 }
 
 model Abstract {
   id                 String      @id @default(uuid())
   title              String      @db.VarChar(255)
-  poster             Boolean     @default(false)
   additionalAuthors  String?     @default("")
   affiliationAuthors String?     @default("")
   abstract           String?     @default("")

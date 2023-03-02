@@ -47,6 +47,7 @@ const ParticipantForm = ({
     student = false,
     additionalMessage = '',
     abstract,
+    poster,
   },
 }: ParticipantFormProps) => {
   const { classes } = useStyles();
@@ -63,10 +64,10 @@ const ParticipantForm = ({
         mailingAddress,
         student,
         additionalMessage,
+        poster,
       },
       abstract: {
         title: abstract?.title ?? '',
-        poster: abstract?.poster ?? false,
         additionalAuthors: abstract?.additionalAuthors ?? '',
         affiliationAuthors: abstract?.affiliationAuthors ?? '',
         abstract: abstract?.abstract ?? '',
@@ -175,7 +176,6 @@ const ParticipantForm = ({
         // reset abstract part of form
         form.setFieldValue('abstract', {
           title: '',
-          poster: false,
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract: '',
@@ -323,6 +323,13 @@ const ParticipantForm = ({
                 {...form.getInputProps('contributing', { type: 'checkbox' })}
               />
               <Checkbox
+                label="Poster"
+                aria-label="Poster checkbox"
+                {...form.getInputProps('participant.poster', {
+                  type: 'checkbox',
+                })}
+              />
+              <Checkbox
                 label="Student"
                 aria-label="Student checkbox"
                 {...form.getInputProps('participant.student', {
@@ -365,12 +372,6 @@ const ParticipantForm = ({
                 label="Abstract"
                 aria-label="Abstract input"
                 {...form.getInputProps('abstract.abstract')}
-              />
-
-              <Checkbox
-                label="Poster"
-                aria-label="Poster checkbox"
-                {...form.getInputProps('abstract.poster', { type: 'checkbox' })}
               />
             </Stack>
           </Grid.Col>
