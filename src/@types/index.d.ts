@@ -21,3 +21,8 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+
+type SortStatus = {
+  accessor: string;
+  direction: 'asc' | 'desc';
+};

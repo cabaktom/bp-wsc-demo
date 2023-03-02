@@ -7,8 +7,8 @@ import { CloseButton, Stack, TextInput } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
 import useSearch from '../../hooks/useSearch';
+import useSort from '../../hooks/useSort';
 import usePaginate from '../../hooks/usePaginate';
-import useDatatableSort from '../../hooks/useDatatableSort';
 
 const PAGE_SIZES = [5, 10, 20, 50];
 
@@ -28,10 +28,21 @@ const DataTable = <T extends object>({
   const { query, setQuery, searchResults } = useSearch({ data: initialData });
 
   // sorting
-  const { sortStatus, setSortStatus, sortResults } = useDatatableSort({
+  const sort = useSort({
     data: searchResults,
-    initialSortStatus,
+    initialSortStatus: {
+      accessor: initialSortStatus.columnAccessor,
+      direction: initialSortStatus.direction,
+    },
   });
+  const {
+    sortStatus: { accessor: columnAccessor, direction }, // rename accessor to columnAccessor
+    sortResults,
+  } = sort;
+  const setSortStatus = ({
+    columnAccessor: accessor, // rename columnAccessor to accessor
+    direction,
+  }: DataTableSortStatus) => sort.setSortStatus({ accessor, direction });
 
   // pagination
   const { page, setPage, perPage, setPerPage, paginateResults } = usePaginate({
@@ -64,7 +75,7 @@ const DataTable = <T extends object>({
         }
         recordsPerPageOptions={PAGE_SIZES}
         onRecordsPerPageChange={setPerPage}
-        sortStatus={sortStatus}
+        sortStatus={{ columnAccessor, direction }}
         onSortStatusChange={setSortStatus}
         columns={columns}
         {...rest}

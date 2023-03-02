@@ -1,14 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import sortBy from 'lodash/sortBy';
 
-type SortStatus = {
-  accessor: string;
-  direction: 'asc' | 'desc';
-};
+import type { SortStatus } from '../@types';
 
 type useSortProps<T> = {
   data: T[];
-  initialSortStatus: SortStatus | undefined;
+  initialSortStatus: SortStatus;
 };
 
 const useSort = <T extends object>({
@@ -17,21 +14,14 @@ const useSort = <T extends object>({
 }: useSortProps<T>) => {
   const [sortResults, setSortResults] = useState<T[]>([]);
 
-  const [sortStatus, setSortStatus] = useState<SortStatus | undefined>(
-    initialSortStatus,
-  );
+  const [sortStatus, setSortStatus] = useState<SortStatus>(initialSortStatus);
 
-  const sortData = useCallback(
-    (data: T[], sortStatus: SortStatus | undefined) => {
-      if (!sortStatus) return data;
+  const sortData = useCallback((data: T[], sortStatus: SortStatus) => {
+    const sortedData = sortBy(data, sortStatus.accessor);
+    if (sortStatus.direction === 'desc') sortedData.reverse();
 
-      const sortedData = sortBy(data, sortStatus.accessor);
-      if (sortStatus.direction === 'desc') sortedData.reverse();
-
-      return sortedData;
-    },
-    [],
-  );
+    return sortedData;
+  }, []);
 
   useEffect(() => {
     setSortResults(sortData(data, sortStatus));
