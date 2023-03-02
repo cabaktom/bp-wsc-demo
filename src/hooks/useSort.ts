@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import sortBy from 'lodash/sortBy';
+import orderBy from 'lodash/orderBy';
+import get from 'lodash/get';
 
 import type { SortStatus } from '../@types';
 
@@ -17,8 +18,17 @@ const useSort = <T extends object>({
   const [sortStatus, setSortStatus] = useState<SortStatus>(initialSortStatus);
 
   const sortData = useCallback((data: T[], sortStatus: SortStatus) => {
-    const sortedData = sortBy(data, sortStatus.accessor);
-    if (sortStatus.direction === 'desc') sortedData.reverse();
+    const sortedData = orderBy(
+      data,
+      [
+        (item) => {
+          const value = get(item, sortStatus.accessor);
+          if (typeof value === 'string') return value.toLowerCase();
+          return value;
+        },
+      ],
+      [sortStatus.direction],
+    );
 
     return sortedData;
   }, []);
