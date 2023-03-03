@@ -4,6 +4,8 @@ import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import Image from '@tiptap/extension-image';
+import TextAlign from '@tiptap/extension-text-align';
+
 import { ImageControl } from './ImageControl';
 
 type RTEProps = {
@@ -33,6 +35,7 @@ const RTE = ({ content, setContent }: RTEProps) => {
           };
         },
       }),
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
     ],
     content,
     onUpdate({ editor }) {
@@ -71,6 +74,13 @@ const RTE = ({ content, setContent }: RTEProps) => {
 
           <RichTextEditor.ControlsGroup>
             <ImageControl />
+          </RichTextEditor.ControlsGroup>
+
+          <RichTextEditor.ControlsGroup>
+            <RichTextEditor.AlignLeft />
+            <RichTextEditor.AlignCenter />
+            <RichTextEditor.AlignJustify />
+            <RichTextEditor.AlignRight />
           </RichTextEditor.ControlsGroup>
         </RichTextEditor.Toolbar>
 
