@@ -76,13 +76,29 @@ export const ImageControl = forwardRef<HTMLButtonElement>(() => {
     else {
       setSrc(image.src?.replace('/api/download/images/', '') || '');
       setSliderWidth(image.width?.replace('%', '') || 100);
-      setSliderMargin(image.style?.margin?.replace('px', '') || 0);
+
+      if (!image.style) setSliderMargin(0);
+      else {
+        const matches = /margin: (\d+)px/.exec(image.style);
+        if (!matches) setSliderMargin(0);
+        else {
+          const margin = +matches[1];
+          const marginIndex = marginMarks.findIndex(
+            (mark) =>
+              theme.spacing[mark.label as keyof typeof theme.spacing] ===
+              margin,
+          );
+          setSliderMargin(marginIndex);
+        }
+      }
     }
   };
 
   const handleClose = () => {
     close();
     setSrc('');
+    setSliderWidth(100);
+    setSliderMargin(0);
   };
 
   const setImage = () => {
@@ -95,14 +111,15 @@ export const ImageControl = forwardRef<HTMLButtonElement>(() => {
           .setImage({
             src: `/api/download/images/${src}`,
             width: `${sliderWidth}%`,
-            style: `margin: ${
+            style:
               sliderMargin === 0
-                ? 0
-                : theme.spacing[
-                    marginMarks[sliderMargin]
-                      .label as keyof typeof theme.spacing
-                  ]
-            }px`,
+                ? undefined
+                : `margin: ${
+                    theme.spacing[
+                      marginMarks[sliderMargin]
+                        .label as keyof typeof theme.spacing
+                    ]
+                  }px`,
           })
           .run();
   };
