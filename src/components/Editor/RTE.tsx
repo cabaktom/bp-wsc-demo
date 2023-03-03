@@ -3,6 +3,8 @@ import { Link, RichTextEditor } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
+import Image from '@tiptap/extension-image';
+import { ImageControl } from './ImageControl';
 
 type RTEProps = {
   content: string;
@@ -15,7 +17,23 @@ const RTE = ({ content, setContent }: RTEProps) => {
   });
 
   const editor = useEditor({
-    extensions: [StarterKit, Underline, Link],
+    extensions: [
+      StarterKit,
+      Underline,
+      Link,
+      Image.extend({
+        addAttributes() {
+          return {
+            src: { default: null },
+            alt: { default: null },
+            title: { default: null },
+            width: { default: null },
+            decoding: { default: 'async' },
+            style: { default: null },
+          };
+        },
+      }),
+    ],
     content,
     onUpdate({ editor }) {
       setContent(editor.getHTML());
@@ -49,6 +67,10 @@ const RTE = ({ content, setContent }: RTEProps) => {
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.Link />
             <RichTextEditor.Unlink />
+          </RichTextEditor.ControlsGroup>
+
+          <RichTextEditor.ControlsGroup>
+            <ImageControl />
           </RichTextEditor.ControlsGroup>
         </RichTextEditor.Toolbar>
 
