@@ -68,7 +68,9 @@ const AdminImageControls = ({ image }: AdminImageControlsProps) => {
         ml="auto"
         className={classes.icon}
         component="a"
-        href={image.path}
+        href={`/api/download${image.path}?type=image/${image.filename
+          .split('.')
+          .pop()}`}
         target="_blank"
         rel="noopener noreferrer"
         title="Open image in new tab"

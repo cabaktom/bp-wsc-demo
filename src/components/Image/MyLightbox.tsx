@@ -5,6 +5,7 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/captions.css';
+import { IconDownload } from '@tabler/icons-react';
 
 type MyLightboxProps = {
   images: SlideImage[];
@@ -51,6 +52,25 @@ const MyLightbox = ({ images, open, index, setIndex }: MyLightboxProps) => {
       close={() => setIndex(-1)}
       plugins={[Captions, Zoom, Fullscreen]}
       animation={{ swipe: 250 }}
+      on={{
+        view: (index) => setIndex(index),
+      }}
+      toolbar={{
+        buttons: [
+          <a
+            key="download"
+            className="yarl__button"
+            href={`/api/download${images[index]?.src}?type=image/jpg&download=true`}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Download original image"
+            aria-label="Download original image"
+          >
+            <IconDownload className="yarl__icon" />
+          </a>,
+          'close',
+        ],
+      }}
     />
   );
 };

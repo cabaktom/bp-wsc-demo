@@ -13,6 +13,12 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
     // content type
     const type = z.string().parse(req.query.type);
 
+    // original file name
+    const filename = pathParsed.substring(pathParsed.indexOf('_') + 1);
+
+    // if the file should be downloaded or displayed in the browser
+    const download = z.string().optional().parse(req.query.download);
+
     // can only download files from the public folder
     const filePath = path.join(process.cwd(), 'public', pathParsed);
     const { size } = fs.statSync(filePath);
@@ -20,6 +26,9 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
     res.writeHead(200, {
       'Content-Type': type,
       'Content-Length': size,
+      'Content-Disposition': `${
+        download ? 'attachment' : 'inline'
+      }; filename="${filename}"`,
     });
 
     const readStream = fs.createReadStream(filePath);
