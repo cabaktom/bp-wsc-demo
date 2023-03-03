@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 import handleErrors from '../../../lib/handleApiErrors';
+import { prisma } from '../../../lib/prisma';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -11,33 +12,45 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
     const pathParsed = z.string().parse(pathSlug);
 
     // content type
-    const type = z.string().parse(req.query.type);
+    const type = pathParsed.split('.').pop();
 
-    // original file name
-    const filename = pathParsed.substring(pathParsed.indexOf('_') + 1);
+    const originalFilename = pathParsed.substring(pathParsed.indexOf('_') + 1);
 
     // if the file should be downloaded or displayed in the browser
     const download = z.string().optional().parse(req.query.download);
 
     // can only download files from the public folder
     const filePath = path.join(process.cwd(), 'public', pathParsed);
-    const { size } = fs.statSync(filePath);
 
-    res.writeHead(200, {
-      'Content-Type': type,
-      'Content-Length': size,
-      'Content-Disposition': `${
-        download ? 'attachment' : 'inline'
-      }; filename="${filename}"`,
-    });
+    try {
+      const { size } = fs.statSync(filePath);
 
-    const readStream = fs.createReadStream(filePath);
+      res.writeHead(200, {
+        'Content-Type': `image/${type}`,
+        'Content-Length': size,
+        'Content-Disposition': `${
+          download ? 'attachment' : 'inline'
+        }; filename="${originalFilename}"`,
+      });
 
-    await new Promise((resolve) => {
-      readStream.pipe(res);
+      const readStream = fs.createReadStream(filePath);
 
-      readStream.on('end', resolve);
-    });
+      await new Promise((resolve) => {
+        readStream.pipe(res);
+
+        readStream.on('end', resolve);
+      });
+    } catch (e: any) {
+      if (e.code === 'ENOENT') {
+        // image not found on the disk, delete from db
+        await prisma.image.delete({
+          where: {
+            filename: pathParsed.substring(pathParsed.indexOf('/') + 1),
+          },
+        });
+        throw e;
+      }
+    }
 
     return res;
   } catch (e) {
@@ -50,7 +63,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   switch (req.method) {
-    // GET /api/download/{...path}?type={type}
+    // GET /api/download/{...path}?download={true|undefined}
     case 'GET':
       return handleGet(req, res);
 

@@ -28,9 +28,7 @@ const AdminImageCard = ({ image, priority }: AdminImageCardProps) => {
     <Box className={classes.wrapper}>
       <Image
         className={classes.image}
-        src={`/api/download${image.path}?type=image/${image.filename
-          .split('.')
-          .pop()}`}
+        src={`/api/download${image.path}`}
         alt={image.alt ?? ''}
         fill
         sizes={`(max-width: ${theme.breakpoints.xs}) 100vw,

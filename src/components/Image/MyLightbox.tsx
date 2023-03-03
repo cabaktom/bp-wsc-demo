@@ -33,9 +33,7 @@ const MyLightbox = ({ images, open, index, setIndex }: MyLightboxProps) => {
               <Image
                 fill
                 alt={image.alt!}
-                src={`/api/download${image.src}?type=image/${image.src
-                  .split('.')
-                  .pop()}`}
+                src={`/api/download${image.src}`}
                 loading="eager"
                 draggable={false}
                 sizes={
@@ -60,7 +58,7 @@ const MyLightbox = ({ images, open, index, setIndex }: MyLightboxProps) => {
           <a
             key="download"
             className="yarl__button"
-            href={`/api/download${images[index]?.src}?type=image/jpg&download=true`}
+            href={`/api/download${images[index]?.src}?download=true`}
             target="_blank"
             rel="noopener noreferrer"
             title="Download original image"
