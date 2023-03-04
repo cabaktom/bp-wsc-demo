@@ -37,8 +37,8 @@ declare module '@tiptap/core' {
         src: string;
         alt?: string;
         title?: string;
-        width?: string | number;
-        style?: string;
+        width?: number;
+        margin?: number;
       }) => ReturnType;
     };
   }

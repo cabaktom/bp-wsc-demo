@@ -3,10 +3,10 @@ import { Link, RichTextEditor } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
-import Image from '@tiptap/extension-image';
 import TextAlign from '@tiptap/extension-text-align';
 
 import { ImageControl } from './ImageControl';
+import MyTipTapImage from './MyTipTapImage';
 
 type RTEProps = {
   content: string;
@@ -23,18 +23,7 @@ const RTE = ({ content, setContent }: RTEProps) => {
       StarterKit,
       Underline,
       Link,
-      Image.extend({
-        addAttributes() {
-          return {
-            src: { default: null },
-            alt: { default: null },
-            title: { default: null },
-            width: { default: null },
-            decoding: { default: 'async' },
-            style: { default: null },
-          };
-        },
-      }),
+      MyTipTapImage,
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
     ],
     content,
