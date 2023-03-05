@@ -7,6 +7,7 @@ export default function sanitize(htmlStr: string) {
   const domPurify = DOMPurify(window);
   domPurify.setConfig({
     USE_PROFILES: { html: true },
+    ADD_TAGS: ['iframe'],
   });
 
   return domPurify.sanitize(htmlStr);

@@ -7,6 +7,8 @@ import TextAlign from '@tiptap/extension-text-align';
 
 import { ImageControl } from './ImageControl';
 import MyTipTapImage from './MyTipTapImage';
+import { IframeControl } from './IframeControl';
+import MyTipTapIframe from './MyTipTapIframe';
 
 type RTEProps = {
   content: string;
@@ -23,8 +25,9 @@ const RTE = ({ content, setContent }: RTEProps) => {
       StarterKit,
       Underline,
       Link,
-      MyTipTapImage,
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      MyTipTapImage,
+      MyTipTapIframe,
     ],
     content,
     onUpdate({ editor }) {
@@ -63,6 +66,7 @@ const RTE = ({ content, setContent }: RTEProps) => {
 
           <RichTextEditor.ControlsGroup>
             <ImageControl />
+            <IframeControl />
           </RichTextEditor.ControlsGroup>
 
           <RichTextEditor.ControlsGroup>
