@@ -19,6 +19,7 @@ const RegisterPage: NextPage<RegisterPageProps> = ({ page }) => {
         <RegisterForm
           participantTitle="Personal data"
           abstractTitle="Your contribution"
+          inFormFeedback
         />
       </Paper>
     </>

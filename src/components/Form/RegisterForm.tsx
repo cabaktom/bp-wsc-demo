@@ -16,7 +16,7 @@ import {
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
-import { IconCheck } from '@tabler/icons-react';
+import { IconCircleCheck, IconAlertCircle } from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
   abstractColumn: {
@@ -32,16 +32,22 @@ type RegisterFormProps = {
   participantTitle: string;
   abstractTitle: string;
   withInvited?: boolean;
+  inFormFeedback?: boolean;
 };
 
 const RegisterForm = ({
   participantTitle,
   abstractTitle,
   withInvited = false,
+  inFormFeedback = false,
 }: RegisterFormProps) => {
   const { classes } = useStyles();
   const { mutate } = useSWRConfig();
-  const [error, setError] = useState('');
+  const [feedback, setFeedback] = useState<{
+    message: string;
+    icon: React.ReactNode;
+    color: string;
+  } | null>();
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
@@ -118,31 +124,54 @@ const RegisterForm = ({
 
     if (!res.ok) {
       const data = await res.json();
-      setError(
-        data.message ??
+
+      const result = {
+        title: 'Error!',
+        message:
+          data.message ??
           'Error while submitting your registration, please try again.',
-      );
-    } else {
-      setError('');
-      form.reset();
-
-      showNotification({
-        title: 'Success!',
-        message: 'Registration was accepted.',
-        color: 'green',
-        icon: <IconCheck size={16} />,
+        color: 'red',
+        icon: <IconAlertCircle size={20} />,
         autoClose: 4000,
-      });
+      };
 
+      if (inFormFeedback) {
+        setFeedback(result);
+      } else {
+        showNotification(result);
+      }
+    } else {
+      const result = {
+        title: 'Success!',
+        message: `Registration was accepted. ${
+          inFormFeedback ? 'You' : 'Participant'
+        } will receive a confirmation email shortly.`,
+        color: 'green',
+        icon: <IconCircleCheck size={20} />,
+        autoClose: 4000,
+      };
+
+      if (inFormFeedback) {
+        setFeedback(result);
+      } else {
+        showNotification(result);
+      }
+
+      form.reset();
       mutate('/api/participants');
     }
   };
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      {error && (
-        <Alert onClose={() => setError('')} mb="xs">
-          {error}
+      {feedback && (
+        <Alert
+          onClose={() => setFeedback(null)}
+          mb="xs"
+          icon={feedback.icon}
+          color={feedback.color}
+        >
+          {feedback.message}
         </Alert>
       )}
 
