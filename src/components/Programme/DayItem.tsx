@@ -127,7 +127,7 @@ const ProgrammeDayItem = ({
 
           <ActionIcon
             m="xs"
-            title="Remove item"
+            title="Delete item"
             onClick={() => {
               if (!title && !participantId) {
                 deleteItem();

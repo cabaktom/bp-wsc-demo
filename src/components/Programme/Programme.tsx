@@ -1,36 +1,32 @@
-import { Stack } from '@mantine/core';
+import { useState } from 'react';
+import { Button, Stack, createStyles } from '@mantine/core';
+import { useListState } from '@mantine/hooks';
+import { DatePicker } from '@mantine/dates';
+import { showNotification } from '@mantine/notifications';
+import { IconCalendar } from '@tabler/icons-react';
 import type { Abstract, Participant } from '@prisma/client';
 
 import Day from './Day';
-import type { ItemType } from '../../@types/programme';
+import type { DayType } from '../../@types/programme';
 
-type DayType = {
-  date: Date;
-  start: Date;
-  end: Date;
-  items: ItemType[];
-};
-
-const days: Array<DayType> = [
-  {
-    date: new Date('2021-09-01'),
-    start: new Date(0, 0, 0, 9, 0),
-    end: new Date(0, 0, 0, 17, 0),
-    items: [],
+const useStyles = createStyles((theme) => ({
+  addDayButton: {
+    '&:hover': {
+      backgroundColor: theme.colors.gray[1],
+    },
   },
-  {
-    date: new Date('2021-09-02'),
-    start: new Date(0, 0, 0, 9, 0),
-    end: new Date(0, 0, 0, 17, 0),
-    items: [],
-  },
-];
+}));
 
 type ProgrammeProps = {
   participants: (Participant & { abstract?: Abstract })[];
 };
 
 const Programme = ({ participants }: ProgrammeProps) => {
+  const { classes } = useStyles();
+
+  const [start, setStart] = useState<Date | null>(null);
+  const [days, daysHandlers] = useListState<DayType>([]);
+
   const participantsParsed = participants
     .map((participant) => ({
       id: participant.id,
@@ -50,13 +46,55 @@ const Programme = ({ participants }: ProgrammeProps) => {
 
   return (
     <Stack>
-      {days.map((day) => (
+      <DatePicker
+        label="Start of the conference"
+        placeholder="Pick date"
+        value={start}
+        onChange={setStart}
+        icon={<IconCalendar size={16} />}
+        clearable={false}
+        w="max-content"
+      />
+
+      {days.map((day, index) => (
         <Day
           key={day.date.toISOString()}
-          {...day}
+          index={index}
+          day={day}
           participants={participantsParsed}
+          setItemProp={daysHandlers.setItemProp.bind(null, index)}
+          deleteItem={daysHandlers.remove.bind(null, index)}
         />
       ))}
+
+      <Button
+        className={classes.addDayButton}
+        onClick={() => {
+          if (days.length === 0) {
+            if (!start) {
+              showNotification({
+                title: 'Start date is required',
+                message: 'Please select the start date of the conference.',
+                color: 'red',
+              });
+              return;
+            }
+            daysHandlers.append({ date: new Date(start) });
+          } else {
+            const nextDay = new Date(days[days.length - 1].date);
+            nextDay.setDate(nextDay.getDate() + 1);
+            daysHandlers.append({ date: nextDay });
+          }
+        }}
+        fullWidth
+        variant="default"
+        h="18rem"
+        fz={18}
+        opacity={0.7}
+        bg="gray.0"
+      >
+        Add day
+      </Button>
     </Stack>
   );
 };
