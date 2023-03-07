@@ -4,6 +4,7 @@ import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
 import { prisma } from '../../lib/prisma';
 import Programme from '../../components/Programme/Programme';
+import ProgrammeProvider from '../../context/programme/ProgrammeProvider';
 
 type ProgrammePageProps = {
   participants: (Participant & {
@@ -15,9 +16,9 @@ const ProgrammePage: NextPageWithLayout<ProgrammePageProps> = ({
   participants,
 }) => {
   return (
-    <>
+    <ProgrammeProvider>
       <Programme participants={participants} />
-    </>
+    </ProgrammeProvider>
   );
 };
 

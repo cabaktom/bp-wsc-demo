@@ -20,5 +20,5 @@ export type DayType = {
   date: Date;
   start?: Date;
   end?: Date;
-  items?: ItemType[];
+  items: ItemType[];
 };

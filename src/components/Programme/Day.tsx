@@ -1,5 +1,5 @@
+import { useContext } from 'react';
 import { ActionIcon, Button, Group, Paper, Stack, Text } from '@mantine/core';
-import { useListState } from '@mantine/hooks';
 import { TimeInput } from '@mantine/dates';
 import { openConfirmModal } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
@@ -7,31 +7,32 @@ import { IconClock, IconTrash } from '@tabler/icons-react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import DayItem from './DayItem';
-import { DayType, ParticipantType } from '../../@types/programme';
+import type { DayType, ParticipantType } from '../../@types/programme';
+import ProgrammeContext, {
+  type ProgrammeContextType,
+} from '../../context/programme/programme-context';
 
 type ProgrammeDayProps = {
   index: number;
   day: DayType;
   participants: ParticipantType[];
-  setItemProp: (prop: keyof DayType, value: DayType[keyof DayType]) => void;
-  deleteItem: () => void;
 };
 
 const ProgrammeDay = ({
-  day: { date, start, end, items },
+  index,
+  day: { start, date, end, items },
   participants,
-  setItemProp,
-  deleteItem,
 }: ProgrammeDayProps) => {
-  const [state, handlers] = useListState(items);
+  const { changeDayProp, deleteDay, addDayItem, dayItemReorder } = useContext(
+    ProgrammeContext,
+  ) as ProgrammeContextType;
 
-  const draggableItems = state.map((item, index) => (
+  const draggableItems = items.map((item, itemIndex) => (
     <DayItem
       key={item.id}
-      item={{ ...item, index }}
+      dayIndex={index}
+      item={{ ...item, index: itemIndex }}
       participants={participants}
-      setItemProp={handlers.setItemProp}
-      deleteItem={handlers.remove.bind(null, index)}
     />
   ));
 
@@ -61,7 +62,7 @@ const ProgrammeDay = ({
               confirmProps: {
                 color: 'red',
               },
-              onConfirm: () => deleteItem(),
+              onConfirm: () => deleteDay(index),
             });
           }}
         >
@@ -74,7 +75,7 @@ const ProgrammeDay = ({
           <TimeInput
             label="Start"
             value={start}
-            onChange={(value) => setItemProp('start', value)}
+            onChange={(value) => changeDayProp(index, 'start', value)}
             icon={<IconClock size={16} />}
             w="min-content"
           />
@@ -90,10 +91,7 @@ const ProgrammeDay = ({
 
         <DragDropContext
           onDragEnd={({ destination, source }) =>
-            handlers.reorder({
-              from: source.index,
-              to: destination?.index || 0,
-            })
+            dayItemReorder(index, source.index, destination?.index || 0)
           }
         >
           <Droppable droppableId={date.toString()} direction="vertical">
@@ -116,7 +114,7 @@ const ProgrammeDay = ({
               });
               return;
             }
-            handlers.append({ id: Date.now().toString(), duration: 0 });
+            addDayItem(index);
           }}
           fullWidth
           variant="outline"

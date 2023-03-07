@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import {
   ActionIcon,
   Grid,
@@ -7,13 +8,15 @@ import {
   TextInput,
   createStyles,
 } from '@mantine/core';
-import { UseListStateHandlers } from '@mantine/hooks';
 import { openConfirmModal } from '@mantine/modals';
 import { IconGripVertical, IconTrash } from '@tabler/icons-react';
 import { Draggable } from 'react-beautiful-dnd';
 
 import SelectItem from './SelectItem';
 import type { ItemType, ParticipantType } from '../../@types/programme';
+import ProgrammeContext, {
+  type ProgrammeContextType,
+} from '../../context/programme/programme-context';
 
 const useStyles = createStyles((theme) => ({
   item: {
@@ -50,19 +53,20 @@ const useStyles = createStyles((theme) => ({
 }));
 
 type ProgrammeDayItemProps = {
+  dayIndex: number;
   item: ItemType & { index: number };
   participants: ParticipantType[];
-  setItemProp: UseListStateHandlers<ItemType>['setItemProp'];
-  deleteItem: () => void;
 };
 
 const ProgrammeDayItem = ({
+  dayIndex,
   item: { id, index, duration, title, participantId },
   participants,
-  setItemProp,
-  deleteItem,
 }: ProgrammeDayItemProps) => {
   const { classes, cx } = useStyles();
+  const { deleteDayItem, changeDayItemProp } = useContext(
+    ProgrammeContext,
+  ) as ProgrammeContextType;
 
   return (
     <Draggable key={id} index={index} draggableId={id}>
@@ -83,7 +87,9 @@ const ProgrammeDayItem = ({
               <NumberInput
                 label="Duration (min)"
                 value={duration}
-                onChange={(value) => setItemProp(index, 'duration', value)}
+                onChange={(value) =>
+                  changeDayItemProp(dayIndex, index, 'duration', value)
+                }
                 min={0}
               />
             </Grid.Col>
@@ -94,7 +100,12 @@ const ProgrammeDayItem = ({
                 placeholder='e.g. "Keynote: ..."'
                 value={title}
                 onChange={(value) =>
-                  setItemProp(index, 'title', value.target.value)
+                  changeDayItemProp(
+                    dayIndex,
+                    index,
+                    'title',
+                    value.target.value,
+                  )
                 }
               />
             </Grid.Col>
@@ -105,7 +116,12 @@ const ProgrammeDayItem = ({
                 placeholder="Pick a participant"
                 value={participantId}
                 onChange={(value) =>
-                  setItemProp(index, 'participantId', value ?? undefined)
+                  changeDayItemProp(
+                    dayIndex,
+                    index,
+                    'participantId',
+                    value ?? undefined,
+                  )
                 }
                 itemComponent={SelectItem}
                 data={participants}
@@ -130,7 +146,7 @@ const ProgrammeDayItem = ({
             title="Delete item"
             onClick={() => {
               if (!title && !participantId) {
-                deleteItem();
+                deleteDayItem(dayIndex, index);
                 return;
               }
               openConfirmModal({
@@ -144,7 +160,7 @@ const ProgrammeDayItem = ({
                 confirmProps: {
                   color: 'red',
                 },
-                onConfirm: () => deleteItem(),
+                onConfirm: () => deleteDayItem(dayIndex, index),
               });
             }}
           >

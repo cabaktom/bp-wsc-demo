@@ -1,13 +1,14 @@
-import { useState } from 'react';
-import { Button, Stack, createStyles } from '@mantine/core';
-import { useListState } from '@mantine/hooks';
+import { useContext } from 'react';
+import { Button, Group, Stack, createStyles } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { showNotification } from '@mantine/notifications';
 import { IconCalendar } from '@tabler/icons-react';
 import type { Abstract, Participant } from '@prisma/client';
 
 import Day from './Day';
-import type { DayType } from '../../@types/programme';
+import ProgrammeContext, {
+  type ProgrammeContextType,
+} from '../../context/programme/programme-context';
 
 const useStyles = createStyles((theme) => ({
   addDayButton: {
@@ -23,9 +24,9 @@ type ProgrammeProps = {
 
 const Programme = ({ participants }: ProgrammeProps) => {
   const { classes } = useStyles();
-
-  const [start, setStart] = useState<Date | null>(null);
-  const [days, daysHandlers] = useListState<DayType>([]);
+  const { days, addDay, start, setStart, save } = useContext(
+    ProgrammeContext,
+  ) as ProgrammeContextType;
 
   const participantsParsed = participants
     .map((participant) => ({
@@ -46,15 +47,19 @@ const Programme = ({ participants }: ProgrammeProps) => {
 
   return (
     <Stack>
-      <DatePicker
-        label="Start of the conference"
-        placeholder="Pick date"
-        value={start}
-        onChange={setStart}
-        icon={<IconCalendar size={16} />}
-        clearable={false}
-        w="max-content"
-      />
+      <Group position="apart" align="end">
+        <DatePicker
+          label="Start of the conference"
+          placeholder="Pick date"
+          value={start}
+          onChange={setStart}
+          icon={<IconCalendar size={16} />}
+          clearable={false}
+          w="max-content"
+        />
+
+        <Button onClick={save}>Save programme</Button>
+      </Group>
 
       {days.map((day, index) => (
         <Day
@@ -62,8 +67,6 @@ const Programme = ({ participants }: ProgrammeProps) => {
           index={index}
           day={day}
           participants={participantsParsed}
-          setItemProp={daysHandlers.setItemProp.bind(null, index)}
-          deleteItem={daysHandlers.remove.bind(null, index)}
         />
       ))}
 
@@ -79,11 +82,11 @@ const Programme = ({ participants }: ProgrammeProps) => {
               });
               return;
             }
-            daysHandlers.append({ date: new Date(start) });
+            addDay(new Date(start));
           } else {
             const nextDay = new Date(days[days.length - 1].date);
             nextDay.setDate(nextDay.getDate() + 1);
-            daysHandlers.append({ date: nextDay });
+            addDay(nextDay);
           }
         }}
         fullWidth
