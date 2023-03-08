@@ -14,8 +14,21 @@ export default function ProgrammeProvider({
   const [start, setStart] = useState<Date | null>(null);
   const [days, daysHandlers] = useListState<DayType>([]);
 
+  const recalculateDays = (start: Date) => {
+    daysHandlers.apply((day, index = 0) => {
+      const nextDay = new Date(start);
+      nextDay.setDate(nextDay.getDate() + index);
+
+      return {
+        ...day,
+        date: nextDay,
+      };
+    });
+  };
+
   const handleSetStart = (date: Date) => {
     setStart(date);
+    recalculateDays(date);
   };
 
   // day handlers
@@ -37,6 +50,9 @@ export default function ProgrammeProvider({
 
   const handleDeleteDay = (index: number) => {
     daysHandlers.remove(index);
+
+    if (!start) return;
+    recalculateDays(start);
   };
 
   // day item handlers
