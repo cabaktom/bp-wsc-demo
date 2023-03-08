@@ -14,7 +14,7 @@ export default function ProgrammeProvider({
   const [start, setStart] = useState<Date | null>(null);
   const [days, daysHandlers] = useListState<DayType>([]);
 
-  const recalculateDays = (start: Date) => {
+  const recalculateDates = (start: Date) => {
     daysHandlers.apply((day, index = 0) => {
       const nextDay = new Date(start);
       nextDay.setDate(nextDay.getDate() + index);
@@ -26,9 +26,21 @@ export default function ProgrammeProvider({
     });
   };
 
+  const recalculateDayEndTimes = (dayIndex: number, items: ItemType[]) => {
+    const dayStart = days[dayIndex].start;
+    if (!dayStart) return;
+
+    const endTime = items.reduce((acc, { duration }) => {
+      const itemEndTime = new Date(acc);
+      return new Date(itemEndTime.getTime() + duration * 60 * 1000);
+    }, dayStart);
+
+    daysHandlers.setItemProp(dayIndex, 'end', endTime);
+  };
+
   const handleSetStart = (date: Date) => {
     setStart(date);
-    recalculateDays(date);
+    recalculateDates(date);
   };
 
   // day handlers
@@ -52,15 +64,18 @@ export default function ProgrammeProvider({
     daysHandlers.remove(index);
 
     if (!start) return;
-    recalculateDays(start);
+    recalculateDates(start);
   };
 
   // day item handlers
   const handleAddDayItem = (dayIndex: number) => {
-    daysHandlers.setItemProp(dayIndex, 'items', [
+    const items = [
       ...days[dayIndex].items,
-      { id: Date.now().toString(), duration: 0 },
-    ]);
+      { id: Date.now().toString(), duration: 0, title: '' },
+    ];
+    daysHandlers.setItemProp(dayIndex, 'items', items);
+
+    recalculateDayEndTimes(dayIndex, items);
   };
 
   const handleChangeDayItemProp = (
@@ -69,16 +84,17 @@ export default function ProgrammeProvider({
     prop: keyof ItemType,
     value: ItemType[keyof ItemType],
   ) => {
-    daysHandlers.setItemProp(
-      dayIndex,
-      'items',
-      days[dayIndex].items.map((item, i) => {
-        if (i === index) {
-          return { ...item, [prop]: value };
-        }
-        return item;
-      }),
-    );
+    const items = days[dayIndex].items.map((item, i) => {
+      if (i === index) {
+        return { ...item, [prop]: value };
+      }
+      return item;
+    });
+    daysHandlers.setItemProp(dayIndex, 'items', items);
+
+    if (prop === 'duration') {
+      recalculateDayEndTimes(dayIndex, items);
+    }
   };
 
   const handleDayItemReorder = (dayIndex: number, from: number, to: number) => {
@@ -94,11 +110,11 @@ export default function ProgrammeProvider({
   };
 
   const handleDeleteDayItem = (dayIndex: number, index: number) => {
-    daysHandlers.setItemProp(
-      dayIndex,
-      'items',
-      days[dayIndex].items.filter((_, i) => i !== index),
-    );
+    const items = days[dayIndex].items.filter((_, i) => i !== index);
+
+    daysHandlers.setItemProp(dayIndex, 'items', items);
+
+    recalculateDayEndTimes(dayIndex, items);
   };
 
   const handleSave = () => {

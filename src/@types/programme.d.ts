@@ -1,8 +1,8 @@
 export type ItemType = {
   id: string;
   index?: number;
-  duration?: number;
-  title?: string;
+  duration: number;
+  title: string;
   participantId?: string;
   abstractId?: string;
 };
