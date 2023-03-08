@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useListState } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 
@@ -8,6 +8,7 @@ import type {
   ItemType,
   ParticipantType,
 } from '../../@types/programme';
+import { ProgrammeIn } from '../../schemas/Programme';
 
 type ProgrammeProviderProps = {
   children: React.ReactNode;
@@ -21,6 +22,45 @@ export default function ProgrammeProvider({
   const [conferenceStart, setConferenceStart] = useState<Date | null>(null);
   const [days, daysHandlers] = useListState<DayType>([]);
   const [participants] = useListState<ParticipantType>(participantsProp);
+
+  // initial fetch to populate programme state
+  useEffect(() => {
+    const fetchProgramme = async () => {
+      const res = await fetch('/api/programme');
+      const data = await res.json();
+
+      if (!res.ok) {
+        showNotification({
+          title: 'Error!',
+          message: data.message ?? 'Could not load programme.',
+          color: 'red',
+        });
+        return;
+      }
+
+      const result = ProgrammeIn.safeParse(data);
+
+      if (!result.success) {
+        showNotification({
+          title: 'Error!',
+          message: 'Could not load programme.',
+          color: 'red',
+        });
+      } else {
+        const parsedData = result.data;
+        if (parsedData.conferenceStart) {
+          setConferenceStart(parsedData.conferenceStart);
+        }
+
+        if (parsedData.days) {
+          daysHandlers.setState(parsedData.days);
+        }
+      }
+    };
+
+    fetchProgramme();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const recalculateDates = (start: Date) => {
     daysHandlers.apply((day, index = 0) => {
@@ -77,9 +117,15 @@ export default function ProgrammeProvider({
 
   // day item handlers
   const handleAddDayItem = (dayIndex: number) => {
-    const items = [
+    const items: Array<ItemType> = [
       ...days[dayIndex].items,
-      { id: Date.now().toString(), duration: 0, title: '' },
+      {
+        id: Date.now().toString(),
+        duration: 0,
+        title: '',
+        participantId: '',
+        abstractId: '',
+      },
     ];
     daysHandlers.setItemProp(dayIndex, 'items', items);
 
@@ -125,7 +171,7 @@ export default function ProgrammeProvider({
     recalculateDayEndTimes(dayIndex, items);
   };
 
-  const handleSave = async () => {
+  const handleSaveProgramme = async () => {
     const res = await fetch('/api/programme', {
       method: 'PUT',
       headers: {
@@ -152,6 +198,32 @@ export default function ProgrammeProvider({
     }
   };
 
+  const handleDeleteProgramme = async () => {
+    const res = await fetch('/api/programme', {
+      method: 'DELETE',
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+
+      showNotification({
+        title: 'Error deleting programme!',
+        message:
+          data.message ?? 'Could not delete programme, please try again later.',
+        color: 'red',
+      });
+    } else {
+      showNotification({
+        title: 'Programme deleted!',
+        message: 'Programme has been deleted.',
+        color: 'green',
+      });
+
+      setConferenceStart(null);
+      daysHandlers.setState([]);
+    }
+  };
+
   const cartContext: ProgrammeContextType = {
     conferenceStart,
     setConferenceStart: handleSetConferenceStart,
@@ -166,8 +238,9 @@ export default function ProgrammeProvider({
     dayItemReorder: handleDayItemReorder,
     deleteDayItem: handleDeleteDayItem,
 
-    save: handleSave,
     participants,
+    saveProgramme: handleSaveProgramme,
+    deleteProgramme: handleDeleteProgramme,
   };
 
   return (

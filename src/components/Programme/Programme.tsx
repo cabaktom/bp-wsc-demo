@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Button, Group, Stack, createStyles } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { showNotification } from '@mantine/notifications';
-import { IconCalendar } from '@tabler/icons-react';
+import { IconCalendar, IconDeviceFloppy, IconTrash } from '@tabler/icons-react';
 
 import Day from './Day';
 import ProgrammeContext, {
@@ -19,8 +19,14 @@ const useStyles = createStyles((theme) => ({
 
 const Programme = () => {
   const { classes } = useStyles();
-  const { days, addDay, conferenceStart, setConferenceStart, save } =
-    useContext(ProgrammeContext) as ProgrammeContextType;
+  const {
+    days,
+    addDay,
+    conferenceStart,
+    setConferenceStart,
+    saveProgramme,
+    deleteProgramme,
+  } = useContext(ProgrammeContext) as ProgrammeContextType;
 
   return (
     <Stack>
@@ -36,9 +42,26 @@ const Programme = () => {
           w="max-content"
         />
 
-        <Button onClick={save} disabled={!conferenceStart}>
-          Save programme
-        </Button>
+        <Group spacing="xs">
+          <Button
+            onClick={saveProgramme}
+            disabled={!conferenceStart}
+            title="Save programme"
+            leftIcon={<IconDeviceFloppy size={16} />}
+          >
+            Save
+          </Button>
+
+          <Button
+            onClick={deleteProgramme}
+            disabled={!conferenceStart}
+            title="Delete programme"
+            color="red"
+            leftIcon={<IconTrash size={16} />}
+          >
+            Delete
+          </Button>
+        </Group>
       </Group>
 
       {days.map((day, index) => (

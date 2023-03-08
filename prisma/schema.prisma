@@ -88,10 +88,10 @@ model ProgrammeDay {
 model ProgrammeDayItem {
   id             String        @id
   index          Int?
-  duration       Int
-  title          String?       @db.VarChar(255)
-  participantId  String?
-  abstractId     String?
+  duration       Int           @default(0)
+  title          String        @default("") @db.VarChar(255)
+  participantId  String        @default("")
+  abstractId     String        @default("")
   ProgrammeDay   ProgrammeDay? @relation(fields: [programmeDayId], references: [id])
   programmeDayId String?
 }

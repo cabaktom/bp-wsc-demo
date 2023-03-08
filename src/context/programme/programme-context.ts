@@ -30,7 +30,8 @@ export type ProgrammeContextType = {
   deleteDayItem: (dayIndex: number, index: number) => void;
 
   participants: ParticipantType[];
-  save: () => void;
+  saveProgramme: () => void;
+  deleteProgramme: () => void;
 };
 
 export default createContext<ProgrammeContextType | null>(null);
