@@ -1,3 +1,11 @@
+export type DayType = {
+  id: string;
+  date: Date;
+  start?: Date;
+  end?: Date;
+  items: ItemType[];
+};
+
 export type ItemType = {
   id: string;
   index?: number;
@@ -14,12 +22,4 @@ export type ParticipantType = {
   fullName: string;
   abstractTitle?: string;
   group: string;
-};
-
-export type DayType = {
-  id: string;
-  date: Date;
-  start?: Date;
-  end?: Date;
-  items: ItemType[];
 };

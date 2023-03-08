@@ -19,9 +19,8 @@ const useStyles = createStyles((theme) => ({
 
 const Programme = () => {
   const { classes } = useStyles();
-  const { days, addDay, start, setStart, save } = useContext(
-    ProgrammeContext,
-  ) as ProgrammeContextType;
+  const { days, addDay, conferenceStart, setConferenceStart, save } =
+    useContext(ProgrammeContext) as ProgrammeContextType;
 
   return (
     <Stack>
@@ -30,14 +29,16 @@ const Programme = () => {
           withAsterisk
           label="Start of the conference"
           placeholder="Pick date"
-          value={start}
-          onChange={setStart}
+          value={conferenceStart}
+          onChange={setConferenceStart}
           icon={<IconCalendar size={16} />}
           clearable={false}
           w="max-content"
         />
 
-        <Button onClick={save}>Save programme</Button>
+        <Button onClick={save} disabled={!conferenceStart}>
+          Save programme
+        </Button>
       </Group>
 
       {days.map((day, index) => (
@@ -48,7 +49,7 @@ const Programme = () => {
         className={classes.addDayButton}
         onClick={() => {
           if (days.length === 0) {
-            if (!start) {
+            if (!conferenceStart) {
               showNotification({
                 title: 'Start date is required',
                 message: 'Please select the start date of the conference.',
@@ -56,7 +57,7 @@ const Programme = () => {
               });
               return;
             }
-            addDay(new Date(start));
+            addDay(new Date(conferenceStart));
           } else {
             const nextDay = new Date(days[days.length - 1].date);
             nextDay.setDate(nextDay.getDate() + 1);

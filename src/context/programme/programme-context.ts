@@ -7,8 +7,8 @@ import type {
 } from '../../@types/programme.d';
 
 export type ProgrammeContextType = {
-  start: Date | null;
-  setStart: (date: Date) => void;
+  conferenceStart: Date | null;
+  setConferenceStart: (date: Date) => void;
 
   days: DayType[];
   addDay: (date: Date) => void;

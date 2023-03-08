@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useListState } from '@mantine/hooks';
+import { showNotification } from '@mantine/notifications';
 
 import ProgrammeContext, { ProgrammeContextType } from './programme-context';
 import type {
@@ -17,7 +18,7 @@ export default function ProgrammeProvider({
   children,
   participants: participantsProp,
 }: ProgrammeProviderProps) {
-  const [start, setStart] = useState<Date | null>(null);
+  const [conferenceStart, setConferenceStart] = useState<Date | null>(null);
   const [days, daysHandlers] = useListState<DayType>([]);
   const [participants] = useListState<ParticipantType>(participantsProp);
 
@@ -45,8 +46,8 @@ export default function ProgrammeProvider({
     daysHandlers.setItemProp(dayIndex, 'end', endTime);
   };
 
-  const handleSetStart = (date: Date) => {
-    setStart(date);
+  const handleSetConferenceStart = (date: Date) => {
+    setConferenceStart(date);
     recalculateDates(date);
   };
 
@@ -70,8 +71,8 @@ export default function ProgrammeProvider({
   const handleDeleteDay = (index: number) => {
     daysHandlers.remove(index);
 
-    if (!start) return;
-    recalculateDates(start);
+    if (!conferenceStart) return;
+    recalculateDates(conferenceStart);
   };
 
   // day item handlers
@@ -124,14 +125,36 @@ export default function ProgrammeProvider({
     recalculateDayEndTimes(dayIndex, items);
   };
 
-  const handleSave = () => {
-    // TODO: save programme to database
-    console.log(days, start);
+  const handleSave = async () => {
+    const res = await fetch('/api/programme', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ conferenceStart, days }),
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+
+      showNotification({
+        title: 'Error saving programme!',
+        message:
+          data.message ?? 'Could not save programme, please try again later.',
+        color: 'red',
+      });
+    } else {
+      showNotification({
+        title: 'Programme saved!',
+        message: 'Changes to programme have been saved.',
+        color: 'green',
+      });
+    }
   };
 
   const cartContext: ProgrammeContextType = {
-    start,
-    setStart: handleSetStart,
+    conferenceStart,
+    setConferenceStart: handleSetConferenceStart,
 
     days,
     addDay: handleAddDay,
