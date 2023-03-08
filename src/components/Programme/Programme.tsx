@@ -49,6 +49,7 @@ const Programme = ({ participants }: ProgrammeProps) => {
     <Stack>
       <Group position="apart" align="end">
         <DatePicker
+          withAsterisk
           label="Start of the conference"
           placeholder="Pick date"
           value={start}
@@ -63,7 +64,8 @@ const Programme = ({ participants }: ProgrammeProps) => {
 
       {days.map((day, index) => (
         <Day
-          key={day.date.toISOString()}
+          key={day.id}
+          id={day.id}
           index={index}
           day={day}
           participants={participantsParsed}

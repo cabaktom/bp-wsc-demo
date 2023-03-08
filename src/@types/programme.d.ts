@@ -17,6 +17,7 @@ export type ParticipantType = {
 };
 
 export type DayType = {
+  id: string;
   date: Date;
   start?: Date;
   end?: Date;

@@ -20,7 +20,11 @@ export default function ProgrammeProvider({
 
   // day handlers
   const handleAddDay = (start: Date) => {
-    daysHandlers.append({ date: new Date(start), items: [] });
+    daysHandlers.append({
+      id: Date.now().toString(),
+      date: new Date(start),
+      items: [],
+    });
   };
 
   const handleChangeDayProp = (

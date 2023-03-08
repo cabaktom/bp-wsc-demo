@@ -13,12 +13,14 @@ import ProgrammeContext, {
 } from '../../context/programme/programme-context';
 
 type ProgrammeDayProps = {
+  id: string;
   index: number;
   day: DayType;
   participants: ParticipantType[];
 };
 
 const ProgrammeDay = ({
+  id,
   index,
   day: { start, date, end, items },
   participants,
@@ -94,7 +96,7 @@ const ProgrammeDay = ({
             dayItemReorder(index, source.index, destination?.index || 0)
           }
         >
-          <Droppable droppableId={date.toString()} direction="vertical">
+          <Droppable droppableId={id} direction="vertical">
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 {draggableItems}
