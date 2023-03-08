@@ -1,7 +1,10 @@
 import { createContext } from 'react';
-import type { Abstract, Participant } from '@prisma/client';
 
-import type { DayType, ItemType } from '../../@types/programme.d';
+import type {
+  DayType,
+  ItemType,
+  ParticipantType,
+} from '../../@types/programme.d';
 
 export type ProgrammeContextType = {
   start: Date | null;
@@ -26,7 +29,7 @@ export type ProgrammeContextType = {
   dayItemReorder: (dayIndex: number, from: number, to: number) => void;
   deleteDayItem: (dayIndex: number, index: number) => void;
 
-  participants: (Participant & { abstract?: Abstract })[];
+  participants: ParticipantType[];
   save: () => void;
 };
 

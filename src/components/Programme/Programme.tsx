@@ -3,7 +3,6 @@ import { Button, Group, Stack, createStyles } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { showNotification } from '@mantine/notifications';
 import { IconCalendar } from '@tabler/icons-react';
-import type { Abstract, Participant } from '@prisma/client';
 
 import Day from './Day';
 import ProgrammeContext, {
@@ -18,32 +17,11 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-type ProgrammeProps = {
-  participants: (Participant & { abstract?: Abstract })[];
-};
-
-const Programme = ({ participants }: ProgrammeProps) => {
+const Programme = () => {
   const { classes } = useStyles();
   const { days, addDay, start, setStart, save } = useContext(
     ProgrammeContext,
   ) as ProgrammeContextType;
-
-  const participantsParsed = participants
-    .map((participant) => ({
-      id: participant.id,
-      fullName: participant.fullName,
-      abstractTitle: participant.abstract?.title,
-      value: participant.id,
-      label: `${participant.fullName} - ${
-        participant.abstract?.title ?? 'No abstract'
-      }`,
-      group: participant.invited
-        ? '1. Invited'
-        : participant.abstract
-        ? '2. Presenting'
-        : '3. No abstract',
-    }))
-    .sort((a, b) => a.group.localeCompare(b.group));
 
   return (
     <Stack>
@@ -63,13 +41,7 @@ const Programme = ({ participants }: ProgrammeProps) => {
       </Group>
 
       {days.map((day, index) => (
-        <Day
-          key={day.id}
-          id={day.id}
-          index={index}
-          day={day}
-          participants={participantsParsed}
-        />
+        <Day key={day.id} id={day.id} index={index} day={day} />
       ))}
 
       <Button

@@ -2,17 +2,24 @@ import { useState } from 'react';
 import { useListState } from '@mantine/hooks';
 
 import ProgrammeContext, { ProgrammeContextType } from './programme-context';
-import type { DayType, ItemType } from '../../@types/programme';
+import type {
+  DayType,
+  ItemType,
+  ParticipantType,
+} from '../../@types/programme';
 
 type ProgrammeProviderProps = {
   children: React.ReactNode;
+  participants: ParticipantType[];
 };
 
 export default function ProgrammeProvider({
   children,
+  participants: participantsProp,
 }: ProgrammeProviderProps) {
   const [start, setStart] = useState<Date | null>(null);
   const [days, daysHandlers] = useListState<DayType>([]);
+  const [participants] = useListState<ParticipantType>(participantsProp);
 
   const recalculateDates = (start: Date) => {
     daysHandlers.apply((day, index = 0) => {
@@ -137,7 +144,7 @@ export default function ProgrammeProvider({
     deleteDayItem: handleDeleteDayItem,
 
     save: handleSave,
-    participants: [],
+    participants,
   };
 
   return (

@@ -13,7 +13,7 @@ import { IconGripVertical, IconTrash } from '@tabler/icons-react';
 import { Draggable } from 'react-beautiful-dnd';
 
 import SelectItem from './SelectItem';
-import type { ItemType, ParticipantType } from '../../@types/programme';
+import type { ItemType } from '../../@types/programme';
 import ProgrammeContext, {
   type ProgrammeContextType,
 } from '../../context/programme/programme-context';
@@ -55,16 +55,14 @@ const useStyles = createStyles((theme) => ({
 type ProgrammeDayItemProps = {
   dayIndex: number;
   item: ItemType & { index: number };
-  participants: ParticipantType[];
 };
 
 const ProgrammeDayItem = ({
   dayIndex,
   item: { id, index, duration, title, participantId },
-  participants,
 }: ProgrammeDayItemProps) => {
   const { classes, cx } = useStyles();
-  const { deleteDayItem, changeDayItemProp } = useContext(
+  const { deleteDayItem, changeDayItemProp, participants } = useContext(
     ProgrammeContext,
   ) as ProgrammeContextType;
 

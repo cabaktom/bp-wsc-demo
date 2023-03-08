@@ -7,7 +7,7 @@ import { IconClock, IconTrash } from '@tabler/icons-react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import DayItem from './DayItem';
-import type { DayType, ParticipantType } from '../../@types/programme';
+import type { DayType } from '../../@types/programme';
 import ProgrammeContext, {
   type ProgrammeContextType,
 } from '../../context/programme/programme-context';
@@ -16,14 +16,12 @@ type ProgrammeDayProps = {
   id: string;
   index: number;
   day: DayType;
-  participants: ParticipantType[];
 };
 
 const ProgrammeDay = ({
   id,
   index,
   day: { start, date, end, items },
-  participants,
 }: ProgrammeDayProps) => {
   const { changeDayProp, deleteDay, addDayItem, dayItemReorder } = useContext(
     ProgrammeContext,
@@ -34,7 +32,6 @@ const ProgrammeDay = ({
       key={item.id}
       dayIndex={index}
       item={{ ...item, index: itemIndex }}
-      participants={participants}
     />
   ));
 
