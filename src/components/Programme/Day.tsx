@@ -54,7 +54,7 @@ const ProgrammeDay = ({
           title="Delete day"
           onClick={() => {
             openConfirmModal({
-              title: 'Delete item',
+              title: 'Delete day',
               children: (
                 <Text size="sm">
                   Are you sure you want to delete day {formattedDate}?

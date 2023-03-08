@@ -145,17 +145,24 @@ const ProgrammeDayItem = ({
             m="xs"
             title="Delete item"
             onClick={() => {
+              const participant = participants.find(
+                (p) => p.id === participantId,
+              );
+
+              const message = `Are you sure you want to delete ${
+                title
+                  ? `'${title}' item?`
+                  : participant
+                  ? `item with '${participant.fullName}'?`
+                  : 'this item?'
+              }`;
               if (!title && !participantId) {
                 deleteDayItem(dayIndex, index);
                 return;
               }
               openConfirmModal({
                 title: 'Delete item',
-                children: (
-                  <Text size="sm">
-                    Are you sure you want to delete &apos;{title}&apos; item?
-                  </Text>
-                ),
+                children: <Text size="sm">{message}</Text>,
                 labels: { confirm: 'Delete', cancel: 'Cancel' },
                 confirmProps: {
                   color: 'red',
