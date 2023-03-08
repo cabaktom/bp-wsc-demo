@@ -68,3 +68,30 @@ model Image {
   width            Int
   height           Int
 }
+
+model Programme {
+  id              String         @id
+  conferenceStart DateTime
+  days            ProgrammeDay[]
+}
+
+model ProgrammeDay {
+  id          String             @id
+  date        DateTime
+  start       DateTime?
+  end         DateTime?
+  items       ProgrammeDayItem[]
+  Programme   Programme?         @relation(fields: [programmeId], references: [id])
+  programmeId String?
+}
+
+model ProgrammeDayItem {
+  id             String        @id
+  index          Int?
+  duration       Int
+  title          String?       @db.VarChar(255)
+  participantId  String?
+  abstractId     String?
+  ProgrammeDay   ProgrammeDay? @relation(fields: [programmeDayId], references: [id])
+  programmeDayId String?
+}
