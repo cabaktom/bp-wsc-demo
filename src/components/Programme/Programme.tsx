@@ -1,7 +1,8 @@
 import { useContext } from 'react';
-import { Button, Group, Stack, createStyles } from '@mantine/core';
+import { Button, Group, Stack, Text, createStyles } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { showNotification } from '@mantine/notifications';
+import { openConfirmModal } from '@mantine/modals';
 import { IconCalendar, IconDeviceFloppy, IconTrash } from '@tabler/icons-react';
 
 import Day from './Day';
@@ -53,7 +54,21 @@ const Programme = () => {
           </Button>
 
           <Button
-            onClick={deleteProgramme}
+            onClick={() => {
+              openConfirmModal({
+                title: 'Delete programme',
+                children: (
+                  <Text size="sm">
+                    Are you sure you want to delete the whole programme?
+                  </Text>
+                ),
+                labels: { confirm: 'Delete', cancel: 'Cancel' },
+                onConfirm: deleteProgramme,
+                confirmProps: {
+                  color: 'red',
+                },
+              });
+            }}
             disabled={!conferenceStart}
             title="Delete programme"
             color="red"
