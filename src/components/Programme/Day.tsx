@@ -11,6 +11,7 @@ import type { DayType } from '../../@types/programme';
 import ProgrammeContext, {
   type ProgrammeContextType,
 } from '../../context/programme/programme-context';
+import RTE from '../Editor/RTE';
 
 type ProgrammeDayProps = {
   id: string;
@@ -21,7 +22,7 @@ type ProgrammeDayProps = {
 const ProgrammeDay = ({
   id,
   index,
-  day: { start, date, end, items },
+  day: { start, date, end, items, additionalInfo },
 }: ProgrammeDayProps) => {
   const { changeDayProp, deleteDay, addDayItem, dayItemReorder } = useContext(
     ProgrammeContext,
@@ -43,33 +44,40 @@ const ProgrammeDay = ({
 
   return (
     <Paper p={{ base: 'sm', xs: 'md' }}>
-      <Group position="apart" mb="xs">
-        <Text fz={24}>{formattedDate}</Text>
-
-        <ActionIcon
-          m="xs"
-          title="Delete day"
-          onClick={() => {
-            openConfirmModal({
-              title: 'Delete day',
-              children: (
-                <Text size="sm">
-                  Are you sure you want to delete day {formattedDate}?
-                </Text>
-              ),
-              labels: { confirm: 'Delete', cancel: 'Cancel' },
-              confirmProps: {
-                color: 'red',
-              },
-              onConfirm: () => deleteDay(index),
-            });
-          }}
-        >
-          <IconTrash size={20} color="red" />
-        </ActionIcon>
-      </Group>
-
       <Stack spacing="xs">
+        <Group position="apart" mb="xs">
+          <Text fz={24}>{formattedDate}</Text>
+
+          <ActionIcon
+            m="xs"
+            title="Delete day"
+            onClick={() => {
+              openConfirmModal({
+                title: 'Delete day',
+                children: (
+                  <Text size="sm">
+                    Are you sure you want to delete day {formattedDate}?
+                  </Text>
+                ),
+                labels: { confirm: 'Delete', cancel: 'Cancel' },
+                confirmProps: {
+                  color: 'red',
+                },
+                onConfirm: () => deleteDay(index),
+              });
+            }}
+          >
+            <IconTrash size={20} color="red" />
+          </ActionIcon>
+        </Group>
+
+        <RTE
+          content={additionalInfo}
+          setContent={changeDayProp.bind(null, index, 'additionalInfo')}
+          placeholder="Additional info"
+          hideToolbar
+        />
+
         <Group spacing="xs">
           <TimeInput
             label="Start"

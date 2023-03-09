@@ -76,13 +76,14 @@ model Programme {
 }
 
 model ProgrammeDay {
-  id          String             @id
-  date        DateTime
-  start       DateTime?
-  end         DateTime?
-  items       ProgrammeDayItem[]
-  Programme   Programme?         @relation(fields: [programmeId], references: [id])
-  programmeId String?
+  id             String             @id
+  date           DateTime
+  additionalInfo String             @default("")
+  start          DateTime?
+  end            DateTime?
+  items          ProgrammeDayItem[]
+  Programme      Programme?         @relation(fields: [programmeId], references: [id])
+  programmeId    String?
 }
 
 model ProgrammeDayItem {

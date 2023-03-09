@@ -6,6 +6,7 @@ export const ProgrammeIn = z.object({
     z.object({
       id: z.string().min(1),
       date: z.string().pipe(z.coerce.date()),
+      additionalInfo: z.string().default(''),
       start: z.string().optional().pipe(z.coerce.date()),
       end: z.string().optional().pipe(z.coerce.date()),
       items: z.array(
@@ -28,6 +29,7 @@ export const ProgrammeOut = z.object({
     z.object({
       id: z.string().min(1),
       date: z.date(),
+      additionalInfo: z.string(),
       start: z.date().optional(),
       end: z.date().optional(),
       items: z.array(

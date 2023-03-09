@@ -96,6 +96,7 @@ export default function ProgrammeProvider({
     daysHandlers.append({
       id: Date.now().toString(),
       date: new Date(start),
+      additionalInfo: '',
       items: [],
     });
   };

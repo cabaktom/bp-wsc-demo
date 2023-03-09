@@ -1,6 +1,7 @@
 export type DayType = {
   id: string;
   date: Date;
+  additionalInfo: string;
   start?: Date;
   end?: Date;
   items: ItemType[];

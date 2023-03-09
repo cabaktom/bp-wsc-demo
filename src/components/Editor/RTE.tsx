@@ -1,9 +1,10 @@
-import { useMediaQuery } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { Link, RichTextEditor } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
+import Placeholder from '@tiptap/extension-placeholder';
 
 import { ImageControl } from './ImageControl';
 import MyTipTapImage from './MyTipTapImage';
@@ -13,9 +14,18 @@ import MyTipTapIframe from './MyTipTapIframe';
 type RTEProps = {
   content: string;
   setContent: (content: string) => void;
+  placeholder?: string;
+  hideToolbar?: boolean;
 };
 
-const RTE = ({ content, setContent }: RTEProps) => {
+const RTE = ({
+  content,
+  setContent,
+  placeholder = '',
+  hideToolbar = false,
+}: RTEProps) => {
+  const [hidden, hiddenHandlers] = useDisclosure(hideToolbar);
+
   const matches = useMediaQuery('(min-width: 992px)', false, {
     getInitialValueInEffect: false,
   });
@@ -28,6 +38,7 @@ const RTE = ({ content, setContent }: RTEProps) => {
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
       MyTipTapImage,
       MyTipTapIframe,
+      Placeholder.configure({ placeholder }),
     ],
     content,
     onUpdate({ editor }) {
@@ -37,8 +48,20 @@ const RTE = ({ content, setContent }: RTEProps) => {
 
   return (
     <>
-      <RichTextEditor editor={editor}>
-        <RichTextEditor.Toolbar sticky stickyOffset={matches ? 47 : 97}>
+      <RichTextEditor
+        editor={editor}
+        onFocus={() => {
+          if (hideToolbar) hiddenHandlers.close();
+        }}
+        onBlur={() => {
+          if (hideToolbar) hiddenHandlers.open();
+        }}
+      >
+        <RichTextEditor.Toolbar
+          sticky
+          stickyOffset={matches ? 47 : 97}
+          hidden={hideToolbar && hidden}
+        >
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.Bold />
             <RichTextEditor.Italic />

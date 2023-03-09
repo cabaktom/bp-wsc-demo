@@ -50,10 +50,7 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
     const dayTransactions = days.map((day) => {
       return prisma.programmeDay.create({
         data: {
-          id: day.id,
-          date: day.date,
-          start: day.start,
-          end: day.end,
+          ...day,
 
           items: {
             createMany: {
