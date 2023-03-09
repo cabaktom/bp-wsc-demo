@@ -59,12 +59,15 @@ type ProgrammeDayItemProps = {
 
 const ProgrammeDayItem = ({
   dayIndex,
-  item: { id, index, duration, title, participantId },
+  item: { id, index, duration, title, participantId, abstractId },
 }: ProgrammeDayItemProps) => {
   const { classes, cx } = useStyles();
-  const { deleteDayItem, changeDayItemProp, participants } = useContext(
-    ProgrammeContext,
-  ) as ProgrammeContextType;
+  const {
+    deleteDayItem,
+    changeDayItemProp,
+    changeDayItemParticipantAndAbstract,
+    participants,
+  } = useContext(ProgrammeContext) as ProgrammeContextType;
 
   return (
     <Draggable key={id} index={index} draggableId={id}>
@@ -112,15 +115,20 @@ const ProgrammeDayItem = ({
               <Select
                 label="Participant"
                 placeholder="Pick a participant"
-                value={participantId}
-                onChange={(value) =>
-                  changeDayItemProp(
+                value={`${participantId}__${abstractId || 'none'}`}
+                onChange={(value) => {
+                  const [participantId, abstractId] = value?.split('__') ?? [
+                    undefined,
+                    undefined,
+                  ];
+
+                  changeDayItemParticipantAndAbstract(
                     dayIndex,
                     index,
-                    'participantId',
-                    value ?? undefined,
-                  )
-                }
+                    participantId ?? '',
+                    !abstractId || abstractId === 'none' ? '' : abstractId,
+                  );
+                }}
                 itemComponent={SelectItem}
                 data={participants}
                 maxDropdownHeight={400}

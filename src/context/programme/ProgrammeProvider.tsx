@@ -151,6 +151,22 @@ export default function ProgrammeProvider({
     }
   };
 
+  const handleChangeDayItemParticipantAndAbstract = (
+    dayIndex: number,
+    index: number,
+    participantId: string,
+    abstractId: string,
+  ) => {
+    const items = days[dayIndex].items.map((item, i) => {
+      if (i === index) {
+        return { ...item, participantId, abstractId };
+      }
+      return item;
+    });
+
+    daysHandlers.setItemProp(dayIndex, 'items', items);
+  };
+
   const handleDayItemReorder = (dayIndex: number, from: number, to: number) => {
     const current = days[dayIndex].items;
 
@@ -235,6 +251,8 @@ export default function ProgrammeProvider({
 
     addDayItem: handleAddDayItem,
     changeDayItemProp: handleChangeDayItemProp,
+    changeDayItemParticipantAndAbstract:
+      handleChangeDayItemParticipantAndAbstract,
     dayItemReorder: handleDayItemReorder,
     deleteDayItem: handleDeleteDayItem,
 

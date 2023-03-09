@@ -34,20 +34,22 @@ export async function getServerSideProps() {
 
   // parse participants to the format that is used in the select input
   const programmeParticipants = participants
-    .map((participant) => ({
-      id: participant.id,
-      fullName: participant.fullName,
-      abstractTitle: participant.abstract?.title,
-      value: participant.id,
-      label: `${participant.fullName} - ${
-        participant.abstract?.title ?? 'No abstract'
-      }`,
-      group: participant.invited
-        ? '1. Invited'
-        : participant.abstract
-        ? '2. Presenting'
-        : '3. No abstract',
-    }))
+    .map((participant) => {
+      const { abstract } = participant;
+
+      return {
+        id: participant.id,
+        fullName: participant.fullName,
+        abstractTitle: abstract?.title,
+        value: `${participant.id}__${abstract?.id ?? 'none'}`,
+        label: `${participant.fullName} - ${abstract?.title ?? 'No abstract'}`,
+        group: participant.invited
+          ? '1. Invited'
+          : abstract
+          ? '2. Presenting'
+          : '3. No abstract',
+      };
+    })
     .sort((a, b) => a.group.localeCompare(b.group));
 
   return {

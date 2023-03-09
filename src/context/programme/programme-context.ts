@@ -26,6 +26,12 @@ export type ProgrammeContextType = {
     prop: keyof ItemType,
     value: ItemType[keyof ItemType],
   ) => void;
+  changeDayItemParticipantAndAbstract: (
+    dayIndex: number,
+    index: number,
+    participantId: string,
+    abstractId: string,
+  ) => void;
   dayItemReorder: (dayIndex: number, from: number, to: number) => void;
   deleteDayItem: (dayIndex: number, index: number) => void;
 
