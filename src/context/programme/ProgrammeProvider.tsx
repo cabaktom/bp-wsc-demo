@@ -105,6 +105,12 @@ export default function ProgrammeProvider({
     prop: keyof DayType,
     value: DayType[keyof DayType],
   ) => {
+    if (prop === 'start') {
+      const daysClone = [...days];
+      daysClone[index].start = value as Date;
+      recalculateDayEndTimes(index, daysClone[index].items);
+    }
+
     daysHandlers.setItemProp(index, prop, value);
   };
 
@@ -188,6 +194,15 @@ export default function ProgrammeProvider({
   };
 
   const handleSaveProgramme = async () => {
+    if (days.some((day) => !day.start)) {
+      showNotification({
+        title: 'Cannot save programme!',
+        message: 'Please set start time for all days.',
+        color: 'red',
+      });
+      return;
+    }
+
     const res = await fetch('/api/programme', {
       method: 'PUT',
       headers: {
