@@ -16,6 +16,7 @@ type RTEProps = {
   setContent: (content: string) => void;
   placeholder?: string;
   hideToolbar?: boolean;
+  title?: string;
 };
 
 const RTE = ({
@@ -23,6 +24,7 @@ const RTE = ({
   setContent,
   placeholder = '',
   hideToolbar = false,
+  title = 'Edit content',
 }: RTEProps) => {
   const [hidden, hiddenHandlers] = useDisclosure(hideToolbar);
 
@@ -56,6 +58,7 @@ const RTE = ({
         onBlur={() => {
           if (hideToolbar) hiddenHandlers.open();
         }}
+        title={title}
       >
         <RichTextEditor.Toolbar
           sticky

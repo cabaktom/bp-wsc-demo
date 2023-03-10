@@ -1,22 +1,11 @@
 import type { Participation as ParticipationType } from '@prisma/client';
+import { z } from 'zod';
 
-export type DayType = {
-  id: string;
-  date: Date;
-  additionalInfo: string;
-  start?: Date;
-  end?: Date;
-  items: ItemType[];
-};
+import { ChairmanIn, DayIn, ItemIn } from '../schemas/ProgrammeSchema';
 
-export type ItemType = {
-  id: string;
-  index?: number;
-  duration: number;
-  title: string;
-  participantId?: string;
-  abstractId?: string;
-};
+export type DayType = z.infer<typeof DayIn>;
+export type ItemType = z.Tyinfer<typeof ItemIn>;
+export type ChairmanItemType = z.infer<typeof ChairmanIn>;
 
 export type ParticipantType = {
   id: string;

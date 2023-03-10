@@ -1,5 +1,13 @@
 import { useContext } from 'react';
-import { ActionIcon, Button, Group, Paper, Stack, Text } from '@mantine/core';
+import {
+  ActionIcon,
+  Button,
+  Group,
+  Paper,
+  Stack,
+  Text,
+  useMantineTheme,
+} from '@mantine/core';
 import { TimeInput } from '@mantine/dates';
 import { openConfirmModal } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
@@ -7,11 +15,12 @@ import { IconClock, IconTrash } from '@tabler/icons-react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import DayItem from './DayItem';
-import type { DayType } from '../../@types/programme';
+import DayChairmanItem from './DayChairmanItem';
 import ProgrammeContext, {
   type ProgrammeContextType,
 } from '../../context/programme/programme-context';
 import RTE from '../Editor/RTE';
+import { DayType } from '../../@types/programme';
 
 type ProgrammeDayProps = {
   id: string;
@@ -24,17 +33,29 @@ const ProgrammeDay = ({
   index,
   day: { start, date, end, items, additionalInfo },
 }: ProgrammeDayProps) => {
+  const theme = useMantineTheme();
   const { changeDayProp, deleteDay, addDayItem, dayItemReorder } = useContext(
     ProgrammeContext,
   ) as ProgrammeContextType;
 
-  const draggableItems = items.map((item, itemIndex) => (
-    <DayItem
-      key={item.id}
-      dayIndex={index}
-      item={{ ...item, index: itemIndex }}
-    />
-  ));
+  const draggableItems = items.map((item, itemIndex) => {
+    if (item.type === 'CHAIRMAN') {
+      return (
+        <DayChairmanItem
+          key={item.id}
+          dayIndex={index}
+          item={{ ...item, index: itemIndex }}
+        />
+      );
+    }
+    return (
+      <DayItem
+        key={item.id}
+        dayIndex={index}
+        item={{ ...item, index: itemIndex }}
+      />
+    );
+  });
 
   const formattedDate = date.toLocaleDateString('en-us', {
     month: 'long',
@@ -43,7 +64,10 @@ const ProgrammeDay = ({
   });
 
   return (
-    <Paper p={{ base: 'sm', xs: 'md' }}>
+    <Paper
+      p={{ base: 'sm', xs: 'md' }}
+      sx={{ borderColor: theme.colors[theme.primaryColor][3] }}
+    >
       <Stack spacing="xs">
         <Group position="apart" mb="xs">
           <Text fz={24}>{formattedDate}</Text>
@@ -76,6 +100,7 @@ const ProgrammeDay = ({
           setContent={changeDayProp.bind(null, index, 'additionalInfo')}
           placeholder="Additional info"
           hideToolbar
+          title="Additional info"
         />
 
         <Group spacing="xs">
@@ -111,23 +136,33 @@ const ProgrammeDay = ({
           </Droppable>
         </DragDropContext>
 
-        <Button
-          onClick={() => {
-            if (!start) {
-              showNotification({
-                title: 'Start time is required',
-                message: 'Please set start time first',
-                color: 'red',
-              });
-              return;
-            }
-            addDayItem(index);
-          }}
-          fullWidth
-          variant="outline"
-        >
-          Add item
-        </Button>
+        <Group spacing="xs" mx="auto">
+          <Button
+            onClick={() => {
+              if (!start) {
+                showNotification({
+                  title: 'Start time is required',
+                  message: 'Please set start time first',
+                  color: 'red',
+                });
+                return;
+              }
+              addDayItem(index, 'ITEM');
+            }}
+            variant="outline"
+            bg="white"
+          >
+            Add item
+          </Button>
+
+          <Button
+            onClick={() => addDayItem(index, 'CHAIRMAN')}
+            variant="outline"
+            bg="white"
+          >
+            Add chairman
+          </Button>
+        </Group>
       </Stack>
     </Paper>
   );

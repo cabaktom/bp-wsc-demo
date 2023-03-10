@@ -3,7 +3,7 @@ import { getToken } from 'next-auth/jwt';
 
 import { prisma } from '../../lib/prisma';
 import handleErrors from '../../lib/handleApiErrors';
-import { ProgrammeIn, ProgrammeOut } from '../../schemas/Programme';
+import { ProgrammeIn, ProgrammeOut } from '../../schemas/ProgrammeSchema';
 
 const PROGRAMME_ID = 'programme';
 
@@ -54,13 +54,24 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
 
           items: {
             createMany: {
-              data: day.items.map((item) => ({
-                id: item.id,
-                duration: item.duration,
-                title: item.title,
-                participantId: item.participantId,
-                abstractId: item.abstractId,
-              })),
+              data: day.items.map((item) => {
+                if (item.type === 'CHAIRMAN') {
+                  const { type, id, abstractId, participantId } = item;
+                  return { type, id, participantId, abstractId };
+                }
+
+                // type === 'ITEM'
+                const { type, id, duration, title, abstractId, participantId } =
+                  item;
+                return {
+                  type,
+                  id,
+                  duration,
+                  title,
+                  participantId,
+                  abstractId,
+                };
+              }),
             },
           },
 

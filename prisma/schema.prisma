@@ -86,7 +86,13 @@ model ProgrammeDay {
   programmeId    String?
 }
 
+enum ItemType {
+  ITEM
+  CHAIRMAN
+}
+
 model ProgrammeDayItem {
+  type           ItemType      @default(ITEM)
   id             String        @id
   index          Int?
   duration       Int           @default(0)

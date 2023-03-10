@@ -1,56 +1,16 @@
 import { useContext } from 'react';
-import {
-  ActionIcon,
-  Grid,
-  NumberInput,
-  Select,
-  Text,
-  TextInput,
-  createStyles,
-} from '@mantine/core';
+import { ActionIcon, Grid, NumberInput, Text, TextInput } from '@mantine/core';
 import { openConfirmModal } from '@mantine/modals';
 import { IconGripVertical, IconTrash } from '@tabler/icons-react';
 import { Draggable } from 'react-beautiful-dnd';
 
-import SelectItem from './SelectItem';
 import type { ItemType } from '../../@types/programme';
+import ParticipantSelect from './ParticipantSelect';
 import ProgrammeContext, {
   type ProgrammeContextType,
 } from '../../context/programme/programme-context';
 
-const useStyles = createStyles((theme) => ({
-  item: {
-    display: 'flex',
-    alignItems: 'center',
-    borderRadius: theme.radius.md,
-    border: `thin solid ${theme.colors.gray[2]}`,
-    padding: `${theme.spacing.sm} ${theme.spacing.xl}`,
-    paddingLeft: `calc(${theme.spacing.xl} - ${theme.spacing.md})`,
-    backgroundColor: theme.white,
-    marginBottom: theme.spacing.sm,
-  },
-
-  itemDragging: {
-    boxShadow: theme.shadows.sm,
-  },
-
-  symbol: {
-    fontSize: '3rem',
-    fontWeight: 700,
-    width: '6rem',
-  },
-
-  dragHandle: {
-    ...theme.fn.focusStyles(),
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    color: theme.colors.gray[6],
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.md,
-  },
-}));
+import useStyles from './DayItem.styles';
 
 type ProgrammeDayItemProps = {
   dayIndex: number;
@@ -61,7 +21,7 @@ const ProgrammeDayItem = ({
   dayIndex,
   item: { id, index, duration, title, participantId, abstractId },
 }: ProgrammeDayItemProps) => {
-  const { classes, cx } = useStyles();
+  const { classes, cx } = useStyles({});
   const {
     deleteDayItem,
     changeDayItemProp,
@@ -95,7 +55,7 @@ const ProgrammeDayItem = ({
               />
             </Grid.Col>
 
-            <Grid.Col span={10} xs={7} sm={4}>
+            <Grid.Col span={10} xs={7} sm={3}>
               <TextInput
                 label="Title"
                 placeholder='e.g. "Keynote: ..."'
@@ -111,38 +71,19 @@ const ProgrammeDayItem = ({
               />
             </Grid.Col>
 
-            <Grid.Col span={10} sm={4}>
-              <Select
+            <Grid.Col span={10} sm={5}>
+              <ParticipantSelect
                 label="Participant"
                 placeholder="Pick a participant"
-                value={`${participantId}__${abstractId || 'none'}`}
-                onChange={(value) => {
-                  const [participantId, abstractId] = value?.split('__') ?? [
-                    undefined,
-                    undefined,
-                  ];
-
-                  changeDayItemParticipantAndAbstract(
-                    dayIndex,
-                    index,
-                    participantId ?? '',
-                    !abstractId || abstractId === 'none' ? '' : abstractId,
-                  );
-                }}
-                itemComponent={SelectItem}
+                emptyPlaceholder="No participant found"
+                setData={changeDayItemParticipantAndAbstract.bind(
+                  null,
+                  dayIndex,
+                  index,
+                )}
                 data={participants}
-                maxDropdownHeight={400}
-                nothingFound="No participant found"
-                filter={(value, item) =>
-                  item.fullName.toLowerCase().includes(value.toLowerCase()) ||
-                  item.abstractTitle
-                    ?.toLowerCase()
-                    .includes(value.toLowerCase())
-                }
-                allowDeselect
-                searchable
-                clearable
-                zIndex={1000}
+                participantId={participantId}
+                abstractId={abstractId}
               />
             </Grid.Col>
           </Grid>

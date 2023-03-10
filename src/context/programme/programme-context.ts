@@ -1,10 +1,6 @@
 import { createContext } from 'react';
 
-import type {
-  DayType,
-  ItemType,
-  ParticipantType,
-} from '../../@types/programme.d';
+import { DayType, ItemType, ParticipantType } from '../../@types/programme.d';
 
 export type ProgrammeContextType = {
   conferenceStart: Date | null;
@@ -19,7 +15,7 @@ export type ProgrammeContextType = {
   ) => void;
   deleteDay: (index: number) => void;
 
-  addDayItem: (dayIndex: number) => void;
+  addDayItem: (dayIndex: number, type: 'ITEM' | 'CHAIRMAN') => void;
   changeDayItemProp: (
     dayIndex: number,
     index: number,

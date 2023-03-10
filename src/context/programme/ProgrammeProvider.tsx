@@ -3,12 +3,8 @@ import { useListState } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 
 import ProgrammeContext, { ProgrammeContextType } from './programme-context';
-import type {
-  DayType,
-  ItemType,
-  ParticipantType,
-} from '../../@types/programme';
-import { ProgrammeIn } from '../../schemas/Programme';
+import { DayType, ItemType, ParticipantType } from '../../@types/programme';
+import { ProgrammeIn } from '../../schemas/ProgrammeSchema';
 
 type ProgrammeProviderProps = {
   children: React.ReactNode;
@@ -79,13 +75,19 @@ export default function ProgrammeProvider({
     });
   };
 
-  const recalculateDayEndTimes = (dayIndex: number, items: ItemType[]) => {
+  const recalculateDayEndTimes = (
+    dayIndex: number,
+    items: typeof days[number]['items'],
+  ) => {
     const dayStart = days[dayIndex].start;
     if (!dayStart) return;
 
-    const endTime = items.reduce((acc, { duration }) => {
+    const endTime = items.reduce((acc, item) => {
       const itemEndTime = new Date(acc);
-      return new Date(itemEndTime.getTime() + duration * 60 * 1000);
+      if (item.type === 'CHAIRMAN') return itemEndTime;
+
+      if (item.duration === null) return itemEndTime;
+      return new Date(itemEndTime.getTime() + item.duration * 60 * 1000);
     }, dayStart);
 
     daysHandlers.setItemProp(dayIndex, 'end', endTime);
@@ -98,11 +100,14 @@ export default function ProgrammeProvider({
 
   // day handlers
   const handleAddDay = (start: Date) => {
+    const date = new Date(start);
     daysHandlers.append({
       id: Date.now().toString(),
-      date: new Date(start),
+      date,
       additionalInfo: '',
       items: [],
+      start: date,
+      end: date,
     });
   };
 
@@ -128,16 +133,23 @@ export default function ProgrammeProvider({
   };
 
   // day item handlers
-  const handleAddDayItem = (dayIndex: number) => {
-    const items: Array<ItemType> = [
+  const handleAddDayItem = (dayIndex: number, type: 'ITEM' | 'CHAIRMAN') => {
+    const items: typeof days[number]['items'] = [
       ...days[dayIndex].items,
-      {
-        id: Date.now().toString(),
-        duration: 0,
-        title: '',
-        participantId: '',
-        abstractId: '',
-      },
+      type === 'ITEM'
+        ? {
+            type,
+            id: Date.now().toString(),
+            duration: 0,
+            title: '',
+            participantId: '',
+            abstractId: '',
+          }
+        : {
+            type,
+            id: Date.now().toString(),
+            participantId: '',
+          },
     ];
     daysHandlers.setItemProp(dayIndex, 'items', items);
 
@@ -200,15 +212,6 @@ export default function ProgrammeProvider({
   };
 
   const handleSaveProgramme = async () => {
-    if (days.some((day) => !day.start)) {
-      showNotification({
-        title: 'Cannot save programme!',
-        message: 'Please set start time for all days.',
-        color: 'red',
-      });
-      return;
-    }
-
     const res = await fetch('/api/programme', {
       method: 'PUT',
       headers: {
