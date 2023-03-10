@@ -276,6 +276,7 @@ async function createParticipantsAndAbstracts() {
         },
       },
       poster: false,
+      invited: true,
     },
   });
   await prisma.participant.upsert({
@@ -299,6 +300,7 @@ async function createParticipantsAndAbstracts() {
         },
       },
       poster: false,
+      invited: true,
     },
   });
   await prisma.participant.upsert({

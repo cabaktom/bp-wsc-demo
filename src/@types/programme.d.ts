@@ -1,3 +1,5 @@
+import type { Participation as ParticipationType } from '@prisma/client';
+
 export type DayType = {
   id: string;
   date: Date;
@@ -23,4 +25,7 @@ export type ParticipantType = {
   fullName: string;
   abstractTitle?: string;
   group: string;
+  invited: boolean;
+  participation: ParticipationType;
+  message: string | null;
 };
