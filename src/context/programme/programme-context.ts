@@ -38,6 +38,7 @@ export type ProgrammeContextType = {
   participants: ParticipantType[];
   saveProgramme: () => void;
   deleteProgramme: () => void;
+  loading: boolean;
 };
 
 export default createContext<ProgrammeContextType | null>(null);

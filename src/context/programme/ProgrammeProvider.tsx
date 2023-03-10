@@ -22,10 +22,12 @@ export default function ProgrammeProvider({
   const [conferenceStart, setConferenceStart] = useState<Date | null>(null);
   const [days, daysHandlers] = useListState<DayType>([]);
   const [participants] = useListState<ParticipantType>(participantsProp);
+  const [loading, setLoading] = useState(false);
 
   // initial fetch to populate programme state
   useEffect(() => {
     const fetchProgramme = async () => {
+      setLoading(true);
       const res = await fetch('/api/programme');
       const data = await res.json();
 
@@ -35,6 +37,7 @@ export default function ProgrammeProvider({
           message: data.message ?? 'Could not load programme.',
           color: 'red',
         });
+        setLoading(false);
         return;
       }
 
@@ -56,6 +59,8 @@ export default function ProgrammeProvider({
           daysHandlers.setState(parsedData.days);
         }
       }
+
+      setLoading(false);
     };
 
     fetchProgramme();
@@ -275,6 +280,7 @@ export default function ProgrammeProvider({
     participants,
     saveProgramme: handleSaveProgramme,
     deleteProgramme: handleDeleteProgramme,
+    loading,
   };
 
   return (

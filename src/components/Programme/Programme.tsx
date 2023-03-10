@@ -1,5 +1,13 @@
 import { useContext } from 'react';
-import { Button, Group, Stack, Text, createStyles } from '@mantine/core';
+import {
+  Button,
+  Center,
+  Group,
+  Loader,
+  Stack,
+  Text,
+  createStyles,
+} from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { showNotification } from '@mantine/notifications';
 import { openConfirmModal } from '@mantine/modals';
@@ -27,6 +35,7 @@ const Programme = () => {
     setConferenceStart,
     saveProgramme,
     deleteProgramme,
+    loading,
   } = useContext(ProgrammeContext) as ProgrammeContextType;
 
   return (
@@ -78,6 +87,15 @@ const Programme = () => {
           </Button>
         </Group>
       </Group>
+
+      {loading && (
+        <Center>
+          <Group spacing="xs">
+            <Loader size="sm" />
+            <Text fz="md">Loading programme...</Text>
+          </Group>
+        </Center>
+      )}
 
       {days.map((day, index) => (
         <Day key={day.id} id={day.id} index={index} day={day} />
