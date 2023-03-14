@@ -110,7 +110,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
         });
       },
     );
-    const results = Promise.all(promises);
+    const results = await Promise.all(promises);
 
     await revalidatePage(res, '/gallery');
 
