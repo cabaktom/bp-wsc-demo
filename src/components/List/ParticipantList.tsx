@@ -92,7 +92,7 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
 
       <ul className={classes.list}>
         {sortResults.map(({ abstract, ...participant }) => (
-          <li key={participant.fullName}>
+          <li key={participant.id}>
             <Flex
               direction={{ base: 'column', md: 'row' }}
               gap={{ base: 0, md: 'sm' }}
