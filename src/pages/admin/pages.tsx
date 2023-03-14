@@ -1,5 +1,7 @@
 import { SWRConfig } from 'swr';
 import type { Page } from '@prisma/client';
+import { GetServerSideProps } from 'next';
+import { getToken } from 'next-auth/jwt';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
@@ -26,7 +28,19 @@ PagesPage.getLayout = (page) => {
 
 export default PagesPage;
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps<PagesPageProps> = async (
+  context,
+) => {
+  const token = await getToken({ req: context.req });
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
   const pages = await prisma.page.findMany();
 
   return {
@@ -36,4 +50,4 @@ export async function getServerSideProps() {
       },
     },
   };
-}
+};

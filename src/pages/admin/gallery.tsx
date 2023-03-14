@@ -1,6 +1,8 @@
 import { SWRConfig } from 'swr';
 import { Stack } from '@mantine/core';
 import type { Image as ImageType } from '@prisma/client';
+import { GetServerSideProps } from 'next';
+import { getToken } from 'next-auth/jwt';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
@@ -32,7 +34,19 @@ GalleryPage.getLayout = (page) => {
 
 export default GalleryPage;
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps<GalleryPageProps> = async (
+  context,
+) => {
+  const token = await getToken({ req: context.req });
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
   const images = await prisma.image.findMany();
 
   return {
@@ -42,4 +56,4 @@ export async function getServerSideProps() {
       },
     },
   };
-}
+};

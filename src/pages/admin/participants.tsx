@@ -2,6 +2,8 @@ import { SWRConfig } from 'swr';
 import { Paper, Stack } from '@mantine/core';
 import { useElementSize } from '@mantine/hooks';
 import type { Abstract, Participant } from '@prisma/client';
+import { GetServerSideProps } from 'next';
+import { getToken } from 'next-auth/jwt';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
@@ -11,7 +13,7 @@ import RegisterForm from '../../components/Form/RegisterForm';
 
 type ParticipantsPageProps = {
   fallback: {
-    '/api/participants?abstract=true': (Participant & {
+    '/api/participants': (Participant & {
       abstract: Abstract;
     })[];
   };
@@ -45,7 +47,19 @@ ParticipantsPage.getLayout = (page) => {
 
 export default ParticipantsPage;
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps<
+  ParticipantsPageProps
+> = async (context) => {
+  const token = await getToken({ req: context.req });
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
   const participants = await prisma.participant.findMany({
     include: {
       abstract: true,
@@ -59,4 +73,4 @@ export async function getServerSideProps() {
       },
     },
   };
-}
+};

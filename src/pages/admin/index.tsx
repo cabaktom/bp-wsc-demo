@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { GetServerSideProps } from 'next';
 import { Container, Paper, Title } from '@mantine/core';
 import { SiteSettings } from '@prisma/client';
+import { getToken } from 'next-auth/jwt';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
@@ -42,10 +44,22 @@ AdminDashboardPage.getLayout = (page) => {
 
 export default AdminDashboardPage;
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps<
+  AdminDashboardPageProps
+> = async (context) => {
+  const token = await getToken({ req: context.req });
+  if (!token) {
+    return {
+      redirect: {
+        destination: 'login',
+        permanent: false,
+      },
+    };
+  }
+
   const settings = await prisma.siteSettings.findMany();
 
   return {
     props: { settings },
   };
-}
+};

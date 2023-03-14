@@ -1,3 +1,6 @@
+import { GetServerSideProps } from 'next';
+import { getToken } from 'next-auth/jwt';
+
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
 import { prisma } from '../../lib/prisma';
@@ -25,7 +28,19 @@ ProgrammePage.getLayout = (page) => {
 
 export default ProgrammePage;
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps<
+  ProgrammePageProps
+> = async (context) => {
+  const token = await getToken({ req: context.req });
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
   const participants = await prisma.participant.findMany({
     include: {
       abstract: true,
@@ -68,4 +83,4 @@ export async function getServerSideProps() {
       participants: JSON.parse(JSON.stringify(programmeParticipants)),
     },
   };
-}
+};

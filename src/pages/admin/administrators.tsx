@@ -2,6 +2,8 @@ import { SWRConfig } from 'swr';
 import { Stack, Grid, Title, Paper } from '@mantine/core';
 import { useSession } from 'next-auth/react';
 import type { Admin } from '@prisma/client';
+import { GetServerSideProps } from 'next';
+import { getToken } from 'next-auth/jwt';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
 import type { NextPageWithLayout } from '../../@types';
@@ -57,7 +59,19 @@ AdministratorsPage.getLayout = (page) => {
 
 export default AdministratorsPage;
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps<
+  AdministratorsPageProps
+> = async (context) => {
+  const token = await getToken({ req: context.req });
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
   const administrators = await prisma.admin.findMany({});
 
   return {
@@ -67,4 +81,4 @@ export async function getServerSideProps() {
       },
     },
   };
-}
+};
