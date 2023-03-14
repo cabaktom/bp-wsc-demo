@@ -11,6 +11,7 @@ import {
   Badge,
   Box,
 } from '@mantine/core';
+import { useRouter } from 'next/router';
 import type { Abstract, Participant } from '@prisma/client';
 import { IconUserCircle } from '@tabler/icons-react';
 
@@ -45,10 +46,12 @@ type ParticipantListProps = {
 
 const ParticipantList = ({ participants }: ParticipantListProps) => {
   const { classes } = useStyles();
+  const router = useRouter();
 
   // data pipeline: search -> sort
   const { query, setQuery, searchResults } = useSearch({
     data: participants,
+    initialQuery: router.query.abstract as string | undefined,
   });
   const { sortStatus, setSortStatus, sortResults } = useSort({
     data: searchResults,
@@ -127,7 +130,9 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
               >
                 {abstract && (
                   <>
-                    <Title order={4}>{abstract.title}</Title>
+                    <Title order={4} id={abstract.id}>
+                      {abstract.title}
+                    </Title>
                     <dl className={classes.definitionList}>
                       {abstract.additionalAuthors && (
                         <>

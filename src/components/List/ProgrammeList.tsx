@@ -189,7 +189,10 @@ const ProgrammeList = ({ programme }: ProgrammeListProps) => {
                           py={0}
                         >
                           {abstract && (
-                            <Link href={`/participants#${abstract.id}`}>
+                            <Link
+                              href={`/participants?abstract=${abstract.title}`}
+                              scroll={false}
+                            >
                               {abstract.title}
                             </Link>
                           )}

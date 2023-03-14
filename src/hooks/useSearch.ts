@@ -4,10 +4,14 @@ import keys from 'lodash/keys';
 
 type useSearchProps<T> = {
   data: T[];
+  initialQuery?: string;
 };
 
-const useSearch = <T extends object>({ data }: useSearchProps<T>) => {
-  const [query, setQuery] = useState('');
+const useSearch = <T extends object>({
+  data,
+  initialQuery = '',
+}: useSearchProps<T>) => {
+  const [query, setQuery] = useState(initialQuery);
   const [debouncedQuery] = useDebouncedValue(query, 200);
 
   const [searchResults, setSearchResults] = useState(data);
