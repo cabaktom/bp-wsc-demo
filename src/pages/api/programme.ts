@@ -4,8 +4,7 @@ import { getToken } from 'next-auth/jwt';
 import { prisma } from '../../lib/prisma';
 import handleErrors from '../../lib/handleApiErrors';
 import { ProgrammeIn, ProgrammeOut } from '../../schemas/ProgrammeSchema';
-
-const PROGRAMME_ID = 'programme';
+import { PROGRAMME_ID } from '../../constants/programme';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {

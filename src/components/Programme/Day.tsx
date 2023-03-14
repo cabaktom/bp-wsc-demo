@@ -57,7 +57,7 @@ const ProgrammeDay = ({
     );
   });
 
-  const formattedDate = date.toLocaleDateString('en-us', {
+  const formattedDate = date.toLocaleDateString(undefined, {
     month: 'long',
     day: 'numeric',
     year: 'numeric',

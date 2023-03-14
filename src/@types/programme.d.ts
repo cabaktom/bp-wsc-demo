@@ -4,8 +4,14 @@ import { z } from 'zod';
 import { ChairmanIn, DayIn, ItemIn } from '../schemas/ProgrammeSchema';
 
 export type DayType = z.infer<typeof DayIn>;
-export type ItemType = z.Tyinfer<typeof ItemIn>;
+export type ItemType = z.infer<typeof ItemIn>;
 export type ChairmanItemType = z.infer<typeof ChairmanIn>;
+
+export type ProgrammeType = {
+  id: string;
+  conferenceStart: Date;
+  days: DayType[];
+};
 
 export type ParticipantType = {
   id: string;

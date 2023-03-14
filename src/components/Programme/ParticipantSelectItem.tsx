@@ -27,14 +27,16 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
               </Text>
 
               {invited && (
-                <Badge size="xs" variant="filled" color="green">
+                <Badge size="xs" variant="filled">
                   Invited
                 </Badge>
               )}
 
-              <Badge size="xs" variant="filled">
-                {participation}
-              </Badge>
+              {participation === 'ONLINE' && (
+                <Badge size="xs" variant="filled" color="green">
+                  {participation}
+                </Badge>
+              )}
             </Group>
 
             <Text size="xs" opacity={0.8}>
