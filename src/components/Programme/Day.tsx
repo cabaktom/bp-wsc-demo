@@ -100,7 +100,6 @@ const ProgrammeDay = ({
           setContent={changeDayProp.bind(null, index, 'additionalInfo')}
           placeholder="Additional info"
           hideToolbar
-          title="Additional info"
         />
 
         <Group spacing="xs">
