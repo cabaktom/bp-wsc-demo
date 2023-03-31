@@ -92,7 +92,7 @@ const ProgrammeList = ({ programme }: ProgrammeListProps) => {
 
   return (
     <ul className={clsx(classes.list, classes.programme)}>
-      {programme.days.map((day) => {
+      {programme.days?.map((day) => {
         const date = new Date(day.date).toLocaleDateString(locale, dateFormat);
 
         return (
