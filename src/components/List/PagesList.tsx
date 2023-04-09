@@ -12,9 +12,11 @@ type PagesListProps = {
 
 const PagesList = ({ pages: initPages }: PagesListProps) => {
   const [pages, pagesHandlers] = useListState(
-    initPages.map((page) => {
-      return { ...page, loading: false };
-    }),
+    initPages
+      .map((page) => {
+        return { ...page, loading: false };
+      })
+      .sort((a, b) => a.order - b.order),
   );
 
   const handleSave = async (page: Page, index: number) => {

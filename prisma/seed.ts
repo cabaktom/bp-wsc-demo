@@ -12,6 +12,7 @@ async function createPages() {
       title: 'Home',
       content:
         '<h3>Characteristics</h3><p>The scientific colloquium of CTU organized by the departments of Software Engineering and Mathematics, FNSPE CTU in Prague is devoted to the meeting of students and young applied mathematicians dealing with numerical solution of partial differential equations, mathematical modelling, numerical simulation of problems in technology, environment, biology and computer science.</p><h4>Organizers</h4><p><strong>J. Kukal</strong>, Department of Software Engineering, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><p>kukal (at) dc.fjfi.cvut.cz</p><p><strong>R. Fučík</strong>, Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><p>radek.fucik (at) fjfi.cvut.cz</p><p><strong>P. Pauš</strong>, Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><p>petr.paus (at) fjfi.cvut.cz</p><p><strong>M. Beneš</strong>, Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><p>michal.benes (at) fjfi.cvut.cz</p><p><strong>M. Kolář</strong>, Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><p>miroslav.kolar (at) fjfi.cvut.cz</p><h4>Conference office</h4><p>I. Kukalová, Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><h4>Organizing committee</h4><p><strong>J. Kukal, T. Oberhuber, J. Mikyška, R. Fučík, P. Pauš, P. Strachota, P. Eichler</strong></p><h4>Registration</h4><p>Conference fee: <strong>3000 CZK for onsite participation, 0 CZK for online participation</strong><br>Submit your registration via registration form: <a href="register" rel="noopener noreferrer nofollow">Registration form</a><br>Deadline: <strong>May 10, 2022</strong></p><p>Required registration data:</p><ol><li><p>Name</p></li><li><p>Your contact address and e-mail</p></li><li><p>Affiliation</p></li><li><p>The abstract of your contribution</p></li><li><p>Onsite/online attendance</p></li><li><p>Arrival and departure dates</p></li></ol><p></p><h4>Additional information</h4><p><strong>URL:</strong> <a href="http://mmg.fjfi.cvut.cz/wsc-2022" rel="noopener noreferrer nofollow">http://mmg.fjfi.cvut.cz/wsc-2022</a></p><p><strong>Conference poster:</strong> <a href="https://geraldine.fjfi.cvut.cz/wsc2022/poster/wsc2022.pdf" rel="noopener noreferrer nofollow">WSC 2022 Poster</a></p><p><strong>List of </strong><a href="participants" rel="noopener noreferrer nofollow">participants</a></p><p><strong>List of</strong> <a href="abstracts" rel="noopener noreferrer nofollow">abstracts</a></p><p><strong>Information desk:</strong> petr.paus (at) fjfi.cvut.cz</p><p><strong>Venue:</strong><br>Faculty of Nuclear Sciences and Physical Engineering,<br>Pohraniční 1288/1, 405 02 Děčín<br>and MS Teams online</p><p></p><h4>Acknowledgement</h4><p>This event is supported by the project of the Student Grant Agency of the Czech Technical University in Prague No. SVK 42/22/F4</p>',
+      order: 1,
     },
   });
   await prisma.page.upsert({
@@ -22,6 +23,7 @@ async function createPages() {
       title: 'Register',
       content:
         '<h3>Registration</h3><p><strong>Deadline:</strong> May 10, 2022<br><strong>Conference fee:</strong> 3000 CZK for onsite participation, 0 CZK for online participation</p><p></p><p><strong>Registration data:</strong></p><ol><li><p>Name</p></li><li><p>Your contact address and e-mail</p></li><li><p>Affiliation</p></li><li><p>The abstract of your contribution</p></li><li><p>Onsite/Online attendance</p></li><li><p>Arrival and departure dates</p></li></ol>',
+      order: 2,
     },
   });
   await prisma.page.upsert({
@@ -31,6 +33,7 @@ async function createPages() {
       name: 'participants',
       title: 'Participants & Abstracts',
       content: '<h3>Participants and abstracts</h3>',
+      order: 3,
     },
   });
   await prisma.page.upsert({
@@ -41,6 +44,7 @@ async function createPages() {
       title: 'Programme',
       content:
         '<h3>Scientific programme</h3><h4>Conference venue:</h4><p>The conference venue: <strong>the main building of CTU at Pohraniční street, 1288/1</strong><br>or<br><strong>Online:</strong> MS Teams</p><h4>Registration for local participants</h4><p>Registration for local participants takes place at the conference venue (the main building of CTU at Pohraniční street, 1288/1):<br><strong>Thursday</strong>: from 13:00 to 13:50<br><strong>Friday: </strong>from 8:30 to 9:00 (and during coffee breaks between the sessions)</p><h4>Invited talks</h4><p>Invited oral presentation duration is 30 min = 25 min talk + 5 min for discussion.</p><h4>Regular talks</h4><p>Oral presentation duration is 20 min = max 15 min talk + 5 min for discussion.</p>',
+      order: 4,
     },
   });
   await prisma.page.upsert({
@@ -51,6 +55,7 @@ async function createPages() {
       title: 'Travel',
       content:
         '<h4>Recommended train:</h4><p>EC 174 Berliner, 10:25 from Praha hlavní nádraží. Or EC&nbsp;378 Berliner, 12:25.</p><h4>From Děčín station to the venue:</h4><p><strong>By bus</strong></p><p>By bus no. <strong>201</strong>, <strong>204</strong>, <strong>209 </strong>to <strong>Myslbekova </strong>station (4th stop).<br>The ticket is 20 CZK, paid in the bus.<br>Please prepare the exact change.<br>Only the front door can be used to enter the bus.</p><p><strong>By walk</strong></p><p>About 1.7 km</p><ol><li><p>Head north on Čs. mládeže toward P. Holého  (0.3 km)</p></li><li><p>Continue onto Na Skřivance  (0.2 km)</p></li><li><p>At the roundabout, turn right onto Labské nábř.  (0.4 km)</p></li><li><p>Slight left to stay on Labské nábř. (0.2 km)</p></li><li><p>Turn right at Tyršova (0.5 km)</p></li><li><p>Take the 2nd right onto Masarykovo nám. (60 m)</p></li><li><p>Continue straight onto Lázeňská (0.2 km)</p></li><li><p>Turn right at Zámecké nám.  (60 m)</p></li><li><p>Slight right at Nároží</p></li></ol><p>Destination will be on the left  </p>',
+      order: 5,
     },
   });
   await prisma.page.upsert({
@@ -61,6 +66,7 @@ async function createPages() {
       title: 'Trip',
       content:
         '<h3>Trip to České Středohoří (Central Bohemian Highlands)</h3><p>Common departure:<br>10:40 by Bus 512437 205 from Myslbekova bus stop near CTU building (39 CZK)</p>',
+      order: 6,
     },
   });
   await prisma.page.upsert({
@@ -70,6 +76,7 @@ async function createPages() {
       name: 'gallery',
       title: 'Gallery',
       content: '<h3>Gallery</h3>',
+      order: 7,
     },
   });
 

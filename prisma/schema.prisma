@@ -12,6 +12,7 @@ model Page {
   name    String @unique @db.VarChar(255)
   title   String @db.VarChar(255)
   content String
+  order   Int    @unique
 }
 
 model Admin {
