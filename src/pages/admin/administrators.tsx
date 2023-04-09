@@ -54,7 +54,11 @@ const AdministratorsPage: NextPageWithLayout<AdministratorsPageProps> = ({
 };
 
 AdministratorsPage.getLayout = (page) => {
-  return <AdminLayout>{page}</AdminLayout>;
+  return (
+    <AdminLayout settings={page.props.settings} title={page.props.title}>
+      {page}
+    </AdminLayout>
+  );
 };
 
 export default AdministratorsPage;
@@ -73,12 +77,15 @@ export const getServerSideProps: GetServerSideProps<
   }
 
   const administrators = await prisma.admin.findMany({});
+  const settings = await prisma.siteSettings.findMany();
 
   return {
     props: {
       fallback: {
         '/api/admins': administrators,
       },
+      title: 'Edit administrators',
+      settings,
     },
   };
 };

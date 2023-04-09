@@ -42,7 +42,11 @@ const ParticipantsPage: NextPageWithLayout<ParticipantsPageProps> = ({
 };
 
 ParticipantsPage.getLayout = (page) => {
-  return <AdminLayout>{page}</AdminLayout>;
+  return (
+    <AdminLayout settings={page.props.settings} title={page.props.title}>
+      {page}
+    </AdminLayout>
+  );
 };
 
 export default ParticipantsPage;
@@ -65,12 +69,15 @@ export const getServerSideProps: GetServerSideProps<
       abstract: true,
     },
   });
+  const settings = await prisma.siteSettings.findMany();
 
   return {
     props: {
       fallback: {
         '/api/participants': JSON.parse(JSON.stringify(participants)),
       },
+      title: 'Edit participants',
+      settings,
     },
   };
 };

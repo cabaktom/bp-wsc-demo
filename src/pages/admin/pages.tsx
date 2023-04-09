@@ -23,7 +23,11 @@ const PagesPage: NextPageWithLayout<PagesPageProps> = ({ fallback }) => {
 };
 
 PagesPage.getLayout = (page) => {
-  return <AdminLayout>{page}</AdminLayout>;
+  return (
+    <AdminLayout settings={page.props.settings} title={page.props.title}>
+      {page}
+    </AdminLayout>
+  );
 };
 
 export default PagesPage;
@@ -42,12 +46,15 @@ export const getServerSideProps: GetServerSideProps<PagesPageProps> = async (
   }
 
   const pages = await prisma.page.findMany();
+  const settings = await prisma.siteSettings.findMany();
 
   return {
     props: {
       fallback: {
         '/api/pages': pages,
       },
+      title: 'Edit pages',
+      settings,
     },
   };
 };

@@ -44,6 +44,9 @@ export async function getStaticProps() {
 
   return {
     props: {
+      page: {
+        title: 'Log in',
+      },
       settings,
     },
   };

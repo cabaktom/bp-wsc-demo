@@ -39,7 +39,11 @@ const AdminDashboardPage: NextPageWithLayout<AdminDashboardPageProps> = ({
 };
 
 AdminDashboardPage.getLayout = (page) => {
-  return <AdminLayout>{page}</AdminLayout>;
+  return (
+    <AdminLayout settings={page.props.settings} title={page.props.title}>
+      {page}
+    </AdminLayout>
+  );
 };
 
 export default AdminDashboardPage;
@@ -60,6 +64,9 @@ export const getServerSideProps: GetServerSideProps<
   const settings = await prisma.siteSettings.findMany();
 
   return {
-    props: { settings },
+    props: {
+      title: 'Edit header',
+      settings,
+    },
   };
 };

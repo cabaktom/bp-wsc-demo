@@ -29,7 +29,11 @@ const GalleryPage: NextPageWithLayout<GalleryPageProps> = ({ fallback }) => {
 };
 
 GalleryPage.getLayout = (page) => {
-  return <AdminLayout>{page}</AdminLayout>;
+  return (
+    <AdminLayout settings={page.props.settings} title={page.props.title}>
+      {page}
+    </AdminLayout>
+  );
 };
 
 export default GalleryPage;
@@ -48,12 +52,15 @@ export const getServerSideProps: GetServerSideProps<GalleryPageProps> = async (
   }
 
   const images = await prisma.image.findMany();
+  const settings = await prisma.siteSettings.findMany();
 
   return {
     props: {
       fallback: {
         '/api/images': JSON.parse(JSON.stringify(images)),
       },
+      title: 'Edit gallery',
+      settings,
     },
   };
 };

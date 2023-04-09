@@ -23,7 +23,11 @@ const ProgrammePage: NextPageWithLayout<ProgrammePageProps> = ({
 };
 
 ProgrammePage.getLayout = (page) => {
-  return <AdminLayout>{page}</AdminLayout>;
+  return (
+    <AdminLayout settings={page.props.settings} title={page.props.title}>
+      {page}
+    </AdminLayout>
+  );
 };
 
 export default ProgrammePage;
@@ -46,6 +50,7 @@ export const getServerSideProps: GetServerSideProps<
       abstract: true,
     },
   });
+  const settings = await prisma.siteSettings.findMany();
 
   // parse participants to the format that is used in the select input
   const programmeParticipants = participants
@@ -81,6 +86,8 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       participants: JSON.parse(JSON.stringify(programmeParticipants)),
+      title: 'Edit programme',
+      settings,
     },
   };
 };
