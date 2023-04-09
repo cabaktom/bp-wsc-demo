@@ -36,6 +36,8 @@ const Programme = () => {
     saveProgramme,
     deleteProgramme,
     loading,
+    saving,
+    deleting,
   } = useContext(ProgrammeContext) as ProgrammeContextType;
 
   return (
@@ -58,6 +60,7 @@ const Programme = () => {
             disabled={!conferenceStart}
             title="Save programme"
             leftIcon={<IconDeviceFloppy size={16} />}
+            loading={saving}
           >
             Save
           </Button>
@@ -82,6 +85,7 @@ const Programme = () => {
             title="Delete programme"
             color="red"
             leftIcon={<IconTrash size={16} />}
+            loading={deleting}
           >
             Delete
           </Button>

@@ -19,6 +19,8 @@ export default function ProgrammeProvider({
   const [days, daysHandlers] = useListState<DayType>([]);
   const [participants] = useListState<ParticipantType>(participantsProp);
   const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   // initial fetch to populate programme state
   useEffect(() => {
@@ -212,6 +214,7 @@ export default function ProgrammeProvider({
   };
 
   const handleSaveProgramme = async () => {
+    setSaving(true);
     const res = await fetch('/api/programme', {
       method: 'PUT',
       headers: {
@@ -236,9 +239,11 @@ export default function ProgrammeProvider({
         color: 'green',
       });
     }
+    setSaving(false);
   };
 
   const handleDeleteProgramme = async () => {
+    setDeleting(true);
     const res = await fetch('/api/programme', {
       method: 'DELETE',
     });
@@ -262,6 +267,7 @@ export default function ProgrammeProvider({
       setConferenceStart(null);
       daysHandlers.setState([]);
     }
+    setDeleting(false);
   };
 
   const cartContext: ProgrammeContextType = {
@@ -284,6 +290,8 @@ export default function ProgrammeProvider({
     saveProgramme: handleSaveProgramme,
     deleteProgramme: handleDeleteProgramme,
     loading,
+    saving,
+    deleting,
   };
 
   return (

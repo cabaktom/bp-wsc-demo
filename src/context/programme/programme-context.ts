@@ -35,6 +35,8 @@ export type ProgrammeContextType = {
   saveProgramme: () => void;
   deleteProgramme: () => void;
   loading: boolean;
+  saving: boolean;
+  deleting: boolean;
 };
 
 export default createContext<ProgrammeContextType | null>(null);
