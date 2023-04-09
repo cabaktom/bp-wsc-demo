@@ -119,7 +119,7 @@ const ProgrammeList = ({ programme }: ProgrammeListProps) => {
                       <Flex align="center" gap="xs">
                         <IconUser size={18} />
                         <Text>
-                          <strong>Chair: {participant.fullName}</strong>
+                          <strong>Chair: {participant?.fullName}</strong>
                         </Text>
                       </Flex>
                     </li>
