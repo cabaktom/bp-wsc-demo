@@ -37,6 +37,7 @@ const GalleryPage: NextPage<GalleryPageProps> = ({ page, images }) => {
       alt: image.alt || 'Image',
       index,
       description: image.alt,
+      downloadFilename: image.originalFilename,
     };
   });
 

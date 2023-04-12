@@ -16,9 +16,6 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const originalFilename = pathParsed.substring(pathParsed.indexOf('_') + 1);
 
-    // if the file should be downloaded or displayed in the browser
-    const download = z.string().optional().parse(req.query.download);
-
     // can only download files from the public folder
     const filePath = path.join(process.cwd(), 'public', pathParsed);
 
@@ -28,9 +25,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
       res.writeHead(200, {
         'Content-Type': `image/${type}`,
         'Content-Length': size,
-        'Content-Disposition': `${
-          download ? 'attachment' : 'inline'
-        }; filename="${originalFilename}"`,
+        'Content-Disposition': `inline; filename="${originalFilename}"`,
       });
 
       const readStream = fs.createReadStream(filePath);
@@ -63,7 +58,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   switch (req.method) {
-    // GET /api/download/{...path}?download={true|undefined}
+    // GET /api/download/{...path}
     case 'GET':
       return handleGet(req, res);
 

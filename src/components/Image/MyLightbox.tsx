@@ -3,9 +3,11 @@ import Lightbox, { type SlideImage } from 'yet-another-react-lightbox';
 import Captions from 'yet-another-react-lightbox/plugins/captions';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
+import Counter from 'yet-another-react-lightbox/plugins/counter';
+import Download from 'yet-another-react-lightbox/plugins/download';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/captions.css';
-import { IconDownload } from '@tabler/icons-react';
+import 'yet-another-react-lightbox/plugins/counter.css';
 
 type MyLightboxProps = {
   images: SlideImage[];
@@ -20,20 +22,20 @@ const MyLightbox = ({ images, open, index, setIndex }: MyLightboxProps) => {
       open={open}
       slides={images}
       render={{
-        slide: (image, offset, rect) => {
+        slide: ({ slide, rect }) => {
           const width = Math.round(
-            Math.min(rect.width, (rect.height / image.height!) * image.width!),
+            Math.min(rect.width, (rect.height / slide.height!) * slide.width!),
           );
           const height = Math.round(
-            Math.min(rect.height, (rect.width / image.width!) * image.height!),
+            Math.min(rect.height, (rect.width / slide.width!) * slide.height!),
           );
 
           return (
             <div style={{ position: 'relative', width, height }}>
               <Image
                 fill
-                alt={image.alt!}
-                src={`/api/download${image.src}`}
+                alt={slide.alt!}
+                src={`/api/download${slide.src}`}
                 loading="eager"
                 draggable={false}
                 sizes={
@@ -48,26 +50,10 @@ const MyLightbox = ({ images, open, index, setIndex }: MyLightboxProps) => {
       }}
       index={index}
       close={() => setIndex(-1)}
-      plugins={[Captions, Zoom, Fullscreen]}
+      plugins={[Captions, Zoom, Fullscreen, Download, Counter]}
       animation={{ swipe: 250 }}
       on={{
-        view: (index) => setIndex(index),
-      }}
-      toolbar={{
-        buttons: [
-          <a
-            key="download"
-            className="yarl__button"
-            href={`/api/download${images[index]?.src}?download=true`}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Download original image"
-            aria-label="Download original image"
-          >
-            <IconDownload className="yarl__icon" />
-          </a>,
-          'close',
-        ],
+        view: ({ index }) => setIndex(index),
       }}
     />
   );
