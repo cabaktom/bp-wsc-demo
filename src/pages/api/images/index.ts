@@ -97,20 +97,18 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // if all files are images, create database records
-    const promises = responseMessages.map(
-      ({ file: { path, newFilename, originalFilename, width, height } }) => {
-        return prisma.image.create({
-          data: {
-            path,
-            filename: newFilename,
-            originalFilename: originalFilename ?? '',
-            width,
-            height,
-          },
-        });
-      },
+    const imagesData = responseMessages.map(
+      ({ file: { path, newFilename, originalFilename, width, height } }) => ({
+        path,
+        filename: newFilename,
+        originalFilename: originalFilename ?? '',
+        width,
+        height,
+      }),
     );
-    const results = await Promise.all(promises);
+    const results = await prisma.image.createMany({
+      data: imagesData,
+    });
 
     await revalidatePage(res, '/gallery');
 
