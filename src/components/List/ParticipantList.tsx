@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Paper,
   CloseButton,
@@ -61,6 +62,14 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
     },
   });
 
+  // prevent empty results from being rendered when page loads
+  const [results, setResults] = useState(participants);
+  useEffect(() => {
+    if (sortResults.length !== 0) {
+      setResults(sortResults);
+    }
+  }, [sortResults]);
+
   return (
     <>
       <Flex direction={{ base: 'column', sm: 'row' }} gap="sm" wrap="nowrap">
@@ -94,7 +103,7 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
       </Flex>
 
       <ul className={classes.list}>
-        {sortResults.map(({ abstract, ...participant }) => (
+        {results.map(({ abstract, ...participant }) => (
           <li key={participant.id}>
             <Flex
               direction={{ base: 'column', md: 'row' }}

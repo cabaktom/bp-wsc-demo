@@ -43,11 +43,19 @@ export async function getStaticProps() {
     },
   });
 
+  // initially sort participants by last name
+  const sortedParticipants = participants.sort((a, b) => {
+    const aLastName = a.fullName.slice(a.fullName.lastIndexOf(' ') + 1);
+    const bLastName = b.fullName.slice(b.fullName.lastIndexOf(' ') + 1);
+
+    return aLastName.localeCompare(bLastName);
+  });
+
   return {
     props: {
       page,
       settings,
-      participants: JSON.parse(JSON.stringify(participants)),
+      participants: JSON.parse(JSON.stringify(sortedParticipants)),
     },
   };
 }
