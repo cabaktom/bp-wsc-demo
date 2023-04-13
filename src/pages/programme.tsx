@@ -83,6 +83,6 @@ export async function getStaticProps() {
         }),
       ),
     },
-    revalidate: 2,
+    revalidate: 5,
   };
 }

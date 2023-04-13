@@ -77,6 +77,6 @@ export async function getStaticProps() {
       images: JSON.parse(JSON.stringify(images)),
       contentWidth: 'xl',
     },
-    revalidate: 2,
+    revalidate: 5,
   };
 }
