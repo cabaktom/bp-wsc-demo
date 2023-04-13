@@ -5,7 +5,7 @@ import { prisma } from '../../lib/prisma';
 import handleErrors from '../../lib/handleApiErrors';
 import { ParticipantIn, ParticipantOut } from '../../schemas/Participant';
 import { AbstractIn, AbstractOut } from '../../schemas/Abstract';
-import { revalidateParticipants } from '../../lib/revalidate';
+import { revalidatePage } from '../../lib/revalidate';
 
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -35,7 +35,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    await revalidateParticipants(res);
+    await revalidatePage(res, 'participants');
 
     return res.status(201).json({
       ...ParticipantOut.parse(createParticipant),

@@ -110,7 +110,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
       data: imagesData,
     });
 
-    await revalidatePage(res, '/gallery');
+    await revalidatePage(res, 'gallery');
 
     return res.status(200).json({
       status: 'success',

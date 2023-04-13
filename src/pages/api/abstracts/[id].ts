@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { prisma } from '../../../lib/prisma';
 import handleErrors from '../../../lib/handleApiErrors';
 import { AbstractIn, AbstractOut } from '../../../schemas/Abstract';
+import { revalidatePage } from '../../../lib/revalidate';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
@@ -35,6 +36,8 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
       data,
     });
 
+    await revalidatePage(res, 'participants');
+
     return res.status(200).json(AbstractOut.parse(abstract));
   } catch (e) {
     return handleErrors('Abstract', e, res);
@@ -46,6 +49,8 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
     const idParsed = z.string().uuid().parse(req.query.id);
 
     await prisma.abstract.delete({ where: { id: idParsed } });
+
+    await revalidatePage(res, 'participants');
 
     return res.status(204).end();
   } catch (e) {

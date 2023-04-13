@@ -56,7 +56,7 @@ const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    await revalidatePage(res, '/gallery');
+    await revalidatePage(res, 'gallery');
 
     return res.status(200).json(ImageOut.parse(imageNew));
   } catch (e) {
@@ -73,7 +73,7 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
     });
     await fs.rm(path.join(process.cwd(), 'public', imageToDelete.path));
 
-    await revalidatePage(res, '/gallery');
+    await revalidatePage(res, 'gallery');
 
     return res.status(204).end();
   } catch (e) {

@@ -39,7 +39,7 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
       data: { ...pageData },
     });
 
-    await revalidatePage(res, `/${page.name === 'home' ? '' : page.name}`);
+    await revalidatePage(res, page.name);
 
     return res.status(200).json(PageOut.parse(page));
   } catch (e) {
