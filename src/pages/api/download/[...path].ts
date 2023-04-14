@@ -47,7 +47,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
-    return res;
+    return res.status(200).end();
   } catch (e) {
     return handleErrors('Image', e, res);
   }
