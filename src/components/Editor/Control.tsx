@@ -96,12 +96,12 @@ export const Control = forwardRef<HTMLButtonElement, ControlProps>(
     const { classes } = useStyles();
 
     const [src, setSrc] = useInputState('');
-    const [opened, { open, close }] = useDisclosure(false);
+    const [opened, { toggle, close }] = useDisclosure(false);
     const [width, setWidth] = useState(100);
     const [margin, setMargin] = useState(0);
 
     const handleOpen = () => {
-      open();
+      toggle();
       const node = editor?.getAttributes(nodeType);
       setSrc(node.src || '');
       setWidth(node.width || 100);
@@ -146,7 +146,6 @@ export const Control = forwardRef<HTMLButtonElement, ControlProps>(
         withinPortal
         opened={opened}
         onClose={handleClose}
-        offset={-44}
         zIndex={10000}
       >
         <Popover.Target>
