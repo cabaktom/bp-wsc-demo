@@ -2,8 +2,9 @@ import { useState } from 'react';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import parse from 'html-react-parser';
-import type { Page as PageType, Image as ImageType } from '@prisma/client';
+import type { Page as PageType } from '@prisma/client';
 import { LoadingOverlay } from '@mantine/core';
+import type { Photo } from 'react-photo-album';
 
 import { prisma } from '../lib/prisma';
 import MyPhotoAlbum from '../components/Image/MyPhotoAlbum';
@@ -22,38 +23,28 @@ const MyLightbox = dynamic(() => import('../components/Image/MyLightbox'), {
 
 type GalleryPageProps = {
   page: PageType;
-  images: ImageType[];
+  images: (Photo & {
+    index: number;
+  })[];
 };
 
 const GalleryPage: NextPage<GalleryPageProps> = ({ page, images }) => {
   const [index, setIndex] = useState(-1);
   const [interactive, setInteractive] = useState(false);
 
-  const albumImages = images.map((image, index) => {
-    return {
-      src: `/api/download${image.path}`,
-      width: image.width,
-      height: image.height,
-      alt: image.alt || 'Image',
-      index,
-      description: image.alt,
-      downloadFilename: image.originalFilename,
-    };
-  });
-
   return (
     <>
       {parse(page?.content ?? '')}
 
       <MyPhotoAlbum
-        images={albumImages}
+        images={images}
         setIndex={setIndex}
         setInteractive={setInteractive}
       />
 
       {interactive && (
         <MyLightbox
-          images={albumImages}
+          images={images}
           open={index >= 0}
           index={index}
           setIndex={setIndex}
@@ -70,11 +61,23 @@ export async function getStaticProps() {
   const settings = await prisma.siteSettings.findMany();
   const images = await prisma.image.findMany();
 
+  const albumImages = images.map((image, index) => {
+    return {
+      src: `/api/download${image.path}`,
+      width: image.width,
+      height: image.height,
+      alt: image.alt || 'Image',
+      index,
+      description: image.alt,
+      downloadFilename: image.originalFilename,
+    };
+  });
+
   return {
     props: {
       page,
       settings,
-      images: JSON.parse(JSON.stringify(images)),
+      images: JSON.parse(JSON.stringify(albumImages)),
       contentWidth: 'xl',
     },
     revalidate: 5,
