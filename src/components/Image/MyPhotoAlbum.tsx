@@ -42,7 +42,7 @@ const MyPhotoAlbum = ({
                 objectFit: 'cover',
               }}
               fill
-              src={`/api/download${src}`}
+              src={src}
               alt={alt}
               title={title}
               sizes={`100vw,

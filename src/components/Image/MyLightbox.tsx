@@ -35,7 +35,7 @@ const MyLightbox = ({ images, open, index, setIndex }: MyLightboxProps) => {
               <Image
                 fill
                 alt={slide.alt!}
-                src={`/api/download${slide.src}`}
+                src={slide.src}
                 loading="eager"
                 draggable={false}
                 sizes={

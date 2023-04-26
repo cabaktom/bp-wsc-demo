@@ -31,12 +31,13 @@ const GalleryPage: NextPage<GalleryPageProps> = ({ page, images }) => {
 
   const albumImages = images.map((image, index) => {
     return {
-      src: image.path,
+      src: `/api/download${image.path}`,
       width: image.width,
       height: image.height,
       alt: image.alt || 'Image',
       index,
       description: image.alt,
+      downloadFilename: image.originalFilename,
     };
   });
 
