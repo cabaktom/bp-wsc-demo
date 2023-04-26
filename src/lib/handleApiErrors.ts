@@ -1,11 +1,14 @@
 import { Prisma } from '@prisma/client';
 import type { NextApiResponse } from 'next';
 import { ZodError } from 'zod';
+import { fromZodError } from 'zod-validation-error';
 
 const handleApiErrors = (title: string, e: any, res: NextApiResponse) => {
   if (e instanceof ZodError) {
-    const message = e.issues.map((issue) => issue.message).join(' ');
-    return res.status(400).json({ message });
+    const validationError = fromZodError(e);
+    return res
+      .status(400)
+      .json({ message: validationError.message.replace(/"/g, '') });
   }
   if (e instanceof Prisma.PrismaClientKnownRequestError) {
     if (e.code === 'P2025') {
