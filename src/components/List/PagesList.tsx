@@ -16,7 +16,8 @@ const PagesList = ({ pages: initPages }: PagesListProps) => {
       .map((page) => {
         return { ...page, loading: false };
       })
-      .sort((a, b) => a.order - b.order),
+      .sort((a, b) => a.order - b.order)
+      .slice(0, 7),
   );
 
   const handleSave = async (page: Page, index: number) => {

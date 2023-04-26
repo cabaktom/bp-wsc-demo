@@ -47,6 +47,18 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    const idParsed = z.string().uuid().parse(req.query.id);
+
+    await prisma.page.delete({ where: { id: idParsed } });
+
+    return res.status(204).end();
+  } catch (e) {
+    return handleErrors('Page', e, res);
+  }
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -62,8 +74,11 @@ export default async function handler(
     // PUT /api/pages/{id}
     case 'PUT':
       return handlePut(req, res);
+    // DELETE /api/pages/{id}
+    case 'DELETE':
+      return handleDelete(req, res);
 
     default:
-      return res.status(405).setHeader('Allow', 'GET,PUT').end();
+      return res.status(405).setHeader('Allow', 'GET,PUT,DELETE').end();
   }
 }
