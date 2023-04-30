@@ -7,13 +7,15 @@ import type { SortStatus } from '../@types';
 type useSortProps<T> = {
   data: T[];
   initialSortStatus: SortStatus;
+  initialData?: T[];
 };
 
 const useSort = <T extends object>({
   data,
   initialSortStatus,
+  initialData,
 }: useSortProps<T>) => {
-  const [sortResults, setSortResults] = useState<T[]>([]);
+  const [sortResults, setSortResults] = useState<T[]>(initialData ?? []);
 
   const [sortStatus, setSortStatus] = useState<SortStatus>(initialSortStatus);
 

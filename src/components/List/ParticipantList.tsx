@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   Paper,
   CloseButton,
@@ -11,7 +10,7 @@ import {
   Select,
   Badge,
   Box,
-  Container,
+  Center,
 } from '@mantine/core';
 import { useRouter } from 'next/router';
 import type { Abstract, Participant } from '@prisma/client';
@@ -61,24 +60,19 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
       accessor: 'lastName',
       direction: 'asc',
     },
+    initialData: participants,
   });
 
-  // prevent empty results from being rendered when page loads
-  const [results, setResults] = useState(participants);
-  useEffect(() => {
-    setResults(sortResults);
-  }, [sortResults]);
-
   let resultJsx = (
-    <Container mt="sm">
+    <Center mt="sm">
       <Text>No results found. Please try a different search term.</Text>
-    </Container>
+    </Center>
   );
 
-  if (results.length > 0) {
+  if (sortResults.length > 0) {
     resultJsx = (
       <>
-        {results.map(({ abstract, ...participant }) => (
+        {sortResults.map(({ abstract, ...participant }) => (
           <li key={participant.id}>
             <Flex
               direction={{ base: 'column', md: 'row' }}
