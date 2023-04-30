@@ -10,7 +10,6 @@ import {
   Select,
   Badge,
   Box,
-  Center,
 } from '@mantine/core';
 import { useRouter } from 'next/router';
 import type { Abstract, Participant } from '@prisma/client';
@@ -64,14 +63,16 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
   });
 
   let resultJsx = (
-    <Center mt="sm">
-      <Text>No results found. Please try a different search term.</Text>
-    </Center>
+    <Paper mt="xl">
+      <Text align="center">
+        No results found. Please try a different search term.
+      </Text>
+    </Paper>
   );
 
   if (sortResults.length > 0) {
     resultJsx = (
-      <>
+      <ul className={classes.list}>
         {sortResults.map(({ abstract, ...participant }) => (
           <li key={participant.id}>
             <Flex
@@ -142,7 +143,7 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
             </Flex>
           </li>
         ))}
-      </>
+      </ul>
     );
   }
 
@@ -178,7 +179,7 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
         />
       </Flex>
 
-      <ul className={classes.list}>{resultJsx}</ul>
+      {resultJsx}
     </>
   );
 };
