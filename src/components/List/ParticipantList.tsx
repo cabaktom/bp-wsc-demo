@@ -11,6 +11,7 @@ import {
   Select,
   Badge,
   Box,
+  Container,
 } from '@mantine/core';
 import { useRouter } from 'next/router';
 import type { Abstract, Participant } from '@prisma/client';
@@ -65,44 +66,18 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
   // prevent empty results from being rendered when page loads
   const [results, setResults] = useState(participants);
   useEffect(() => {
-    if (sortResults.length !== 0) {
-      setResults(sortResults);
-    }
+    setResults(sortResults);
   }, [sortResults]);
 
-  return (
-    <>
-      <Flex direction={{ base: 'column', sm: 'row' }} gap="sm" wrap="nowrap">
-        <TextInput
-          label="Search"
-          placeholder="Search participants and abstracts"
-          value={query}
-          onChange={(event) => setQuery(event.currentTarget.value)}
-          rightSection={<CloseButton size={18} onClick={() => setQuery('')} />}
-          w="100%"
-        />
+  let resultJsx = (
+    <Container mt="sm">
+      <Text>No results found. Please try a different search term.</Text>
+    </Container>
+  );
 
-        <Select
-          label="Sort by"
-          placeholder="Sort by"
-          value={`${sortStatus?.accessor},${sortStatus?.direction}`}
-          onChange={(value) => {
-            setSortStatus({
-              accessor: value!.split(',')[0],
-              direction: value!.split(',')[1] as 'asc' | 'desc',
-            });
-          }}
-          data={[
-            { label: 'Last name (asc)', value: 'lastName,asc' },
-            { label: 'Last name (desc)', value: 'lastName,desc' },
-            { label: 'Abstract title (asc)', value: 'abstract.title,asc' },
-            { label: 'Abstract title (desc)', value: 'abstract.title,desc' },
-          ]}
-          miw="18rem"
-        />
-      </Flex>
-
-      <ul className={classes.list}>
+  if (results.length > 0) {
+    resultJsx = (
+      <>
         {results.map(({ abstract, ...participant }) => (
           <li key={participant.id}>
             <Flex
@@ -173,7 +148,43 @@ const ParticipantList = ({ participants }: ParticipantListProps) => {
             </Flex>
           </li>
         ))}
-      </ul>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Flex direction={{ base: 'column', sm: 'row' }} gap="sm" wrap="nowrap">
+        <TextInput
+          label="Search"
+          placeholder="Search participants and abstracts"
+          value={query}
+          onChange={(event) => setQuery(event.currentTarget.value)}
+          rightSection={<CloseButton size={18} onClick={() => setQuery('')} />}
+          w="100%"
+        />
+
+        <Select
+          label="Sort by"
+          placeholder="Sort by"
+          value={`${sortStatus?.accessor},${sortStatus?.direction}`}
+          onChange={(value) => {
+            setSortStatus({
+              accessor: value!.split(',')[0],
+              direction: value!.split(',')[1] as 'asc' | 'desc',
+            });
+          }}
+          data={[
+            { label: 'Last name (asc)', value: 'lastName,asc' },
+            { label: 'Last name (desc)', value: 'lastName,desc' },
+            { label: 'Abstract title (asc)', value: 'abstract.title,asc' },
+            { label: 'Abstract title (desc)', value: 'abstract.title,desc' },
+          ]}
+          miw="18rem"
+        />
+      </Flex>
+
+      <ul className={classes.list}>{resultJsx}</ul>
     </>
   );
 };
