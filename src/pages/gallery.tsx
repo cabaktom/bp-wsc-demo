@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
-import { LoadingOverlay } from '@mantine/core';
+import { LoadingOverlay, Paper, Text } from '@mantine/core';
 import type { Photo } from 'react-photo-album';
 
 import { prisma } from '../lib/prisma';
@@ -36,19 +36,28 @@ const GalleryPage: NextPage<GalleryPageProps> = ({ page, images }) => {
     <>
       {parse(page?.content ?? '')}
 
-      <MyPhotoAlbum
-        images={images}
-        setIndex={setIndex}
-        setInteractive={setInteractive}
-      />
+      {images.length === 0 && (
+        <Paper mt="xl">
+          <Text align="center">There are no images.</Text>
+        </Paper>
+      )}
+      {images.length > 0 && (
+        <>
+          <MyPhotoAlbum
+            images={images}
+            setIndex={setIndex}
+            setInteractive={setInteractive}
+          />
 
-      {interactive && (
-        <MyLightbox
-          images={images}
-          open={index >= 0}
-          index={index}
-          setIndex={setIndex}
-        />
+          {interactive && (
+            <MyLightbox
+              images={images}
+              open={index >= 0}
+              index={index}
+              setIndex={setIndex}
+            />
+          )}
+        </>
       )}
     </>
   );

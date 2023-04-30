@@ -3,6 +3,7 @@ import {
   Badge,
   Flex,
   Grid,
+  Paper,
   Text,
   Title,
   clsx,
@@ -89,6 +90,16 @@ type ProgrammeListProps = {
 const ProgrammeList = ({ programme }: ProgrammeListProps) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
+
+  if (!programme.days) {
+    return (
+      <Paper className={classes.programme}>
+        <Title align="center" order={4}>
+          No programme available yet
+        </Title>
+      </Paper>
+    );
+  }
 
   return (
     <ul className={clsx(classes.list, classes.programme)}>
