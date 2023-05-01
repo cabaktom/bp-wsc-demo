@@ -43,7 +43,6 @@ const EditImageForm = ({ id, alt, filename }: EditImageFormProps) => {
         message: `Changes to image ${data.filename} saved.`,
         color: 'green',
         icon: <IconCheck size={16} />,
-        autoClose: 4000,
       });
 
       mutate('/api/images');

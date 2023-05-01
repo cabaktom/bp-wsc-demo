@@ -59,7 +59,6 @@ const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
         message: 'Changes saved.',
         color: 'green',
         icon: <IconCheck size={16} />,
-        autoClose: 4000,
       });
     }
   };

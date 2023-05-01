@@ -54,7 +54,6 @@ const UploadImageForm = () => {
         message: data.message ?? 'Images could not be uploaded.',
         color: 'red',
         icon: <IconX size={16} />,
-        autoClose: 4000,
       });
     } else {
       showNotification({
@@ -62,7 +61,6 @@ const UploadImageForm = () => {
         message: data.message ?? 'Images uploaded.',
         color: 'green',
         icon: <IconCheck size={16} />,
-        autoClose: 4000,
       });
 
       mutate('/api/images');

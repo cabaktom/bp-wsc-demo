@@ -132,7 +132,6 @@ const RegisterForm = ({
           'Error while submitting your registration, please try again.',
         color: 'red',
         icon: <IconAlertCircle size={20} />,
-        autoClose: 4000,
       };
 
       if (inFormFeedback) {
@@ -148,7 +147,6 @@ const RegisterForm = ({
         } will receive a confirmation email shortly.`,
         color: 'green',
         icon: <IconCircleCheck size={20} />,
-        autoClose: 4000,
       };
 
       if (inFormFeedback) {

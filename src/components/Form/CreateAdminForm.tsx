@@ -89,7 +89,6 @@ const CreateAdminForm = () => {
         message: `Administrator ${data.username} created.`,
         color: 'green',
         icon: <IconCheck size={16} />,
-        autoClose: 4000,
       });
 
       mutate('/api/admins');

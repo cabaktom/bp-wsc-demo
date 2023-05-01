@@ -32,7 +32,6 @@ const DeleteModal = ({ context, id, innerProps }: DeleteModalProps) => {
         message: `${innerProps.subjectTitle} deleted successfully.`,
         color: 'green',
         icon: <IconCheck size={16} />,
-        autoClose: 4000,
       });
     } else {
       showNotification({
@@ -40,7 +39,6 @@ const DeleteModal = ({ context, id, innerProps }: DeleteModalProps) => {
         message: (await res.json()).message,
         color: 'red',
         icon: <IconExclamationMark size={16} />,
-        autoClose: 4000,
       });
     }
 

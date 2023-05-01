@@ -40,7 +40,6 @@ const PagesList = ({ pages: initPages }: PagesListProps) => {
         message: `Changes to page ${page.title} could not be saved. ${data.message}`,
         color: 'red',
         icon: <IconX size={16} />,
-        autoClose: 4000,
       });
     } else {
       showNotification({
@@ -48,7 +47,6 @@ const PagesList = ({ pages: initPages }: PagesListProps) => {
         message: `Changes to page ${page.title} saved.`,
         color: 'green',
         icon: <IconCheck size={16} />,
-        autoClose: 4000,
       });
     }
   };

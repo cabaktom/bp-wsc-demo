@@ -64,7 +64,6 @@ const ChangePasswordForm = ({ id }: ChangePasswordFormProps) => {
         message: 'Password changed.',
         color: 'green',
         icon: <IconCheck size={16} />,
-        autoClose: 4000,
       });
     }
   };

@@ -130,7 +130,6 @@ const ParticipantForm = ({
           data.message ?? 'Error while saving participant, please try again.',
         color: 'red',
         icon: <IconCheck size={16} />,
-        autoClose: 4000,
       });
 
       setLoading(false);
@@ -155,7 +154,6 @@ const ParticipantForm = ({
             data.message ?? 'Error while saving abstract, please try again.',
           color: 'red',
           icon: <IconCheck size={16} />,
-          autoClose: 4000,
         });
       }
     } else if (abstract) {
@@ -172,7 +170,6 @@ const ParticipantForm = ({
             data.message ?? 'Error while deleting abstract, please try again.',
           color: 'red',
           icon: <IconCheck size={16} />,
-          autoClose: 4000,
         });
       } else {
         // reset abstract part of form
@@ -197,7 +194,6 @@ const ParticipantForm = ({
       message: `Changes to participant ${data.fullName} saved successfully.`,
       color: 'green',
       icon: <IconCheck size={16} />,
-      autoClose: 4000,
     });
   };
 

@@ -54,7 +54,6 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
         message: `Changes to administrator ${data.username} saved.`,
         color: 'green',
         icon: <IconCheck size={16} />,
-        autoClose: 4000,
       });
 
       mutate('/api/admins');
