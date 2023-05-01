@@ -3,6 +3,7 @@ import { useSWRConfig } from 'swr';
 import { Alert, Button, Stack, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
+import { closeModal } from '@mantine/modals';
 import { IconCheck } from '@tabler/icons-react';
 
 import { AdminEdit } from '../../schemas/Admin';
@@ -57,6 +58,7 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
       });
 
       mutate('/api/admins');
+      closeModal('edit');
     }
   };
 

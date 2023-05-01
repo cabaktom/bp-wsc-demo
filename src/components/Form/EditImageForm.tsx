@@ -3,6 +3,7 @@ import { useSWRConfig } from 'swr';
 import { Alert, Button, Stack, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
+import { closeModal } from '@mantine/modals';
 import { IconCheck } from '@tabler/icons-react';
 import type { Image } from '@prisma/client';
 
@@ -46,6 +47,7 @@ const EditImageForm = ({ id, alt, filename }: EditImageFormProps) => {
       });
 
       mutate('/api/images');
+      closeModal('edit');
     }
   };
 
