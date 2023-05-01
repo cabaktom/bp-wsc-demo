@@ -91,7 +91,7 @@ const ProgrammeList = ({ programme }: ProgrammeListProps) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
 
-  if (!programme.days) {
+  if (!programme.days.length) {
     return (
       <Paper className={classes.programme}>
         <Title align="center" order={4}>
