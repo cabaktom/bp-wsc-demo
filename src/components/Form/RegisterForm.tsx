@@ -122,9 +122,9 @@ const RegisterForm = ({
     });
     setLoading(false);
 
-    if (!res.ok) {
-      const data = await res.json();
+    const data = await res.json();
 
+    if (!res.ok) {
       const result = {
         title: 'Error!',
         message:
@@ -144,7 +144,7 @@ const RegisterForm = ({
       const result = {
         title: 'Success!',
         message: `Registration was accepted. ${
-          inFormFeedback ? 'You' : 'Participant'
+          inFormFeedback ? 'You' : `Participant ${data.fullName}`
         } will receive a confirmation email shortly.`,
         color: 'green',
         icon: <IconCircleCheck size={20} />,

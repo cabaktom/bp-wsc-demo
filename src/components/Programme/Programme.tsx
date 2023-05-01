@@ -112,7 +112,7 @@ const Programme = () => {
             if (!conferenceStart) {
               showNotification({
                 title: 'Start date is required',
-                message: 'Please select the start date of the conference.',
+                message: 'Please select start date of the conference.',
                 color: 'red',
               });
               return;

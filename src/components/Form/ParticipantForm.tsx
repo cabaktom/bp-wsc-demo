@@ -191,9 +191,10 @@ const ParticipantForm = ({
     mutate('/api/participants');
     mutate('/api/abstracts');
 
+    const data = await resParticipant.json();
     showNotification({
       title: 'Success!',
-      message: 'Changes saved successfully.',
+      message: `Changes to participant ${data.fullName} saved successfully.`,
       color: 'green',
       icon: <IconCheck size={16} />,
       autoClose: 4000,

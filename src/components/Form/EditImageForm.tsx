@@ -32,14 +32,14 @@ const EditImageForm = ({ id, alt, filename }: EditImageFormProps) => {
     });
     setLoading(false);
 
+    const data = await res.json();
     if (!res.ok) {
-      const data = await res.json();
       setError(data.message ?? 'Error while editing image, please try again.');
     } else {
       setError('');
       showNotification({
         title: 'Success!',
-        message: 'Image changes saved.',
+        message: `Changes to image ${data.filename} saved.`,
         color: 'green',
         icon: <IconCheck size={16} />,
         autoClose: 4000,

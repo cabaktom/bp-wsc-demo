@@ -4,6 +4,7 @@ import { Alert, Button, Stack, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
+
 import { AdminEdit } from '../../schemas/Admin';
 
 type EditAdminFormProps = {
@@ -40,8 +41,8 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
     });
     setLoading(false);
 
+    const data = await res.json();
     if (!res.ok) {
-      const data = await res.json();
       setError(
         data.message ?? 'Error while editing administrator, please try again.',
       );
@@ -49,7 +50,7 @@ const EditAdminForm = ({ id, username, email }: EditAdminFormProps) => {
       setError('');
       showNotification({
         title: 'Success!',
-        message: 'Administrator changes saved.',
+        message: `Changes to administrator ${data.username} saved.`,
         color: 'green',
         icon: <IconCheck size={16} />,
         autoClose: 4000,

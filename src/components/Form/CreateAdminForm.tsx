@@ -74,8 +74,8 @@ const CreateAdminForm = () => {
     });
     setLoading(false);
 
+    const data = await res.json();
     if (!res.ok) {
-      const data = await res.json();
       setError(
         data.message ??
           'Error while creating new administrator, please try again.',
@@ -86,7 +86,7 @@ const CreateAdminForm = () => {
 
       showNotification({
         title: 'Success!',
-        message: 'Administrator created.',
+        message: `Administrator ${data.username} created.`,
         color: 'green',
         icon: <IconCheck size={16} />,
         autoClose: 4000,

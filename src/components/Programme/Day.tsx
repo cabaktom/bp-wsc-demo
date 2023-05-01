@@ -10,7 +10,6 @@ import {
 } from '@mantine/core';
 import { TimeInput } from '@mantine/dates';
 import { openConfirmModal } from '@mantine/modals';
-import { showNotification } from '@mantine/notifications';
 import { IconClock, IconTrash } from '@tabler/icons-react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
@@ -137,17 +136,7 @@ const ProgrammeDay = ({
 
         <Group spacing="xs" mx="auto">
           <Button
-            onClick={() => {
-              if (!start) {
-                showNotification({
-                  title: 'Start time is required',
-                  message: 'Please set start time first',
-                  color: 'red',
-                });
-                return;
-              }
-              addDayItem(index, 'ITEM');
-            }}
+            onClick={() => addDayItem(index, 'ITEM')}
             variant="outline"
             bg="white"
           >
