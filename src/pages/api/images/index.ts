@@ -71,7 +71,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
     });
   });
 
-  form.on('end', async () => {
+  form.once('end', async () => {
     // if any file is not an image, delete all files from the request
     const allFilesAreImages = responseMessages.every(
       (message) => message.status === 'success',
