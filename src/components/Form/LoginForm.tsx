@@ -1,33 +1,22 @@
 import { useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
-import {
-  Text,
-  Group,
-  PasswordInput,
-  TextInput,
-  createStyles,
-  Stack,
-  Box,
-  Alert,
-  Button,
-} from '@mantine/core';
+import { PasswordInput, TextInput, Stack, Alert, Button } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 
-const useStyles = createStyles((theme) => ({
-  forgotPasswordLabel: {
-    paddingTop: 2,
-    color:
-      theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6],
-    fontWeight: 500,
-    fontSize: theme.fontSizes.xs,
-  },
-}));
+// const useStyles = createStyles((theme) => ({
+//   forgotPasswordLabel: {
+//     paddingTop: 2,
+//     color:
+//       theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6],
+//     fontWeight: 500,
+//     fontSize: theme.fontSizes.xs,
+//   },
+// }));
 
 const LoginForm = () => {
   const router = useRouter();
-  const { classes } = useStyles();
+  // const { classes } = useStyles();
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -80,7 +69,16 @@ const LoginForm = () => {
             {...form.getInputProps('username')}
           />
 
-          <Box>
+          <PasswordInput
+            withAsterisk
+            id="password"
+            placeholder="******"
+            label="Password"
+            aria-label="Password input"
+            {...form.getInputProps('password')}
+          />
+
+          {/* <Box>
             <Group position="apart">
               <Text component="label" htmlFor="password" size="sm" weight={500}>
                 Password *
@@ -103,7 +101,7 @@ const LoginForm = () => {
               aria-label="Password input"
               {...form.getInputProps('password')}
             />
-          </Box>
+          </Box> */}
 
           <Button type="submit" fullWidth loading={loading} mt="xs">
             Sign in
