@@ -57,6 +57,6 @@ export async function getStaticProps() {
       settings,
       participants: JSON.parse(JSON.stringify(sortedParticipants)),
     },
-    revalidate: 5,
+    revalidate: 1,
   };
 }

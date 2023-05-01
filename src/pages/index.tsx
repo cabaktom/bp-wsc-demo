@@ -23,6 +23,6 @@ export async function getStaticProps() {
       page,
       settings,
     },
-    revalidate: 5,
+    revalidate: 1,
   };
 }

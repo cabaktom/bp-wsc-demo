@@ -7,7 +7,7 @@ import { getToken } from 'next-auth/jwt';
 
 import { prisma } from '../../../lib/prisma';
 import { ImageOut } from '../../../schemas/Image';
-import { revalidatePage } from '../../../lib/revalidate';
+// import { revalidatePage } from '../../../lib/revalidate';
 
 export const config = {
   api: {
@@ -34,7 +34,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
     multiples: true,
     uploadDir: path.join(process.cwd(), 'public', 'images'),
     filename: (name, ext, part) =>
-      `${Date.now().toString()}_${part.originalFilename}`,
+      `${Date.now().toString()}_${part.originalFilename?.replace(/\s/g, '_')}`,
     maxFileSize: 30 * 1024 * 1024, // 30MB
   });
 
@@ -110,7 +110,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
       data: imagesData,
     });
 
-    await revalidatePage(res, 'gallery');
+    // await revalidatePage(res, 'gallery');
 
     return res.status(200).json({
       status: 'success',

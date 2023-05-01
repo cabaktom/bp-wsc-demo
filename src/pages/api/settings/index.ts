@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { prisma } from '../../../lib/prisma';
 import handleErrors from '../../../lib/handleApiErrors';
 import { SettingIn, SettingOut } from '../../../schemas/Setting';
-import { revalidateSettings } from '../../../lib/revalidate';
+// import { revalidateSettings } from '../../../lib/revalidate';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -37,7 +37,7 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const settings = await prisma.$transaction(transactions);
 
-    await revalidateSettings(res);
+    // await revalidateSettings(res);
 
     return res
       .status(200)

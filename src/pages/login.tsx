@@ -49,6 +49,6 @@ export async function getStaticProps() {
       },
       settings,
     },
-    revalidate: 5,
+    revalidate: 1,
   };
 }
