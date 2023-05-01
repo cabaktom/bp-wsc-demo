@@ -14,8 +14,6 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
     // content type
     const type = pathParsed.split('.').pop();
 
-    const originalFilename = pathParsed.substring(pathParsed.indexOf('_') + 1);
-
     // can only download files from the public folder
     const filePath = path.join(process.cwd(), 'public', pathParsed);
 
@@ -25,7 +23,6 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
       res.writeHead(200, {
         'Content-Type': `image/${type}`,
         'Content-Length': size,
-        'Content-Disposition': `inline; filename="${originalFilename}"`,
       });
 
       const readStream = fs.createReadStream(filePath);

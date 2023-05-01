@@ -72,7 +72,7 @@ export async function getStaticProps() {
 
   const albumImages = images.map((image, index) => {
     return {
-      src: `/api/download${image.path}`,
+      src: `/api/download/images/${encodeURIComponent(image.filename)}`,
       width: image.width,
       height: image.height,
       alt: image.alt || 'Image',
