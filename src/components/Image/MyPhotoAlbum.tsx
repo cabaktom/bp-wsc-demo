@@ -1,3 +1,4 @@
+import { useViewportSize } from '@mantine/hooks';
 import Image from 'next/image';
 import { PhotoAlbum, type Photo } from 'react-photo-album';
 
@@ -12,23 +13,25 @@ const MyPhotoAlbum = ({
   setIndex,
   setInteractive,
 }: MyPhotoAlbumProps) => {
+  const { width } = useViewportSize();
+
   return (
     <PhotoAlbum
       layout="rows"
       photos={images}
-      targetRowHeight={(containerWidth) => {
-        if (containerWidth < 450) return containerWidth;
-        if (containerWidth < 700) return containerWidth / 2;
-        if (containerWidth < 1000) return containerWidth / 3;
-        if (containerWidth < 1200) return containerWidth / 4;
-        return containerWidth / 5;
-      }}
+      targetRowHeight={width < 480 ? 200 : width < 900 ? 250 : 300}
       renderPhoto={({
         imageProps: { src, alt, title, className, onClick },
         wrapperStyle,
         photo: { index },
       }) => (
-        <div style={wrapperStyle}>
+        <div
+          style={{
+            maxHeight: '60rem',
+            aspectRatio: 'inherit',
+            ...wrapperStyle,
+          }}
+        >
           <div
             style={{
               display: 'block',
