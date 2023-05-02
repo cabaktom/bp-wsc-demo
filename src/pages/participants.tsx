@@ -57,6 +57,6 @@ export async function getStaticProps() {
       settings,
       participants: JSON.parse(JSON.stringify(sortedParticipants)),
     },
-    revalidate: 1,
+    revalidate: process.env.PLATFORM === 'DO' ? 1 : undefined,
   };
 }

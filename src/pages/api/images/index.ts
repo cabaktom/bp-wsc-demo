@@ -7,7 +7,7 @@ import { getToken } from 'next-auth/jwt';
 
 import { prisma } from '../../../lib/prisma';
 import { ImageOut } from '../../../schemas/Image';
-// import { revalidatePage } from '../../../lib/revalidate';
+import { revalidatePage } from '../../../lib/revalidate';
 
 export const config = {
   api: {
@@ -110,7 +110,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
       data: imagesData,
     });
 
-    // await revalidatePage(res, 'gallery');
+    await revalidatePage(res, 'gallery');
 
     return res.status(200).json({
       status: 'success',

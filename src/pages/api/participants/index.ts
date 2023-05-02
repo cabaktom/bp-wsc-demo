@@ -6,7 +6,7 @@ import { prisma } from '../../../lib/prisma';
 import handleErrors from '../../../lib/handleApiErrors';
 import { ParticipantIn, ParticipantOut } from '../../../schemas/Participant';
 import { AbstractOut } from '../../../schemas/Abstract';
-// import { revalidatePage } from '../../../lib/revalidate';
+import { revalidatePage } from '../../../lib/revalidate';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const { abstract } = req.query;
@@ -39,7 +39,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
       data,
     });
 
-    // await revalidatePage(res, 'participants');
+    await revalidatePage(res, 'participants');
 
     return res.status(201).json(ParticipantOut.parse(participant));
   } catch (e) {
@@ -62,7 +62,7 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
       where: { id: { in: idsNum } },
     });
 
-    // await revalidatePage(res, 'participants');
+    await revalidatePage(res, 'participants');
 
     return res.status(204).end();
   } catch (e) {

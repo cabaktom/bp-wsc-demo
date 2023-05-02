@@ -89,6 +89,6 @@ export async function getStaticProps() {
       images: JSON.parse(JSON.stringify(albumImages)),
       contentWidth: 'xl',
     },
-    revalidate: 1,
+    revalidate: process.env.PLATFORM === 'DO' ? 1 : undefined,
   };
 }

@@ -83,6 +83,6 @@ export async function getStaticProps() {
         }),
       ),
     },
-    revalidate: 1,
+    revalidate: process.env.PLATFORM === 'DO' ? 1 : undefined,
   };
 }
