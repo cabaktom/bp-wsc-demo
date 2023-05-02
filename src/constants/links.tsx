@@ -30,10 +30,6 @@ const links = [
     url: '/travel',
   },
   {
-    title: 'Hiking excursion',
-    url: '/trip',
-  },
-  {
     title: 'Gallery',
     url: '/gallery',
   },

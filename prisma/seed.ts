@@ -59,24 +59,13 @@ async function createPages() {
     },
   });
   await prisma.page.upsert({
-    where: { name: 'trip' },
-    update: {},
-    create: {
-      name: 'trip',
-      title: 'Trip',
-      content:
-        '<h3>Trip to České Středohoří (Central Bohemian Highlands)</h3><p>Common departure:<br>10:40 by Bus 512437 205 from Myslbekova bus stop near CTU building (39 CZK)</p>',
-      order: 6,
-    },
-  });
-  await prisma.page.upsert({
     where: { name: 'gallery' },
     update: {},
     create: {
       name: 'gallery',
       title: 'Gallery',
       content: '<h3>Gallery</h3>',
-      order: 7,
+      order: 6,
     },
   });
 
