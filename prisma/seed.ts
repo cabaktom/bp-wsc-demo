@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { PrismaClient } from '@prisma/client';
 import { hashPwd } from '../src/lib/password';
 
@@ -522,6 +523,11 @@ async function createParticipantsAndAbstracts() {
 }
 
 async function main() {
+  if ((await prisma.siteSettings.count()) > 0) {
+    console.log('DB already initialized, skipping');
+    return;
+  }
+
   await createPages();
   await createAdmins();
   await createSiteSettings();
