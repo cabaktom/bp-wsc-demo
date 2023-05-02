@@ -15,7 +15,7 @@ const RegisterPage: NextPage<RegisterPageProps> = ({ page }) => {
     <>
       {parse(page?.content ?? '')}
 
-      <Paper>
+      <Paper mt="5rem">
         <RegisterForm
           participantTitle="Personal data"
           abstractTitle="Your contribution"
