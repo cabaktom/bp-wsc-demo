@@ -1,4 +1,4 @@
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useMediaQuery } from '@mantine/hooks';
 import { Link, RichTextEditor } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -17,17 +17,9 @@ type RTEProps = {
   content: string;
   setContent: (content: string) => void;
   placeholder?: string;
-  hideToolbar?: boolean;
 };
 
-const RTE = ({
-  content,
-  setContent,
-  placeholder = '',
-  hideToolbar = false,
-}: RTEProps) => {
-  const [hidden, hiddenHandlers] = useDisclosure(hideToolbar);
-
+const RTE = ({ content, setContent, placeholder = '' }: RTEProps) => {
   const matches = useMediaQuery('(min-width: 992px)', false, {
     getInitialValueInEffect: false,
   });
@@ -52,20 +44,8 @@ const RTE = ({
 
   return (
     <>
-      <RichTextEditor
-        editor={editor}
-        onFocus={() => {
-          if (hideToolbar) hiddenHandlers.close();
-        }}
-        onBlur={() => {
-          if (hideToolbar) hiddenHandlers.open();
-        }}
-      >
-        <RichTextEditor.Toolbar
-          sticky
-          stickyOffset={matches ? 47 : 97}
-          hidden={hideToolbar && hidden}
-        >
+      <RichTextEditor editor={editor}>
+        <RichTextEditor.Toolbar sticky stickyOffset={matches ? 47 : 97}>
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.Bold />
             <RichTextEditor.Italic />
