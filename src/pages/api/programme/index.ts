@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 
-import { prisma } from '../../lib/prisma';
-import handleErrors from '../../lib/handleApiErrors';
-import { ProgrammeIn, ProgrammeOut } from '../../schemas/ProgrammeSchema';
-import { PROGRAMME_ID } from '../../constants/programme';
-import { revalidatePage } from '../../lib/revalidate';
+import { prisma } from '../../../lib/prisma';
+import handleErrors from '../../../lib/handleApiErrors';
+import { ProgrammeIn, ProgrammeOut } from '../../../schemas/ProgrammeSchema';
+import { PROGRAMME_ID } from '../../../constants/programme';
+import { revalidatePage } from '../../../lib/revalidate';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
