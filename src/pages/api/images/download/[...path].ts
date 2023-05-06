@@ -3,19 +3,19 @@ import { z } from 'zod';
 import fs from 'fs';
 import path from 'path';
 
-import handleErrors from '../../../lib/handleApiErrors';
-import { prisma } from '../../../lib/prisma';
+import handleErrors from '../../../../lib/handleApiErrors';
+import { prisma } from '../../../../lib/prisma';
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const pathSlug = (req.query.path as string[]).join('/');
-    const pathParsed = z.string().parse(pathSlug);
+    const queryPath = req.query.path as string[];
+    const filename = z.string().parse(queryPath[0]);
 
     // content type
-    const type = pathParsed.split('.').pop();
+    const type = filename.split('.').pop();
 
-    // can only download files from the public folder
-    const filePath = path.join(process.cwd(), 'public', pathParsed);
+    // can only download images from the public folder
+    const filePath = path.join(process.cwd(), 'public/images/', filename);
 
     try {
       const { size } = fs.statSync(filePath);
@@ -36,9 +36,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
       if (e.code === 'ENOENT') {
         // image not found on the disk, delete from db
         await prisma.image.delete({
-          where: {
-            filename: pathParsed.substring(pathParsed.indexOf('/') + 1),
-          },
+          where: { filename },
         });
         throw e;
       }
@@ -55,7 +53,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   switch (req.method) {
-    // GET /api/download/{...path}
+    // GET /api/images/download/{...path}
     case 'GET':
       return handleGet(req, res);
 

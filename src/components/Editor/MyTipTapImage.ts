@@ -5,15 +5,15 @@ const TipTapImage = Image.extend({
     return {
       ...this.parent?.(), // keep parent attributes (src, alt, title)
 
-      // src is rendered as '/api/download/images/<src>'
-      // and parsed as '<src>' (without '/api/download/images/')
+      // src is rendered as '/api/images/download/<src>'
+      // and parsed as '<src>' (without '/api/images/download/')
       src: {
         default: null,
         renderHTML: (attributes) => ({
-          src: `/api/download/images/${attributes.src}`,
+          src: `/api/images/download/${attributes.src}`,
         }),
         parseHTML: (element) =>
-          element.getAttribute('src')?.replace('/api/download/images/', '') ||
+          element.getAttribute('src')?.replace('/api/images/download/', '') ||
           '',
       },
 
