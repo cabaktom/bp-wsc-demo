@@ -12,15 +12,15 @@ import ProgrammeContext, {
 
 import useStyles from './DayItem.styles';
 
-type ProgrammeDayItemProps = {
+type DayItemProps = {
   dayIndex: number;
   item: ItemType & { index: number };
 };
 
-const ProgrammeDayItem = ({
+const DayItem = ({
   dayIndex,
   item: { id, index, duration, title, participantId, abstractId },
-}: ProgrammeDayItemProps) => {
+}: DayItemProps) => {
   const { classes, cx } = useStyles({});
   const {
     deleteDayItem,
@@ -126,4 +126,4 @@ const ProgrammeDayItem = ({
   );
 };
 
-export default ProgrammeDayItem;
+export default DayItem;

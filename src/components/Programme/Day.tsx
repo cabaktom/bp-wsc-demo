@@ -21,17 +21,17 @@ import ProgrammeContext, {
 import RTE from '../Editor/RTE';
 import { DayType } from '../../@types/programme';
 
-type ProgrammeDayProps = {
+type DayProps = {
   id: string;
   index: number;
   day: DayType;
 };
 
-const ProgrammeDay = ({
+const Day = ({
   id,
   index,
   day: { start, date, end, items, additionalInfo },
-}: ProgrammeDayProps) => {
+}: DayProps) => {
   const theme = useMantineTheme();
   const { changeDayProp, deleteDay, addDayItem, dayItemReorder } = useContext(
     ProgrammeContext,
@@ -155,4 +155,4 @@ const ProgrammeDay = ({
   );
 };
 
-export default ProgrammeDay;
+export default Day;
