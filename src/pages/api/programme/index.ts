@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
+import { Prisma } from '@prisma/client';
 
 import { prisma } from '../../../lib/prisma';
 import handleErrors from '../../../lib/handleApiErrors';
@@ -106,11 +107,20 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
-  await prisma.$transaction([
-    prisma.programmeDayItem.deleteMany({}),
-    prisma.programmeDay.deleteMany({}),
-    prisma.programme.delete({ where: { id: PROGRAMME_ID } }),
-  ]);
+  try {
+    await prisma.$transaction([
+      prisma.programmeDayItem.deleteMany({}),
+      prisma.programmeDay.deleteMany({}),
+      prisma.programme.delete({ where: { id: PROGRAMME_ID } }),
+    ]);
+  } catch (e) {
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code !== 'P2025'
+    ) {
+      return handleErrors('Programme', e, res);
+    }
+  }
 
   await revalidatePage(res, 'programme');
 
