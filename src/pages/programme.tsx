@@ -47,7 +47,7 @@ export async function getStaticProps() {
   const participants = await prisma.participant.findMany();
   const abstracts = await prisma.abstract.findMany();
 
-  // merge programme and participants
+  // merge programme days and participants (programme includes only IDs)
   const programmeWithParticipants = programme?.days.map((day) => {
     let dayStartTime = new Date(day.start!);
 

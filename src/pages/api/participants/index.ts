@@ -8,6 +8,14 @@ import { ParticipantIn, ParticipantOut } from '../../../schemas/Participant';
 import { AbstractOut } from '../../../schemas/Abstract';
 import { revalidatePage } from '../../../lib/revalidate';
 
+/**
+ * Handle GET requests to get a participant (with or without abstract based on query param).
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the participant, or an error message.
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const { abstract } = req.query;
 
@@ -31,6 +39,14 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle POST requests to create a participant. Revalidates the participants page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the created participant, or an error message.
+ */
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const data = ParticipantIn.parse(req.body);
@@ -47,6 +63,14 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle DELETE requests to delete a list of participants. The ids are required, separated by commas and passed as a query param. Revalidates the participants page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the deleted participant, or an error message.
+ */
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   const { ids } = req.query;
   if (!ids) return res.status(400).json({ message: 'Missing ids.' });
@@ -70,6 +94,15 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle requests to /api/participants. Allowed methods: GET, POST, DELETE.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @remarks
+ * Every route is protected by authentication.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -79,13 +112,10 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/participants
     case 'GET':
       return handleGet(req, res);
-    // POST /api/participants
     case 'POST':
       return handlePost(req, res);
-    // DELETE /api/participants?ids=<ids>
     case 'DELETE':
       return handleDelete(req, res);
 

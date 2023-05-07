@@ -20,6 +20,7 @@ const PagesList = ({ pages: initPages }: PagesListProps) => {
       .slice(0, 7),
   );
 
+  // save specific page
   const handleSave = async (page: Page, index: number) => {
     pagesHandlers.setItemProp(index, 'loading', true);
 
@@ -51,6 +52,7 @@ const PagesList = ({ pages: initPages }: PagesListProps) => {
     }
   };
 
+  // handle changing page title or content
   const handleChange = (
     index: number,
     fieldName: keyof Page,

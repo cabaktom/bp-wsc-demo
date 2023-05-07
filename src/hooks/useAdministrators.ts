@@ -7,6 +7,11 @@ type useAdministratorsReturnType = {
   isError: boolean;
 };
 
+/**
+ * Fetches all administrators from the database.
+ *
+ * @returns An object containing the administrators, loading state and error state.
+ */
 const useAdministrators = (): useAdministratorsReturnType => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, error, isLoading } = useSWR('/api/admins', fetcher);

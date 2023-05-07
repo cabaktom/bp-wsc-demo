@@ -10,8 +10,10 @@ type useParticipantsReturnType = {
 };
 
 /**
- * @param abstracts include abstracts in response (default: true)
- * @returns participant data, loading state, and error state
+ * Fetches all participants from the database.
+ *
+ * @param abstracts Whether to include abstracts or not (default: true).
+ * @returns An object containing the participants, loading state and error state.
  */
 const useParticipants = (abstracts = true): useParticipantsReturnType => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());

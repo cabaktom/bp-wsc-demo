@@ -7,6 +7,14 @@ import handleErrors from '../../../lib/handleApiErrors';
 import { AbstractIn, AbstractOut } from '../../../schemas/Abstract';
 import { revalidatePage } from '../../../lib/revalidate';
 
+/**
+ * Handle GET requests to get all abstracts.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the abstracts, or an error message.
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const abstracts = await prisma.abstract.findMany({
@@ -22,6 +30,14 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle POST requests to create an abstract. Revalidates the participants page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the created abstract, or an error message.
+ */
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const participantId = z.string().uuid().parse(req.body.participantId);
@@ -51,6 +67,15 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle requests to /api/abstracts. Allowed methods: GET, POST.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @remarks
+ * Every route is protected by authentication.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -60,10 +85,8 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/abstracts
     case 'GET':
       return handleGet(req, res);
-    // POST /api/abstracts
     case 'POST':
       return handlePost(req, res);
 

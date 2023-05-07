@@ -7,6 +7,14 @@ import { ParticipantIn, ParticipantOut } from '../../schemas/Participant';
 import { AbstractIn, AbstractOut } from '../../schemas/Abstract';
 import { revalidatePage } from '../../lib/revalidate';
 
+/**
+ * Handle POST requests to create a participant and optionally an abstract. Revalidates the participants page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the created participant (and abstract), or an error message.
+ */
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const participantData = ParticipantIn.parse(req.body);
@@ -48,12 +56,17 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle requests to /api/participants. Allowed methods: POST.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   switch (req.method) {
-    // POST /api/register
     case 'POST':
       return handlePost(req, res);
 

@@ -7,6 +7,14 @@ import handleErrors from '../../../lib/handleApiErrors';
 import { SettingIn, SettingOut } from '../../../schemas/Setting';
 import { revalidateSettings } from '../../../lib/revalidate';
 
+/**
+ * Handle GET requests to get the global settings.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the settings, or an error message.
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const settings = await prisma.siteSettings.findMany({
@@ -21,6 +29,14 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle PUT requests to update the global settings. Revalidates all public pages.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the updated settings, or an error message.
+ */
 const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const data = req.body.map((setting: unknown) =>
@@ -47,6 +63,15 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle requests to /api/settings. Allowed methods: GET, PUT.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @remarks
+ * Every route is protected by authentication.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -56,10 +81,8 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/settings
     case 'GET':
       return handleGet(req, res);
-    // POST /api/settings
     case 'PUT':
       return handlePut(req, res);
 

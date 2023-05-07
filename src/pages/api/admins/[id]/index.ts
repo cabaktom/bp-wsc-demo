@@ -6,6 +6,14 @@ import { prisma } from '../../../../lib/prisma';
 import { AdminOut, AdminEdit } from '../../../../schemas/Admin';
 import handleErrors from '../../../../lib/handleApiErrors';
 
+/**
+ * Handle GET requests to get an admin.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the admin, or an error message.
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const idParsed = z.string().uuid().parse(req.query.id);
@@ -21,6 +29,14 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle PATCH requests to update an admin. Password is not updated here (see /api/admins/[id]/password).
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the updated admin, or an error message.
+ */
 const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { username, email } = AdminEdit.parse(req.body);
@@ -39,6 +55,17 @@ const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle DELETE requests to delete an admin.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the updated admin, or an error message.
+ *
+ * @remarks
+ * Authenticated user cannot delete their own account.
+ */
 const handleDelete = async (
   req: NextApiRequest,
   res: NextApiResponse,
@@ -60,6 +87,15 @@ const handleDelete = async (
   }
 };
 
+/**
+ * Handle requests to /api/admins/[id]. Allowed methods: GET, PATCH, DELETE.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @remarks
+ * Every route is protected by authentication.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -69,13 +105,10 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/admins/{id}
     case 'GET':
       return handleGet(req, res);
-    // PATCH /api/admins/{id}
     case 'PATCH':
       return handlePatch(req, res);
-    // DELETE /api/admins/{id}
     case 'DELETE':
       return handleDelete(req, res, token.sub);
 

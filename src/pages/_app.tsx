@@ -14,6 +14,8 @@ const App = ({
   Component,
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout) => {
+  // Use the layout defined at the page level, if available
+  // Otherwise, use the default layout
   const getLayout =
     Component.getLayout ??
     ((page) => (

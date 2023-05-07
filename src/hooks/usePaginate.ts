@@ -5,6 +5,13 @@ type usePaginateProps<T> = {
   initialPage: number;
 };
 
+/**
+ * Paginates data.
+ *
+ * @param data The data to paginate.
+ * @param initialPage The initial page to start on.
+ * @returns An object containing the current page, the current page setter, the current number of items per page, the current number of items per page setter, and the paginated results.
+ */
 const usePaginate = <T extends object>({
   data,
   initialPage = 1,

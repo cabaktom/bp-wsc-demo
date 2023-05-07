@@ -6,6 +6,14 @@ import path from 'path';
 import handleErrors from '../../../../lib/handleApiErrors';
 import { prisma } from '../../../../lib/prisma';
 
+/**
+ * Handle GET requests to get an image from the public folder.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the image, or an error message.
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const queryPath = req.query.path as string[];
@@ -48,12 +56,17 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle requests to /api/images/download/[...path]. Allowed methods: GET.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   switch (req.method) {
-    // GET /api/images/download/{...path}
     case 'GET':
       return handleGet(req, res);
 

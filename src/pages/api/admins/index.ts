@@ -6,6 +6,14 @@ import { prisma } from '../../../lib/prisma';
 import { AdminIn, AdminOut } from '../../../schemas/Admin';
 import handleErrors from '../../../lib/handleApiErrors';
 
+/**
+ * Handle GET requests to get all admins.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the admins, or an error message.
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const admins = await prisma.admin.findMany({ orderBy: { id: 'asc' } });
   const adminsOut = admins.map((admin) => AdminOut.parse(admin));
@@ -13,6 +21,14 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(200).json(adminsOut);
 };
 
+/**
+ * Handle POST requests to create an admin.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the created admin, or an error message.
+ */
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { username, email, password } = AdminIn.parse(req.body);
@@ -32,6 +48,15 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle requests to /api/admins. Allowed methods: GET, POST.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @remarks
+ * Every route is protected by authentication.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -41,10 +66,8 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/admins
     case 'GET':
       return handleGet(req, res);
-    // POST /api/admins
     case 'POST':
       return handlePost(req, res);
 

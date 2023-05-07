@@ -4,19 +4,8 @@ import { signIn } from 'next-auth/react';
 import { PasswordInput, TextInput, Stack, Alert, Button } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 
-// const useStyles = createStyles((theme) => ({
-//   forgotPasswordLabel: {
-//     paddingTop: 2,
-//     color:
-//       theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6],
-//     fontWeight: 500,
-//     fontSize: theme.fontSizes.xs,
-//   },
-// }));
-
 const LoginForm = () => {
   const router = useRouter();
-  // const { classes } = useStyles();
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -77,31 +66,6 @@ const LoginForm = () => {
             aria-label="Password input"
             {...form.getInputProps('password')}
           />
-
-          {/* <Box>
-            <Group position="apart">
-              <Text component="label" htmlFor="password" size="sm" weight={500}>
-                Password *
-              </Text>
-
-              <Link
-                className={classes.forgotPasswordLabel}
-                href="/logout"
-                title="Forgot password"
-                aria-label="Forgot password"
-              >
-                Forgot your password?
-              </Link>
-            </Group>
-
-            <PasswordInput
-              withAsterisk
-              id="password"
-              placeholder="******"
-              aria-label="Password input"
-              {...form.getInputProps('password')}
-            />
-          </Box> */}
 
           <Button type="submit" fullWidth loading={loading} mt="xs">
             Sign in

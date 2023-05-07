@@ -4,13 +4,18 @@ import { showNotification } from '@mantine/notifications';
 
 import ProgrammeContext, { ProgrammeContextType } from './programme-context';
 import { DayType, ItemType, ParticipantType } from '../../@types/programme';
-import { ProgrammeIn } from '../../schemas/ProgrammeSchema';
+import { ProgrammeIn } from '../../schemas/Programme';
 
 type ProgrammeProviderProps = {
   children: React.ReactNode;
   participants: ParticipantType[];
 };
 
+/**
+ * Provides the programme context to the application.
+ * @param children React children to be wrapped by the provider.
+ * @param participants List of participants to be used in the programme.
+ */
 export default function ProgrammeProvider({
   children,
   participants: participantsProp,
@@ -22,7 +27,7 @@ export default function ProgrammeProvider({
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  // initial fetch to populate programme state
+  // initial fetch to populate programme state from the database
   useEffect(() => {
     const fetchProgramme = async () => {
       setLoading(true);
@@ -65,6 +70,7 @@ export default function ProgrammeProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // recalculate dates when conference start changes
   const recalculateDates = (start: Date) => {
     daysHandlers.apply((day, index = 0) => {
       const nextDay = new Date(start);
@@ -77,9 +83,10 @@ export default function ProgrammeProvider({
     });
   };
 
+  // recalculate day end times when day items change
   const recalculateDayEndTimes = (
     dayIndex: number,
-    items: typeof days[number]['items'],
+    items: (typeof days)[number]['items'],
   ) => {
     const dayStart = days[dayIndex].start;
     if (!dayStart) return;
@@ -95,12 +102,13 @@ export default function ProgrammeProvider({
     daysHandlers.setItemProp(dayIndex, 'end', endTime);
   };
 
+  // handle setting conference start and recalculating dates
   const handleSetConferenceStart = (date: Date) => {
     setConferenceStart(date);
     recalculateDates(date);
   };
 
-  // day handlers
+  // handle adding a day to the programme
   const handleAddDay = (start: Date) => {
     const date = new Date(start);
     daysHandlers.append({
@@ -113,6 +121,7 @@ export default function ProgrammeProvider({
     });
   };
 
+  // handle changing a day property (start, additionalInfo)
   const handleChangeDayProp = (
     index: number,
     prop: keyof DayType,
@@ -127,6 +136,7 @@ export default function ProgrammeProvider({
     daysHandlers.setItemProp(index, prop, value);
   };
 
+  // handle deleting a day from the programme
   const handleDeleteDay = (index: number) => {
     daysHandlers.remove(index);
 
@@ -134,9 +144,9 @@ export default function ProgrammeProvider({
     recalculateDates(conferenceStart);
   };
 
-  // day item handlers
+  // handle adding a day item (ITEM or CHAIRMAN)
   const handleAddDayItem = (dayIndex: number, type: 'ITEM' | 'CHAIRMAN') => {
-    const items: typeof days[number]['items'] = [
+    const items: (typeof days)[number]['items'] = [
       ...days[dayIndex].items,
       type === 'ITEM'
         ? {
@@ -158,6 +168,7 @@ export default function ProgrammeProvider({
     recalculateDayEndTimes(dayIndex, items);
   };
 
+  // handle changing a day item property (duration, title, participantId, abstractId)
   const handleChangeDayItemProp = (
     dayIndex: number,
     index: number,
@@ -177,6 +188,7 @@ export default function ProgrammeProvider({
     }
   };
 
+  // handle changing a day item participant and abstract
   const handleChangeDayItemParticipantAndAbstract = (
     dayIndex: number,
     index: number,
@@ -193,6 +205,7 @@ export default function ProgrammeProvider({
     daysHandlers.setItemProp(dayIndex, 'items', items);
   };
 
+  // handle reordering day items
   const handleDayItemReorder = (dayIndex: number, from: number, to: number) => {
     const current = days[dayIndex].items;
 
@@ -205,6 +218,7 @@ export default function ProgrammeProvider({
     daysHandlers.setItemProp(dayIndex, 'items', cloned);
   };
 
+  // handle deleting a day item
   const handleDeleteDayItem = (dayIndex: number, index: number) => {
     const items = days[dayIndex].items.filter((_, i) => i !== index);
 
@@ -213,6 +227,7 @@ export default function ProgrammeProvider({
     recalculateDayEndTimes(dayIndex, items);
   };
 
+  // handle saving programme
   const handleSaveProgramme = async () => {
     setSaving(true);
     const res = await fetch('/api/programme', {
@@ -242,6 +257,7 @@ export default function ProgrammeProvider({
     setSaving(false);
   };
 
+  // handle deleting programme
   const handleDeleteProgramme = async () => {
     setDeleting(true);
     const res = await fetch('/api/programme', {

@@ -70,6 +70,7 @@ export async function getStaticProps() {
   const settings = await prisma.siteSettings.findMany();
   const images = await prisma.image.findMany();
 
+  // convert images to react-photo-album format
   const albumImages = images.map((image, index) => {
     return {
       src: `/api/images/download/${encodeURIComponent(image.filename)}`,

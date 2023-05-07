@@ -14,6 +14,7 @@ declare module '@mantine/core' {
   }
 }
 
+// Next.js page with custom layout to be able to use 2 layouts in the same page
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -22,11 +23,13 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+// sort status for useSort hook
 type SortStatus = {
   accessor: string;
   direction: 'asc' | 'desc';
 };
 
+// TipTap image type extension
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     image: {

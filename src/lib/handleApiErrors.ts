@@ -3,6 +3,14 @@ import type { NextApiResponse } from 'next';
 import { ZodError } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
+/**
+ * Handle errors from API routes and return readable messages.
+ *
+ * @param title The title of the resource that was being accessed.
+ * @param e The error that was thrown.
+ * @param res The response object.
+ * @returns A response with the appropriate error message.
+ */
 const handleApiErrors = (title: string, e: any, res: NextApiResponse) => {
   if (e instanceof ZodError) {
     const validationError = fromZodError(e);

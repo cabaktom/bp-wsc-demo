@@ -4,10 +4,18 @@ import { Prisma } from '@prisma/client';
 
 import { prisma } from '../../../lib/prisma';
 import handleErrors from '../../../lib/handleApiErrors';
-import { ProgrammeIn, ProgrammeOut } from '../../../schemas/ProgrammeSchema';
+import { ProgrammeIn, ProgrammeOut } from '../../../schemas/Programme';
 import { PROGRAMME_ID } from '../../../constants/programme';
 import { revalidatePage } from '../../../lib/revalidate';
 
+/**
+ * Handle GET requests to get the programme.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the programme, or an error message.
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const programme = await prisma.programme.findUnique({
@@ -31,6 +39,14 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle PUT requests to create or update the programme. Revalidates the programme page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the created or updated programme, or an error message.
+ */
 const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { conferenceStart, days } = ProgrammeIn.parse(req.body);
@@ -106,6 +122,14 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle DELETE requests to delete the programme. Revalidates the programme page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with no content, or an error message.
+ */
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     await prisma.$transaction([
@@ -127,6 +151,15 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(204).end();
 };
 
+/**
+ * Handle requests to /api/programme. Allowed methods: GET, PUT, DELETE.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @remarks
+ * Every route is protected by authentication.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -136,13 +169,10 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/programme
     case 'GET':
       return handleGet(req, res);
-    // POST /api/programme
     case 'PUT':
       return handlePut(req, res);
-    // DELETE /api/programme
     case 'DELETE':
       return handleDelete(req, res);
 

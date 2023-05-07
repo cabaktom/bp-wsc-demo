@@ -8,6 +8,14 @@ import { ParticipantIn, ParticipantOut } from '../../../schemas/Participant';
 import { AbstractOut } from '../../../schemas/Abstract';
 import { revalidatePage } from '../../../lib/revalidate';
 
+/**
+ * Handle GET requests to get a participant (with or without abstract based on query param).
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the participant, or an error message.
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const { abstract } = req.query;
 
@@ -33,6 +41,14 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle PUT requests to update a participant. Revalidates the participants page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the updated participant, or an error message.
+ */
 const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const idParsed = z.string().uuid().parse(req.query.id);
@@ -51,6 +67,14 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle DELETE requests to delete a participant. Revalidates the participants page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with no content, or an error message.
+ */
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const idParsed = z.string().uuid().parse(req.query.id);
@@ -65,6 +89,15 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle requests to /api/participants/[id]. Allowed methods: GET, PUT, DELETE.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @remarks
+ * Every route is protected by authentication.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -74,13 +107,10 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/participants/{id}
     case 'GET':
       return handleGet(req, res);
-    // PUT /api/participants/{id}
     case 'PUT':
       return handlePut(req, res);
-    // DELETE /api/participants/{id}
     case 'DELETE':
       return handleDelete(req, res);
 

@@ -8,6 +8,9 @@ import {
   IconUsers,
 } from '@tabler/icons-react';
 
+/**
+ * Links for the main navigation.
+ */
 const links = [
   {
     title: 'Home',
@@ -35,6 +38,9 @@ const links = [
   },
 ];
 
+/**
+ * Links for the admin navigation.
+ */
 export const adminLinks = [
   {
     title: 'General',

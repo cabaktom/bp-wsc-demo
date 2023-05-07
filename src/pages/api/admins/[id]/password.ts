@@ -6,6 +6,18 @@ import { prisma } from '../../../../lib/prisma';
 import handleErrors from '../../../../lib/handleApiErrors';
 import { comparePwd, hashPwd } from '../../../../lib/password';
 
+/**
+ * Handle PATCH requests to change an admin's password.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ * @param sessionUserId The id of the authenticated user.
+ *
+ * @returns A response with the updated admin, or an error message.
+ *
+ * @remarks
+ * Only the authenticated user can change their own password.
+ */
 const handlePatch = async (
   req: NextApiRequest,
   res: NextApiResponse,
@@ -50,6 +62,15 @@ const handlePatch = async (
   }
 };
 
+/**
+ * Handle requests to /api/admins/[id]/password. Allowed methods: PATCH.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @remarks
+ * Every route is protected by authentication.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -59,7 +80,6 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // PATCH /api/admins/{id}/password
     case 'PATCH':
       return handlePatch(req, res, token.sub);
 

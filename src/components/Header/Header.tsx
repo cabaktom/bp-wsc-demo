@@ -29,6 +29,7 @@ type HeaderProps = {
 const Header = ({ settings }: HeaderProps) => {
   const { classes } = useStyles();
 
+  // convert settings array to object
   const settingsObj = settings.reduce((acc, setting) => {
     acc[setting.option as keyof SiteSettings] = setting.value;
     return acc;

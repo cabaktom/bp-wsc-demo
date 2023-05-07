@@ -1,7 +1,7 @@
 import type { Participation as ParticipationType } from '@prisma/client';
 import { z } from 'zod';
 
-import { ChairmanIn, DayIn, ItemIn } from '../schemas/ProgrammeSchema';
+import { ChairmanIn, DayIn, ItemIn } from '../schemas/Programme';
 
 export type DayType = z.infer<typeof DayIn>;
 export type ItemType = z.infer<typeof ItemIn>;

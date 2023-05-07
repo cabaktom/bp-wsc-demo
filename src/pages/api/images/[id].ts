@@ -9,6 +9,14 @@ import { ImageOut, ImageEdit } from '../../../schemas/Image';
 import handleErrors from '../../../lib/handleApiErrors';
 import { revalidatePage } from '../../../lib/revalidate';
 
+/**
+ * Handle GET requests to get image metadata.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the image metadata, or an error message.
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const idParsed = z.string().uuid().parse(req.query.id);
@@ -24,6 +32,14 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle PATCH requests to update image metadata. Revalidates the gallery page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the updated image metadata, or an error message.
+ */
 const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { alt, filename } = ImageEdit.parse(req.body);
@@ -64,6 +80,14 @@ const handlePatch = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle DELETE requests to delete an image. Revalidates the gallery page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with no content, or an error message.
+ */
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const idParsed = z.string().uuid().parse(req.query.id);
@@ -81,6 +105,15 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Handle requests to /api/images/[id]. Allowed methods: GET, PATCH, DELETE.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @remarks
+ * Every route is protected by authentication.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -90,13 +123,10 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/images/{id}
     case 'GET':
       return handleGet(req, res);
-    // PATCH /api/images/{id}
     case 'PATCH':
       return handlePatch(req, res);
-    // DELETE /api/images/{id}
     case 'DELETE':
       return handleDelete(req, res);
 

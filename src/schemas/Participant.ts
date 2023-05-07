@@ -2,6 +2,12 @@ import { z } from 'zod';
 
 const Participation = z.enum(['ONLINE', 'ONSITE']);
 
+/**
+ * The participant input schema.
+ *
+ * @remarks
+ * This is used for validating participant input data in the API when creating or updating a participant.
+ */
 export const ParticipantIn = z.object({
   fullName: z
     .string()
@@ -26,6 +32,12 @@ export const ParticipantIn = z.object({
   invited: z.boolean().optional(),
 });
 
+/**
+ * The participant output schema.
+ *
+ * @remarks
+ * This is used for validating participant output data in the API.
+ */
 export const ParticipantOut = z.object({
   id: z.string().uuid().min(1),
   fullName: z.string().min(1),

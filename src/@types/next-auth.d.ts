@@ -1,5 +1,6 @@
 import type { DefaultSession } from 'next-auth';
 
+// extension of Next-Auth types for custom credentials provider
 declare module 'next-auth' {
   interface User {
     id: string;

@@ -75,6 +75,11 @@ type ControlProps = {
   }) => void;
 };
 
+/**
+ * Base control component for inserting images and iframes into the editor
+ *
+ * @component
+ */
 export const Control = forwardRef<HTMLButtonElement, ControlProps>(
   (
     {
@@ -100,6 +105,7 @@ export const Control = forwardRef<HTMLButtonElement, ControlProps>(
     const [width, setWidth] = useState(100);
     const [margin, setMargin] = useState(0);
 
+    // open the popover and set the initial values
     const handleOpen = () => {
       toggle();
       const node = editor?.getAttributes(nodeType);
@@ -111,6 +117,7 @@ export const Control = forwardRef<HTMLButtonElement, ControlProps>(
       );
     };
 
+    // close the popover and reset the values
     const handleClose = () => {
       close();
       setSrc('');
@@ -118,6 +125,7 @@ export const Control = forwardRef<HTMLButtonElement, ControlProps>(
       setMargin(0);
     };
 
+    // setNode() creates the element inside the editor and is called when the user clicks the Save button or presses Enter
     const _setNode = () => {
       handleClose();
       src === ''

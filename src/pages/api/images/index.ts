@@ -15,6 +15,14 @@ export const config = {
   },
 };
 
+/**
+ * Handle GET requests to get all image metadata.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the images metadata, or an error message.
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const images = await prisma.image.findMany();
   const imagesOut = images.map((image) => ImageOut.parse(image));
@@ -22,6 +30,14 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(200).json(imagesOut);
 };
 
+/**
+ * Handle POST requests to upload images and save them to disk. Revalidates the gallery page.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @returns A response with the uploaded images metadata, or an error message.
+ */
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   // create images folder if it doesn't exist
   try {
@@ -138,6 +154,15 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
+/**
+ * Handle requests to the /api/images. Allowed methods: GET, POST.
+ *
+ * @param req The request object.
+ * @param res The response object.
+ *
+ * @remarks
+ * Every route is protected by authentication.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -147,10 +172,8 @@ export default async function handler(
   if (!token || !token.sub) return res.status(401).end();
 
   switch (req.method) {
-    // GET /api/images
     case 'GET':
       return handleGet(req, res);
-    // POST /api/images
     case 'POST':
       return handlePost(req, res);
 

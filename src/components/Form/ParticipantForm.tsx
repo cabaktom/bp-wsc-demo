@@ -157,7 +157,7 @@ const ParticipantForm = ({
         });
       }
     } else if (abstract) {
-      // user had abstract but now will not contribute
+      // user had abstract but now will not contribute (delete abstract)
       const res = await fetch(`/api/abstracts/${abstract.id}`, {
         method: 'DELETE',
       });

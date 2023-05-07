@@ -7,6 +7,13 @@ type useSearchProps<T> = {
   initialQuery?: string;
 };
 
+/**
+ * Searches data with query that is debounced.
+ *
+ * @param data The data to search.
+ * @param initialQuery The initial query to start with.
+ * @returns An object containing the current query, the current query setter, and the search results.
+ */
 const useSearch = <T extends object>({
   data,
   initialQuery = '',

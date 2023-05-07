@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# This script is ran by the Dockerfile to setup the app after the database is up and running
+
 # Install dependencies
 npm install
 

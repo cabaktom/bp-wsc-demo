@@ -1,6 +1,11 @@
 import type { MantineThemeOverride } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
 
+/**
+ * Mantine theme override. Sets color theme and default styles for components.
+ *
+ * @see https://mantine.dev/theming/theme-object/
+ */
 const theme: MantineThemeOverride = {
   colorScheme: 'light',
   colors: {

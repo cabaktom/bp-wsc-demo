@@ -10,6 +10,14 @@ type useSortProps<T> = {
   initialData?: T[];
 };
 
+/**
+ * Sorts data by a given accessor and direction.
+ *
+ * @param data The data to sort.
+ * @param initialSortStatus The initial sort status to start with.
+ * @param initialData The initial data to start with.
+ * @returns An object containing the current sort status, the current sort status setter, and the sorted results.
+ */
 const useSort = <T extends object>({
   data,
   initialSortStatus,

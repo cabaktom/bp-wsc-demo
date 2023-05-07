@@ -1,5 +1,11 @@
 import { z } from 'zod';
 
+/**
+ * The image edit schema.
+ *
+ * @remarks
+ * This is used for validating image edit data in the API when updating image metadata.
+ */
 export const ImageEdit = z.object({
   alt: z
     .string()
@@ -12,6 +18,12 @@ export const ImageEdit = z.object({
     .max(255, { message: 'Filename must be at most 255 characters long.' }),
 });
 
+/**
+ * The image output schema.
+ *
+ * @remarks
+ * This is used for validating image output metadata in the API.
+ */
 export const ImageOut = z.object({
   id: z.string().uuid().min(1),
   alt: z.string(),

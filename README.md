@@ -14,14 +14,16 @@
 
 - vytvořit soubor `.env` a nastavit lokální proměnné (uvedené hodnoty jsou pouze příklad)
 
-  - `NEXTAUTH_URL="http://localhost:3000"`
-    - odpovídá URL a portu aplikace (v rámci kontejneru)
-  - `NEXTAUTH_SECRET="VkoQHEqNMCkM11oCWdUdEe3NhqaQ9vRirw9bF/LCjvw="`
-    - hodnotu lze v terminálu vygenerovat například příkazem `openssl rand -base64 32`
-  - `POSTGRES_VERSION=15`
-  - `POSTGRES_USER=admin`
-  - `POSTGRES_PASSWORD=pwd`
-  - `POSTGRES_DB=db`
+  ```env
+  # odpovídá URL a portu aplikace (v rámci kontejneru)
+  NEXTAUTH_URL="http://localhost:3000"
+  # hodnotu lze v terminálu vygenerovat například příkazem `openssl rand -base64 32`
+  NEXTAUTH_SECRET="VkoQHEqNMCkM11oCWdUdEe3NhqaQ9vRirw9bF/LCjvw="
+  POSTGRES_VERSION=15
+  POSTGRES_USER=admin
+  POSTGRES_PASSWORD=pwd
+  POSTGRES_DB=db
+  ```
 
 - pokud má být aplikace nasazena na platformě [Digital Ocean](https://www.digitalocean.com/), je navíc pro funkční revalidaci statických stránek nutné definovat proměnnou `PLATFORM=DO`
 
