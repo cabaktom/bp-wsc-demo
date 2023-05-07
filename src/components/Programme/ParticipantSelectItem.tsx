@@ -3,9 +3,13 @@ import { forwardRef } from 'react';
 
 import type { ParticipantType } from '../../@types/programme';
 
-type SelectItemProps = ParticipantType & React.HTMLAttributes<HTMLDivElement>;
+type ParticipantSelectItemProps = ParticipantType &
+  React.HTMLAttributes<HTMLDivElement>;
 
-const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
+const ParticipantSelectItem = forwardRef<
+  HTMLDivElement,
+  ParticipantSelectItemProps
+>(
   (
     {
       fullName,
@@ -14,7 +18,7 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
       participation,
       message,
       ...others
-    }: SelectItemProps,
+    }: ParticipantSelectItemProps,
     ref,
   ) => {
     return (
@@ -55,4 +59,4 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   },
 );
 
-export default SelectItem;
+export default ParticipantSelectItem;

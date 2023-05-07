@@ -2,7 +2,7 @@ import { Select, type SelectProps } from '@mantine/core';
 
 import ParticipantSelectItem from './ParticipantSelectItem';
 
-type DayItemSelectProps = SelectProps & {
+type ParticipantSelectProps = SelectProps & {
   label: string;
   placeholder: string;
   emptyPlaceholder: string;
@@ -12,7 +12,7 @@ type DayItemSelectProps = SelectProps & {
   data: any[];
 };
 
-const DayItemSelect = ({
+const ParticipantSelect = ({
   label,
   placeholder,
   emptyPlaceholder,
@@ -21,7 +21,7 @@ const DayItemSelect = ({
   setData,
   data,
   ...others
-}: DayItemSelectProps) => {
+}: ParticipantSelectProps) => {
   return (
     <Select
       label={label}
@@ -55,4 +55,4 @@ const DayItemSelect = ({
   );
 };
 
-export default DayItemSelect;
+export default ParticipantSelect;
