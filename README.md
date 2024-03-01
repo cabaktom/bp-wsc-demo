@@ -1,34 +1,89 @@
-# Bakalářská práce (2022/23) - Student workshop on scientific computing
+# Bachelor's thesis (2022/23) - Student workshop on scientific computing
 
-## Lokální nasazení
+This is the implementation of my bachelor's thesis which can be found [here](https://dspace.cvut.cz/handle/10467/109557).
 
-- potřebné nástroje
+> The work deals with the process of developing a new Web portal for organizing the annual scientific conference, which will replace its currently used form. The development begins with an analysis of the current solution, followed by the design and selection of technologies for the new solution, its implementation, deployment, and testing. The newly created Web portal is implemented as a full-stack web application in the Next.js framework. It provides clear information about the conference and the possibility to register for interested parties and participants. It allows organizers to plan the conference, including editing the content of organizational pages and gallery, managing participants, and creating the program. The Web portal is deployed on the Digital Ocean platform along with the database, but also offers the possibility of local deployment using Docker.
 
-  - [Node.js](https://nodejs.org/en) + [NPM](https://www.npmjs.com/)
-  - [Docker](https://www.docker.com/) + [Docker Compose](https://docs.docker.com/compose/)
-    - Docker Compose musí být ve verzi V2 (CLI plugin nebo desktop)
+## Deployment
 
-- instalace závislostí
+Needed tools for local deployment
 
-  - `npm i`
+- [Node.js](https://nodejs.org/en) + [NPM](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/) + [Docker Compose](https://docs.docker.com/compose/) (V2, CLI plugin or desktop)
 
-- vytvořit soubor `.env` a nastavit lokální proměnné (uvedené hodnoty jsou pouze příklad)
+Deployment options
 
-  ```env
-  # odpovídá URL a portu aplikace (v rámci kontejneru)
-  NEXTAUTH_URL="http://localhost:3000"
-  # hodnotu lze v terminálu vygenerovat například příkazem `openssl rand -base64 32`
-  NEXTAUTH_SECRET="VkoQHEqNMCkM11oCWdUdEe3NhqaQ9vRirw9bF/LCjvw="
-  POSTGRES_VERSION=15
-  POSTGRES_USER=admin
-  POSTGRES_PASSWORD=pwd
-  POSTGRES_DB=db
-  ```
+- [Digital Ocean](https://www.digitalocean.com/) (production)
+- Local (production)
+- Local (development)
 
-- pokud má být aplikace nasazena na platformě [Digital Ocean](https://www.digitalocean.com/), je navíc pro funkční revalidaci statických stránek nutné definovat proměnnou `PLATFORM=DO`
+## Digital Ocean
 
-- vytvoření a spuštění Docker kontejnerů (sestavení aplikace může chvíli trvat)
+The best way to deploy the application on Digital Ocean is to use the [DO App Platform](https://www.digitalocean.com/products/app-platform). The platform allows you to deploy the application directly from the GitHub repository. The deployment process is automatic and the application is updated after each push to the repository.
 
-  - `docker compose up`
+Adding the application to a project makes it easy to add a database. The database can be added to the project in the form of a managed PostgreSQL database. The database is automatically connected to the application and the connection string is set as an environment variable.
 
-- produkční verze aplikace je nyní dostupná na adrese [localhost:3000](http://localhost:3000/)
+Based on the `.env.example` file, set the environment variables in the Digital Ocean platform (the values are just an example)
+
+```env
+# corresponds to the URL and port of the application (within the container)
+NEXTAUTH_URL="http://localhost:3000"
+# the value can be generated in the terminal, for example by the command `openssl rand -base64 32`
+NEXTAUTH_SECRET="VkoQHEqNMCkM11oCWdUdEe3NhqaQ9vRirw9bF/LCjvw="
+POSTGRES_VERSION=15
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=pwd
+POSTGRES_DB=db
+PLATFORM=DO # Digital Ocean
+```
+
+When deploying the app on the Digital Ocean platform, it is **necessary** to set the `PLATFORM=DO` environment variable. This ensures correct revalidation of static pages.
+
+To setup and seed the database, locally set the `DATABASE_URL` environment variable to the deployed database and run the following commands
+
+```bash
+npm install
+npx prisma db push
+npx prisma db seed
+```
+
+## Local (production)
+
+Install dependencies
+
+    npm install
+
+Based on the `.env.example` file, create a `.env` file and set local variables (the values are just an example)
+
+```env
+# corresponds to the URL and port of the application (within the container)
+NEXTAUTH_URL="http://localhost:3000"
+# the value can be generated in the terminal, for example by the command `openssl rand -base64 32`
+NEXTAUTH_SECRET="VkoQHEqNMCkM11oCWdUdEe3NhqaQ9vRirw9bF/LCjvw="
+POSTGRES_VERSION=15
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=pwd
+POSTGRES_DB=db
+```
+
+Start the application and the database for production (the build process may take a while).
+
+    docker compose up
+
+The production version of the application is now available at [localhost:3000](http://localhost:3000/). The database is available at [localhost:5432](http://localhost:5432/).
+
+## Local (development)
+
+Install dependencies
+
+    npm install
+
+Start, create and seed the database
+
+    docker compose up -d db
+    npx prisma db push
+    npx prisma db seed
+
+Start the application in development mode
+
+    npm run dev
