@@ -12,7 +12,7 @@ async function createPages() {
       name: 'home',
       title: 'Home',
       content:
-        '<h3>Characteristics</h3><p>The scientific colloquium of CTU organized by the departments of Software Engineering and Mathematics, FNSPE CTU in Prague is devoted to the meeting of students and young applied mathematicians dealing with numerical solution of partial differential equations, mathematical modelling, numerical simulation of problems in technology, environment, biology and computer science.</p><h4>Organizers</h4><p><strong>J. Kukal</strong>, Department of Software Engineering, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><p>kukal (at) dc.fjfi.cvut.cz</p><p><strong>R. Fučík</strong>, Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><p>radek.fucik (at) fjfi.cvut.cz</p><p><strong>P. Pauš</strong>, Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><p>petr.paus (at) fjfi.cvut.cz</p><p><strong>M. Beneš</strong>, Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><p>michal.benes (at) fjfi.cvut.cz</p><p><strong>M. Kolář</strong>, Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><p>miroslav.kolar (at) fjfi.cvut.cz</p><h4>Conference office</h4><p>I. Kukalová, Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague</p><h4>Organizing committee</h4><p><strong>J. Kukal, T. Oberhuber, J. Mikyška, R. Fučík, P. Pauš, P. Strachota, P. Eichler</strong></p><h4>Registration</h4><p>Conference fee: <strong>3000 CZK for onsite participation, 0 CZK for online participation</strong><br>Submit your registration via registration form: <a href="register" rel="noopener noreferrer nofollow">Registration form</a><br>Deadline: <strong>May 10, 2022</strong></p><p>Required registration data:</p><ol><li><p>Name</p></li><li><p>Your contact address and e-mail</p></li><li><p>Affiliation</p></li><li><p>The abstract of your contribution</p></li><li><p>Onsite/online attendance</p></li><li><p>Arrival and departure dates</p></li></ol><p></p><h4>Additional information</h4><p><strong>URL:</strong> <a href="http://mmg.fjfi.cvut.cz/wsc-2022" rel="noopener noreferrer nofollow">http://mmg.fjfi.cvut.cz/wsc-2022</a></p><p><strong>Conference poster:</strong> <a href="https://geraldine.fjfi.cvut.cz/wsc2022/poster/wsc2022.pdf" rel="noopener noreferrer nofollow">WSC 2022 Poster</a></p><p><strong>List of </strong><a href="participants" rel="noopener noreferrer nofollow">participants</a></p><p><strong>List of</strong> <a href="abstracts" rel="noopener noreferrer nofollow">abstracts</a></p><p><strong>Information desk:</strong> petr.paus (at) fjfi.cvut.cz</p><p><strong>Venue:</strong><br>Faculty of Nuclear Sciences and Physical Engineering,<br>Pohraniční 1288/1, 405 02 Děčín<br>and MS Teams online</p><p></p><h4>Acknowledgement</h4><p>This event is supported by the project of the Student Grant Agency of the Czech Technical University in Prague No. SVK 42/22/F4</p>',
+        '<h3>Overview</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper, nunc euismod molestie hendrerit, elit libero lacinia est, vitae elementum turpis sapien a libero. Integer efficitur, nisi nec interdum consequat, magna dolor sodales magna, eu fermentum libero eros in est.</p><h4>Coordination Team</h4><p><strong>A. Lorem</strong>, Department of Lorem Ipsum, Faculty of Dolor Sit Amet, Consectetur Adipiscing University</p><p>lorem.ipsum (at) domain.com</p><p><strong>B. Ipsum</strong>, Department of Dolor Sit, Faculty of Amet Adipiscing, Consectetur Adipiscing University</p><p>dolor.ipsum (at) domain.com</p><p><strong>C. Dolor</strong>, Department of Sit Amet, Faculty of Adipiscing Consectetur, Consectetur Adipiscing University</p><p>sit.amet (at) domain.com</p><p><strong>D. Sit</strong>, Department of Amet Adipiscing, Faculty of Consectetur, Consectetur Adipiscing University</p><p>amet.dolor (at) domain.com</p><p><strong>E. Amet</strong>, Department of Consectetur Adipiscing, Faculty of Ipsum Dolor, Consectetur Adipiscing University</p><p>consectetur.adipiscing (at) domain.com</p><h4>Event Secretariat</h4><p>F. Ipsum Lorem, Department of Sit Amet, Faculty of Dolor Sit, Consectetur Adipiscing University</p><h4>Organizational Team</h4><p><strong>G. Lorem, H. Ipsum, I. Dolor, J. Sit, K. Amet, L. Consectetur, M. Adipiscing</strong></p><h4>Registrationn</h4><p>Conference fee: <strong>3000 EUR for onsite participation, 0 EUR for online participation</strong><br>Apply through the registration form: <a href="register" rel="noopener noreferrer nofollow">Registration Form</a><br>Deadline: <strong>June 30, 2050</strong></p><p>Essential registration details:</p><ol><li><p>Full Name</p></li><li><p>Your contact address and e-mail</p></li><li><p>Affiliation</p></li><li><p>The abstract of your contribution</p></li><li><p>Onsite/Online attendance</p></li><li><p>Expected arrival and departure dates</p></li></ol><h4>Credits</h4><p>This occasion is funded by the grant from the Lorem Ipsum Dolor Sit Amet University No. LID 123/45/6789</p>',
       order: 1,
     },
   });
@@ -23,7 +23,7 @@ async function createPages() {
       name: 'register',
       title: 'Register',
       content:
-        '<h3>Registration</h3><p><strong>Deadline:</strong> May 10, 2022<br><strong>Conference fee:</strong> 3000 CZK for onsite participation, 0 CZK for online participation</p><p></p><p><strong>Registration data:</strong></p><ol><li><p>Name</p></li><li><p>Your contact address and e-mail</p></li><li><p>Affiliation</p></li><li><p>The abstract of your contribution</p></li><li><p>Onsite/Online attendance</p></li><li><p>Arrival and departure dates</p></li></ol>',
+        '<h3>Registration</h3><p><strong>Deadline:</strong> June 30, 2050<br><strong>Conference fee:</strong> 3000 EUR for onsite participation, 0 EUR for online participation</p><p></p><p><strong>Registration data:</strong></p><ol><li><p>Name</p></li><li><p>Your contact address and e-mail</p></li><li><p>Affiliation</p></li><li><p>The abstract of your contribution</p></li><li><p>Onsite/Online attendance</p></li><li><p>Arrival and departure dates</p></li></ol>',
       order: 2,
     },
   });
@@ -44,7 +44,7 @@ async function createPages() {
       name: 'programme',
       title: 'Programme',
       content:
-        '<h3>Scientific programme</h3><h4>Conference venue:</h4><p>The conference venue: <strong>the main building of CTU at Pohraniční street, 1288/1</strong><br>or<br><strong>Online:</strong> MS Teams</p><h4>Registration for local participants</h4><p>Registration for local participants takes place at the conference venue (the main building of CTU at Pohraniční street, 1288/1):<br><strong>Thursday</strong>: from 13:00 to 13:50<br><strong>Friday: </strong>from 8:30 to 9:00 (and during coffee breaks between the sessions)</p><h4>Invited talks</h4><p>Invited oral presentation duration is 30 min = 25 min talk + 5 min for discussion.</p><h4>Regular talks</h4><p>Oral presentation duration is 20 min = max 15 min talk + 5 min for discussion.</p>',
+        '<h3>Programme</h3><h4>Conference venue:</h4><p>The conference venue: <strong>address</strong><br>or<strong>online: will be specified</strong></p><h4>Special talks</h4><p>Invited oral presentation duration is 30 min = 25 min talk + 5 min for discussion.</p><h4>Regular talks</h4><p>Oral presentation duration is 20 min = max 15 min talk + 5 min for discussion.</p>',
       order: 4,
     },
   });
@@ -55,7 +55,7 @@ async function createPages() {
       name: 'travel',
       title: 'Travel',
       content:
-        '<h4>Recommended train:</h4><p>EC 174 Berliner, 10:25 from Praha hlavní nádraží. Or EC&nbsp;378 Berliner, 12:25.</p><h4>From Děčín station to the venue:</h4><p><strong>By bus</strong></p><p>By bus no. <strong>201</strong>, <strong>204</strong>, <strong>209 </strong>to <strong>Myslbekova </strong>station (4th stop).<br>The ticket is 20 CZK, paid in the bus.<br>Please prepare the exact change.<br>Only the front door can be used to enter the bus.</p><p><strong>By walk</strong></p><p>About 1.7 km</p><ol><li><p>Head north on Čs. mládeže toward P. Holého  (0.3 km)</p></li><li><p>Continue onto Na Skřivance  (0.2 km)</p></li><li><p>At the roundabout, turn right onto Labské nábř.  (0.4 km)</p></li><li><p>Slight left to stay on Labské nábř. (0.2 km)</p></li><li><p>Turn right at Tyršova (0.5 km)</p></li><li><p>Take the 2nd right onto Masarykovo nám. (60 m)</p></li><li><p>Continue straight onto Lázeňská (0.2 km)</p></li><li><p>Turn right at Zámecké nám.  (60 m)</p></li><li><p>Slight right at Nároží</p></li></ol><p>Destination will be on the left  </p>',
+        '<h4>Preferred Shuttle:</h4><p>Hyperloop HLX 500, 08:45 from New Genesis Central Station. Or HLX 520, 11:15.</p><h4>From Arcadia Terminal to the event location:</h4><p><strong>By Monorail</strong></p><p>Ride the monorail line <strong>M3</strong>, <strong>M5</strong>, <strong>M7</strong> to <strong>Elysium Fields</strong> stop (5th stop).<br>The ticket costs 30 Credits, payable on the monorail.<br>Please have the exact amount ready.<br>Entry is via the central pod door only.</p><p><strong>By Foot</strong></p><p>Approximately 2 km</p><ol><li><p>Proceed north on Harmony Ave towards Tranquility Lane (0.4 km)</p></li><li><p>Continue straight onto Serenity Path (0.3 km)</p></li><li><p>At the water fountain, take a left onto Utopia Parkway (0.5 km)</p></li><li><p>Make a slight right to stay on Utopia Parkway (0.3 km)</p></li><li><p>Turn left at Zenith Plaza (0.4 km)</p></li><li><p>Take the 1st right onto Celestial Circle (70 m)</p></li><li><p>Continue onto Starlight Avenue (0.1 km)</p></li><li><p>Turn left at Nova Square (50 m)</p></li><li><p>Gently right onto Cosmos Court</p></li></ol><p>The venue will be on your right</p>',
       order: 5,
     },
   });
@@ -79,7 +79,7 @@ async function createAdmins() {
     update: {},
     create: {
       username: 'admin',
-      email: 'admin@wsc.com',
+      email: 'admin@lorem.ipsum',
       password: await hashPwd('123456'),
     },
   });
@@ -88,7 +88,7 @@ async function createAdmins() {
     update: {},
     create: {
       username: 'uTRuside',
-      email: 'uTRuside@wsc.com',
+      email: 'uTRuside@lorem.ipsum',
       password: await hashPwd('123456'),
     },
   });
@@ -97,7 +97,7 @@ async function createAdmins() {
     update: {},
     create: {
       username: 'EANdoteo',
-      email: 'EANdoteo@wsc.com',
+      email: 'EANdoteo@lorem.ipsum',
       password: await hashPwd('123456'),
     },
   });
@@ -106,7 +106,7 @@ async function createAdmins() {
     update: {},
     create: {
       username: 'NdcHrenT',
-      email: 'NdcHrenT@wsc.com',
+      email: 'NdcHrenT@lorem.ipsum',
       password: await hashPwd('123456'),
     },
   });
@@ -115,7 +115,7 @@ async function createAdmins() {
     update: {},
     create: {
       username: 'yElItupl',
-      email: 'yElItupl@wsc.com',
+      email: 'yElItupl@lorem.ipsum',
       password: await hashPwd('123456'),
     },
   });
@@ -124,7 +124,7 @@ async function createAdmins() {
     update: {},
     create: {
       username: 'sTERAdbu',
-      email: 'sTERAdbu@wsc.com',
+      email: 'sTERAdbu@lorem.ipsum',
       password: await hashPwd('123456'),
     },
   });
@@ -138,7 +138,7 @@ async function createSiteSettings() {
     update: {},
     create: {
       option: 'title',
-      value: 'Student workshop on scientific computing 2022',
+      value: 'Lorem Ipsum conference',
       order: 1,
     },
   });
@@ -147,7 +147,7 @@ async function createSiteSettings() {
     update: {},
     create: {
       option: 'date',
-      value: 'May 26 - 29, 2022.',
+      value: 'July 15 - 20, 2050.',
       order: 2,
     },
   });
@@ -156,7 +156,7 @@ async function createSiteSettings() {
     update: {},
     create: {
       option: 'location',
-      value: 'Děčín, Czech Republic + online',
+      value: 'Somewhere + Online',
       order: 3,
     },
   });
@@ -165,7 +165,7 @@ async function createSiteSettings() {
     update: {},
     create: {
       option: 'address department',
-      value: 'Departments of Software Engineering and Mathematics',
+      value: 'Department of Something, Somewhere',
       order: 4,
     },
   });
@@ -174,7 +174,7 @@ async function createSiteSettings() {
     update: {},
     create: {
       option: 'address faculty',
-      value: 'FNSPE CTU in Prague, Czech Republic',
+      value: 'Faculty of Something, Somewhere',
       order: 5,
     },
   });
@@ -184,92 +184,92 @@ async function createSiteSettings() {
 
 async function createParticipantsAndAbstracts() {
   await prisma.participant.upsert({
-    where: { email: 'kellynguyen@fjfi.cvut.cz' },
+    where: { email: 'nicolecox@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Kelly Nguyen',
-      email: 'kellynguyen@fjfi.cvut.cz',
-      affiliation: 'Department of Computer Science',
+      fullName: 'Nicole Cox',
+      email: 'nicolecox@lorem.ipsum',
+      affiliation: 'Department of Non',
       participation: 'ONLINE',
-      mailingAddress: 'kellynguyen@fjfi.cvut.cz',
+      mailingAddress: 'nicolecox@lorem.ipsum',
       student: true,
       additionalMessage: 'Looking forward to the conference!',
       abstract: {
         create: {
-          title: 'Numerical Methods for Data Analysis',
-          additionalAuthors: 'T. Nguyen',
-          affiliationAuthors: 'Department of Mathematics',
+          title: 'Lorem Ipsum Dolor Sit Amet',
+          additionalAuthors: 'J. Doe',
+          affiliationAuthors: 'Department of Non',
           abstract:
-            'We present novel numerical methods for analyzing large data sets. The methods are based on optimization and machine learning techniques and are effective in extracting useful information from the data.',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         },
       },
       poster: true,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'olivermorgan@fjfi.cvut.cz' },
+    where: { email: 'justinwhite@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Oliver Morgan',
-      email: 'olivermorgan@fjfi.cvut.cz',
-      affiliation: 'Faculty of Mechanical Engineering',
+      fullName: 'Justin White',
+      email: 'justinwhite@lorem.ipsum',
+      affiliation: 'Faculty of Qui',
       participation: 'ONSITE',
-      mailingAddress: 'olivermorgan@fjfi.cvut.cz',
+      mailingAddress: 'justinwhite@lorem.ipsum',
       student: false,
       additionalMessage: 'Excited to meet everyone at the conference!',
       abstract: {
         create: {
-          title: 'Computational Fluid Dynamics',
-          additionalAuthors: 'A. Smith',
-          affiliationAuthors: 'Department of Aerospace Engineering',
+          title: 'Nanomaterials in Medicine',
+          additionalAuthors: 'M. Smith',
+          affiliationAuthors: 'Insitute of Nanotechnology',
           abstract:
-            'We present a computational method for simulating fluid flow in complex geometries. The method is based on the finite element method and is efficient in capturing turbulent flow.',
+            'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         },
       },
       poster: false,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'adamjones@fjfi.cvut.cz' },
+    where: { email: 'michaelmitchell@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Adam Jones',
-      email: 'adamjones@fjfi.cvut.cz',
-      affiliation: 'Department of Electrical Engineering',
+      fullName: 'Michael Mitchell',
+      email: 'michaelmitchell@lorem.ipsum',
+      affiliation: 'Department of Dolor',
       participation: 'ONLINE',
-      mailingAddress: 'adamjones@fjfi.cvut.cz',
+      mailingAddress: 'michaelmitchell@lorem.ipsum',
       student: true,
       additionalMessage: '',
       abstract: {
         create: {
-          title: 'Control of Nonlinear Systems',
-          additionalAuthors: 'J. Kim',
-          affiliationAuthors: 'Department of Mathematics',
+          title: 'Artificial Intelligence in Ecology',
+          additionalAuthors: 'L. Johnson',
+          affiliationAuthors: 'Center for AI Research',
           abstract:
-            'We present a method for designing controllers for nonlinear systems based on Lyapunov theory. The method is effective in stabilizing systems and can be applied to a wide range of applications.',
+            'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
         },
       },
       poster: true,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'joshuawong@fjfi.cvut.cz' },
+    where: { email: 'gregoryjohnston@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Joshua Wong',
-      email: 'joshuawong@fjfi.cvut.cz',
-      affiliation: 'Department of Civil Engineering',
+      fullName: 'Gregory Johnston',
+      email: 'gregoryjohnston@lorem.ipsum',
+      affiliation: 'Department of Et',
       participation: 'ONSITE',
-      mailingAddress: 'joshuawong@fjfi.cvut.cz',
+      mailingAddress: 'gregoryjohnston@lorem.ipsum',
       student: true,
       additionalMessage: '',
       abstract: {
         create: {
-          title: 'Numerical Methods for Structural Analysis',
+          title: 'Space Habitat Designs',
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract:
-            'We present a new method for simulating the behavior of structures subjected to external loads. The method is based on the finite element method and is effective in capturing the nonlinear behavior of materials.',
+            'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         },
       },
       poster: false,
@@ -277,23 +277,23 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'nowakad@fjfi.cvut.cz' },
+    where: { email: 'christopherpollard@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Daria Nowakova',
-      email: 'nowakad@fjfi.cvut.cz',
-      affiliation: 'Department of Mathematics, FNSPE CTU in Prague',
+      fullName: 'Christopher Pollard',
+      email: 'christopherpollard@lorem.ipsum',
+      affiliation: 'Department of Adipiscing',
       participation: 'ONSITE',
-      mailingAddress: 'nowakad@fjfi.cvut.cz',
+      mailingAddress: 'christopherpollard@lorem.ipsum',
       student: true,
       additionalMessage: '',
       abstract: {
         create: {
-          title: 'Numerical Methods for Nonlinear Problems',
+          title: 'Cryptographic Techniques for Secure Communication',
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract:
-            'In this contribution, we present the use of numerical methods for solving nonlinear problems in various areas of science and engineering. We discuss the implementation and convergence of various iterative schemes, such as Newton and quasi-Newton methods. We also show some examples of applications and numerical results.',
+            'Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit.',
         },
       },
       poster: false,
@@ -301,58 +301,58 @@ async function createParticipantsAndAbstracts() {
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'kubatm@fjfi.cvut.cz' },
+    where: { email: 'jeremywest@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Martin Kubát',
-      email: 'kubatm@fjfi.cvut.cz',
-      affiliation: 'Department of Computer Science, FNSPE CTU in Prague',
+      fullName: 'Jeremy West',
+      email: 'jeremywest@lorem.ipsum',
+      affiliation: 'Department of Culpa',
       participation: 'ONLINE',
-      mailingAddress: 'kubatm@fjfi.cvut.cz',
+      mailingAddress: 'jeremywest@lorem.ipsum',
       student: false,
       additionalMessage: 'I look forward to meeting you all!',
       abstract: {
         create: {
-          title: 'Model Reduction Techniques for Large-Scale Systems',
-          additionalAuthors: '',
-          affiliationAuthors: '',
+          title: 'Renewable Energy Systems',
+          additionalAuthors: 'E. Brown',
+          affiliationAuthors: 'Department of Quantum Computing',
           abstract:
-            'In this contribution, we present the use of model reduction techniques for reducing the computational complexity of large-scale systems. We discuss the implementation and convergence of various methods, such as Proper Orthogonal Decomposition (POD) and Reduced Basis (RB) methods. We also show some examples of applications and numerical results.',
+            'Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor lorem non justo.',
         },
       },
       poster: true,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'john.doe@example.com' },
+    where: { email: 'jacobboyer@lorem.ipsum' },
     update: { additionalMessage: 'Looking forward to the conference!' },
     create: {
-      fullName: 'John Doe',
-      email: 'john.doe@example.com',
-      affiliation: 'ABC University',
+      fullName: 'Jacob Boyer',
+      email: 'jacobboyer@lorem.ipsum',
+      affiliation: 'Department of Commondo',
       participation: 'ONLINE',
       mailingAddress: '123 Main Street',
       student: true,
       additionalMessage: '',
       abstract: {
         create: {
-          title: 'A New Method for Image Classification',
+          title: 'Gene Editing and CRISPR Technology',
           additionalAuthors: 'Jane Smith',
           affiliationAuthors: 'XYZ Corp',
           abstract:
-            'We propose a new method for image classification that combines deep learning with traditional machine learning techniques. Our approach achieves state-of-the-art performance on several benchmark datasets.',
+            'Aliquam sit amet felis. Mauris semper, velit semper laoreet dictum, quam diam dictum urna.',
         },
       },
       poster: true,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'sara.jones@example.com' },
+    where: { email: 'calebwallace@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Sara Jones',
-      email: 'sara.jones@example.com',
-      affiliation: 'University of XYZ',
+      fullName: 'Caleb Wallace',
+      email: 'calebwallace@lorem.ipsum',
+      affiliation: 'University of Quis',
       participation: 'ONSITE',
       mailingAddress: '456 Elm Street',
       student: false,
@@ -360,159 +360,145 @@ async function createParticipantsAndAbstracts() {
         'Please let me know if there are any travel restrictions for the conference.',
       abstract: {
         create: {
-          title: 'The Role of AI in Healthcare',
+          title: 'Virtual Reality Learning Environments',
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract:
-            'Artificial intelligence has the potential to transform healthcare by improving patient outcomes, reducing costs, and increasing efficiency. In this talk, we will explore some of the ways that AI is being used in healthcare and discuss the opportunities and challenges ahead.',
+            'Nec risus turpis, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.',
         },
       },
       poster: false,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'jane.smith@example.com' },
+    where: { email: 'vanessahernandez@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Jane Smith',
-      email: 'jane.smith@example.com',
-      affiliation: 'University of ABC',
+      fullName: 'Vanessa Hernandez',
+      email: 'vanessahernandez@lorem.ipsum',
+      affiliation: 'University of Dolor',
       participation: 'ONSITE',
       mailingAddress: '789 Oak Street',
       student: true,
       additionalMessage: '',
       abstract: {
         create: {
-          title: 'A New Algorithm for Network Analysis',
+          title: 'Autonomous Vehicle Navigation',
           additionalAuthors: '',
           affiliationAuthors: '',
           abstract:
-            'We present a new algorithm for network analysis that is based on the concept of eigenvectors. Our approach is highly scalable and can be applied to large-scale networks with millions of nodes and edges.',
+            'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue.',
         },
       },
       poster: true,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'john.smith@example.com' },
+    where: { email: 'michaelbauer@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'John Smith',
-      email: 'john.smith@example.com',
-      affiliation: 'XYZ Corporation',
+      fullName: 'Michael Bauer',
+      email: 'michaelbauer@lorem.ipsum',
+      affiliation: 'Duis Corporation',
       participation: 'ONLINE',
       mailingAddress: '101 Main Street',
       student: false,
       additionalMessage: 'Looking forward to the conference!',
       abstract: {
         create: {
-          title: 'Building Better Chatbots',
+          title: 'Blockchain and Financial Technologies',
           additionalAuthors: 'Mary Johnson',
-          affiliationAuthors: 'ABC Company',
+          affiliationAuthors: 'Cybersecurity Institute',
           abstract:
-            'Chatbots are becoming an increasingly popular tool for businesses to engage with customers. In this presentation, we will discuss some of the challenges and opportunities in building chatbots that are both effective and engaging.',
+            'Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor.',
         },
       },
       poster: false,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'kratkaa@fjfi.cvut.cz' },
+    where: { email: 'mariefletcher@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Anna Krátká',
-      email: 'kratkaa@fjfi.cvut.cz',
-      affiliation: 'FNSPE CTU in Prague',
+      fullName: 'Marie Fletcher',
+      email: 'mariefletcher@lorem.ipsum',
+      affiliation: 'Magna',
       participation: 'ONLINE',
-      mailingAddress: 'kratkaa@fjfi.cvut.cz',
+      mailingAddress: 'mariefletcher@lorem.ipsum',
       student: false,
       additionalMessage: '',
       abstract: {
         create: {
-          title:
-            'A parallel algorithm for solving the Poisson equation on distributed-memory computers',
-          additionalAuthors: 'Lukáš Smékal',
-          affiliationAuthors:
-            'Department of Software Engineering, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague',
+          title: 'Robotics in Healthcare',
+          additionalAuthors: 'M. Smith',
+          affiliationAuthors: 'Department of Quantum Computing',
           abstract:
-            'We present a parallel algorithm for solving the Poisson equation on distributed-memory computers using the finite difference method. We discuss the performance of our approach and demonstrate some numerical results obtained on a cluster of computers.',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         },
       },
       poster: false,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'havelada@fjfi.cvut.cz' },
+    where: { email: 'jacobwerner@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Adam Havelda',
-      email: 'havelada@fjfi.cvut.cz',
-      affiliation: 'FNSPE CTU in Prague',
+      fullName: 'Jacob Werner',
+      email: 'jacobwerner@lorem.ipsum',
+      affiliation: 'Eiusmod in Veniam',
       participation: 'ONSITE',
-      mailingAddress: 'havelada@fjfi.cvut.cz',
+      mailingAddress: 'jacobwerner@lorem.ipsum',
       student: true,
       additionalMessage: 'Excited to present my work at the conference!',
       abstract: {
         create: {
-          title:
-            'Application of finite element method to wave propagation problems',
-          additionalAuthors: 'Jan Novák',
-          affiliationAuthors:
-            'Department of Mathematics, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague',
+          title: 'Sustainable Urban Planning',
+          additionalAuthors: 'J. Doe',
+          affiliationAuthors: 'Institute of Nanotechnology',
           abstract:
-            'We consider wave propagation problems in a bounded domain in 2D and 3D and present some numerical results obtained by the finite element method. We also discuss some possible applications of our approach in seismology and acoustics.',
+            'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         },
       },
       poster: false,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'kochric@fjfi.cvut.cz' },
+    where: { email: 'meganporter@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Richard Kochman',
-      email: 'kochric@fjfi.cvut.cz',
-      affiliation: 'FNSPE CTU in Prague',
+      fullName: 'Megan Porter',
+      email: 'meganporter@lorem.ipsum',
+      affiliation: 'Eiusmod in Veniam',
       participation: 'ONLINE',
-      mailingAddress: 'kochric@fjfi.cvut.cz',
+      mailingAddress: 'meganporter@lorem.ipsum',
       student: true,
       additionalMessage: 'Looking forward to the conference!',
-      abstract: {
-        create: {
-          title: 'Numerical solutions of transport phenomena in porous media',
-          additionalAuthors: 'Karel Novák, Petra Švábová',
-          affiliationAuthors:
-            'Faculty of Chemical Technology, University of Chemistry and Technology Prague',
-          abstract:
-            'We study the transport phenomena in porous media using numerical methods based on the lattice Boltzmann method. We present some numerical results on the diffusion and advection processes in porous media and their dependence on the microstructure.',
-        },
-      },
       poster: true,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'kubajoh@fjfi.cvut.cz' },
+    where: { email: 'jonathanwilson@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Johanka Kubíková',
-      email: 'kubajoh@fjfi.cvut.cz',
-      affiliation: 'Department of Mathematics, CTU',
+      fullName: 'Jonathan Wilson',
+      email: 'jonathanwilson@lorem.ipsum',
+      affiliation: 'Department of Sit',
       participation: 'ONLINE',
-      mailingAddress: 'Karlovo nám. 13, 121 35 Prague 2',
+      mailingAddress: '159 Nathaniel Views Apt. 318, West Joshua, WA 45046',
       student: true,
       additionalMessage: '',
       poster: false,
     },
   });
   await prisma.participant.upsert({
-    where: { email: 'novavil@fjfi.cvut.cz' },
+    where: { email: 'jamesbuchanan@lorem.ipsum' },
     update: {},
     create: {
-      fullName: 'Vilma Nováková',
-      email: 'novavil@fjfi.cvut.cz',
-      affiliation: 'Faculty of Nuclear Sciences and Physical Engineering, CTU',
+      fullName: 'James Buchanan',
+      email: 'jamesbuchanan@lorem.ipsum',
+      affiliation: 'Faculty of Amet',
       participation: 'ONSITE',
-      mailingAddress: 'Břehová 7, 115 19 Prague 1',
+      mailingAddress: '',
       student: true,
       additionalMessage: '',
       poster: true,

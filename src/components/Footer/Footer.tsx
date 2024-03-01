@@ -54,11 +54,11 @@ const Footer = () => {
         <div className={classes.group}>
           <span>&copy;{new Date().getFullYear()}</span>
           <a
-            href="https://mmg.fjfi.cvut.cz/mmg/index.php"
-            title="Mathematical Modelling group website"
+            href="https://www.cabaktomas.cz/"
+            title="CabakTomas.cz"
             className={classes.link}
           >
-            MMG, FNSPE CTU in Prague
+            Tomáš Cabák
           </a>
         </div>
 
