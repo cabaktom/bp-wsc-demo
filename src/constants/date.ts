@@ -4,6 +4,7 @@ export const locale = undefined; // browser default
  * Date format for displaying dates.
  */
 export const dateFormat: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
   month: 'long',
   day: 'numeric',
 };

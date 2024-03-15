@@ -508,6 +508,188 @@ async function createParticipantsAndAbstracts() {
   console.log('Created participants and abstracts');
 }
 
+async function createProgramme() {
+  // fetch participants
+  const participantsAndAbstracts = await prisma.participant.findMany({
+    include: { abstract: true },
+  });
+
+  const programme = await prisma.programme.upsert({
+    where: { id: 'programme' },
+    update: {},
+    create: {
+      id: 'programme',
+      conferenceStart: '2050-06-30T22:00:00.000Z',
+    },
+  });
+
+  // first day
+  await prisma.programmeDay.upsert({
+    where: { id: 'day1' },
+    update: {},
+    create: {
+      id: 'day1',
+      date: '2050-06-30T22:00:00.000Z',
+      additionalInfo: '<h4>The first day</h4>',
+      start: '2024-03-12T07:00:00.000Z',
+      end: '2024-03-12T09:00:00.000Z',
+      programmeId: programme.id,
+    },
+  });
+
+  await prisma.programmeDayItem.upsert({
+    where: { id: 'item1' },
+    update: {},
+    create: {
+      id: 'item1',
+      title: '',
+      type: 'CHAIRMAN',
+      participantId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Jonathan Wilson',
+      )?.id,
+      abstractId: '',
+      duration: 0,
+      index: 1,
+      programmeDayId: 'day1',
+    },
+  });
+  await prisma.programmeDayItem.upsert({
+    where: { id: 'item2' },
+    update: {},
+    create: {
+      id: 'item2',
+      title: 'Talk',
+      type: 'ITEM',
+      participantId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Michael Mitchell',
+      )?.id,
+      abstractId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Michael Mitchell',
+      )?.abstract?.title, // Artificial Intelligence in Ecology
+      duration: 30,
+      index: 2,
+      programmeDayId: 'day1',
+    },
+  });
+  await prisma.programmeDayItem.upsert({
+    where: { id: 'item3' },
+    update: {},
+    create: {
+      id: 'item3',
+      title: 'Talk',
+      type: 'ITEM',
+      participantId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Jacob Werner',
+      )?.id,
+      abstractId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Jacob Werner',
+      )?.abstract?.title, // Sustainable Urban Planning
+      duration: 30,
+      index: 3,
+      programmeDayId: 'day1',
+    },
+  });
+  await prisma.programmeDayItem.upsert({
+    where: { id: 'item4' },
+    update: {},
+    create: {
+      id: 'item4',
+      title: 'Break',
+      type: 'ITEM',
+      participantId: '',
+      abstractId: '',
+      duration: 15,
+      index: 4,
+      programmeDayId: 'day1',
+    },
+  });
+  await prisma.programmeDayItem.upsert({
+    where: { id: 'item5' },
+    update: {},
+    create: {
+      id: 'item5',
+      title: '',
+      type: 'CHAIRMAN',
+      participantId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Gregory Johnston',
+      )?.id,
+      abstractId: '',
+      duration: 0,
+      index: 5,
+      programmeDayId: 'day1',
+    },
+  });
+  await prisma.programmeDayItem.upsert({
+    where: { id: 'item6' },
+    update: {},
+    create: {
+      id: 'item6',
+      title: 'Talk',
+      type: 'ITEM',
+      participantId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Christopher Pollard',
+      )?.id,
+      abstractId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Christopher Pollard',
+      )?.abstract?.title, // Cryptographic Techniques for Secure Communication
+      duration: 45,
+      index: 6,
+      programmeDayId: 'day1',
+    },
+  });
+
+  // second day
+  await prisma.programmeDay.upsert({
+    where: { id: 'day2' },
+    update: {},
+    create: {
+      id: 'day2',
+      date: '2050-07-01T22:00:00.000Z',
+      additionalInfo: '<h4>The second day</h4>',
+      start: '2024-03-12T07:45:00.000Z',
+      end: '2024-03-12T08:15:00.000Z',
+      programmeId: programme.id,
+    },
+  });
+
+  await prisma.programmeDayItem.upsert({
+    where: { id: 'item7' },
+    update: {},
+    create: {
+      id: 'item7',
+      title: '',
+      type: 'CHAIRMAN',
+      participantId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Caleb Wallace',
+      )?.id,
+      abstractId: '',
+      duration: 0,
+      index: 1,
+      programmeDayId: 'day2',
+    },
+  });
+  await prisma.programmeDayItem.upsert({
+    where: { id: 'item8' },
+    update: {},
+    create: {
+      id: 'item8',
+      title: 'Talk',
+      type: 'ITEM',
+      participantId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Vanessa Hernandez',
+      )?.id,
+      abstractId: participantsAndAbstracts.find(
+        (p) => p.fullName === 'Vanessa Hernandez',
+      )?.abstract?.title, // Autonomous Vehicle Navigation
+      duration: 30,
+      index: 2,
+      programmeDayId: 'day2',
+    },
+  });
+
+  console.log('Pages created');
+}
+
 async function main() {
   if ((await prisma.siteSettings.count()) > 0) {
     console.log('DB already initialized, skipping');
@@ -518,6 +700,7 @@ async function main() {
   await createAdmins();
   await createSiteSettings();
   await createParticipantsAndAbstracts();
+  await createProgramme();
 }
 
 main()
