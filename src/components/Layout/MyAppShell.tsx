@@ -4,6 +4,7 @@ import {
   TypographyStylesProvider,
   createStyles,
 } from '@mantine/core';
+import { useRouter } from 'next/router';
 
 import NavDropdown from '../Navigation/NavDropdown';
 import Navbar from '../Navigation/Navbar';
@@ -20,6 +21,7 @@ type MyAppShellProps = {
 
 const MyAppShell = ({ children }: MyAppShellProps) => {
   const [opened, setOpened] = useState(false);
+  const router = useRouter();
 
   const { classes } = useStyles();
 
@@ -39,7 +41,13 @@ const MyAppShell = ({ children }: MyAppShellProps) => {
     <AppShell
       padding={0}
       fixed
-      header={<Navbar opened={opened} setOpened={setOpened} />}
+      header={
+        router.route !== '/landing' ? ( // hide navbar on landing page
+          <Navbar opened={opened} setOpened={setOpened} />
+        ) : (
+          <></>
+        )
+      }
       navbar={<NavDropdown opened={opened} setOpened={setOpened} />}
     >
       <TypographyStylesProvider className={classes.provider}>

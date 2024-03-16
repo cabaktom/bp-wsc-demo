@@ -6,9 +6,11 @@ declare module 'next-auth' {
     id: string;
     username: string;
     email: string;
+    isDemo: boolean;
   }
 
   interface Session {
     user: User & DefaultSession['user'];
+    isDemo: boolean;
   }
 }

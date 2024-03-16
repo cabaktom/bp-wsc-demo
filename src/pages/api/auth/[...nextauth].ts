@@ -2,6 +2,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import type { User } from 'next-auth/core/types';
+import { v4 as uuidv4 } from 'uuid';
 
 import { prisma } from '../../../lib/prisma';
 import { comparePwd } from '../../../lib/password';
@@ -21,6 +22,16 @@ export default NextAuth({
           password: string;
         };
 
+        // Demo user
+        if (username.startsWith('demo')) {
+          return {
+            id: uuidv4(),
+            username,
+            email: `${username}@demo.com`,
+            isDemo: true,
+          };
+        }
+
         const user = await prisma.admin.findUnique({
           where: { username },
         });
@@ -32,12 +43,13 @@ export default NextAuth({
           id: user.id,
           username: user.username,
           email: user.email,
+          isDemo: false,
         } as User;
       },
     }),
   ],
   pages: {
-    signIn: '/login',
+    signIn: '/landing',
   },
   session: {
     strategy: 'jwt',
@@ -49,11 +61,13 @@ export default NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.user = user;
+        token.isDemo = user.isDemo;
       }
       return token;
     },
     async session({ session, token }) {
       session.user = token.user as User;
+      session.isDemo = token.isDemo as boolean;
       return session;
     },
   },
