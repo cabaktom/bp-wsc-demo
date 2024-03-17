@@ -36,6 +36,10 @@ const links = [
     title: 'Gallery',
     url: '/gallery',
   },
+  {
+    title: 'Admin panel',
+    url: '/admin',
+  },
 ];
 
 /**
@@ -72,8 +76,13 @@ export const adminLinks = [
     url: '/admin/gallery',
     icon: <IconPhoto />,
   },
+  // {
+  //   title: 'Log out',
+  //   url: '/logout',
+  //   icon: <IconLogout />,
+  // },
   {
-    title: 'Log out',
+    title: 'End demo',
     url: '/logout',
     icon: <IconLogout />,
   },

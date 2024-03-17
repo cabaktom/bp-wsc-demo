@@ -154,8 +154,8 @@ const AdminTabs = ({ children }: AdminTabsProps) => {
             value={link.url}
             icon={link.icon}
             aria-label={link.title}
-            mb={link.title === 'Log out' ? '0' : 'xs'}
-            mt={link.title === 'Log out' ? 'auto' : '0'}
+            mb={link.url === '/logout' ? '0' : 'xs'}
+            mt={link.url === '/logout' ? 'auto' : '0'}
           >
             <Text fz="sm">{link.title}</Text>
           </Tabs.Tab>
