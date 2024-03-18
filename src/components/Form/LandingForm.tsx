@@ -17,7 +17,7 @@ const LandingForm = () => {
     setLoading(true);
     const data = await signIn('credentials', {
       redirect: false,
-      username: `demo${uuidv4()}`,
+      username: `DEMO_${uuidv4()}`,
       password: uuidv4(),
     });
     setLoading(false);

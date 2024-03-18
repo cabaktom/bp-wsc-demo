@@ -12,6 +12,17 @@ export const hashPwd = async (plaintextPassword: string) => {
 };
 
 /**
+ * Hashes a plaintext password synchronously.
+ *
+ * @param plaintextPassword
+ * @returns Hash of the plaintext password
+ */
+export const hashPwdSync = (plaintextPassword: string) => {
+  const hash = bcrypt.hashSync(plaintextPassword, 10);
+  return hash;
+};
+
+/**
  * Compares a plaintext password to a hash.
  *
  * @param plaintextPassword

@@ -13,7 +13,10 @@ model Page {
   name    String @unique @db.VarChar(255)
   title   String @db.VarChar(255)
   content String
-  order   Int    @unique
+  order   Int
+
+  adminId String?
+  Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 model Admin {
@@ -21,13 +24,34 @@ model Admin {
   username String @unique @db.VarChar(255)
   password String
   email    String @unique @db.VarChar(255)
+
+  isDemo Boolean @default(false)
+
+  // Relation to seperate demo data
+  Page             Page[]
+  SiteSettings     SiteSettings[]
+  Participant      Participant[]
+  // Abstract         Abstract[]
+  Image            Image[]
+  Programme        Programme[]
+  ProgrammeDay     ProgrammeDay[]
+  ProgrammeDayItem ProgrammeDayItem[]
+
+  // Self-relation to represent an admin creating other admins
+  createdByAdminId String?
+  createdBy        Admin?  @relation("CreatedBy", fields: [createdByAdminId], references: [id])
+  createdAdmins    Admin[] @relation("CreatedBy")
 }
 
 model SiteSettings {
   id     String @id @default(uuid())
   option String @unique
   value  String
-  order  Int    @unique
+  order  Int
+
+  // Relation to seperate demo data
+  adminId String?
+  Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 enum Participation {
@@ -48,6 +72,10 @@ model Participant {
   poster            Boolean       @default(false)
   invited           Boolean       @default(false)
   registeredAt      DateTime      @default(now())
+
+  // Relation to seperate demo data
+  adminId String?
+  Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 model Abstract {
@@ -58,6 +86,10 @@ model Abstract {
   abstract           String?     @default("")
   participant        Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
   participantId      String      @unique
+
+  // Relation to seperate demo data
+  // adminId String?
+  // Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 model Image {
@@ -69,16 +101,24 @@ model Image {
   uploadedAt       DateTime @default(now())
   width            Int
   height           Int
+
+  // Relation to seperate demo data
+  adminId String?
+  Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 model Programme {
   id              String         @id
   conferenceStart DateTime
   days            ProgrammeDay[]
+
+  // Relation to seperate demo data
+  adminId String?
+  Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 model ProgrammeDay {
-  id             String             @id
+  id             String             @id @default(uuid())
   date           DateTime
   additionalInfo String             @default("")
   start          DateTime?
@@ -86,6 +126,10 @@ model ProgrammeDay {
   items          ProgrammeDayItem[]
   Programme      Programme?         @relation(fields: [programmeId], references: [id])
   programmeId    String?
+
+  // Relation to seperate demo data
+  adminId String?
+  Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 enum ItemType {
@@ -95,7 +139,7 @@ enum ItemType {
 
 model ProgrammeDayItem {
   type           ItemType      @default(ITEM)
-  id             String        @id
+  id             String        @id @default(uuid())
   index          Int?
   duration       Int           @default(0)
   title          String        @default("") @db.VarChar(255)
@@ -103,4 +147,8 @@ model ProgrammeDayItem {
   abstractId     String        @default("")
   ProgrammeDay   ProgrammeDay? @relation(fields: [programmeDayId], references: [id])
   programmeDayId String?
+
+  // Relation to seperate demo data
+  adminId String?
+  Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
