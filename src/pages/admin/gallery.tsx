@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps<GalleryPageProps> = async (
   if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/landing',
         permanent: false,
       },
     };

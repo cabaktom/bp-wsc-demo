@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps<
   if (!token) {
     return {
       redirect: {
-        destination: 'login',
+        destination: '/landing',
         permanent: false,
       },
     };
@@ -70,7 +70,7 @@ export const getServerSideProps: GetServerSideProps<
     },
   });
   const abstracts = await prisma.abstract.findMany({
-    where: { participant: { adminId: (token.user as User).id } },
+    where: { adminId: (token.user as User).id },
   });
 
   // merge programme days and participants (programme includes only IDs)

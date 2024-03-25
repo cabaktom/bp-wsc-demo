@@ -71,7 +71,7 @@ export const getServerSideProps: GetServerSideProps<
   if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/landing',
         permanent: false,
       },
     };

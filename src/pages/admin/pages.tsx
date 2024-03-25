@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps<PagesPageProps> = async (
   if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/landing',
         permanent: false,
       },
     };

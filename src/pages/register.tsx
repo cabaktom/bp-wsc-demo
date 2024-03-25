@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps<RegisterPageProps> = async (
   if (!token) {
     return {
       redirect: {
-        destination: 'login',
+        destination: '/landing',
         permanent: false,
       },
     };

@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<TravelPageProps> = async (
   if (!token) {
     return {
       redirect: {
-        destination: 'login',
+        destination: '/landing',
         permanent: false,
       },
     };
