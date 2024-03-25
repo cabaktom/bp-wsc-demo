@@ -85,13 +85,11 @@ export default NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.user = user;
-        token.isDemo = user.isDemo;
       }
       return token;
     },
     async session({ session, token }) {
       session.user = token.user as User;
-      session.isDemo = token.isDemo as boolean;
       return session;
     },
   },

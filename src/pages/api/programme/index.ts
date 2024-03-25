@@ -6,7 +6,7 @@ import { prisma } from '../../../lib/prisma';
 import handleErrors from '../../../lib/handleApiErrors';
 import { ProgrammeIn, ProgrammeOut } from '../../../schemas/Programme';
 import { PROGRAMME_ID } from '../../../constants/programme';
-import { revalidatePage } from '../../../lib/revalidate';
+// import { revalidatePage } from '../../../lib/revalidate';
 
 /**
  * Handle GET requests to get the programme.
@@ -103,7 +103,7 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
       ...dayTransactions,
     ]);
 
-    await revalidatePage(res, 'programme');
+    // await revalidatePage(res, 'programme'); // Disabled in the demo
 
     const programmeWithDays = await prisma.programme.findUnique({
       where: { id: PROGRAMME_ID },
@@ -146,7 +146,7 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 
-  await revalidatePage(res, 'programme');
+  // await revalidatePage(res, 'programme'); // Disabled in the demo
 
   return res.status(204).end();
 };

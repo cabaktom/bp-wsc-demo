@@ -6,7 +6,7 @@ import { prisma } from '../../../lib/prisma';
 import handleErrors from '../../../lib/handleApiErrors';
 import { ParticipantIn, ParticipantOut } from '../../../schemas/Participant';
 import { AbstractOut } from '../../../schemas/Abstract';
-import { revalidatePage } from '../../../lib/revalidate';
+// import { revalidatePage } from '../../../lib/revalidate';
 
 /**
  * Handle GET requests to get a participant (with or without abstract based on query param).
@@ -59,7 +59,7 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
       data,
     });
 
-    await revalidatePage(res, 'participants');
+    // await revalidatePage(res, 'participants'); // Disabled in the demo
 
     return res.status(200).json(ParticipantOut.parse(participant));
   } catch (e) {
@@ -81,7 +81,7 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await prisma.participant.delete({ where: { id: idParsed } });
 
-    await revalidatePage(res, 'participants');
+    // await revalidatePage(res, 'participants'); // Disabled in the demo
 
     return res.status(204).end();
   } catch (e) {

@@ -6,7 +6,7 @@ import { prisma } from '../../../lib/prisma';
 import sanitize from '../../../lib/sanitize';
 import { PageOut, PageIn } from '../../../schemas/Page';
 import handleErrors from '../../../lib/handleApiErrors';
-import { revalidatePage } from '../../../lib/revalidate';
+// import { revalidatePage } from '../../../lib/revalidate';
 
 /**
  * Handle GET requests to get a page.
@@ -55,7 +55,7 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
       data: { ...pageData },
     });
 
-    await revalidatePage(res, page.name);
+    // await revalidatePage(res, page.name); // Disabled in the demo
 
     return res.status(200).json(PageOut.parse(page));
   } catch (e) {

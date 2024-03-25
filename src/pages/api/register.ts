@@ -5,7 +5,7 @@ import { prisma } from '../../lib/prisma';
 import handleErrors from '../../lib/handleApiErrors';
 import { ParticipantIn, ParticipantOut } from '../../schemas/Participant';
 import { AbstractIn, AbstractOut } from '../../schemas/Abstract';
-import { revalidatePage } from '../../lib/revalidate';
+// import { revalidatePage } from '../../lib/revalidate';
 
 /**
  * Handle POST requests to create a participant and optionally an abstract. Revalidates the participants page.
@@ -43,7 +43,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    await revalidatePage(res, 'participants');
+    // await revalidatePage(res, 'participants'); // Disabled in the demo
 
     return res.status(201).json({
       ...ParticipantOut.parse(createParticipant),

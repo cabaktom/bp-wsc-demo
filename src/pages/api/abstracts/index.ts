@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { prisma } from '../../../lib/prisma';
 import handleErrors from '../../../lib/handleApiErrors';
 import { AbstractIn, AbstractOut } from '../../../schemas/Abstract';
-import { revalidatePage } from '../../../lib/revalidate';
+// import { revalidatePage } from '../../../lib/revalidate';
 
 /**
  * Handle GET requests to get all abstracts.
@@ -59,7 +59,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    await revalidatePage(res, 'participants');
+    // await revalidatePage(res, 'participants'); // Disabled in the demo
 
     return res.status(201).json(AbstractOut.parse(abstract));
   } catch (e) {
