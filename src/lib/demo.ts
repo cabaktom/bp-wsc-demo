@@ -513,7 +513,7 @@ async function createProgramme(demoUserId?: string) {
       title: '',
       type: ItemType.CHAIRMAN,
       participantId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Gregory Johnston' && p.adminId === demoUserId,
+        (p) => p.fullName === 'James Buchanan' && p.adminId === demoUserId,
       )?.id,
       abstractId: '',
       duration: 0,
@@ -539,7 +539,7 @@ async function createProgramme(demoUserId?: string) {
       title: '',
       type: ItemType.CHAIRMAN,
       participantId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Caleb Wallace' && p.adminId === demoUserId,
+        (p) => p.fullName === 'Megan Porter' && p.adminId === demoUserId,
       )?.id,
       abstractId: '',
       duration: 0,
