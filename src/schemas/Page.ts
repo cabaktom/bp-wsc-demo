@@ -35,4 +35,5 @@ export const PageOut = z.object({
   title: z.string().min(1),
   content: z.string().min(1),
   order: z.number().int().min(0),
+  adminId: z.string().uuid().min(1),
 });

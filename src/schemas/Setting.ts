@@ -25,4 +25,5 @@ export const SettingOut = z.object({
   option: z.string().min(1),
   value: z.string(),
   order: z.number().int(),
+  adminId: z.string().uuid().min(1),
 });

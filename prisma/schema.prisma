@@ -15,6 +15,7 @@ model Page {
   content String
   order   Int
 
+  // Relation to seperate demo data
   adminId String?
   Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
@@ -31,7 +32,7 @@ model Admin {
   Page             Page[]
   SiteSettings     SiteSettings[]
   Participant      Participant[]
-  // Abstract         Abstract[]
+  Abstract         Abstract[]
   Image            Image[]
   Programme        Programme[]
   ProgrammeDay     ProgrammeDay[]
@@ -88,8 +89,8 @@ model Abstract {
   participantId      String      @unique
 
   // Relation to seperate demo data
-  // adminId String?
-  // Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  adminId String?
+  Admin   Admin?  @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 model Image {

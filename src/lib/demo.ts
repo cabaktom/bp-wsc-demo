@@ -7,41 +7,41 @@ const prisma = new PrismaClient();
 async function createPages(demoUserId?: string) {
   const pages = [
     {
-      name: `home-${demoUserId}`,
+      name: `home_${demoUserId}`,
       title: 'Home',
       content:
         '<h3>Overview</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus semper, nunc euismod molestie hendrerit, elit libero lacinia est, vitae elementum turpis sapien a libero. Integer efficitur, nisi nec interdum consequat, magna dolor sodales magna, eu fermentum libero eros in est.</p><h4>Coordination Team</h4><p><strong>A. Lorem</strong>, Department of Lorem Ipsum, Faculty of Dolor Sit Amet, Consectetur Adipiscing University</p><p>lorem.ipsum (at) domain.com</p><p><strong>B. Ipsum</strong>, Department of Dolor Sit, Faculty of Amet Adipiscing, Consectetur Adipiscing University</p><p>dolor.ipsum (at) domain.com</p><p><strong>C. Dolor</strong>, Department of Sit Amet, Faculty of Adipiscing Consectetur, Consectetur Adipiscing University</p><p>sit.amet (at) domain.com</p><p><strong>D. Sit</strong>, Department of Amet Adipiscing, Faculty of Consectetur, Consectetur Adipiscing University</p><p>amet.dolor (at) domain.com</p><p><strong>E. Amet</strong>, Department of Consectetur Adipiscing, Faculty of Ipsum Dolor, Consectetur Adipiscing University</p><p>consectetur.adipiscing (at) domain.com</p><h4>Event Secretariat</h4><p>F. Ipsum Lorem, Department of Sit Amet, Faculty of Dolor Sit, Consectetur Adipiscing University</p><h4>Organizational Team</h4><p><strong>G. Lorem, H. Ipsum, I. Dolor, J. Sit, K. Amet, L. Consectetur, M. Adipiscing</strong></p><h4>Registrationn</h4><p>Conference fee: <strong>3000 EUR for onsite participation, 0 EUR for online participation</strong><br>Apply through the registration form: <a href="register" rel="noopener noreferrer nofollow">Registration Form</a><br>Deadline: <strong>June 30, 2050</strong></p><p>Essential registration details:</p><ol><li><p>Full Name</p></li><li><p>Your contact address and e-mail</p></li><li><p>Affiliation</p></li><li><p>The abstract of your contribution</p></li><li><p>Onsite/Online attendance</p></li><li><p>Expected arrival and departure dates</p></li></ol><h4>Credits</h4><p>This occasion is funded by the grant from the Lorem Ipsum Dolor Sit Amet University No. LID 123/45/6789</p>',
       order: 1,
     },
     {
-      name: `register-${demoUserId}`,
+      name: `register_${demoUserId}`,
       title: 'Register',
       content:
         '<h3>Registration</h3><p><strong>Deadline:</strong> June 30, 2050<br><strong>Conference fee:</strong> 3000 EUR for onsite participation, 0 EUR for online participation</p><p></p><p><strong>Registration data:</strong></p><ol><li><p>Name</p></li><li><p>Your contact address and e-mail</p></li><li><p>Affiliation</p></li><li><p>The abstract of your contribution</p></li><li><p>Onsite/Online attendance</p></li><li><p>Arrival and departure dates</p></li></ol>',
       order: 2,
     },
     {
-      name: `participants-${demoUserId}`,
+      name: `participants_${demoUserId}`,
       title: 'Participants & Abstracts',
       content: '<h3>Participants and abstracts</h3>',
       order: 3,
     },
     {
-      name: `programme-${demoUserId}`,
+      name: `programme_${demoUserId}`,
       title: 'Programme',
       content:
         '<h3>Programme</h3><h4>Conference venue:</h4><p>The conference venue: <strong>address</strong><br>or<strong>online: will be specified</strong></p><h4>Special talks</h4><p>Invited oral presentation duration is 30 min = 25 min talk + 5 min for discussion.</p><h4>Regular talks</h4><p>Oral presentation duration is 20 min = max 15 min talk + 5 min for discussion.</p>',
       order: 4,
     },
     {
-      name: `travel-${demoUserId}`,
+      name: `travel_${demoUserId}`,
       title: 'Travel',
       content:
         '<h4>Preferred Shuttle:</h4><p>Hyperloop HLX 500, 08:45 from New Genesis Central Station. Or HLX 520, 11:15.</p><h4>From Arcadia Terminal to the event location:</h4><p><strong>By Monorail</strong></p><p>Ride the monorail line <strong>M3</strong>, <strong>M5</strong>, <strong>M7</strong> to <strong>Elysium Fields</strong> stop (5th stop).<br>The ticket costs 30 Credits, payable on the monorail.<br>Please have the exact amount ready.<br>Entry is via the central pod door only.</p><p><strong>By Foot</strong></p><p>Approximately 2 km</p><ol><li><p>Proceed north on Harmony Ave towards Tranquility Lane (0.4 km)</p></li><li><p>Continue straight onto Serenity Path (0.3 km)</p></li><li><p>At the water fountain, take a left onto Utopia Parkway (0.5 km)</p></li><li><p>Make a slight right to stay on Utopia Parkway (0.3 km)</p></li><li><p>Turn left at Zenith Plaza (0.4 km)</p></li><li><p>Take the 1st right onto Celestial Circle (70 m)</p></li><li><p>Continue onto Starlight Avenue (0.1 km)</p></li><li><p>Turn left at Nova Square (50 m)</p></li><li><p>Gently right onto Cosmos Court</p></li></ol><p>The venue will be on your right</p>',
       order: 5,
     },
     {
-      name: `gallery-${demoUserId}`,
+      name: `gallery_${demoUserId}`,
       title: 'Gallery',
       content: '<h3>Gallery</h3>',
       order: 6,
@@ -62,33 +62,33 @@ async function createPages(demoUserId?: string) {
 async function createAdmins(demoUserId?: string) {
   const admins = [
     {
-      username: `admin-${demoUserId}`,
-      email: `admin-${demoUserId}@lorem.ipsum`,
+      username: `admin_${demoUserId}`,
+      email: `admin_${demoUserId}@lorem.ipsum`,
       password: '123456',
     },
     {
-      username: `uTRuside-${demoUserId}`,
-      email: `uTRuside-${demoUserId}@lorem.ipsum`,
+      username: `uTRuside_${demoUserId}`,
+      email: `uTRuside_${demoUserId}@lorem.ipsum`,
       password: '123456',
     },
     {
-      username: `EANdoteo-${demoUserId}`,
-      email: `EANdoteo-${demoUserId}@lorem.ipsum`,
+      username: `EANdoteo_${demoUserId}`,
+      email: `EANdoteo_${demoUserId}@lorem.ipsum`,
       password: '123456',
     },
     {
-      username: `NdcHrenT-${demoUserId}`,
-      email: `NdcHrenT-${demoUserId}@lorem.ipsum`,
+      username: `NdcHrenT_${demoUserId}`,
+      email: `NdcHrenT_${demoUserId}@lorem.ipsum`,
       password: '123456',
     },
     {
-      username: `yElItupl-${demoUserId}`,
-      email: `yElItupl-${demoUserId}@lorem.ipsum`,
+      username: `yElItupl_${demoUserId}`,
+      email: `yElItupl_${demoUserId}@lorem.ipsum`,
       password: '123456',
     },
     {
-      username: `sTERAdbu-${demoUserId}`,
-      email: `sTERAdbu-${demoUserId}@lorem.ipsum`,
+      username: `sTERAdbu_${demoUserId}`,
+      email: `sTERAdbu_${demoUserId}@lorem.ipsum`,
       password: '123456',
     },
   ];
@@ -119,17 +119,17 @@ async function createSiteSettings(demoUserId?: string) {
       order: 2,
     },
     {
-      option: `location_${demoUserId}}`,
+      option: `location_${demoUserId}`,
       value: 'Somewhere + Online',
       order: 3,
     },
     {
-      option: `address department_${demoUserId}}`,
+      option: `address department_${demoUserId}`,
       value: 'Department of Something, Somewhere',
       order: 4,
     },
     {
-      option: `address faculty_${demoUserId}}`,
+      option: `address faculty_${demoUserId}`,
       value: 'Faculty of Something, Somewhere',
       order: 5,
     },
@@ -150,7 +150,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
   const participants = [
     {
       fullName: 'Nicole Cox',
-      email: `nicolecox-${demoUserId}@lorem.ipsum`,
+      email: `nicolecox_${demoUserId}@lorem.ipsum`,
       affiliation: 'Department of Non',
       participation: Participation.ONLINE,
       mailingAddress: 'nicolecox@lorem.ipsum',
@@ -169,7 +169,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Justin White',
-      email: `justinwhite-${demoUserId}@lorem.ipsum`,
+      email: `justinwhite_${demoUserId}@lorem.ipsum`,
       affiliation: 'Faculty of Qui',
       participation: Participation.ONSITE,
       mailingAddress: 'justinwhite@lorem.ipsum',
@@ -188,7 +188,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Michael Mitchell',
-      email: `michaelmitchell-${demoUserId}@lorem.ipsum`,
+      email: `michaelmitchell_${demoUserId}@lorem.ipsum`,
       affiliation: 'Department of Dolor',
       participation: Participation.ONLINE,
       mailingAddress: 'michaelmitchell@lorem.ipsum',
@@ -207,7 +207,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Gregory Johnston',
-      email: `gregoryjohnston-${demoUserId}@lorem.ipsum`,
+      email: `gregoryjohnston_${demoUserId}@lorem.ipsum`,
       affiliation: 'Department of Et',
       participation: Participation.ONSITE,
       mailingAddress: 'gregoryjohnston@lorem.ipsum',
@@ -227,7 +227,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Christopher Pollard',
-      email: `christopherpollard-${demoUserId}@lorem.ipsum`,
+      email: `christopherpollard_${demoUserId}@lorem.ipsum`,
       affiliation: 'Department of Adipiscing',
       participation: Participation.ONSITE,
       mailingAddress: 'christopherpollard@lorem.ipsum',
@@ -247,7 +247,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Jeremy West',
-      email: `jeremywest-${demoUserId}@lorem.ipsum`,
+      email: `jeremywest_${demoUserId}@lorem.ipsum`,
       affiliation: 'Department of Culpa',
       participation: Participation.ONLINE,
       mailingAddress: 'jeremywest@lorem.ipsum',
@@ -266,7 +266,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Jacob Boyer',
-      email: `jacobboyer-${demoUserId}@lorem.ipsum`,
+      email: `jacobboyer_${demoUserId}@lorem.ipsum`,
       affiliation: 'Department of Commondo',
       participation: Participation.ONLINE,
       mailingAddress: '123 Main Street',
@@ -285,7 +285,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Caleb Wallace',
-      email: `calebwallace-${demoUserId}@lorem.ipsum`,
+      email: `calebwallace_${demoUserId}@lorem.ipsum`,
       affiliation: 'University of Quis',
       participation: Participation.ONSITE,
       mailingAddress: '456 Elm Street',
@@ -305,7 +305,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Vanessa Hernandez',
-      email: `vanessahernandez-${demoUserId}@lorem.ipsum`,
+      email: `vanessahernandez_${demoUserId}@lorem.ipsum`,
       affiliation: 'University of Dolor',
       participation: Participation.ONSITE,
       mailingAddress: '789 Oak Street',
@@ -324,7 +324,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Michael Bauer',
-      email: `michaelbauer-${demoUserId}@lorem.ipsum`,
+      email: `michaelbauer_${demoUserId}@lorem.ipsum`,
       affiliation: 'Duis Corporation',
       participation: Participation.ONLINE,
       mailingAddress: '101 Main Street',
@@ -343,7 +343,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Marie Fletcher',
-      email: `mariefletcher-${demoUserId}@lorem.ipsum`,
+      email: `mariefletcher_${demoUserId}@lorem.ipsum`,
       affiliation: 'Magna',
       participation: Participation.ONLINE,
       mailingAddress: 'mariefletcher@lorem.ipsum',
@@ -362,7 +362,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Jacob Werner',
-      email: `jacobwerner-${demoUserId}@lorem.ipsum`,
+      email: `jacobwerner_${demoUserId}@lorem.ipsum`,
       affiliation: 'Eiusmod in Veniam',
       participation: Participation.ONSITE,
       mailingAddress: 'jacobwerner@lorem.ipsum',
@@ -381,7 +381,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Megan Porter',
-      email: `meganporter-${demoUserId}@lorem.ipsum`,
+      email: `meganporter_${demoUserId}@lorem.ipsum`,
       affiliation: 'Eiusmod in Veniam',
       participation: Participation.ONLINE,
       mailingAddress: 'meganporter@lorem.ipsum',
@@ -391,7 +391,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'Jonathan Wilson',
-      email: `jonathanwilson-${demoUserId}@lorem.ipsum`,
+      email: `jonathanwilson_${demoUserId}@lorem.ipsum`,
       affiliation: 'Department of Sit',
       participation: Participation.ONLINE,
       mailingAddress: '159 Nathaniel Views Apt. 318, West Joshua, WA 45046',
@@ -401,7 +401,7 @@ async function createParticipantsAndAbstracts(demoUserId?: string) {
     },
     {
       fullName: 'James Buchanan',
-      email: `jamesbuchanan-${demoUserId}@lorem.ipsum`,
+      email: `jamesbuchanan_${demoUserId}@lorem.ipsum`,
       affiliation: 'Faculty of Amet',
       participation: Participation.ONSITE,
       mailingAddress: '',
@@ -431,7 +431,7 @@ async function createProgramme(demoUserId?: string) {
 
   const programme = await prisma.programme.create({
     data: {
-      id: `programme-${demoUserId}`,
+      id: `programme_${demoUserId}`,
       conferenceStart: '2050-06-30T22:00:00.000Z',
       adminId: demoUserId,
     },

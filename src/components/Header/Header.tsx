@@ -31,7 +31,7 @@ const Header = ({ settings }: HeaderProps) => {
 
   // convert settings array to object
   const settingsObj = settings.reduce((acc, setting) => {
-    acc[setting.option as keyof SiteSettings] = setting.value;
+    acc[setting.option.split('_')[0] as keyof SiteSettings] = setting.value;
     return acc;
   }, {} as { [key in keyof SiteSettings]: string });
 

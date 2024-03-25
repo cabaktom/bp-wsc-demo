@@ -31,4 +31,5 @@ export const ImageOut = z.object({
   filename: z.string().min(1),
   originalFilename: z.string().min(1),
   uploadedAt: z.date(),
+  adminId: z.string().uuid().min(1),
 });

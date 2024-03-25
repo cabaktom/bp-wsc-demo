@@ -12,8 +12,8 @@ import useAdministrators from '../../hooks/useAdministrators';
 
 const AdministratorsDataTable = () => {
   const { mutate } = useSWRConfig();
-  const { administrators } = useAdministrators();
   const { data: session } = useSession();
+  const { administrators } = useAdministrators(session?.user.id);
 
   const handleDelete = (admin: z.infer<typeof AdminOut>) => {
     openContextModal({

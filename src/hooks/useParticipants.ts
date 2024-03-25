@@ -15,15 +15,19 @@ type useParticipantsReturnType = {
  * @param abstracts Whether to include abstracts or not (default: true).
  * @returns An object containing the participants, loading state and error state.
  */
-const useParticipants = (abstracts = true): useParticipantsReturnType => {
+const useParticipants = (
+  userId = '',
+  abstracts = true,
+): useParticipantsReturnType => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     `/api/participants${!abstracts ? '?abstract=false' : ''}`,
     fetcher,
   );
+  const filteredData = data?.filter((p: Participant) => p.adminId === userId);
 
   return {
-    participants: data,
+    participants: filteredData,
     isLoading,
     isError: error,
   };

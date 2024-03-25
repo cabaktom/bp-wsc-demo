@@ -49,4 +49,5 @@ export const ParticipantOut = z.object({
   additionalMessage: z.string(),
   poster: z.boolean(),
   invited: z.boolean(),
+  adminId: z.string().uuid().min(1),
 });

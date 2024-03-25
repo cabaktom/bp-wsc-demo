@@ -5,6 +5,7 @@ import { showNotification } from '@mantine/notifications';
 import { capitalize } from 'lodash';
 import { IconCheck } from '@tabler/icons-react';
 import { SiteSettings } from '@prisma/client';
+import { useSession } from 'next-auth/react';
 
 type SiteSettingsFormProps = {
   settings: SiteSettings[];
@@ -12,11 +13,12 @@ type SiteSettingsFormProps = {
 };
 
 const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
+  const { data: session } = useSession();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const tmp = settings.map((setting) => ({
-    [setting.option]: setting.value,
+    [setting.option.split('_')[0]]: setting.value,
   }));
 
   const initialValues = Object.assign({}, ...tmp);
@@ -30,7 +32,7 @@ const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
 
     // split object to array of objects (object per property)
     const submitData = Object.keys(values).map((key) => ({
-      option: key,
+      option: `${key}_${session?.user.id}`,
       value: values[key],
     }));
 
@@ -73,16 +75,20 @@ const SiteSettingsForm = ({ settings, setSettings }: SiteSettingsFormProps) => {
 
       {settings
         .sort((a, b) => a.order - b.order)
-        .map((setting) => (
-          <TextInput
-            key={setting.id}
-            withAsterisk
-            label={capitalize(setting.option)}
-            aria-label={`${setting.option} input`}
-            mb="sm"
-            {...form.getInputProps(setting.option)}
-          />
-        ))}
+        .map((setting) => {
+          const title = setting.option.split('_')[0];
+
+          return (
+            <TextInput
+              key={setting.id}
+              withAsterisk
+              label={capitalize(title)}
+              aria-label={`${title} input`}
+              mb="sm"
+              {...form.getInputProps(title)}
+            />
+          );
+        })}
 
       <Center>
         <Button

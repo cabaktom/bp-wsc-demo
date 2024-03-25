@@ -13,6 +13,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { openContextModal } from '@mantine/modals';
+import { useSession } from 'next-auth/react';
 
 import DataTable from './DataTable';
 import ParticipantForm from '../Form/ParticipantForm';
@@ -29,10 +30,11 @@ type ParticipantsDataTableProps = {
 };
 
 const ParticipantsDataTable = ({ expandWidth }: ParticipantsDataTableProps) => {
+  const { data: session } = useSession();
   const { mutate } = useSWRConfig();
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const { participants } = useParticipants();
+  const { participants } = useParticipants(session?.user.id);
 
   // selected data
   const [selectedRecords, setSelectedRecords] = useState<typeof participants>(

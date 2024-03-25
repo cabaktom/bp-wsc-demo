@@ -12,12 +12,15 @@ type useAdministratorsReturnType = {
  *
  * @returns An object containing the administrators, loading state and error state.
  */
-const useAdministrators = (): useAdministratorsReturnType => {
+const useAdministrators = (userId = ''): useAdministratorsReturnType => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, error, isLoading } = useSWR('/api/admins', fetcher);
+  const filteredData = data?.filter(
+    (p: Admin) => p.createdByAdminId === userId,
+  );
 
   return {
-    administrators: data,
+    administrators: filteredData,
     isLoading,
     isError: error,
   };

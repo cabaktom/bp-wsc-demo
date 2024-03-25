@@ -53,4 +53,5 @@ export const AdminOut = z.object({
   id: z.string().uuid().min(1),
   username: z.string().min(1),
   email: z.string().email(),
+  createdByAdminId: z.string().uuid().nullable(),
 });
