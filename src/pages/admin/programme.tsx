@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import type { User } from 'next-auth';
 import { getToken } from 'next-auth/jwt';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
@@ -46,11 +47,19 @@ export const getServerSideProps: GetServerSideProps<
   }
 
   const participants = await prisma.participant.findMany({
+    where: {
+      adminId: {
+        equals: (token.user as User).id,
+        not: null,
+      },
+    },
     include: {
       abstract: true,
     },
   });
-  const settings = await prisma.siteSettings.findMany();
+  const settings = await prisma.siteSettings.findMany({
+    where: { adminId: (token.user as User).id },
+  });
 
   // parse participants to the format that is used in the select input
   const programmeParticipants = participants

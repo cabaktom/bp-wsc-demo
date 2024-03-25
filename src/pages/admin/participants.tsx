@@ -3,6 +3,7 @@ import { Paper, Stack } from '@mantine/core';
 import { useElementSize } from '@mantine/hooks';
 import type { Abstract, Participant } from '@prisma/client';
 import { GetServerSideProps } from 'next';
+import type { User } from 'next-auth';
 import { getToken } from 'next-auth/jwt';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
@@ -65,11 +66,14 @@ export const getServerSideProps: GetServerSideProps<
   }
 
   const participants = await prisma.participant.findMany({
+    where: { adminId: (token.user as User).id },
     include: {
       abstract: true,
     },
   });
-  const settings = await prisma.siteSettings.findMany();
+  const settings = await prisma.siteSettings.findMany({
+    where: { adminId: (token.user as User).id },
+  });
 
   return {
     props: {

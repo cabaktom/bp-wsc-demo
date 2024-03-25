@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { Container, Paper, Title } from '@mantine/core';
 import { SiteSettings } from '@prisma/client';
+import type { User } from 'next-auth';
 import { getToken } from 'next-auth/jwt';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
@@ -61,7 +62,9 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
-  const settings = await prisma.siteSettings.findMany();
+  const settings = await prisma.siteSettings.findMany({
+    where: { adminId: (token.user as User).id },
+  });
 
   return {
     props: {

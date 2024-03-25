@@ -1,6 +1,7 @@
 import { SWRConfig } from 'swr';
 import type { Page } from '@prisma/client';
 import { GetServerSideProps } from 'next';
+import type { User } from 'next-auth';
 import { getToken } from 'next-auth/jwt';
 
 import AdminLayout from '../../components/Layout/AdminLayout';
@@ -45,8 +46,12 @@ export const getServerSideProps: GetServerSideProps<PagesPageProps> = async (
     };
   }
 
-  const pages = await prisma.page.findMany();
-  const settings = await prisma.siteSettings.findMany();
+  const pages = await prisma.page.findMany({
+    where: { adminId: (token.user as User).id },
+  });
+  const settings = await prisma.siteSettings.findMany({
+    where: { adminId: (token.user as User).id },
+  });
 
   return {
     props: {
