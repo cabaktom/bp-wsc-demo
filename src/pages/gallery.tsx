@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import parse from 'html-react-parser';
 import type { Page as PageType } from '@prisma/client';
 import { LoadingOverlay, Paper, Text } from '@mantine/core';
 import type { Photo } from 'react-photo-album';
+import { User } from 'next-auth';
+import { getToken } from 'next-auth/jwt';
 
 import { prisma } from '../lib/prisma';
 import MyPhotoAlbum from '../components/Image/MyPhotoAlbum';
@@ -65,10 +67,32 @@ const GalleryPage: NextPage<GalleryPageProps> = ({ page, images }) => {
 
 export default GalleryPage;
 
-export async function getStaticProps() {
-  const page = await prisma.page.findFirst({ where: { name: 'gallery' } });
-  const settings = await prisma.siteSettings.findMany();
-  const images = await prisma.image.findMany();
+export const getServerSideProps: GetServerSideProps<GalleryPageProps> = async (
+  context,
+) => {
+  const token = await getToken({ req: context.req });
+  if (!token) {
+    return {
+      redirect: {
+        destination: 'login',
+        permanent: false,
+      },
+    };
+  }
+
+  const page = await prisma.page.findUnique({
+    where: { name: `gallery_${(token.user as User).id}` },
+  });
+  if (!page) return { notFound: true };
+
+  const settings = await prisma.siteSettings.findMany({
+    where: { adminId: (token.user as User).id },
+  });
+
+  const images = await prisma.image.findMany({
+    where: { adminId: (token.user as User).id },
+    orderBy: { uploadedAt: 'desc' },
+  });
 
   // convert images to react-photo-album format
   const albumImages = images.map((image, index) => {
@@ -90,6 +114,5 @@ export async function getStaticProps() {
       images: JSON.parse(JSON.stringify(albumImages)),
       contentWidth: 'xl',
     },
-    revalidate: process.env.PLATFORM === 'DO' ? 1 : undefined,
   };
-}
+};

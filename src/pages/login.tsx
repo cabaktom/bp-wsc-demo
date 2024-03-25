@@ -1,5 +1,7 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { Paper, Title, createStyles } from '@mantine/core';
+import { getToken } from 'next-auth/jwt';
+import { User } from 'next-auth';
 
 import LoginForm from '../components/Form/LoginForm';
 import { prisma } from '../lib/prisma';
@@ -39,8 +41,20 @@ const LogInPage: NextPage = () => {
 
 export default LogInPage;
 
-export async function getStaticProps() {
-  const settings = await prisma.siteSettings.findMany();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const token = await getToken({ req: context.req });
+  if (!token) {
+    return {
+      redirect: {
+        destination: 'login',
+        permanent: false,
+      },
+    };
+  }
+
+  const settings = await prisma.siteSettings.findMany({
+    where: { adminId: (token.user as User).id },
+  });
 
   return {
     props: {
@@ -49,6 +63,5 @@ export async function getStaticProps() {
       },
       settings,
     },
-    revalidate: process.env.PLATFORM === 'DO' ? 1 : undefined,
   };
-}
+};

@@ -1,6 +1,8 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import parse from 'html-react-parser';
 import type { Abstract, Page, Participant } from '@prisma/client';
+import { User } from 'next-auth';
+import { getToken } from 'next-auth/jwt';
 
 import { prisma } from '../lib/prisma';
 import ParticipantList from '../components/List/ParticipantList';
@@ -34,10 +36,29 @@ const ParticipantsPage: NextPage<ParticipantsPageProps> = ({
 
 export default ParticipantsPage;
 
-export async function getStaticProps() {
-  const page = await prisma.page.findFirst({ where: { name: 'participants' } });
-  const settings = await prisma.siteSettings.findMany();
+export const getServerSideProps: GetServerSideProps<
+  ParticipantsPageProps
+> = async (context) => {
+  const token = await getToken({ req: context.req });
+  if (!token) {
+    return {
+      redirect: {
+        destination: 'login',
+        permanent: false,
+      },
+    };
+  }
+
+  const page = await prisma.page.findUnique({
+    where: { name: `participants_${(token.user as User).id}` },
+  });
+  if (!page) return { notFound: true };
+
+  const settings = await prisma.siteSettings.findMany({
+    where: { adminId: (token.user as User).id },
+  });
   const participants = await prisma.participant.findMany({
+    where: { adminId: (token.user as User).id },
     include: {
       abstract: true,
     },
@@ -57,6 +78,5 @@ export async function getStaticProps() {
       settings,
       participants: JSON.parse(JSON.stringify(sortedParticipants)),
     },
-    revalidate: process.env.PLATFORM === 'DO' ? 1 : undefined,
   };
-}
+};

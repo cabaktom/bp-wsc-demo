@@ -1,9 +1,10 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import parse from 'html-react-parser';
 import type { Page } from '@prisma/client';
+import { User } from 'next-auth';
+import { getToken } from 'next-auth/jwt';
 
 import { prisma } from '../lib/prisma';
-import { PROGRAMME_ID } from '../constants/programme';
 import ProgrammeList, {
   ChairmanItem,
   Item,
@@ -31,11 +32,29 @@ const ProgrammePage: NextPage<ProgrammePageProps> = ({ page, programme }) => {
 
 export default ProgrammePage;
 
-export async function getStaticProps() {
-  const page = await prisma.page.findFirst({ where: { name: 'programme' } });
-  const settings = await prisma.siteSettings.findMany();
+export const getServerSideProps: GetServerSideProps<
+  ProgrammePageProps
+> = async (context) => {
+  const token = await getToken({ req: context.req });
+  if (!token) {
+    return {
+      redirect: {
+        destination: 'login',
+        permanent: false,
+      },
+    };
+  }
+
+  const page = await prisma.page.findUnique({
+    where: { name: `programme_${(token.user as User).id}` },
+  });
+  if (!page) return { notFound: true };
+
+  const settings = await prisma.siteSettings.findMany({
+    where: { adminId: (token.user as User).id },
+  });
   const programme = await prisma.programme.findUnique({
-    where: { id: PROGRAMME_ID },
+    where: { id: `programme_${(token.user as User).id}` },
     include: {
       days: {
         include: {
@@ -44,8 +63,15 @@ export async function getStaticProps() {
       },
     },
   });
-  const participants = await prisma.participant.findMany();
-  const abstracts = await prisma.abstract.findMany();
+  const participants = await prisma.participant.findMany({
+    where: { adminId: (token.user as User).id },
+    include: {
+      abstract: true,
+    },
+  });
+  const abstracts = await prisma.abstract.findMany({
+    where: { participant: { adminId: (token.user as User).id } },
+  });
 
   // merge programme days and participants (programme includes only IDs)
   const programmeWithParticipants = programme?.days.map((day) => {
@@ -83,6 +109,5 @@ export async function getStaticProps() {
         }),
       ),
     },
-    revalidate: process.env.PLATFORM === 'DO' ? 1 : undefined,
   };
-}
+};
