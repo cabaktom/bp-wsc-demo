@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useListState } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
+import { v4 as uuid } from 'uuid';
 
 import ProgrammeContext, { ProgrammeContextType } from './programme-context';
 import { DayType, ItemType, ParticipantType } from '../../@types/programme';
@@ -112,7 +113,7 @@ export default function ProgrammeProvider({
   const handleAddDay = (start: Date) => {
     const date = new Date(start);
     daysHandlers.append({
-      id: Date.now().toString(),
+      id: uuid(),
       date,
       additionalInfo: '',
       items: [],
@@ -151,7 +152,7 @@ export default function ProgrammeProvider({
       type === 'ITEM'
         ? {
             type,
-            id: Date.now().toString(),
+            id: uuid(),
             duration: 0,
             title: '',
             participantId: '',
@@ -159,7 +160,7 @@ export default function ProgrammeProvider({
           }
         : {
             type,
-            id: Date.now().toString(),
+            id: uuid(),
             participantId: '',
           },
     ];

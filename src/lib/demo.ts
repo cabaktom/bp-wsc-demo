@@ -444,6 +444,7 @@ async function createProgramme(demoUserId?: string) {
       start: '2024-03-12T07:00:00.000Z',
       end: '2024-03-12T09:00:00.000Z',
       programmeId: programme.id,
+      adminId: demoUserId,
     },
   });
   const secondProgrammeDay = await prisma.programmeDay.create({
@@ -453,6 +454,7 @@ async function createProgramme(demoUserId?: string) {
       start: '2024-03-12T07:45:00.000Z',
       end: '2024-03-12T08:15:00.000Z',
       programmeId: programme.id,
+      adminId: demoUserId,
     },
   });
 
@@ -461,38 +463,41 @@ async function createProgramme(demoUserId?: string) {
       title: '',
       type: ItemType.CHAIRMAN,
       participantId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Jonathan Wilson',
+        (p) => p.fullName === 'Jonathan Wilson' && p.adminId === demoUserId,
       )?.id,
       abstractId: '',
       duration: 0,
       index: 1,
       programmeDayId: firstProgrammeDay.id,
+      adminId: demoUserId,
     },
     {
       title: 'Talk',
       type: ItemType.ITEM,
       participantId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Michael Mitchell',
+        (p) => p.fullName === 'Michael Mitchell' && p.adminId === demoUserId,
       )?.id,
       abstractId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Michael Mitchell',
-      )?.abstract?.title, // Artificial Intelligence in Ecology
+        (p) => p.fullName === 'Michael Mitchell' && p.adminId === demoUserId,
+      )?.abstract?.id, // Artificial Intelligence in Ecology
       duration: 30,
       index: 2,
       programmeDayId: firstProgrammeDay.id,
+      adminId: demoUserId,
     },
     {
       title: 'Talk',
       type: ItemType.ITEM,
       participantId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Jacob Werner',
+        (p) => p.fullName === 'Jacob Werner' && p.adminId === demoUserId,
       )?.id,
       abstractId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Jacob Werner',
-      )?.abstract?.title, // Sustainable Urban Planning
+        (p) => p.fullName === 'Jacob Werner' && p.adminId === demoUserId,
+      )?.abstract?.id, // Sustainable Urban Planning
       duration: 30,
       index: 3,
       programmeDayId: firstProgrammeDay.id,
+      adminId: demoUserId,
     },
     {
       title: 'Break',
@@ -502,54 +507,59 @@ async function createProgramme(demoUserId?: string) {
       duration: 15,
       index: 4,
       programmeDayId: firstProgrammeDay.id,
+      adminId: demoUserId,
     },
     {
       title: '',
       type: ItemType.CHAIRMAN,
       participantId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Gregory Johnston',
+        (p) => p.fullName === 'Gregory Johnston' && p.adminId === demoUserId,
       )?.id,
       abstractId: '',
       duration: 0,
       index: 5,
       programmeDayId: firstProgrammeDay.id,
+      adminId: demoUserId,
     },
     {
       title: 'Talk',
       type: ItemType.ITEM,
       participantId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Christopher Pollard',
+        (p) => p.fullName === 'Christopher Pollard' && p.adminId === demoUserId,
       )?.id,
       abstractId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Christopher Pollard',
-      )?.abstract?.title, // Cryptographic Techniques for Secure Communication
+        (p) => p.fullName === 'Christopher Pollard' && p.adminId === demoUserId,
+      )?.abstract?.id, // Cryptographic Techniques for Secure Communication
       duration: 45,
       index: 6,
       programmeDayId: firstProgrammeDay.id,
+      adminId: demoUserId,
     },
     {
       title: '',
       type: ItemType.CHAIRMAN,
       participantId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Caleb Wallace',
+        (p) => p.fullName === 'Caleb Wallace' && p.adminId === demoUserId,
       )?.id,
       abstractId: '',
       duration: 0,
       index: 1,
       programmeDayId: secondProgrammeDay.id,
+      adminId: demoUserId,
     },
     {
       title: 'Talk',
       type: ItemType.ITEM,
       participantId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Vanessa Hernandez',
+        (p) => p.fullName === 'Vanessa Hernandez' && p.adminId === demoUserId,
       )?.id,
       abstractId: participantsAndAbstracts.find(
-        (p) => p.fullName === 'Vanessa Hernandez',
-      )?.abstract?.title, // Autonomous Vehicle Navigation
+        (p) => p.fullName === 'Vanessa Hernandez' && p.adminId === demoUserId,
+      )?.abstract?.id, // Autonomous Vehicle Navigation
       duration: 30,
       index: 2,
       programmeDayId: secondProgrammeDay.id,
+      adminId: demoUserId,
     },
   ];
 

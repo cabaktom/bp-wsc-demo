@@ -47,12 +47,7 @@ export const getServerSideProps: GetServerSideProps<
   }
 
   const participants = await prisma.participant.findMany({
-    where: {
-      adminId: {
-        equals: (token.user as User).id,
-        not: null,
-      },
-    },
+    where: { adminId: (token.user as User).id },
     include: {
       abstract: true,
     },

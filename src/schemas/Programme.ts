@@ -61,7 +61,7 @@ const AbstractItemOut = z.object({
   id: z.string().min(1),
   participantId: z.string(),
   abstractId: z.string(),
-  adminId: z.string().uuid().min(1),
+  adminId: z.string().uuid().nullable(),
 });
 
 /**
@@ -99,7 +99,7 @@ export const DayOut = z.object({
   start: z.date().optional(),
   end: z.date().optional(),
   items: z.array(ItemOut.or(ChairmanOut)),
-  adminId: z.string().uuid().min(1),
+  adminId: z.string().uuid().nullable(),
 });
 
 /**
@@ -112,5 +112,5 @@ export const ProgrammeOut = z.object({
   id: z.string().min(1),
   conferenceStart: z.date(),
   days: z.array(DayOut),
-  adminId: z.string().uuid().min(1),
+  adminId: z.string().uuid().nullable(),
 });

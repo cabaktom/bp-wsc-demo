@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { User } from 'next-auth';
 import { getToken } from 'next-auth/jwt';
 import { Prisma } from '@prisma/client';
 
 import { prisma } from '../../../lib/prisma';
 import handleErrors from '../../../lib/handleApiErrors';
 import { ProgrammeIn, ProgrammeOut } from '../../../schemas/Programme';
-import { PROGRAMME_ID } from '../../../constants/programme';
 // import { revalidatePage } from '../../../lib/revalidate';
 
 /**
@@ -16,10 +16,14 @@ import { PROGRAMME_ID } from '../../../constants/programme';
  *
  * @returns A response with the programme, or an error message.
  */
-const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
+const handleGet = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  userId: string,
+) => {
   try {
     const programme = await prisma.programme.findUnique({
-      where: { id: PROGRAMME_ID },
+      where: { id: `programme_${userId}` },
       include: {
         days: {
           include: {
@@ -47,19 +51,24 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
  *
  * @returns A response with the created or updated programme, or an error message.
  */
-const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
+const handlePut = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  userId: string,
+) => {
   try {
     const { conferenceStart, days } = ProgrammeIn.parse(req.body);
 
     // create or update programme
     const programme = await prisma.programme.upsert({
-      where: { id: PROGRAMME_ID },
+      where: { id: `programme_${userId}` },
       update: {
         conferenceStart,
       },
       create: {
-        id: PROGRAMME_ID,
+        id: `programme_${userId}`,
         conferenceStart,
+        adminId: userId,
       },
     });
 
@@ -74,7 +83,13 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
               data: day.items.map((item) => {
                 if (item.type === 'CHAIRMAN') {
                   const { type, id, abstractId, participantId } = item;
-                  return { type, id, participantId, abstractId };
+                  return {
+                    type,
+                    id,
+                    participantId,
+                    abstractId,
+                    adminId: userId,
+                  };
                 }
 
                 // type === 'ITEM'
@@ -87,26 +102,32 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
                   title,
                   participantId,
                   abstractId,
+                  adminId: userId,
                 };
               }),
             },
           },
 
           programmeId: programme.id,
+          adminId: userId,
         },
       });
     });
 
     await prisma.$transaction([
-      prisma.programmeDayItem.deleteMany({}),
-      prisma.programmeDay.deleteMany({}),
+      prisma.programmeDayItem.deleteMany({
+        where: { adminId: userId },
+      }),
+      prisma.programmeDay.deleteMany({
+        where: { adminId: userId },
+      }),
       ...dayTransactions,
     ]);
 
     // await revalidatePage(res, 'programme'); // Disabled in the demo
 
     const programmeWithDays = await prisma.programme.findUnique({
-      where: { id: PROGRAMME_ID },
+      where: { id: `programme_${userId}` },
       include: {
         days: {
           include: {
@@ -130,12 +151,20 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse) => {
  *
  * @returns A response with no content, or an error message.
  */
-const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
+const handleDelete = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  userId: string,
+) => {
   try {
     await prisma.$transaction([
-      prisma.programmeDayItem.deleteMany({}),
-      prisma.programmeDay.deleteMany({}),
-      prisma.programme.delete({ where: { id: PROGRAMME_ID } }),
+      prisma.programmeDayItem.deleteMany({
+        where: { adminId: userId },
+      }),
+      prisma.programmeDay.deleteMany({
+        where: { adminId: userId },
+      }),
+      prisma.programme.delete({ where: { id: `programme_${userId}` } }),
     ]);
   } catch (e) {
     if (
@@ -168,13 +197,15 @@ export default async function handler(
   const token = await getToken({ req });
   if (!token || !token.sub) return res.status(401).end();
 
+  const userId = (token.user as User).id;
+
   switch (req.method) {
     case 'GET':
-      return handleGet(req, res);
+      return handleGet(req, res, userId);
     case 'PUT':
-      return handlePut(req, res);
+      return handlePut(req, res, userId);
     case 'DELETE':
-      return handleDelete(req, res);
+      return handleDelete(req, res, userId);
 
     default:
       return res.status(405).setHeader('Allow', 'GET,PUT,DELETE').end();
